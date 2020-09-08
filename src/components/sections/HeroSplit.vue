@@ -27,7 +27,7 @@
                                 Fonz Music is the Best
                             </h1>
                             <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
-                                Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.
+                                Ben Vaughan is currently editing the website. What a guy.
                             </p>
                             <div class="reveal-from-bottom" data-reveal-delay="450">
                                 <c-button tag="a" color="primary" wide-mobile href="#">

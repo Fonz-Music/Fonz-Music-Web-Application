@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       genericSection01Header: {
-        title: 'Built exclusively for you',
+        title: 'Whip nae nae',
         paragraph: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
       },
       videoModalActive: false

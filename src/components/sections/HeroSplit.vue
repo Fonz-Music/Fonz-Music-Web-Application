@@ -24,14 +24,14 @@
                     <div class="split-item">
                         <div class="hero-content split-item-content center-content-mobile">
                             <h1 class="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="150">
-                                Fonz Music is the Best
+                                Fonz Music
                             </h1>
                             <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
-                                Ben Vaughan is currently editing the website. What a guy.
+                                queue the party.
                             </p>
                             <div class="reveal-from-bottom" data-reveal-delay="450">
                                 <c-button tag="a" color="primary" wide-mobile href="#">
-                                    Get started now
+                                    pre-order now
                                 </c-button>
                             </div>
                         </div>

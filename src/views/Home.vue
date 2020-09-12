@@ -1,7 +1,7 @@
 <template>
     <fragment>
         <c-hero-split class="illustration-section-01" />
-        <c-clients top-divider bottom-divider />
+        <c-clients top-divider bottom-divider class="reveal-from-bottom" />
         <c-generic-section top-divider class="center-content">
             <c-section-header :data="genericSection01Header" class="reveal-from-bottom" />
             <div class="reveal-from-bottom">
@@ -41,7 +41,7 @@ import CGenericSection from '@/components/sections/GenericSection.vue'
 import CFeaturesTiles from '@/components/sections/FeaturesTiles.vue'
 import CTestimonial from '@/components/sections/Testimonial.vue'
 import CCta from '@/components/sections/Cta.vue'
-// import some reuqired elements
+// import some required elements
 import CImage from '@/components/elements/Image.vue'
 import CModal from '@/components/elements/Modal.vue'
 
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       genericSection01Header: {
-        title: 'Whip nae nae',
+        title: 'making music a more collaborative experience',
         paragraph: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
       },
       videoModalActive: false

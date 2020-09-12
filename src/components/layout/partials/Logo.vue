@@ -5,8 +5,8 @@
                 <c-image
                     :src="require('@/assets/images/logo.svg')"
                     alt="Neon"
-                    :width="32"
-                    :height="32" />
+                    :width="64"
+                    :height="64" />
             </router-link>
         </h1>
     </div>

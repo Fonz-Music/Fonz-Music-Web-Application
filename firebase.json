@@ -8,9 +8,18 @@
     ],
     "rewrites": [
       {
+        "source": "/i",
+        "function": "helloWorld"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
+    ]
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
   }
 }

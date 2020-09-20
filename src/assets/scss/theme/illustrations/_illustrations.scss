@@ -16,7 +16,7 @@
 
 // Hero illustration 01
 .illustration-section-01::after {
-	@include illustration('illustration-section-01.svg', 100%, 612px, top);
+	@include illustration('illustration-section-01.svg', 200%, 612px, top);
 }
 
 // Hero illustration 02

@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "/i",
-        "function": "helloWorld"
+        "function": "api"
       },
       {
         "source": "**",

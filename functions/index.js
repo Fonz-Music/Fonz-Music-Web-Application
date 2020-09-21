@@ -5,7 +5,9 @@ var path = require('path');
 var dotenv = require('dotenv');
 dotenv.config();
 const bodyParser = require('body-parser');
+
 const app = express();
+const StatusRoute = require('./routes/Status');
 
 // app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
@@ -14,13 +16,15 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get('/', (req, res, next) => {
-    res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
-});
+app.use('/', StatusRoute);
 
-app.get('/status', (req, res, next) => {
-    res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
-});
+// app.get('/', (req, res, next) => {
+//     res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
+// });
+
+// app.get('/status', (req, res, next) => {
+//     res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
+// });
 
 
 /** all unknown URL requests managed here */

@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import Secondary from './views/Secondary.vue';
-import Login from './views/Login.vue';
-import Signup from './views/Signup.vue';
+import Buy from './views/Buy.vue';
+import About from './views/About.vue';
+import Team from './views/Team.vue';
+import Contact from './views/Contact.vue';
 
 Vue.use(Router);
 
@@ -15,19 +16,24 @@ export default new Router({
       component: Home
     },
     {
-      path: '/secondary',
-      name: 'secondary',
-      component: Secondary
+      path: '/buy',
+      name: 'buy',
+      component: Buy
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: Signup
+      path: '/team',
+      name: 'team',
+      component: Team
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: Contact
     }
   ],
   mode: 'history'

@@ -8,7 +8,7 @@
     ],
     "rewrites": [
       {
-        "source": "/i",
+        "source": "/i/**",
         "function": "app"
       },
       {

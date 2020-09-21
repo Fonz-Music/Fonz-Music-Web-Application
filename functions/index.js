@@ -18,6 +18,10 @@ app.get('/', (req, res, next) => {
     res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
 });
 
+app.get('/status', (req, res, next) => {
+    res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
+});
+
 
 /** all unknown URL requests managed here */
 app.use((err, req, res, next) => {

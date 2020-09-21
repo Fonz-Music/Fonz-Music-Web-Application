@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
     });
 })
 
-exports.api = functions
+exports.app = functions
     .runWith({
         memory: '2GB'
     })

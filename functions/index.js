@@ -27,9 +27,14 @@ app.use('/i', StatusRoute);
 // });
 
 /* Vue Application */
-app.get('**', (req, res) => {
-    res.sendFile(path.join(__dirname + '/dist/index.html'))
-});
+const serveStatic = require('serve-static');
+const history = require('connect-history-api-fallback');
+
+app.use(history());
+app.use(serveStatic(__dirname + '/dist'));
+// app.get('**', (req, res) => {
+//     res.sendFile(path.join(__dirname + '/dist/index.html'))
+// });
 
 
 /** all unknown URL requests managed here */

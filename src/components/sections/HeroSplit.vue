@@ -30,7 +30,7 @@
                                 queue the party.
                             </p>
                             <div class="reveal-from-bottom" data-reveal-delay="450">
-                                <c-button tag="a" color="primary" wide-mobile href="#">
+                                <c-button tag="a" color="primary" wide-mobile href="/buy">
                                     pre-order now
                                 </c-button>
                             </div>

@@ -25,7 +25,7 @@
                             <div class="team-item-header">
                                 <div class="team-item-image mb-24">
                                     <c-image
-                                        :src="require('@/assets/images/team-member-01.jpg')"
+                                        :src="require('@/assets/images/team-member-01.png')"
                                         alt="Team member 01"
                                         :width="180"
                                         :height="180" />
@@ -33,13 +33,13 @@
                             </div>
                             <div class="team-item-content">
                                 <h5 class="team-item-name mt-0 mb-4">
-                                    Markus Hasinika
+                                    Ben Vaughan
                                 </h5>
                                 <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
-                                    Founder & CEO
+                                    Founder & CCO
                                 </div>
                                 <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
+                                   Ben ‘benji’ Vaughan is from Dublin, Ireland and is Chief Creative Officer. He listens to Sticky Fingers constantly and always has his headphones plugged in.
                                 </p>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <div class="team-item-header">
                                 <div class="team-item-image mb-24">
                                     <c-image
-                                        :src="require('@/assets/images/team-member-02.jpg')"
+                                        :src="require('@/assets/images/team-member-02.png')"
                                         alt="Team member 02"
                                         :width="180"
                                         :height="180" />
@@ -58,13 +58,13 @@
                             </div>
                             <div class="team-item-content">
                                 <h5 class="team-item-name mt-0 mb-4">
-                                    Diana Stafford
+                                    Diarmuid McGonagle
                                 </h5>
                                 <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
                                     Founder & CEO
                                 </div>
                                 <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
+                                    Diarmuid McGonagle is from Quincy, Massachusetts and is Chief Executive Officer. COIN is his favorite band and he loves nothing more than indie vibes at his tea parties.
                                 </p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                             <div class="team-item-header">
                                 <div class="team-item-image mb-24">
                                     <c-image
-                                        :src="require('@/assets/images/team-member-03.jpg')"
+                                        :src="require('@/assets/images/team-member-03.png')"
                                         alt="Team member 03"
                                         :width="180"
                                         :height="180" />
@@ -83,13 +83,13 @@
                             </div>
                             <div class="team-item-content">
                                 <h5 class="team-item-name mt-0 mb-4">
-                                    Patricia Collins
+                                    Jay Cowan
                                 </h5>
                                 <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
-                                    Founder & CEO
+                                    Founder & CFO
                                 </div>
                                 <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
+                                    Jay Cowan is from Blacksburg, Virginia and is Chief Finance Officer. A little old school, Jay jams out to some vintage Johnny Cash. He loves Tennessee Whiskey too.
                                 </p>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="team-item-header">
                                 <div class="team-item-image mb-24">
                                     <c-image
-                                        :src="require('@/assets/images/team-member-04.jpg')"
+                                        :src="require('@/assets/images/team-member-04.png')"
                                         alt="Team member 01"
                                         :width="180"
                                         :height="180" />
@@ -108,63 +108,13 @@
                             </div>
                             <div class="team-item-content">
                                 <h5 class="team-item-name mt-0 mb-4">
-                                    Anton Klenkov
+                                    Dermot O'Brien
                                 </h5>
                                 <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
-                                    Founder & CEO
+                                    Founder & CTO
                                 </div>
                                 <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
-                        <div class="tiles-item-inner">
-                            <div class="team-item-header">
-                                <div class="team-item-image mb-24">
-                                    <c-image
-                                        :src="require('@/assets/images/team-member-05.jpg')"
-                                        alt="Team member 05"
-                                        :width="180"
-                                        :height="180" />
-                                </div>
-                            </div>
-                            <div class="team-item-content">
-                                <h5 class="team-item-name mt-0 mb-4">
-                                    Nick Kornilov
-                                </h5>
-                                <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
-                                    Founder & CEO
-                                </div>
-                                <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tiles-item reveal-from-bottom" data-reveal-delay="400">
-                        <div class="tiles-item-inner">
-                            <div class="team-item-header">
-                                <div class="team-item-image mb-24">
-                                    <c-image
-                                        :src="require('@/assets/images/team-member-06.jpg')"
-                                        alt="Team member 06"
-                                        :width="180"
-                                        :height="180" />
-                                </div>
-                            </div>
-                            <div class="team-item-content">
-                                <h5 class="team-item-name mt-0 mb-4">
-                                    Andrea Engler
-                                </h5>
-                                <div class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8">
-                                    Founder & CEO
-                                </div>
-                                <p class="m-0 text-sm">
-                                    Magnis dis parturient montes nascetur. Quam quisque id diam vel quam ultricies leo integer.
+                                    Dermot O’Brien is from Limerick, Ireland and is Chief Technological Officer. Aside from his passion for computers, he’s a child of the 70s-80s. From It’s Raining Men to Tainted Love, he loves a disco.
                                 </p>
                             </div>
                         </div>
@@ -190,9 +140,9 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: 'Meet the team - Lorem ipsum is placeholder text.',
+        title: 'Meet the team.',
         paragraph:
-          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
+          'We’re just a few lads from Trinity College Dublin, in Ireland, with a passion for music. After spending hours together listening to our favorite tracks and sharing our unique music taste, we wanted a way to optimize collaborative queuing. Starting from this problem, we brainstormed solutions and finally created Fonz Music.'
       }
     }
   }

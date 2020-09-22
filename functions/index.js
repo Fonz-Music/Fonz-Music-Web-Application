@@ -8,15 +8,16 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const StatusRoute = require('./routes/Status');
+const PricesRoute = require('./routes/Prices')
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 app.use('/i', StatusRoute);
+app.use('/i/prices', PricesRoute);
 
 /** all unknown URL requests managed here */
 app.use((err, req, res, next) => {

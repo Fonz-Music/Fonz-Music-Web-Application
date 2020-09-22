@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/', StatusRoute);
+app.use('/i', StatusRoute);
 
 // app.get('/', (req, res, next) => {
 //     res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
@@ -26,13 +26,18 @@ app.use('/', StatusRoute);
 //     res.json({ message: 'Fonz Music Website API', timestamp: new Date() })
 // });
 
+/* Vue Application */
+app.get('**', (req, res) => {
+    res.sendFile(path.join(__dirname + '/dist/index.html'))
+});
+
 
 /** all unknown URL requests managed here */
 app.use((err, req, res, next) => {
     console.error(err.stack)
     res.status(404).json({
         status: 404,
-        message: "This requested API URL does not exist. Ensure that you have requested the correct URL."
+        message: "This requested page does not exist. Ensure that you have requested the correct URL."
     });
 })
 

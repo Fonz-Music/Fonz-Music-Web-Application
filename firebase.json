@@ -8,14 +8,9 @@
     ],
     "rewrites": [
       {
-        "source": "/i/**",
+        "source": "**",
         "function": "app"
       }
-    ]
-  },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
   }
 }

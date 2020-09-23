@@ -1,20 +1,19 @@
+/* eslint-disable promise/always-return */
 let express = require('express');
-const { app } = require('firebase-admin');
 let router = express.Router();
+const Shop = require('../controllers/Shop');
 
-router.get('/', (req, res, next) => {
-    res.json({
-        prices: [
-            {
-                quantity: 1,
-                price: 20
-            },
-            {
-                quantiy: 10,
-                price: 150
-            }
-        ]
-    })
-})
+router.get('/:currency', (req, res) => {
+    const {
+        currency
+    } = req.params;
+    Shop.getRegionalPricing(currency).then((pricing) => {
+        res.json(pricing);
+    }).catch((error) => {
+        res.status(error.status || 500).json(error);
+    });
+});
+
+
 
 module.exports = router;

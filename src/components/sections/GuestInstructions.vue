@@ -42,28 +42,6 @@
                         </div>
                     </div>
 
-                    <div class="tiles-item reveal-from-left">
-                        <div class="tiles-item-inner">
-                            <div class="features-tiles-item-header">
-                                <div class="features-tiles-item-image mb-16">
-                                    <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-02.svg')"
-                                        alt="Feature tile icon 02"
-                                        :width="72"
-                                        :height="72" />
-                                </div>
-                            </div>
-                            <div class="features-tiles-item-content">
-                                <h4 class="mt-0 mb-8">
-                                    Download our App
-                                </h4>
-                                <p class="m-0 text-sm">
-                                    Navigate to the App Store or Play Store and download the Fonz App
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="tiles-item reveal-from-right">
                         <div class="tiles-item-inner">
                             <div class="features-tiles-item-header">
@@ -71,28 +49,6 @@
                                     <c-image
                                         :src="require('@/assets/images/feature-tile-icon-03.svg')"
                                         alt="Feature tile icon 03"
-                                        :width="72"
-                                        :height="72" />
-                                </div>
-                            </div>
-                            <div class="features-tiles-item-content">
-                                <h4 class="mt-0 mb-8">
-                                    Connect your Spotify
-                                </h4>
-                                <p class="m-0 text-sm">
-                                    Sign into your Spotify account on the Fonz App
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tiles-item reveal-from-left">
-                        <div class="tiles-item-inner">
-                            <div class="features-tiles-item-header">
-                                <div class="features-tiles-item-image mb-16">
-                                    <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-04.svg')"
-                                        alt="Feature tile icon 04"
                                         :width="72"
                                         :height="72" />
                                 </div>
@@ -108,6 +64,7 @@
                         </div>
                     </div>
 
+
                     <div class="tiles-item reveal-from-right">
                         <div class="tiles-item-inner">
                             <div class="features-tiles-item-header">
@@ -121,54 +78,10 @@
                             </div>
                             <div class="features-tiles-item-content">
                                 <h4 class="mt-0 mb-8">
-                                    Tap to Connect Your Coasters
-                                </h4>
-                                <p class="m-0 text-sm">
-                                    Tap each of your Fonz coasters to pair them to your phone and set yourself as host
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tiles-item reveal-from-left">
-                        <div class="tiles-item-inner">
-                            <div class="features-tiles-item-header">
-                                <div class="features-tiles-item-image mb-16">
-                                    <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-06.svg')"
-                                        alt="Feature tile icon 06"
-                                        :width="72"
-                                        :height="72" />
-                                </div>
-                            </div>
-                            <div class="features-tiles-item-content">
-                                <h4 class="mt-0 mb-8">
                                     Select your Tune
                                 </h4>
                                 <p class="m-0 text-sm">
                                     Search up your song using the Fonz app, which holds Spotify's music library
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tiles-item reveal-from-left">
-                        <div class="tiles-item-inner">
-                            <div class="features-tiles-item-header">
-                                <div class="features-tiles-item-image mb-16">
-                                    <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-06.svg')"
-                                        alt="Feature tile icon 06"
-                                        :width="72"
-                                        :height="72" />
-                                </div>
-                            </div>
-                            <div class="features-tiles-item-content">
-                                <h4 class="mt-0 mb-8">
-                                    Select your Tune
-                                </h4>
-                                <p class="m-0 text-sm">
-                                    Search up the first song of the session using the Fonz app, which holds Spotify's music library
                                 </p>
                             </div>
                         </div>
@@ -231,7 +144,7 @@ import CSectionHeader from '@/components/sections/partials/SectionHeader.vue'
 import CImage from '@/components/elements/Image.vue'
 
 export default {
-  name: 'CFeaturesTiles',
+  name: 'CGuestInstructions',
   components: {
     CSectionHeader,
     CImage
@@ -240,8 +153,8 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: 'Build up the whole picture',
-        paragraph: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
+        title: "I'm a Guest",
+        paragraph: "You're joining the party and adding your tunes to the session!"
       }
     }
   }

@@ -6,56 +6,30 @@
                     <div class="footer-blocks">
                         <div class="footer-block">
                             <c-logo class="mb-16" />
-                            <div class="footer-copyright">&copy; 2020 Neon, all rights reserved</div>
+                            <div class="footer-copyright">&copy; 2020 Fonz Music</div>
                         </div>
                         <div class="footer-block">
-                            <div class="footer-block-title">Company</div>
+                            <div class="footer-block-title">Fonz Music LLC</div>
                             <ul class="list-reset mb-0">
                                 <li>
-                                    <a href="#">Dummy text used</a>
+                                    157 Vassall Street
                                 </li>
                                 <li>
-                                    <a href="#">The purpose of lorem</a>
+                                   Quincy, MA 02170
                                 </li>
                                 <li>
-                                    <a href="#">Filler text can be very useful</a>
-                                </li>
-                                <li>
-                                    <a href="#">Be on design</a>
+                                    United States of America
                                 </li>
                             </ul>
                         </div>
                         <div class="footer-block">
-                            <div class="footer-block-title">Uses cases</div>
-                            <ul class="list-reset mb-0">
-                                <li>
-                                    <a href="#">Consectetur adipiscing</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem Ipsum is place</a>
-                                </li>
-                                <li>
-                                    <a href="#">Excepteur sint</a>
-                                </li>
-                                <li>
-                                    <a href="#">Occaecat cupidatat</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer-block">
-                            <div class="footer-block-title">Docs</div>
+                            <div class="footer-block-title">Contact</div>
                             <ul class="list-reset mb-0 mb-0">
                                 <li>
-                                    <a href="#">The purpose of lorem</a>
+                                    <a href="mailto: info@fonzmusic.com">info@fonzmusic.com</a>
                                 </li>
                                 <li>
-                                    <a href="#">Dummy text used</a>
-                                </li>
-                                <li>
-                                    <a href="#">Excepteur sint</a>
-                                </li>
-                                <li>
-                                    <a href="#">Occaecat cupidatat</a>
+                                    <a href="https://www.instagram.com/usefonz/">@usefonz</a>
                                 </li>
                             </ul>
                         </div>

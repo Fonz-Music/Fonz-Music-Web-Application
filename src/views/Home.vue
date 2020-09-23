@@ -1,31 +1,36 @@
 <template>
     <fragment>
-        <c-hero-split class="illustration-section-01" />
-        <c-clients top-divider bottom-divider class="reveal-from-bottom" />
-        <c-generic-section top-divider class="center-content">
-            <c-section-header :data="genericSection01Header" class="reveal-from-bottom" />
-            <div class="reveal-from-bottom">
-                <a
-                    data-video="https://player.vimeo.com/video/174002812"
-                    href="#"
-                    aria-controls="video-modal"
-                    @click.prevent="videoModalActive = true">
+        <c-hero-split class="illustration-section-01" /> 
+        <c-generic-section top-divider>
+            <div class="container-xs">
+                <figure>
                     <c-image
-                        :src="require('@/assets/images/video-placeholder.svg')"
-                        alt="Video"
+                        class="image-larger"
+                        :src="require('@/assets/images/splashcoaster.png')"
+                        alt="Splash Coaster"
                         :width="712"
                         :height="400" />
-                </a>
+                </figure>
+                <h2 class="mt-0 center-the-text">queue the party!</h2>
+                <p class="center-the-text">
+                    Whether you’re blasting Pitbull at the pre-game, jamming to Kings of Leon on a roadtrip, or vibing to Meghan Trainor with your mates, there’s always a perfect song to play next. 
+                </p>
+                <p class="center-the-text">
+                  But are you sick of interrupting, shoulder tapping, or yelling out that tune?
+                </p>
+
+                <h4 class="center-the-text">We certainly are.</h4>
+                <p class="center-the-text">
+                    So we created Fonz Music, a simpler, more intuitive way to host a party with Spotify or (soon) Apple Music and allow your guests to make song requests.
+                </p>
+                <p class="center-the-text">
+                  Your guests simply open our app, load up the banger of their choice, and tap your Fonz coaster with their phone. That tune is instantly added to your queue.
+                </p>
+                <p class="center-the-text">
+                    Talk about bringing SexyBack.
+                </p>
             </div>
-            <c-modal
-                id="video-modal"
-                :active.sync="videoModalActive"
-                video="https://player.vimeo.com/video/174002812"
-                video-tag="iframe" />
-        </c-generic-section>        
-        <c-features-tiles top-divider class="center-content" />
-        <c-testimonial top-divider />
-        <c-cta split />
+        </c-generic-section>
     </fragment>
 </template>
 
@@ -33,30 +38,18 @@
 // import layout
 import CLayout from '@/layouts/LayoutDefault.vue'
 // import section header
-import CSectionHeader from '@/components/sections/partials/SectionHeader.vue'
 // import sections
 import CHeroSplit from '@/components/sections/HeroSplit.vue'
-import CClients from '@/components/sections/Clients.vue'
 import CGenericSection from '@/components/sections/GenericSection.vue'
-import CFeaturesTiles from '@/components/sections/FeaturesTiles.vue'
-import CTestimonial from '@/components/sections/Testimonial.vue'
-import CCta from '@/components/sections/Cta.vue'
 // import some required elements
 import CImage from '@/components/elements/Image.vue'
-import CModal from '@/components/elements/Modal.vue'
 
 export default {
   name: 'Home',
   components: {
-    CSectionHeader,
-    CHeroSplit,
-    CClients,
-    CGenericSection,
-    CFeaturesTiles,
-    CTestimonial,
-    CCta,
     CImage,
-    CModal
+    CHeroSplit,
+    CGenericSection,
   },
   data() {
     return {

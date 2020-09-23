@@ -103,6 +103,10 @@
 	text-transform: uppercase;
 }
 
+.center-the-text {
+	text-align: center;
+}
+
 // Images
 .image-full {
 	width: 100%;
@@ -115,6 +119,7 @@
 	width: calc(100% + #{$image-larger--extra-width * 2});
 	max-width: 100vw;
 }
+
 
 // Helper class for coloured bg
 .has-bg-color {

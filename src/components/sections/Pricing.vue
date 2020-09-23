@@ -43,7 +43,8 @@
                     <div ref="sliderValue" class="pricing-slider-value">
                         {{ getPricingData(priceInput) }}
                     </div>
-                </div>                
+                </div>         
+
                 <div
                     class="tiles-wrap"
                     :class="[
@@ -52,6 +53,9 @@
                     <div class="tiles-item reveal-from-right" data-reveal-delay="400">
                         <div class="tiles-item-inner">
                             <div class="pricing-item-content">
+                                <div>
+                                    <h4> Hello </h4>
+                                </div>
                                 <div class="pricing-item-header pb-24 mb-24">
                                     <div class="pricing-item-price mb-4">
                                         <span class="pricing-item-price-currency h3">{{ getPricingData(this.priceOutput.plan1, 0) }}</span>

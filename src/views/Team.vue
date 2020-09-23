@@ -1,6 +1,6 @@
 <template>
     <fragment>
-        <c-team top-divider />
+        <c-team top-divider class="illustration-section-01"/>
     </fragment>
 </template>
 

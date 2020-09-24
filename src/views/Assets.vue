@@ -1,4 +1,4 @@
-<template>
+np<template>
     <fragment>
         <c-pricing pricing-switcher class="illustration-section-02" />
         <c-team top-divider />

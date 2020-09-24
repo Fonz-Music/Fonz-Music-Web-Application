@@ -2,7 +2,12 @@
     <fragment>
         <c-generic-section top-divider class="center-content illustration-section-01">
             <c-section-header :data="genericSection01Header" class="reveal-from-bottom" />
-            <p> How you use the Fonz coaster depends upon whether you're hosting the party or joining it. </p>
+            <p>Fonz acts a communication device, allowing multiple people to <br> contribute to the same Spotify session.
+            </p>
+            <c-button-group>
+              <c-button color="primary">I'm a host</c-button>
+              <c-button color="primary">I'm a guest</c-button>
+            </c-button-group>
         </c-generic-section>
         <c-host-instructions top-divider class="center-content"/>
         <c-guest-instructions top-divider class="center-content"/>             
@@ -19,6 +24,9 @@ import CGenericSection from '@/components/sections/GenericSection.vue'
 import CGuestInstructions from '@/components/sections/GuestInstructions.vue'
 import CHostInstructions from '@/components/sections/HostInstructions.vue'
 // import some required elements
+import CButton from '@/components/elements/Button.vue'
+import CButtonGroup from '@/components/elements/ButtonGroup.vue'
+
 
 export default {
   name: 'Secondary',
@@ -27,6 +35,8 @@ export default {
     CGenericSection,
     CGuestInstructions,
     CHostInstructions,
+    CButton,
+    CButtonGroup
   },
   data() {
     return {

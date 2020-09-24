@@ -31,8 +31,9 @@
                 <span style="color: #fcc485;">collaborative</span> again.
               </h1>
               <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
-                Tap the coaster,
-                <b>Queue the party</b>
+                Tap the coaster, queue the party.
+                Fonz offers you a new way to play music at parties, events and gatherings.
+                Instead of relying on one phone to host the music, now we all can.
               </p>
               <div class="reveal-from-bottom" data-reveal-delay="450">
                 <c-button tag="a" color="primary" wide-mobile href="/buy">Get it now!</c-button>
@@ -44,7 +45,7 @@
               <figure>
                 <c-image
                   class="image-larger"
-                  :src="require('@/assets/images/splashcoaster.png')"
+                  :src="require('@/assets/images/splashGraphic.png')"
                   alt="Splash Coaster"
                   :width="712"
                   :height="400"
@@ -62,14 +63,12 @@
 import { SectionSplitProps } from "@/utils/SectionProps.js";
 import CButton from "@/components/elements/Button.vue";
 import CImage from "@/components/elements/Image.vue";
-import CButtonGroup from "@/components/elements/ButtonGroup.vue";
 
 export default {
   name: "CHeroSplit",
   components: {
     CButton,
     CImage,
-    CButtonGroup,
   },
   mixins: [SectionSplitProps],
 };

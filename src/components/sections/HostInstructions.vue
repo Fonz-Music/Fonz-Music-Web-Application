@@ -25,7 +25,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-01.svg')"
+                                        :src="require('@/assets/images/tapIconWhite.svg')"
                                         alt="Feature tile icon 01"
                                         :width="72"
                                         :height="72" />
@@ -47,7 +47,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-03.svg')"
+                                        :src="require('@/assets/images/spotifyIconWhite.svg')"
                                         alt="Feature tile icon 03"
                                         :width="72"
                                         :height="72" />
@@ -70,7 +70,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-05.svg')"
+                                        :src="require('@/assets/images/tapIconWhite.svg')"
                                         alt="Feature tile icon 05"
                                         :width="72"
                                         :height="72" />
@@ -93,7 +93,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-06.svg')"
+                                        :src="require('@/assets/images/queueIconWhite.svg')"
                                         alt="Feature tile icon 06"
                                         :width="72"
                                         :height="72" />
@@ -116,7 +116,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/feature-tile-icon-06.svg')"
+                                        :src="require('@/assets/images/rockOnWhite.svg')"
                                         alt="Feature tile icon 06"
                                         :width="72"
                                         :height="72" />

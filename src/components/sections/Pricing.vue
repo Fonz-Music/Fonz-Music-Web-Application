@@ -15,34 +15,6 @@
                     bottomDivider && 'has-bottom-divider'
                 ]">
                 <c-section-header :data="sectionHeader" tag="h1" class="center-content reveal-from-bottom" />
-                <div
-                    v-if="pricingSwitcher"
-                    class="pricing-switcher center-content reveal-from-top"
-                >
-                    <c-switch
-                        v-model="priceChangerValue"
-                        true-value="1"
-                        false-value="0"
-                        right-label="Billed Annually">
-                        Billed Monthly
-                    </c-switch>
-                </div>
-                <div
-                    v-if="pricingSlider"
-                    class="pricing-slider center-content reveal-from-top"
-                >
-                    <label class="form-slider">
-                        <span class="mb-16">How many users do you have?</span>
-                        <input
-                            type="range"
-                            ref="slider"
-                            v-model="priceChangerValue"
-                            @input="handlePricingSlide"
-                            />
-                        </label>
-                    <div ref="sliderValue" class="pricing-slider-value">
-                        {{ getPricingData(priceInput) }}
-                    </div>
                 </div>         
 
                 <div
@@ -52,10 +24,14 @@
                     ]">
                     <div class="tiles-item reveal-from-right" data-reveal-delay="400">
                         <div class="tiles-item-inner">
+                            <c-image
+                            class="image-medium"
+                            :src="require('@/assets/images/splashcoaster.png')"
+                            alt="Splash Coaster"
+                            :width="712"
+                            :height="400"
+                            />
                             <div class="pricing-item-content">
-                                <div>
-                                    <h4> Hello </h4>
-                                </div>
                                 <div class="pricing-item-header pb-24 mb-24">
                                     <div class="pricing-item-price mb-4">
                                         <span class="pricing-item-price-currency h3">{{ getPricingData(this.priceOutput.plan1, 0) }}</span>
@@ -72,10 +48,6 @@
                                     </div>
                                     <ul class="pricing-item-features-list list-reset text-xs mb-32">
                                         <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li>Excepteur sint occaecat velit</li>
-                                        <li>Excepteur sint occaecat velit</li>
                                     </ul>
                                 </div>
                             </div>
@@ -87,6 +59,13 @@
 
                     <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
                         <div class="tiles-item-inner">
+                            <c-image
+                            class="image-medium"
+                            :src="require('@/assets/images/splashcoaster.png')"
+                            alt="Splash Coaster"
+                            :width="712"
+                            :height="400"
+                            />
                             <div class="pricing-item-content">
                                 <div class="pricing-item-header pb-24 mb-24">
                                     <div class="pricing-item-price mb-4">
@@ -104,30 +83,31 @@
                                     </div>
                                     <ul class="pricing-item-features-list list-reset text-xs mb-32">
                                         <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li>Excepteur sint occaecat velit</li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="pricing-item-cta mb-8">
-                                <c-button tag="a" color="primary" wide href="#">Start free trial</c-button>
+                                <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
                             </div>
                         </div>
                     </div>
 
                     <div class="tiles-item reveal-from-left" data-reveal-delay="400">
                         <div class="tiles-item-inner">
+                            <c-image
+                            class="image-medium"
+                            :src="require('@/assets/images/splashcoaster.png')"
+                            alt="Splash Coaster"
+                            :width="712"
+                            :height="400"
+                            />
                             <div class="pricing-item-content">
                                 <div class="pricing-item-header pb-24 mb-24">
-                                    <div class="pricing-item-price mb-4">
-                                        <span class="pricing-item-price-currency h3">{{ getPricingData(this.priceOutput.plan3, 0) }}</span>
-                                        <span class="pricing-item-price-amount h1">{{ getPricingData(this.priceOutput.plan3, 1) }}</span>
-                                        <span class="pricing-item-price-after text-sm">{{ getPricingData(this.priceOutput.plan3, 2) }}</span>
+                                    <div class="mb-4">
+                                        <h4>5 Coasters</h4>
                                     </div>
                                     <div class="text-xs text-color-low">
-                                        Lorem ipsum is a common text
+                                        xx per coaster
                                     </div>
                                 </div>
                                 <div class="pricing-item-features mb-40">
@@ -136,36 +116,31 @@
                                     </div>
                                     <ul class="pricing-item-features-list list-reset text-xs mb-32">
                                         <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
-                                        <li class="is-checked">Excepteur sint occaecat velit</li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="pricing-item-cta mb-8">
-                                <c-button tag="a" color="primary" wide href="#">Start free trial</c-button>
+                                <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </template>
 
 <script>
 import { SectionTilesProps } from '@/utils/SectionProps.js'
 import CSectionHeader from '@/components/sections/partials/SectionHeader.vue'
-import CSwitch from '@/components/elements/Switch.vue'
 import CButton from '@/components/elements/Button.vue'
+import CImage from '@/components/elements/Image.vue'
 
 export default {
   name: 'CPricing',
   components: {
     CSectionHeader,
-    CSwitch,
-    CButton
+    CButton,
+    CImage
   },
   mixins: [SectionTilesProps],
   props: {
@@ -181,7 +156,7 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: 'Engage Your Visitors with a beautiful template',
+        title: 'Queue the party now!',
         paragraph: ''
       },
       priceChangerValue: "1",
@@ -191,8 +166,8 @@ export default {
       },
       priceOutput: {
         plan1: {
-          0: ["$", "34", "/m"],
-          1: ["$", "27", "/m"]
+          0: ["$", "34"],
+          1: ["$", "27"]
         },
         plan2: {
           0: ["$", "54", "/m"],

@@ -12,9 +12,7 @@
 // import layout
 import CLayout from '@/layouts/LayoutAlternative.vue'
 // import section header
-import CSectionHeader from '@/components/sections/partials/SectionHeader.vue'
 // import sections
-import CGenericSection from '@/components/sections/GenericSection.vue'
 import CGuestInstructions from '@/components/sections/GuestInstructions.vue'
 import CHostInstructions from '@/components/sections/HostInstructions.vue'
 import CFeaturesSplit from '@/components/sections/FeaturesSplit.vue'
@@ -24,8 +22,6 @@ import CFeaturesSplit from '@/components/sections/FeaturesSplit.vue'
 export default {
   name: 'Secondary',
   components: {
-    CSectionHeader,
-    CGenericSection,
     CGuestInstructions,
     CHostInstructions,
     CFeaturesSplit,

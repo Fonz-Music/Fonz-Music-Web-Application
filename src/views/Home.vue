@@ -44,18 +44,14 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CHeroSplit from "@/components/sections/HeroSplit.vue";
-import CGenericSection from "@/components/sections/GenericSection.vue";
 import CClients from "@/components/sections/Clients.vue";
 import CRoadmap from "@/components/sections/Roadmap.vue";
 // import some required elements
-import CImage from "@/components/elements/Image.vue";
 
 export default {
   name: "Home",
   components: {
-    CImage,
     CHeroSplit,
-    CGenericSection,
     CClients,
     CRoadmap
   },

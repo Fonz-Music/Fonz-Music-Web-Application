@@ -3,7 +3,7 @@ np<template>
         <c-pricing pricing-switcher class="illustration-section-02" />
         <c-team top-divider />
         <c-cta split />
-        <c-features-split invert-mobile top-divider image-fill />     
+        <c-features-split invert-mobile top-divider image-fill />
         <c-generic-section top-divider>
             <div class="container-xs">
                 <h2 class="mt-0">Lorem ipsum is placeholder text commonly used in the graphic.</h2>

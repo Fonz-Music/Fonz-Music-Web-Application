@@ -2,44 +2,57 @@
   <section
     class="hero section"
     :class="[
-            topOuterDivider && 'has-top-divider',
-            bottomOuterDivider && 'has-bottom-divider',
-            hasBgColor && 'has-bg-color',
-            invertColor && 'invert-color'
-        ]"
+      topOuterDivider && 'has-top-divider',
+      bottomOuterDivider && 'has-bottom-divider',
+      hasBgColor && 'has-bg-color',
+      invertColor && 'invert-color'
+    ]"
   >
     <div class="container">
       <div
         class="hero-inner section-inner"
         :class="[
-                    topDivider && 'has-top-divider',
-                    bottomDivider && 'has-bottom-divider'
-                ]"
+          topDivider && 'has-top-divider',
+          bottomDivider && 'has-bottom-divider'
+        ]"
       >
         <div
           class="split-wrap"
           :class="[
-                        invertMobile && 'invert-mobile',
-                        invertDesktop && 'invert-desktop',
-                        alignTop && 'align-top'
-                    ]"
+            invertMobile && 'invert-mobile',
+            invertDesktop && 'invert-desktop',
+            alignTop && 'align-top'
+          ]"
         >
           <div class="split-item">
-            <div class="hero-content split-item-content center-content-mobile reveal-from-top">
+            <div
+              class="hero-content split-item-content center-content-mobile reveal-from-top"
+            >
               <h1 class="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="150">
-                Make music
-                <span style="color: #fcc485;">collaborative</span> again.
+                <!-- Make music
+                <span style="color: #fcc485;">collaborative</span> again. -->
+                because there&apos;s always a
+                <span style="color: #fcc485;">perfect song</span> to play next.
               </h1>
               <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
-                Tap the coaster, queue the party.
-                Fonz offers you a new way to play music at parties, events and gatherings.
-                Instead of relying on one phone to host the music, now we all can.
+                Tap the coaster, queue the party. Fonz offers you a new way to
+                play music at parties, events and gatherings. Instead of relying
+                on one phone to host the music, now we all can.
               </p>
               <div class="reveal-from-bottom" data-reveal-delay="450">
-                <c-button tag="a" class="mt-0 mb-16" color="primary" wide-mobile href="/buy">Get it now!</c-button>
+                <c-button
+                  tag="a"
+                  class="mt-0 mb-16"
+                  color="primary"
+                  wide-mobile
+                  href="/buy"
+                  >Get it now!</c-button
+                >
               </div>
               <div class="reveal-from-bottom" data-reveal-delay="500">
-                <c-button tag="a" color="secondary" wide-mobile href="/about">Learn more</c-button>
+                <c-button tag="a" color="secondary" wide-mobile href="/about"
+                  >Learn more</c-button
+                >
               </div>
             </div>
             <div
@@ -71,9 +84,9 @@ export default {
   name: "CHeroSplit",
   components: {
     CButton,
-    CImage,
+    CImage
   },
-  mixins: [SectionSplitProps],
+  mixins: [SectionSplitProps]
 };
 </script>
 

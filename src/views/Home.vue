@@ -1,9 +1,9 @@
 <template>
-    <fragment>
-        <c-hero-split class="illustration-section-01" /> 
-        <c-clients top-divider class="center-content"/>
-        <c-roadmap top-divider class ="center-content"/>
-<!--          
+  <fragment>
+    <c-hero-split class="illustration-section-01" />
+    <c-clients top-divider class="center-content" />
+    <c-roadmap top-divider class="center-content" />
+    <!--          
         <c-generic-section top-divider>
             <div class="container-xs">
                 <figure>
@@ -35,23 +35,23 @@
             </div>
         </c-generic-section>
          -->
-    </fragment>
+  </fragment>
 </template>
 
 <script>
 // import layout
-import CLayout from '@/layouts/LayoutDefault.vue'
+import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
-import CHeroSplit from '@/components/sections/HeroSplit.vue'
-import CGenericSection from '@/components/sections/GenericSection.vue'
-import CClients from '@/components/sections/Clients.vue'
-import CRoadmap from '@/components/sections/Roadmap.vue'
+import CHeroSplit from "@/components/sections/HeroSplit.vue";
+import CGenericSection from "@/components/sections/GenericSection.vue";
+import CClients from "@/components/sections/Clients.vue";
+import CRoadmap from "@/components/sections/Roadmap.vue";
 // import some required elements
-import CImage from '@/components/elements/Image.vue'
+import CImage from "@/components/elements/Image.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     CImage,
     CHeroSplit,
@@ -62,14 +62,15 @@ export default {
   data() {
     return {
       genericSection01Header: {
-        title: 'making music a more collaborative experience',
-        paragraph: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
+        title: "because there&apos;s always a perfect song to play next.",
+        paragraph:
+          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui."
       },
       videoModalActive: false
-    }
+    };
   },
   created() {
-    this.$emit('update:layout', CLayout)
+    this.$emit("update:layout", CLayout);
   }
-}
+};
 </script>

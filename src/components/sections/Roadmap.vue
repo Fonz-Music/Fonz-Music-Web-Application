@@ -1,64 +1,69 @@
 <template>
-    <section
-        class="roadmap section"
+  <section
+    class="roadmap section"
+    :class="[
+      topOuterDivider && 'has-top-divider',
+      bottomOuterDivider && 'has-bottom-divider',
+      hasBgColor && 'has-bg-color',
+      invertColor && 'invert-color'
+    ]"
+  >
+    <div class="container">
+      <div
+        class="roadmap-inner section-inner"
         :class="[
-            topOuterDivider && 'has-top-divider',
-            bottomOuterDivider && 'has-bottom-divider',
-            hasBgColor && 'has-bg-color',
-            invertColor && 'invert-color'
-        ]">
-        <div class="container">
-            <div
-                class="roadmap-inner section-inner"
-                :class="[
-                    topDivider && 'has-top-divider',
-                    bottomDivider && 'has-bottom-divider'
-                ]">
-                <c-section-header :data="sectionHeader" class="center-content" />
-                <c-timeline>
-                    <c-timeline-item title="November 2019">
-                        Deployed a high-quality first release and conducted a market validation test
-                    </c-timeline-item>
-                    <c-timeline-item title="December 2019">
-                        Deployed a high-quality first release and conducted a market validation test
-                    </c-timeline-item>
-                    <c-timeline-item title="January 2020">
-                        Deployed a high-quality first release and conducted a market validation test
-                    </c-timeline-item>
-                    <c-timeline-item title="February 2020">
-                        Deployed a high-quality first release and conducted a market validation test
-                    </c-timeline-item>
-                    <c-timeline-item title="March 2020">
-                        Deployed a high-quality first release and conducted a market validation test
-                    </c-timeline-item>                                                                                
-                </c-timeline>
-            </div>
-        </div>
-    </section>
+          topDivider && 'has-top-divider',
+          bottomDivider && 'has-bottom-divider'
+        ]"
+      >
+        <c-section-header :data="sectionHeader" class="center-content" />
+        <c-timeline>
+          <c-timeline-item title="1 June 2020">
+            Dermot, Jay, Diarmuid, &amp; benji began Fonz Music to simplify song
+            requests at parties, hangouts, &amp; roadtrips
+          </c-timeline-item>
+          <c-timeline-item title="1 August 2020">
+            We sourced product, began development, and started accepting
+            pre-orders (thank you to those who believed in us)
+          </c-timeline-item>
+          <c-timeline-item title="1 October 2020">
+            Our app beta launched supporting Spotify &amp; distributed coasters
+            to our believers
+          </c-timeline-item>
+          <c-timeline-item title="15 November 2020">
+            Plans to add support for Apple Music
+          </c-timeline-item>
+          <c-timeline-item title="1 January 2021">
+            Upating search feature, adding new platforms, &amp; allow DJ setting
+          </c-timeline-item>
+        </c-timeline>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { SectionProps } from '@/utils/SectionProps.js'
-import CSectionHeader from '@/components/sections/partials/SectionHeader.vue'
-import CTimeline from '@/components/elements/Timeline.vue'
-import CTimelineItem from '@/components/elements/TimelineItem.vue'
+import { SectionProps } from "@/utils/SectionProps.js";
+import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
+import CTimeline from "@/components/elements/Timeline.vue";
+import CTimelineItem from "@/components/elements/TimelineItem.vue";
 
 export default {
-  name: 'CRoadmap',
+  name: "CRoadmap",
   components: {
     CSectionHeader,
     CTimeline,
     CTimelineItem
-  },  
+  },
   mixins: [SectionProps],
   data() {
     return {
       sectionHeader: {
-        title: 'Product roadmap',
+        title: "Our Journey",
         paragraph:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          "We are on a mission to digitalize and democratize song requesting for our users. Checkout Our past accomplishments as well as whats coming next."
       }
-    }
-  }  
-}
+    };
+  }
+};
 </script>

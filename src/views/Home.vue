@@ -1,6 +1,8 @@
 <template>
     <fragment>
         <c-hero-split class="illustration-section-01" /> 
+        <c-clients top-divider class="center-content"/>
+        <c-roadmap top-divider class ="center-content"/>
 <!--          
         <c-generic-section top-divider>
             <div class="container-xs">
@@ -43,6 +45,8 @@ import CLayout from '@/layouts/LayoutDefault.vue'
 // import sections
 import CHeroSplit from '@/components/sections/HeroSplit.vue'
 import CGenericSection from '@/components/sections/GenericSection.vue'
+import CClients from '@/components/sections/Clients.vue'
+import CRoadmap from '@/components/sections/Roadmap.vue'
 // import some required elements
 import CImage from '@/components/elements/Image.vue'
 
@@ -52,6 +56,8 @@ export default {
     CImage,
     CHeroSplit,
     CGenericSection,
+    CClients,
+    CRoadmap
   },
   data() {
     return {

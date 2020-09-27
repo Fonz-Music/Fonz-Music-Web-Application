@@ -36,7 +36,10 @@
                 Instead of relying on one phone to host the music, now we all can.
               </p>
               <div class="reveal-from-bottom" data-reveal-delay="450">
-                <c-button tag="a" color="primary" wide-mobile href="/buy">Get it now!</c-button>
+                <c-button tag="a" class="mt-0 mb-16" color="primary" wide-mobile href="/buy">Get it now!</c-button>
+              </div>
+              <div class="reveal-from-bottom" data-reveal-delay="500">
+                <c-button tag="a" color="secondary" wide-mobile href="/about">Learn more</c-button>
               </div>
             </div>
             <div

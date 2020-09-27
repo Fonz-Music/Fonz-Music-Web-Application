@@ -25,17 +25,17 @@
                     <div class="split-item">
                         <div class="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
                             <h3 class="mt-0 mb-12">
-                                Data-driven insights
+                                Collaborative Playing
                             </h3>
                             <p class="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                If you're looking for a way to share your house party, hear new tunes, or simply make the vibe open source, the fonz coaster is the product for you.
                             </p>
                         </div>
                         <div
                             class="split-item-image reveal-from-left" data-reveal-container=".split-item"
                             :class="imageFill && 'split-item-image-fill'">
                             <c-image
-                                :src="require('@/assets/images/features-split-image-01.svg')"
+                                :src="require('@/assets/images/splashcoaster.png')"
                                 alt="Features split image 01"
                                 :width="528"
                                 :height="396" />
@@ -45,7 +45,7 @@
                     <div class="split-item">
                         <div class="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                             <h3 class="mt-0 mb-12">
-                                Data-driven insights
+                                Solving a problem
                             </h3>
                             <p class="m-0">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -55,28 +55,8 @@
                             class="split-item-image reveal-from-right" data-reveal-container=".split-item"
                             :class="imageFill && 'split-item-image-fill'">
                             <c-image
-                                :src="require('@/assets/images/features-split-image-02.svg')"
+                                :src="require('@/assets/images/splashcoaster.png')"
                                 alt="Features split image 02"
-                                :width="528"
-                                :height="396" />
-                        </div>
-                    </div>
-
-                    <div class="split-item">
-                        <div class="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
-                            <h3 class="mt-0 mb-12">
-                                Data-driven insights
-                            </h3>
-                            <p class="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                        </div>
-                        <div
-                            class="split-item-image reveal-from-left" data-reveal-container=".split-item"
-                            :class="imageFill && 'split-item-image-fill'">
-                            <c-image
-                                :src="require('@/assets/images/features-split-image-01.svg')"
-                                alt="Features split image 03"
                                 :width="528"
                                 :height="396" />
                         </div>
@@ -96,14 +76,14 @@ export default {
   name: 'CFeaturesSplit',
   components: {
     CSectionHeader,
-    CImage
+    CImage,
   },
   mixins: [SectionSplitProps],
   data() {
     return {
       sectionHeader: {
-        title: 'Features - Lorem ipsum is placeholder text.',
-        paragraph: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.'
+        title: 'How does Fonz work?',
+        paragraph: 'Fonz acts as a communication device, allowing multiple people to contribute to the same Spotiy session.'
       }
     }
   }

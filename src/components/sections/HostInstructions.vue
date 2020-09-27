@@ -104,7 +104,7 @@
                                     Select your Tune
                                 </h4>
                                 <p class="m-0 text-sm">
-                                    Search up the first song of the session using the Fonz app, which holds Spotify's music library
+                                    Search up the first song of the session using the Spotify
                                 </p>
                             </div>
                         </div>

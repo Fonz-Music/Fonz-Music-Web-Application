@@ -1,6 +1,7 @@
 <template>
     <fragment>
         <c-hero-split class="illustration-section-01" /> 
+<!--          
         <c-generic-section top-divider>
             <div class="container-xs">
                 <figure>
@@ -28,9 +29,10 @@
                 </p>
                 <p class="center-the-text">
                     Talk about bringing SexyBack.
-                </p>
+                </p> 
             </div>
         </c-generic-section>
+         -->
     </fragment>
 </template>
 

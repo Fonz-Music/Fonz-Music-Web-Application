@@ -32,7 +32,7 @@
                 <!-- Make music
                 <span style="color: #fcc485;">collaborative</span> again. -->
                 because there&apos;s always a
-                <span style="color: #fcc485;">perfect song</span> to play next.
+                <span style="color: #fcc485;">perfect song</span> to play next
               </h1>
               <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
                 Tap the coaster, queue the party. Fonz offers you a new way to

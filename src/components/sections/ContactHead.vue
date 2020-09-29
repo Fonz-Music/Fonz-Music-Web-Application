@@ -32,11 +32,15 @@
                 Want to talk to us?
               </h1>
               <p class="mt-0 mb-32 reveal-from-bottom" data-reveal-delay="300">
-                We've listed some FAQs below. <br> If your question hasn't been answered, feel free to contact us!
-                <br> <a href="instagram.com/usefonz">@usefonz </a>
-                <br> <a href="mailto:info@fonzmusic.com">info@fonzmusic.com</a>
+                We've listed some FAQs below. <br />
+                If your question hasn't been answered, feel free to contact us!
+                <br />
+                <a href="instagram.com/usefonz">@usefonz </a> <br />
+                <a href="mailto:info@fonzmusic.com">contact@fonzmusic.com</a>
               </p>
-              <h4 class="mt-0 mb-32 reveal-from-bottom" data-reveal delay="300">FAQs</h4>
+              <h4 class="mt-0 mb-32 reveal-from-bottom" data-reveal delay="300">
+                FAQs
+              </h4>
             </div>
           </div>
         </div>
@@ -50,9 +54,7 @@ import { SectionSplitProps } from "@/utils/SectionProps.js";
 
 export default {
   name: "CHeroSplit",
-  components: {
-
-  },
+  components: {},
   mixins: [SectionSplitProps]
 };
 </script>

@@ -1,50 +1,65 @@
 <template>
-    <section
-        class="cta section center-content-mobile reveal-from-bottom"
+  <section
+    class="cta section center-content-mobile reveal-from-bottom"
+    :class="[
+      topOuterDivider && 'has-top-divider',
+      bottomOuterDivider && 'has-bottom-divider',
+      hasBgColor && 'has-bg-color',
+      invertColor && 'invert-color',
+    ]"
+  >
+    <div class="container">
+      <div
+        class="cta-inner section-inner"
         :class="[
-            topOuterDivider && 'has-top-divider',
-            bottomOuterDivider && 'has-bottom-divider',
-            hasBgColor && 'has-bg-color',
-            invertColor && 'invert-color'
-        ]">
-        <div class="container">
-            <div
-                class="cta-inner section-inner"
-                :class="[
-                    topDivider && 'has-top-divider',
-                    bottomDivider && 'has-bottom-divider',
-                    split && 'cta-split'
-                ]">
-                <div class="cta-slogan">
-                    <h3 class="m-0">
-                        Leo vel fringilla est integer malesuada.
-                    </h3>
-                </div>
-                <div class="cta-action">
-                    <c-button tag="a" wide-mobile href="#">
-                        Get started now
-                    </c-button>
-                </div>
-            </div>
+          topDivider && 'has-top-divider',
+          bottomDivider && 'has-bottom-divider',
+          split && 'cta-split',
+        ]"
+      >
+        <div class="cta-slogan">
+          <h3 class="m-0">Get the app now!</h3>
         </div>
-    </section>
+        <div class="cta-action">
+          <c-button-group>
+            <c-button tag="a" href="#">
+              <font-awesome-icon class="icon" :icon="['fab', 'google-play']" />
+              Google Play
+            </c-button>
+            <c-button tag="a" href="#">
+              <font-awesome-icon class="icon" :icon="['fab', 'app-store']" />
+              App Store
+            </c-button>
+          </c-button-group>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { SectionProps } from '@/utils/SectionProps.js'
-import CButton from '@/components/elements/Button.vue'
+import { SectionProps } from "@/utils/SectionProps.js";
+import CButton from "@/components/elements/Button.vue";
+import CButtonGroup from "@/components/elements/ButtonGroup.vue";
 
 export default {
-  name: 'CCta',
+  name: "DownloadApp",
   components: {
-    CButton
+    CButton,
+    CButtonGroup,
   },
   mixins: [SectionProps],
   props: {
     split: {
       type: Boolean,
-      default: false
-    }
-  }
-}
+      default: false,
+    },
+  },
+};
 </script>
+<style scoped>
+.icon {
+  margin: 0.125rem;
+  margin-right: 1rem;
+}
+</style>

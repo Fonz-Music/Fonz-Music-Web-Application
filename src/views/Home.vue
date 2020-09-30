@@ -3,6 +3,7 @@
     <c-hero-split class="illustration-section-01" />
     <c-clients top-divider class="center-content" />
     <c-roadmap top-divider class="center-content" />
+    <DownloadApp />
     <!--          
         <c-generic-section top-divider>
             <div class="container-xs">
@@ -49,6 +50,7 @@ import CClients from "@/components/sections/Clients.vue";
 import CRoadmap from "@/components/sections/Roadmap.vue";
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
+import DownloadApp from "@/components/sections/DownloadApp.vue"
 
 export default {
   name: "Home",
@@ -57,7 +59,8 @@ export default {
     CHeroSplit,
     CGenericSection,
     CClients,
-    CRoadmap
+    CRoadmap,
+    DownloadApp
   },
   data() {
     return {

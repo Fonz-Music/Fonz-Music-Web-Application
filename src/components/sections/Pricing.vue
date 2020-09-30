@@ -63,13 +63,15 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">
+                  <li class="">
                     Fonz Coaster to integrate with the Fonz App
                   </li>
 
-                  <li class="is-checked">100% waterproof and lightweight</li>
+                  <li class="">
+                    100% waterproof and lightweight
+                  </li>
 
-                  <li class="is-checked">
+                  <li class="">
                     Allow your friends to queue songs whenever you&apos;re
                     together
                   </li>
@@ -120,15 +122,15 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">
+                  <li class="">
                     Coasters to leave in multiple rooms during a party
                   </li>
 
-                  <li class="is-checked">
+                  <li class="">
                     Have a coaster to keep for your roadtrips
                   </li>
 
-                  <li class="is-checked">
+                  <li class="">
                     No more shoulder-taps, interrupts, or requests at your
                     shindigs
                   </li>
@@ -178,11 +180,11 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">
+                  <li class="">
                     Keep one in your car, keep the other on your coffeetable,
                     firepit, or pong table
                   </li>
-                  <li class="is-checked">
+                  <li class="">
                     Always be ready to turn your car into the dance floor
                   </li>
                 </ul>
@@ -240,7 +242,7 @@ export default {
         },
         plan2: {
           0: ["eur", "42"],
-          1: ["$", "50"]
+          1: ["$", "47"]
         },
         plan3: {
           0: ["eur", "50"],

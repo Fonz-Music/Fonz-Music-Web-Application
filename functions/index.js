@@ -22,6 +22,10 @@ const StatusRoute = require('./routes/Status');
 const PricesRoute = require('./routes/Prices');
 const CheckoutRoute = require('./routes/Checkout');
 
+const cors = require('cors')
+app.use(cors())
+app.options('*', cors())
+
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({

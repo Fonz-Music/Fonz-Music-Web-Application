@@ -1,6 +1,6 @@
 <template>
   <section
-    class="features-split section"
+    class="coaster-buy-info section"
     :class="[
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
@@ -10,7 +10,7 @@
   >
     <div class="container">
       <div
-        class="features-split-inner section-inner"
+        class="coaster-buy-info-split-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
           bottomDivider && 'has-bottom-divider'
@@ -31,12 +31,12 @@
               data-reveal-container=".split-item"
             >
               <h3 class="mt-0 mb-12">
-                Collaborative Playing
+                Become Everyone&apos;s Favorite Host
               </h3>
               <p class="m-0">
-                If you're looking for a way to share your house party, hear new
-                tunes, or simply make the vibe open source, the fonz coaster is
-                the product for you.
+                the fonz coaster integrates with our Fonz App to solve the
+                problem of collaborative queuing. No more interrupting, shoulder
+                tapping, or yelling to add to the vibe.
               </p>
             </div>
             <div
@@ -59,13 +59,12 @@
               data-reveal-container=".split-item"
             >
               <h3 class="mt-0 mb-12">
-                A Modern Day Jukebox
+                Optimized For Your Lifestyle
               </h3>
               <p class="m-0">
-                We want to give guests the option to contribute to the vibe,
-                make someones day, or share a new tune they've just heard.
-                Integrating with music providers, we bring that experience
-                everywhere.
+                Made with high quality lightweight plastic, the fonz coaster is
+                built to be portable as well as completely spill-proof, so no
+                worries bringing it to the pregame, tailgate, or after-party.
               </p>
             </div>
             <div
@@ -93,7 +92,7 @@ import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import CImage from "@/components/elements/Image.vue";
 
 export default {
-  name: "CFeaturesSplit",
+  name: "CCoasterBuyInfo",
   components: {
     CSectionHeader,
     CImage
@@ -102,9 +101,9 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: "How does Fonz work?",
+        title: "What is a fonz Coaster?",
         paragraph:
-          "Fonz acts as a communication device, allowing multiple people to contribute to the same Spotiy session."
+          "Fonz Coasters act as a portable Jukebox. The host links their music provider to the coaster and guests join their session by tapping the coaster."
       }
     };
   }

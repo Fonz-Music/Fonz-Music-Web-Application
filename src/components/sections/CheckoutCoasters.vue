@@ -30,6 +30,36 @@
               class="split-item-content center-content-mobile reveal-from-right"
               data-reveal-container=".split-item"
             >
+              <c-carousel :autorotate="3000">
+                <c-carousel-item
+                  ><c-image
+                    :src="require('@/assets/images/splashcoaster.png')"
+                    alt="Features split image 01"
+                    :width="528"
+                    :height="396"
+                /></c-carousel-item>
+                <c-carousel-item
+                  >It is a long established fact that a reader will be
+                  distracted by the readable content of a page when looking at
+                  its layout.</c-carousel-item
+                >
+                <c-carousel-item
+                  >There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration in some
+                  form.</c-carousel-item
+                >
+                <c-carousel-item
+                  >Contrary to popular belief, Lorem Ipsum is not simply random
+                  text. It has roots in a piece of classical Latin literature
+                  from 45 BC, making it over 2000 years old.</c-carousel-item
+                >
+              </c-carousel>
+            </div>
+            <div
+              class="split-item-image reveal-from-left"
+              data-reveal-container=".split-item"
+              :class="imageFill && 'split-item-image-fill'"
+            >
               <h3 class="mt-0 mb-12">
                 Collaborative Playing
               </h3>
@@ -38,47 +68,6 @@
                 tunes, or simply make the vibe open source, the fonz coaster is
                 the product for you.
               </p>
-            </div>
-            <div
-              class="split-item-image reveal-from-left"
-              data-reveal-container=".split-item"
-              :class="imageFill && 'split-item-image-fill'"
-            >
-              <c-image
-                :src="require('@/assets/images/splashcoaster.png')"
-                alt="Features split image 01"
-                :width="528"
-                :height="396"
-              />
-            </div>
-          </div>
-
-          <div class="split-item">
-            <div
-              class="split-item-content center-content-mobile reveal-from-left"
-              data-reveal-container=".split-item"
-            >
-              <h3 class="mt-0 mb-12">
-                A Modern Day Jukebox
-              </h3>
-              <p class="m-0">
-                We want to give guests the option to contribute to the vibe,
-                make someones day, or share a new tune they've just heard.
-                Integrating with music providers, we bring that experience
-                everywhere.
-              </p>
-            </div>
-            <div
-              class="split-item-image reveal-from-right"
-              data-reveal-container=".split-item"
-              :class="imageFill && 'split-item-image-fill'"
-            >
-              <c-image
-                :src="require('@/assets/images/splashcoaster.png')"
-                alt="Features split image 02"
-                :width="528"
-                :height="396"
-              />
             </div>
           </div>
         </div>
@@ -89,14 +78,17 @@
 
 <script>
 import { SectionSplitProps } from "@/utils/SectionProps.js";
+
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import CImage from "@/components/elements/Image.vue";
+import CCarouselItem from "@/components/elements/CarouselItem.vue";
 
 export default {
-  name: "CFeaturesSplit",
+  name: "CCheckoutCoaster",
   components: {
     CSectionHeader,
-    CImage
+    CImage,
+    CCarouselItem
   },
   mixins: [SectionSplitProps],
   data() {

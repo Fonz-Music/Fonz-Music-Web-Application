@@ -5,7 +5,7 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color',
+      invertColor && 'invert-color'
     ]"
   >
     <div class="container">
@@ -26,6 +26,9 @@
       <div class="tiles-wrap" :class="[pushLeft && 'push-left']">
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
+            <div class="mb-4 center-content">
+              <h4>1 Coaster</h4>
+            </div>
             <c-image
               class="image-medium"
               :src="require('@/assets/images/splashcoaster.png')"
@@ -46,31 +49,105 @@
                     getPricingData(this.priceOutput.plan1, 2)
                   }}</span>
                 </div>
+
                 <div class="text-xs text-color-low">
-                  Lorem ipsum is a common text
+                  For the host who loves hearing new tunes with friends and is
+                  ready to simplify that process and empower their guests to
+                  contribute to the vibe.
                 </div>
               </div>
               <div class="pricing-item-features mb-40">
                 <div
                   class="pricing-item-features-title h6 text-xs text-color-high mb-24"
                 >
-                  What’s included
+                  Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">Excepteur sint occaecat velit</li>
+                  <li class="">
+                    Fonz Coaster to integrate with the Fonz App
+                  </li>
+
+                  <li class="">
+                    100% waterproof and lightweight
+                  </li>
+
+                  <li class="">
+                    Allow your friends to queue songs whenever you&apos;re
+                    together
+                  </li>
                 </ul>
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide href="#"
-                >Start free trial</c-button
-              >
+              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
             </div>
           </div>
         </div>
 
         <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
           <div class="tiles-item-inner">
+            <div class="mb-4 center-content">
+              <h4>3 Coasters</h4>
+            </div>
+            <c-image
+              class="image-medium"
+              :src="require('@/assets/images/splashcoaster.png')"
+              alt="Splash Coaster"
+              :width="712"
+              :height="400"
+            />
+            <div class="pricing-item-content">
+              <div class="pricing-item-header pb-24 mb-24">
+                <div class="pricing-item-price mb-4">
+                  <span class="pricing-item-price-currency h3">{{
+                    getPricingData(this.priceOutput.plan3, 0)
+                  }}</span>
+                  <span class="pricing-item-price-amount h1">{{
+                    getPricingData(this.priceOutput.plan3, 1)
+                  }}</span>
+                  <span class="pricing-item-price-after text-sm">{{
+                    getPricingData(this.priceOutput.plan3, 2)
+                  }}</span>
+                </div>
+                <div class="text-xs text-color-low">
+                  For the DJ who adores throwing parties, tailgates, and
+                  pre-games. No more leaving your laptop open, being
+                  interrupted, or giving your phone to a stranger.
+                </div>
+              </div>
+              <div class="pricing-item-features mb-40">
+                <div
+                  class="pricing-item-features-title h6 text-xs text-color-high mb-24"
+                >
+                  Benefits
+                </div>
+                <ul class="pricing-item-features-list list-reset text-xs mb-32">
+                  <li class="">
+                    Coasters to leave in multiple rooms during a party
+                  </li>
+
+                  <li class="">
+                    Have a coaster to keep for your roadtrips
+                  </li>
+
+                  <li class="">
+                    No more shoulder-taps, interrupts, or requests at your
+                    shindigs
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="pricing-item-cta mb-8">
+              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tiles-item reveal-from-left" data-reveal-delay="400">
+          <div class="tiles-item-inner">
+            <div class="mb-4">
+              <h4>2 Coasters</h4>
+            </div>
             <c-image
               class="image-medium"
               :src="require('@/assets/images/splashcoaster.png')"
@@ -92,60 +169,24 @@
                   }}</span>
                 </div>
                 <div class="text-xs text-color-low">
-                  Lorem ipsum is a common text
+                  For the chauffeur who is always playing bangers on the drive
+                  home and likes hearing new tunes at their hangout sessions.
                 </div>
               </div>
               <div class="pricing-item-features mb-40">
                 <div
                   class="pricing-item-features-title h6 text-xs text-color-high mb-24"
                 >
-                  What’s included
+                  Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">Excepteur sint occaecat velit</li>
-                </ul>
-              </div>
-            </div>
-            <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
-            </div>
-          </div>
-        </div>
-
-        <div class="tiles-item reveal-from-left" data-reveal-delay="400">
-          <div class="tiles-item-inner">
-            <c-image
-              class="image-medium"
-              :src="require('@/assets/images/splashcoaster.png')"
-              alt="Splash Coaster"
-              :width="712"
-              :height="400"
-            />
-                        <div class="pricing-item-content">
-              <div class="pricing-item-header pb-24 mb-24">
-                <div class="pricing-item-price mb-4">
-                  <span class="pricing-item-price-currency h3">{{
-                    getPricingData(this.priceOutput.plan3, 0)
-                  }}</span>
-                  <span class="pricing-item-price-amount h1">{{
-                    getPricingData(this.priceOutput.plan3, 1)
-                  }}</span>
-                  <span class="pricing-item-price-after text-sm">{{
-                    getPricingData(this.priceOutput.plan3, 2)
-                  }}</span>
-                </div>
-                <div class="text-xs text-color-low">
-                  Lorem ipsum is a common text
-                </div>
-              </div>
-              <div class="pricing-item-features mb-40">
-                <div
-                  class="pricing-item-features-title h6 text-xs text-color-high mb-24"
-                >
-                  What’s included
-                </div>
-                <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="is-checked">Excepteur sint occaecat velit</li>
+                  <li class="">
+                    Keep one in your car, keep the other on your coffeetable,
+                    firepit, or pong table
+                  </li>
+                  <li class="">
+                    Always be ready to turn your car into the dance floor
+                  </li>
                 </ul>
               </div>
             </div>

@@ -44,21 +44,25 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CHeroSplit from "@/components/sections/HeroSplit.vue";
+import CGenericSection from "@/components/sections/GenericSection.vue";
 import CClients from "@/components/sections/Clients.vue";
 import CRoadmap from "@/components/sections/Roadmap.vue";
 // import some required elements
+import CImage from "@/components/elements/Image.vue";
 
 export default {
   name: "Home",
   components: {
+    CImage,
     CHeroSplit,
+    CGenericSection,
     CClients,
     CRoadmap
   },
   data() {
     return {
       genericSection01Header: {
-        title: "because there&apos;s always a perfect song to play next.",
+        title: "making music a more collaborative experience",
         paragraph:
           "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui."
       },

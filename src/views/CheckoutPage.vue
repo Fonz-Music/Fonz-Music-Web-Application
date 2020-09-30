@@ -1,9 +1,6 @@
 <template>
   <fragment>
-    <c-HeroFull />
-    <c-HeroFull02 />
-    <c-CoasterBuyInfo />
-    <c-pricing pricing-switcher class="illustration-section-02" />
+    <c-CheckoutCoaster />
   </fragment>
 </template>
 
@@ -12,19 +9,14 @@
 import CLayout from "@/layouts/LayoutAlternative.vue";
 // import section header
 // import sections
-import CPricing from "@/components/sections/Pricing.vue";
-// import some required elements
-import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
-import CHeroFull from "@/components/sections/HeroFull.vue";
+
+import CCheckoutCoaster from "@/components/sections/CheckoutCoasters.vue";
 // import CHeroFull02 from "@/components/sections/HeroFull02.vue";
 
 export default {
   name: "Secondary",
   components: {
-    CHeroFull,
-    // CHeroFull02,
-    CCoasterBuyInfo,
-    CPricing
+    CCheckoutCoaster
   },
   data() {
     return {

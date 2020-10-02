@@ -14,6 +14,13 @@ library.add(faUserSecret);
 library.add(faGooglePlay, faAppStore);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+// import vuetify from './plugins/vuetify' // path to vuetify export
+// import Vuetify from 'vuetify/lib'
+import { BootstrapVue } from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import App from './App.vue';
 import router from './router';

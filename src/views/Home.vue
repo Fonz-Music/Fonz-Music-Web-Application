@@ -1,6 +1,7 @@
 <template>
   <fragment>
     <c-hero-split class="illustration-section-01" />
+    <recent-orders />
     <c-clients top-divider class="center-content" />
     <c-CoasterBuyInfo />
     <DownloadApp />
@@ -55,6 +56,7 @@ import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
 import DownloadApp from "@/components/sections/DownloadApp.vue";
+import RecentOrders from "@/components/elements/RecentOrders.vue";
 
 export default {
   name: "Home",
@@ -65,20 +67,21 @@ export default {
     CClients,
     CCoasterBuyInfo,
     CRoadmap,
-    DownloadApp
+    DownloadApp,
+    RecentOrders,
   },
   data() {
     return {
       genericSection01Header: {
         title: "making music a more collaborative experience",
         paragraph:
-          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui."
+          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.",
       },
-      videoModalActive: false
+      videoModalActive: false,
     };
   },
   created() {
     this.$emit("update:layout", CLayout);
-  }
+  },
 };
 </script>

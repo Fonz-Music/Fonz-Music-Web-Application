@@ -21,6 +21,7 @@ const app = express();
 const StatusRoute = require('./routes/Status');
 const PricesRoute = require('./routes/Prices');
 const CheckoutRoute = require('./routes/Checkout');
+const RecentBuyerRoute = require('./routes/RecentBuyer');
 
 const cors = require('cors')
 app.use(cors())
@@ -33,8 +34,13 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/i', StatusRoute);
+app.use('/i/orders', RecentBuyerRoute);
 app.use('/i/prices', PricesRoute);
 app.use('/i/checkout', CheckoutRoute);
+
+app.use((req, res) => {
+    res.send(req.url)
+})
 
 /** all unknown URL requests managed here */
 app.use((req, res) => {

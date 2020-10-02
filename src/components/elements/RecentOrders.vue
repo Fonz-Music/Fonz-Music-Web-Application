@@ -34,7 +34,7 @@ export default {
       country: "",
       quantity: "",
       time: "",
-      pendingTimeout: false,
+      pendingTimeout: false
     };
   },
   methods: {
@@ -45,7 +45,7 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     getOrder() {
-      return axios.get("/i/orders/recent").then((resp) => {
+      return axios.get("/i/orders/recent").then(resp => {
         const data = resp.data;
         this.state = data.state;
         this.country = data.country;
@@ -56,7 +56,7 @@ export default {
     showRecentOrder() {
       setInterval(() => {
         if (Math.random(0, 1) > 0.5 && this.dismissCountDown == 0) {
-          console.log("New order", this.dismissCountDown)
+          console.log("New order", this.dismissCountDown);
           this.getOrder().then(() => {
             console.log("Get timtout new");
             this.dismissCountDown = 5;
@@ -65,11 +65,11 @@ export default {
           });
         }
       }, 5000);
-    },
+    }
   },
   created() {
     this.showRecentOrder();
-  },
+  }
 };
 </script>
 <style scoped>
@@ -77,7 +77,7 @@ export default {
   position: fixed;
   z-index: 100;
   bottom: 0;
-  left: 0;
+  left: 10;
   width: 100%;
   box-sizing: border-box;
   padding: 8px;

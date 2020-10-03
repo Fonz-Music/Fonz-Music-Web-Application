@@ -6,7 +6,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayoutCheck from "@/layouts/LayoutCheckout.vue";
 // import section header
 // import sections
 
@@ -36,7 +36,7 @@ export default {
     };
   },
   created() {
-    this.$emit("update:layout", CLayout);
+    this.$emit("update:layout", CLayoutCheck);
   }
 };
 </script>

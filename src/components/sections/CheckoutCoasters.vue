@@ -19,13 +19,13 @@
           <template v-slot:title>
             address
           </template>
-          <p class="p-3">Tab contents 2</p>
+          <address />
         </b-tab>
         <b-tab>
           <template v-slot:title>
             payment
           </template>
-          <p class="p-3">Tab contents 2</p>
+          <payment />
         </b-tab>
       </b-tabs>
     </div>
@@ -38,13 +38,17 @@ import { SectionSplitProps } from "@/utils/SectionProps.js";
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import promo from "@/components/sections/checkoutForms/promo.vue";
 import email from "@/components/sections/checkoutForms/email.vue";
+import address from "@/components/sections/checkoutForms/address.vue";
+import payment from "@/components/sections/checkoutForms/payment.vue";
 
 export default {
   name: "CCheckoutCoaster",
   components: {
     CSectionHeader,
     promo,
-    email
+    address,
+    email,
+    payment
   },
   mixins: [SectionSplitProps],
   data() {

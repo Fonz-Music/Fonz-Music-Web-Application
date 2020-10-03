@@ -58,10 +58,7 @@ export default {
         if (Math.random(0, 1) > 0.5 && this.dismissCountDown == 0) {
           console.log("New order", this.dismissCountDown)
           this.getOrder().then(() => {
-            console.log("Get timtout new");
             this.dismissCountDown = 5;
-            // this.timeout += 3000;
-            // this.showRecentOrder();
           });
         }
       }, 5000);

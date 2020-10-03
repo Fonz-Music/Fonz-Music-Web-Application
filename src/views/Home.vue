@@ -1,7 +1,6 @@
 <template>
   <fragment>
     <c-hero-split class="illustration-section-01" />
-    <recent-orders />
     <c-clients top-divider class="center-content" />
     <c-CoasterBuyInfo />
     <DownloadApp />
@@ -56,7 +55,6 @@ import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
 import DownloadApp from "@/components/sections/DownloadApp.vue";
-import RecentOrders from "@/components/elements/RecentOrders.vue";
 
 export default {
   name: "Home",
@@ -68,7 +66,6 @@ export default {
     CCoasterBuyInfo,
     CRoadmap,
     DownloadApp,
-    RecentOrders,
   },
   data() {
     return {

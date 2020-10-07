@@ -6,6 +6,7 @@ import About from "./views/About.vue";
 import Team from "./views/Team.vue";
 import Contact from "./views/Contact.vue";
 import CheckoutPage from "./views/CheckoutPage.vue";
+import PayWithCreditCard from "./views/PayWithCreditCard.vue";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/checkout",
       name: "checkout",
       component: CheckoutPage
+    },
+    {
+      path: "/paywithcreditcard",
+      name: "paywithcreditcard",
+      component: PayWithCreditCard
     }
   ],
   mode: "history"

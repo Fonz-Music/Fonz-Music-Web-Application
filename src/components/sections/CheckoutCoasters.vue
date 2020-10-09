@@ -18,23 +18,30 @@
       </div>
 
       <div class="col-3 product-price">
-        <h3 class="text-right">$60</h3>
+        <div v-if="!promoValid">
+          <h3 class="text-right">${{ packagePrice }}</h3>
+        </div>
+        <div v-else>
+          <h3 class="text-right">
+            <del>${{ packagePrice }}</del>
+          </h3>
+          <h3 class="text-right">${{ packagePrice - 5 }}</h3>
+        </div>
+
         <!-- <button class="btn btn-sm btn-outline-primary">
           fonz
         </button> -->
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-center btn-outline-primary pack-separate">
+      <button class="btn btn-center btn-link pack-separate">
         I want my coasters packaged SEPARATELY
       </button>
     </div>
     <br />
+    <p>Got a promo code from a friend?</p>
     <div class="form-group row">
-      <label for="inputPromo" class="col-4 col-form-label"
-        >Got a promo code?</label
-      >
-      <div class="col-8">
+      <div class="col-9">
         <input
           type="promo"
           class="form-control input-sm"
@@ -42,6 +49,13 @@
           placeholder="Promo"
         />
       </div>
+      <button
+        type="submit"
+        class="btn btn-sm btn-link col-3"
+        @click="updatePromo"
+      >
+        send it
+      </button>
     </div>
     <div class="totalTable">
       <table class="table table-sm table-borderless">
@@ -58,12 +72,12 @@
             <th scope="row">Shipping</th>
             <td>FREE</td>
           </tr>
-          <tr>
+          <tr v-if="promoValid">
             <th scope="row">Discount</th>
             <td>$5</td>
           </tr>
           <th scope="row">Total</th>
-          <td>$24</td>
+          <td>${{ totalPrice }}</td>
         </tbody>
       </table>
     </div>
@@ -81,7 +95,11 @@
       />
     </div>
     <br />
-    <p class="text-center">or checkout with Credit Card</p>
+    <div class="text-center">
+      <a class="btn btn-link" role="button" href="/paywithcreditcard">
+        or checkout with Credit Card
+      </a>
+    </div>
   </div>
 </template>
 
@@ -92,6 +110,21 @@ export default {
   name: "CCheckoutCoasters",
   components: {
     CImage
+  },
+  data() {
+    return {
+      promoValid: false,
+      packagePrice: 60,
+      totalPrice: 60
+    };
+  },
+  methods: {
+    setTotalPrice: function() {
+      this.totalPrice = packagePrice - 5;
+    },
+    updatePromo: function() {
+      this.promoValid = !promoValid;
+    }
   }
 };
 </script>
@@ -112,7 +145,7 @@ export default {
   margin: 0px 0px 0px 0px;
 }
 .pack-separate {
-  font-size: 12px;
+  font-size: 16px;
 }
 .form-group {
   font-size: 16px;

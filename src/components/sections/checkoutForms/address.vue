@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="addressTab">
-    <h3>please fill in your credit card info</h3>
+    <h3 class="text-center">please fill in your address</h3>
     <div class="addressName">
       <c-input
         type="text"
@@ -36,7 +36,11 @@
         class="inputEmail"
       ></c-input>
     </div>
-    <c-button color="primary button-block">submit</c-button>
+    <div class="text-center">
+      <b-button-group class="mt-2">
+        <b-button @click="nextTab">Submit</b-button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 
@@ -48,6 +52,11 @@ export default {
   components: {
     CInput,
     CButton
+  },
+  methods: {
+    nextTab: function() {
+      this.$emit("nextTab", 2);
+    }
   }
 };
 </script>
@@ -61,7 +70,9 @@ export default {
   /* padding: auto; */
   margin: auto;
 }
-
+.btn-secondary {
+  background-color: #b288b9;
+}
 .paymentTab p {
   text-align: center;
 }

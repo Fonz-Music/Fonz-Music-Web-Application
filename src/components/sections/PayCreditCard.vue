@@ -1,30 +1,30 @@
 <template>
   <section>
-    <div class="progress-tabs">
-      <b-tabs align="center" pills justified>
-        <b-tab active>
-          <template v-slot:title>
-            promo
-          </template>
-          <promo />
-        </b-tab>
-
+    <div class="progress-tabs ">
+      <!-- <div class="progress">
+        <div
+          class="progress-bar"
+          role="progressbar"
+          style="width: 25%"
+          aria-valuenow="25"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div> -->
+      <b-tabs v-model="tabIndex" align="center" pills justified>
         <b-tab>
-          <template v-slot:title>
-            email
-          </template>
-          <email />
+          <email @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
-          <template v-slot:title>
+          <!-- <template v-slot:title>
             address
-          </template>
-          <address />
+          </template> -->
+          <addressTab @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
-          <template v-slot:title>
+          <!-- <template v-slot:title>
             payment
-          </template>
+          </template> -->
           <payment />
         </b-tab>
       </b-tabs>
@@ -36,29 +36,35 @@
 import { SectionSplitProps } from "@/utils/SectionProps.js";
 
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
-import promo from "@/components/sections/checkoutForms/promo.vue";
+
 import email from "@/components/sections/checkoutForms/email.vue";
-import address from "@/components/sections/checkoutForms/address.vue";
+import addressTab from "@/components/sections/checkoutForms/address.vue";
 import payment from "@/components/sections/checkoutForms/payment.vue";
 
 export default {
   name: "CPayCreditCard",
   components: {
-    CSectionHeader,
-    promo,
-    address,
+    // CSectionHeader,
+
+    addressTab,
     email,
     payment
   },
   mixins: [SectionSplitProps],
   data() {
     return {
+      tabIndex: 0,
       sectionHeader: {
         title: "Checkout"
         // paragraph:
         //   "Fonz acts as a communication device, allowing multiple people to contribute to the same Spotiy session."
       }
     };
+  },
+  methods: {
+    updateTab: function(newTab) {
+      this.tabIndex = newTab;
+    }
   }
 };
 </script>
@@ -66,6 +72,13 @@ export default {
 .progress-tabs {
   padding: 50px;
 }
+.nav-pills .nav-link.active {
+  background-color: #b288b9;
+}
+/* .active-tab-class {
+  background-color: #b288b9;
+  color: #b288b9;
+} */
 /* .tabs {
   background-color: #b288b9;
 } */

@@ -36,7 +36,11 @@
         class="inputSecurityCode"
       ></c-input>
     </div>
-    <c-button color="primary button-block">submit</c-button>
+    <div class="text-center">
+      <b-button-group class="mt-2">
+        <b-button @click="nextTab">Submit</b-button>
+      </b-button-group>
+    </div>
   </div>
 </template>
 
@@ -61,7 +65,9 @@ export default {
   /* padding: auto; */
   margin: auto;
 }
-
+.btn-secondary {
+  background-color: #b288b9;
+}
 .paymentTab p {
   text-align: center;
 }

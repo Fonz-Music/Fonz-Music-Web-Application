@@ -83,6 +83,7 @@ export default {
 .search-address {
   background-color: white;
   margin: 20px 0;
+  /* width: 100%; */
 }
 .autocomplete label {
   font-size: 18pt;

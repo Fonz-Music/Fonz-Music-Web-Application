@@ -2,6 +2,7 @@
   <div class="emailTab">
     <h3>What&apos;s Your Email?</h3>
     <p>Enter It Below</p>
+
     <div class="emailSubmit">
       <c-input
         type="text"
@@ -11,6 +12,7 @@
       >
         <div class="text-center">
           <b-button-group class="mt-2">
+            <br />
             <b-button @click="nextTab">Submit</b-button>
           </b-button-group>
         </div>

@@ -1,46 +1,18 @@
 <template lang="html">
   <div class="addressTab">
     <h3 class="text-center">please fill in your address</h3>
-    <div class="addressName">
-      <c-input
-        type="text"
-        placeholder="Full Name"
-        form-group="desktop"
-        class="inputName"
-      >
-      </c-input>
+    <div class="text-center autocomplete">
+      <label>
+        Address:
+        <br />
+        <GmapAutocomplete class="search-address" @place_changed="setPlace">
+        </GmapAutocomplete>
+        <br />
+        <b-button @click="usePlace">Submit</b-button>
+      </label>
     </div>
-    <div class="addressStreet">
-      <c-input
-        type="text"
-        placeholder="Street"
-        form-group="desktop"
-        class="inputEmail"
-      >
-      </c-input>
-    </div>
-    <div class="creditDate">
-      <c-input
-        type="text"
-        placeholder="Town"
-        form-group="desktop"
-        class="inputEmail"
-      >
-      </c-input>
-    </div>
-    <div class="creditSecurityCode">
-      <c-input
-        type="text"
-        placeholder="Zip Code"
-        form-group="desktop"
-        class="inputEmail"
-      ></c-input>
-    </div>
-    <div class="text-center">
-      <b-button-group class="mt-2">
-        <b-button @click="nextTab">Submit</b-button>
-      </b-button-group>
-    </div>
+
+    <br />
   </div>
 </template>
 
@@ -56,8 +28,36 @@ export default {
   methods: {
     nextTab: function() {
       this.$emit("nextTab", 2);
+    },
+    setDescription(description) {
+      this.description = description;
+    },
+    setPlace(place) {
+      this.place = place;
     }
+    // usePlace(place) {
+    //   if (this.place) {
+    //     this.markers.push({
+    //       position: {
+    //         lat: this.place.geometry.location.lat(),
+    //         lng: this.place.geometry.location.lng()
+    //       }
+    //     });
+    //     this.place = null;
+    //   }
+    // }
+  },
+  data() {
+    return {
+      address: "",
+      error: ""
+    };
   }
+  // mounted() {
+  //   new google.maps.places.Autocomplete(
+  //     document.getElementById("autocomplete")
+  //   );
+  // }
 };
 </script>
 
@@ -76,11 +76,15 @@ export default {
 .paymentTab p {
   text-align: center;
 }
-.submitButton {
-  background-color: #ff9425;
-  color: white;
-}
+
 .button-block {
   margin: 35px 0;
+}
+.search-address {
+  background-color: white;
+  margin: 20px 0;
+}
+.autocomplete label {
+  font-size: 18pt;
 }
 </style>

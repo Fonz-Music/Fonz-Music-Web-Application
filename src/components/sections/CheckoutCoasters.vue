@@ -26,7 +26,7 @@
 
       <div class="col-3 product-price">
         <div v-if="!promoValid">
-          <h3 class="text-right">${{ coasterPackages.single.price }}</h3>
+          <h3 class="text-right">${{ currentPackage.price }}</h3>
         </div>
         <div v-else>
           <h3 class="text-right">
@@ -34,7 +34,7 @@
           </h3>
           <h3 class="text-right">
             ${{
-              calculateSubtotalPrice(coasterPackages.single.price, promoValid)
+              calculateSubtotalPrice(currentPackage.price, promoValid)
             }}
           </h3>
         </div>
@@ -116,9 +116,7 @@
     </div>
     <br />
     <div class="text-center">
-      <a class="btn btn-link" role="button" href="/paywithcreditcard">
-        or checkout with Credit Card
-      </a>
+      <router-link class="btn btn-link" to="/paywithcreditcard/">or checkout with Credit Card</router-link>
     </div>
   </div>
 </template>
@@ -129,7 +127,7 @@ import CImage from "@/components/elements/Image.vue";
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage
+    CImage,
   },
   data() {
     return {
@@ -137,29 +135,37 @@ export default {
       packagePrice: 60,
       totalPrice: 60,
       governmentTheft: 2,
+      currentPackage: {
+        SKU: "11111111",
+        price: 27,
+        thumbnail: "singleCoasterPackage.png",
+        title: "Fonz Coaster",
+        information: "One coaster to connect to the Fonz App",
+        packagedSeperately: false
+      },
       coasterPackages: {
         single: {
           SKU: "11111111",
           price: 27,
           thumbnail: "singleCoasterPackage.png",
           title: "Fonz Coaster",
-          information: "One coaster to connect to the Fonz App"
+          information: "One coaster to connect to the Fonz App",
         },
         double: {
           SKU: "22222222",
           price: 47,
           thumbnail: "twoCoasterPackage.png",
           title: "Two Fonz Coasters",
-          information: "Two Coasters Packaged Together"
+          information: "Two Coasters Packaged Together",
         },
         triple: {
           SKU: "33333333",
           price: 60,
           thumbnail: "threeCoasterPackage.png",
           title: "Three Fonz Coasters",
-          information: "Three Coasters Packaged Together"
-        }
-      }
+          information: "Three Coasters Packaged Together",
+        },
+      },
       // currentPackage: coasterPackages.single
     };
   },
@@ -185,14 +191,14 @@ export default {
       console.log("pressed update promo");
       evt.preventDefault();
       this.promoValid = !promoValid;
-    }
+    },
   },
   computed: {
     updatePromo() {
       console.log("pressed update promo");
       this.promoValid = !promoValid;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@
         <GmapAutocomplete class="search-address" @place_changed="setPlace">
         </GmapAutocomplete>
         <br />
-        <b-button @click="usePlace">Submit</b-button>
+        <b-button @click="setPlace">Submit</b-button>
       </label>
     </div>
 
@@ -34,6 +34,7 @@ export default {
     },
     setPlace(place) {
       this.place = place;
+      this.nextTab();
     }
     // usePlace(place) {
     //   if (this.place) {
@@ -50,7 +51,8 @@ export default {
   data() {
     return {
       address: "",
-      error: ""
+      error: "",
+      place: ""
     };
   }
   // mounted() {

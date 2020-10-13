@@ -13,7 +13,7 @@
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider',
+          bottomDivider && 'has-bottom-divider'
         ]"
       >
         <c-section-header
@@ -213,24 +213,24 @@ export default {
   components: {
     CSectionHeader,
     CButton,
-    CImage,
+    CImage
   },
   mixins: [SectionTilesProps],
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false,
+      default: false
     },
     pricingSlider: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: "",
+        paragraph: ""
       },
       priceChangerValue: "1",
       priceInput: {
@@ -239,9 +239,9 @@ export default {
       },
       priceOutput: {
         plan1: ["$", "34"],
-        plan2: ["$", "54", "/m"],
-        plan3: ["$", "74", "/m"],
-      },
+        plan2: ["$", "54"],
+        plan3: ["$", "74"]
+      }
     };
   },
   methods: {
@@ -267,7 +267,7 @@ export default {
       let currency = "eur";
       axios
         .get(`${baseUrl}/i/prices/${currency}`)
-        .then((resp) => {
+        .then(resp => {
           const pricing = resp.data.pricing;
           console.log({ pricing });
           pricing.forEach((price, key) => {
@@ -280,10 +280,10 @@ export default {
 
           // console.log({ resp })
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
-    },
+    }
   },
   mounted() {
     if (this.pricingSlider) {
@@ -301,6 +301,6 @@ export default {
       this.handleSliderValuePosition(this.$refs.slider);
     }
     this.getPricing();
-  },
+  }
 };
 </script>

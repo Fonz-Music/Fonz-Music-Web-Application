@@ -1,31 +1,42 @@
 <template lang="html">
   <div class="container checkout-page">
-    <h2 class="text-center">fonz</h2>
-
+    <div class="topLogo">
+      <router-link to="/">
+        <c-image
+          class="logoWordmark"
+          :src="require('@/assets/images/fonzLogoWordmarkWhite.svg')"
+          alt="Neon"
+        />
+      </router-link>
+    </div>
     <h3 class="text-left">Order Summary</h3>
     <div class="row">
       <div class="col-3">
         <c-image
-          class=""
-          :src="require('@/assets/images/team-member-02.png')"
+          class="coasterPackageImage"
+          :src="getImgUrl(coasterPackages.single.thumbnail)"
           alt="coaster package"
         />
       </div>
 
       <div class="col-6 product-details">
-        <h4 class="">3 Fonz Coasters</h4>
-        <p>Three Coasters Packaged Together</p>
+        <h4 class="">{{ coasterPackages.single.title }}</h4>
+        <p>{{ coasterPackages.single.information }}</p>
       </div>
 
       <div class="col-3 product-price">
         <div v-if="!promoValid">
-          <h3 class="text-right">${{ packagePrice }}</h3>
+          <h3 class="text-right">${{ coasterPackages.single.price }}</h3>
         </div>
         <div v-else>
           <h3 class="text-right">
-            <del>${{ packagePrice }}</del>
+            <del>${{ coasterPackages.single.price }}</del>
           </h3>
-          <h3 class="text-right">${{ packagePrice - 5 }}</h3>
+          <h3 class="text-right">
+            ${{
+              calculateSubtotalPrice(coasterPackages.single.price, promoValid)
+            }}
+          </h3>
         </div>
 
         <!-- <button class="btn btn-sm btn-outline-primary">
@@ -34,39 +45,40 @@
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-center btn-link pack-separate">
+      <b-button class="btn btn-center btn-link pack-separate">
         I want my coasters packaged SEPARATELY
-      </button>
+      </b-button>
     </div>
     <br />
     <p>Got a promo code from a friend?</p>
-    <div class="form-group row">
-      <div class="col-9">
-        <input
-          type="promo"
-          class="form-control input-sm"
-          id="inputPromo"
-          placeholder="Promo"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-sm btn-link col-3"
-        @click="updatePromo"
-      >
+
+    <b-form inline class="form-group row">
+      <b-input
+        type="promo"
+        class="form-control input-sm col-8"
+        id="inputPromo"
+        placeholder="Promo"
+      ></b-input>
+
+      <b-button type="submit" class="btn btn-sm btn-link col-3">
         send it
-      </button>
-    </div>
+      </b-button>
+    </b-form>
+
     <div class="totalTable">
       <table class="table table-sm table-borderless">
         <tbody>
           <tr>
             <th scope="row">Subtotal</th>
-            <td>$27</td>
+            <td>
+              ${{
+                calculateSubtotalPrice(coasterPackages.single.price, promoValid)
+              }}
+            </td>
           </tr>
           <tr>
             <th scope="row">Government Theft (Tax)</th>
-            <td>$2</td>
+            <td>${{ governmentTheft }}</td>
           </tr>
           <tr>
             <th scope="row">Shipping</th>
@@ -77,13 +89,21 @@
             <td>$5</td>
           </tr>
           <th scope="row">Total</th>
-          <td>${{ totalPrice }}</td>
+          <td>
+            ${{
+              calculateTotalPrice(
+                coasterPackages.single.price,
+                governmentTheft,
+                promoValid
+              )
+            }}
+          </td>
         </tbody>
       </table>
     </div>
-    <div class="paymentOptions">
+    <div class="paymentOptions text-center">
       <c-image
-        class=""
+        class="applePay"
         :src="require('@/assets/images/buyWithApple.png')"
         alt="coaster package"
       />
@@ -115,14 +135,61 @@ export default {
     return {
       promoValid: false,
       packagePrice: 60,
-      totalPrice: 60
+      totalPrice: 60,
+      governmentTheft: 2,
+      coasterPackages: {
+        single: {
+          SKU: "11111111",
+          price: 27,
+          thumbnail: "singleCoasterPackage.png",
+          title: "Fonz Coaster",
+          information: "One coaster to connect to the Fonz App"
+        },
+        double: {
+          SKU: "22222222",
+          price: 47,
+          thumbnail: "twoCoasterPackage.png",
+          title: "Two Fonz Coasters",
+          information: "Two Coasters Packaged Together"
+        },
+        triple: {
+          SKU: "33333333",
+          price: 60,
+          thumbnail: "threeCoasterPackage.png",
+          title: "Three Fonz Coasters",
+          information: "Three Coasters Packaged Together"
+        }
+      }
+      // currentPackage: coasterPackages.single
     };
   },
   methods: {
-    setTotalPrice: function() {
-      this.totalPrice = packagePrice - 5;
+    calculateTotalPrice(packagePrice, tax, promo) {
+      if (promo) {
+        var totalPrice = packagePrice - 5 + tax;
+        return totalPrice;
+      } else {
+        var totalPrice = packagePrice + tax;
+        return totalPrice;
+      }
     },
-    updatePromo: function() {
+    calculateSubtotalPrice(packagePrice, promo) {
+      if (promo) return packagePrice - 5;
+      else return packagePrice;
+    },
+
+    getImgUrl(pic) {
+      return require("@/assets/images/" + pic);
+    },
+    onSubmit(evt) {
+      console.log("pressed update promo");
+      evt.preventDefault();
+      this.promoValid = !promoValid;
+    }
+  },
+  computed: {
+    updatePromo() {
+      console.log("pressed update promo");
       this.promoValid = !promoValid;
     }
   }
@@ -130,9 +197,27 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.checkout-page {
+  max-width: 900px;
+}
+.logoWordmark {
+  margin: 10px auto;
+  width: 25%;
+  max-width: 150px;
+}
 .checkout-page h2,
 .checkout-page h3 {
   margin: 0px;
+}
+.coasterPackageImage {
+  /* min-width: 50px;
+  max-width: 500px; */
+  /* width: 100%; */
+}
+.btn-secondary {
+  color: #b288b9;
+  background-color: transparent;
+  border: 0;
 }
 .product-details p {
   font-size: 10pt;
@@ -150,7 +235,15 @@ export default {
 .form-group {
   font-size: 16px;
 }
+#inputPromo {
+  margin-left: 15px;
+}
 table {
   color: white;
+}
+.paymentOptions {
+  margin: 0 auto;
+  max-width: 300px;
+  width: 75%;
 }
 </style>

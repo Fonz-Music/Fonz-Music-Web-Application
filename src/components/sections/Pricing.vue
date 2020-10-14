@@ -5,7 +5,7 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color'
+      invertColor && 'invert-color',
     ]"
   >
     <div class="container">
@@ -13,7 +13,7 @@
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider'
+          bottomDivider && 'has-bottom-divider',
         ]"
       >
         <c-section-header
@@ -23,7 +23,7 @@
         />
       </div>
 
-      <div class="tiles-wrap" :class="[pushLeft && 'push-left']">
+      <div class="tiles-wrap" :class="[pushLeft && 'push-left']" v-show="this.showPricing">
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
             <div class="mb-4 center-content">
@@ -39,15 +39,15 @@
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
                 <div class="pricing-item-price mb-4">
-                  <span class="pricing-item-price-currency h3">{{
-                    getPricingData(this.priceOutput.plan1, 0)
-                  }}</span>
-                  <span class="pricing-item-price-amount h1">{{
-                    getPricingData(this.priceOutput.plan1, 1)
-                  }}</span>
-                  <span class="pricing-item-price-after text-sm">{{
-                    getPricingData(this.priceOutput.plan1, 2)
-                  }}</span>
+                  <span class="pricing-item-price-currency h3">
+                    {{ this.currencySymbol }}
+                  </span>
+                  <span class="pricing-item-price-amount h1">
+                    {{ this.perItemPrice(0) }}
+                  </span>
+                  <span class="pricing-item-price-after text-sm">
+                    each
+                  </span>
                 </div>
 
                 <div class="text-xs text-color-low">
@@ -63,13 +63,9 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="">
-                    Fonz Coaster to integrate with the Fonz App
-                  </li>
+                  <li class="">Fonz Coaster to integrate with the Fonz App</li>
 
-                  <li class="">
-                    100% waterproof and lightweight
-                  </li>
+                  <li class="">100% waterproof and lightweight</li>
 
                   <li class="">
                     Allow your friends to queue songs whenever you&apos;re
@@ -79,7 +75,7 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(0)">Buy Now</c-button>
             </div>
           </div>
         </div>
@@ -99,17 +95,19 @@
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
                 <div class="pricing-item-price mb-4">
-                  <span class="pricing-item-price-currency h3">{{
-                    getPricingData(this.priceOutput.plan3, 0)
-                  }}</span>
-                  <span class="pricing-item-price-amount h1">{{
-                    getPricingData(this.priceOutput.plan3, 1)
-                  }}</span>
-                  <span class="pricing-item-price-after text-sm">{{
-                    getPricingData(this.priceOutput.plan3, 2)
-                  }}</span>
+                  <span class="pricing-item-price-currency h3">
+                    {{ this.currencySymbol }}
+                  </span>
+                  <span class="pricing-item-price-amount h1">
+                    {{ this.perItemPrice(2) }}
+                  </span>
+                  <span class="pricing-item-price-after text-sm">
+                    each
+                  </span>
                 </div>
                 <div class="text-xs text-color-low">
+                  Total: {{ this.currencySymbol + this.pricePlans[2].price }}
+                  <br />
                   For the DJ who adores throwing parties, tailgates, and
                   pre-games. No more leaving your laptop open, being
                   interrupted, or giving your phone to a stranger.
@@ -126,9 +124,7 @@
                     Coasters to leave in multiple rooms during a party
                   </li>
 
-                  <li class="">
-                    Have a coaster to keep for your roadtrips
-                  </li>
+                  <li class="">Have a coaster to keep for your roadtrips</li>
 
                   <li class="">
                     No more shoulder-taps, interrupts, or requests at your
@@ -138,7 +134,7 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(2)">Buy Now</c-button>
             </div>
           </div>
         </div>
@@ -158,15 +154,15 @@
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
                 <div class="pricing-item-price mb-4">
-                  <span class="pricing-item-price-currency h3">{{
-                    getPricingData(this.priceOutput.plan2, 0)
-                  }}</span>
-                  <span class="pricing-item-price-amount h1">{{
-                    getPricingData(this.priceOutput.plan2, 1)
-                  }}</span>
-                  <span class="pricing-item-price-after text-sm">{{
-                    getPricingData(this.priceOutput.plan2, 2)
-                  }}</span>
+                  <span class="pricing-item-price-currency h3">
+                    {{ this.currencySymbol }}
+                  </span>
+                  <span class="pricing-item-price-amount h1">
+                    {{ this.perItemPrice(1) }}
+                  </span>
+                  <span class="pricing-item-price-after text-sm">
+                    each
+                  </span>
                 </div>
                 <div class="text-xs text-color-low">
                   For the chauffeur who is always playing bangers on the drive
@@ -191,7 +187,7 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide href="#">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(1)">Buy Now</c-button>
             </div>
           </div>
         </div>
@@ -213,24 +209,24 @@ export default {
   components: {
     CSectionHeader,
     CButton,
-    CImage
+    CImage,
   },
   mixins: [SectionTilesProps],
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false
+      default: false,
     },
     pricingSlider: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: ""
+        paragraph: "",
       },
       priceChangerValue: "1",
       priceInput: {
@@ -240,11 +236,19 @@ export default {
       priceOutput: {
         plan1: ["$", "34"],
         plan2: ["$", "54"],
-        plan3: ["$", "74"]
-      }
+        plan3: ["$", "74"],
+      },
+      showPricing: false,
+      currencySymbol: '€',
+      pricePlans: [{}, {}, {}, {}, {}],
     };
   },
+  computed: {
+  },
   methods: {
+    perItemPrice(plan) {
+      return (this.pricePlans[plan].price / this.pricePlans[plan].quantity).toFixed(2)
+    },
     handlePricingSlide(e) {
       this.handleSliderValuePosition(e.target);
     },
@@ -262,45 +266,57 @@ export default {
       //   ? values[this.priceChangerValue][set]
       //   : values[this.priceChangerValue];
     },
+    updatePackage(plan) {
+      let packageId = this.pricePlans[plan].package;
+      localStorage.setItem('package', packageId);
+      this.$router.push('/checkout')
+
+    },
     getPricing() {
-      const baseUrl = "http://localhost:5001/fonz-music-web/us-central1/app";
-      let currency = "eur";
+      // const baseUrl = "http://localhost:5001/fonz-music-web/us-central1/app";
+      // let currency = "eur";
+      console.log("GETTING PRICING")
       axios
-        .get(`${baseUrl}/i/prices/${currency}`)
-        .then(resp => {
+        .get(`${this.$API_URL}/i/prices/${this.currency}`)
+        .then((resp) => {
+          console.log("GOT PRICING")
           const pricing = resp.data.pricing;
           console.log({ pricing });
           pricing.forEach((price, key) => {
             console.log(key);
             console.log({ price });
             console.log(price.retailPrice.toString());
-            let planName = `plan${key + 1}`;
-            this.priceOutput[planName][1] = price.retailPrice;
+            this.pricePlans[key] = { ...price, key }
           });
-
+          this.showPricing = true;
           // console.log({ resp })
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
-    }
+    },
+  },
+  beforeMount() {
+    this.getPricing();
+  },
+  beforeCreate() {
+    // this.getPricing();
   },
   mounted() {
-    if (this.pricingSlider) {
-      this.$refs.slider.setAttribute("min", 0);
-      this.$refs.slider.setAttribute(
-        "max",
-        Object.keys(this.priceInput).length - 1
-      );
-      this.thumbSize = parseInt(
-        window
-          .getComputedStyle(this.$refs.sliderValue)
-          .getPropertyValue("--thumb-size"),
-        10
-      );
-      this.handleSliderValuePosition(this.$refs.slider);
-    }
-    this.getPricing();
-  }
+    // if (this.pricingSlider) {
+    //   this.$refs.slider.setAttribute("min", 0);
+    //   this.$refs.slider.setAttribute(
+    //     "max",
+    //     Object.keys(this.priceInput).length - 1
+    //   );
+    //   this.thumbSize = parseInt(
+    //     window
+    //       .getComputedStyle(this.$refs.sliderValue)
+    //       .getPropertyValue("--thumb-size"),
+    //     10
+    //   );
+    //   this.handleSliderValuePosition(this.$refs.slider);
+    // }
+  },
 };
 </script>

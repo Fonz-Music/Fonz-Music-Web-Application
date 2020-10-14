@@ -13,19 +13,22 @@
       </div> -->
       <b-tabs v-model="tabIndex" align="center" pills justified>
         <b-tab>
-          <email @nextTab="updateTab($event)" />
+          <email v-model="form.email" @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
           <!-- <template v-slot:title>
             address
           </template> -->
-          <addressTab @nextTab="updateTab($event)" />
+          <addressTab
+            v-model="form.placeAddress"
+            @nextTab="updateTab($event)"
+          />
         </b-tab>
         <b-tab>
           <!-- <template v-slot:title>
             payment
           </template> -->
-          <payment />
+          <payment v-model="form.creditCardInfo" />
         </b-tab>
       </b-tabs>
     </div>
@@ -53,6 +56,17 @@ export default {
   mixins: [SectionSplitProps],
   data() {
     return {
+      form: {
+        email: "",
+        placeAddress: "",
+        creditCardInfo: {
+          firstname: "",
+          lastname: "",
+          creditCardNumber: "",
+          creditCardDate: "",
+          creditCardCsv: ""
+        }
+      },
       tabIndex: 0,
       sectionHeader: {
         title: "Checkout"

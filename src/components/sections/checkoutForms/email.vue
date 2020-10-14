@@ -13,7 +13,7 @@
         <div class="text-center">
           <b-button-group class="mt-2">
             <br />
-            <b-button @click="nextTab">Submit</b-button>
+            <b-button v-model="value" @click="nextTab">Submit</b-button>
           </b-button-group>
         </div>
 
@@ -35,6 +35,17 @@ export default {
   //     type: Integer
   //   }
   // },
+  props: {
+    value: {
+      type: String,
+      required: true
+    }
+  },
+  watch: {
+    value() {
+      this.$emit("input", this.value);
+    }
+  },
   components: {
     CInput,
     CButton

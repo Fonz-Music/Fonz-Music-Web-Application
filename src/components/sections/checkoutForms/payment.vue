@@ -7,6 +7,7 @@
         placeholder="Full Name"
         form-group="desktop"
         class="inputName"
+        v-model="value.firstname"
       >
       </c-input>
     </div>
@@ -16,6 +17,7 @@
         placeholder="Number"
         form-group="desktop"
         class="inputCreditNumber"
+        v-model="value.creditCardNumber"
       >
       </c-input>
     </div>
@@ -25,6 +27,7 @@
         placeholder="Date"
         form-group="desktop"
         class="inputCreditDate"
+        v-model="value.creditCardDate"
       >
       </c-input>
     </div>
@@ -34,11 +37,12 @@
         placeholder="Security Code"
         form-group="desktop"
         class="inputSecurityCode"
+        v-model="value.creditCardCsv"
       ></c-input>
     </div>
     <div class="text-center">
       <b-button-group class="mt-2">
-        <b-button @click="nextTab">Submit</b-button>
+        <b-button @click="logOut">Submit</b-button>
       </b-button-group>
     </div>
   </div>
@@ -46,12 +50,29 @@
 
 <script>
 import CInput from "@/components/elements/Input.vue";
-import CButton from "@/components/elements/Button.vue";
+// import CButton from "@/components/elements/Button.vue";
 export default {
   name: "payment",
+  props: {
+    value: {
+      type: Object,
+      required: true
+    }
+  },
+  watch: {
+    value() {
+      this.$emit("input", this.value);
+      console.log(this.value);
+    }
+  },
   components: {
-    CInput,
-    CButton
+    CInput
+    // CButton
+  },
+  methods: {
+    logOut() {
+      console.log(this.value);
+    }
   }
 };
 </script>

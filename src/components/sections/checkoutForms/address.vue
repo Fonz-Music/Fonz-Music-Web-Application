@@ -5,7 +5,10 @@
       <label>
         Address:
         <br />
-        <GmapAutocomplete class="search-address" @place_changed="setPlace">
+        <GmapAutocomplete
+          class="search-address"
+          @place_changed="getAddressData"
+        >
         </GmapAutocomplete>
         <br />
         <b-button @click="setPlace">Submit</b-button>
@@ -17,13 +20,14 @@
 </template>
 
 <script>
-import CInput from "@/components/elements/Input.vue";
-import CButton from "@/components/elements/Button.vue";
 export default {
-  name: "address",
-  components: {
-    CInput,
-    CButton
+  name: "addressTab",
+  components: {},
+  props: {
+    value: {
+      type: String,
+      required: true
+    }
   },
   methods: {
     nextTab: function() {
@@ -33,26 +37,30 @@ export default {
       this.description = description;
     },
     setPlace(place) {
-      this.place = place;
+      // v - model = "value";
+      // this.place = place;
+      // console.log(place);
+      // this.nextTab();
+    },
+    getAddressData: function(addressData, placeResultData, id) {
+      this.$emit("input", JSON.stringify(addressData["formatted_address"]));
+      // console.log("value" + this.value);
+      console.log(
+        "address " + JSON.stringify(addressData["formatted_address"])
+      );
       this.nextTab();
+      // this.value = addressData;
     }
-    // usePlace(place) {
-    //   if (this.place) {
-    //     this.markers.push({
-    //       position: {
-    //         lat: this.place.geometry.location.lat(),
-    //         lng: this.place.geometry.location.lng()
-    //       }
-    //     });
-    //     this.place = null;
-    //   }
-    // }
+  },
+  watch: {
+    value() {
+      this.$emit("input", this.value);
+    }
   },
   data() {
     return {
-      address: "",
-      error: "",
-      place: ""
+      place: "",
+      error: ""
     };
   }
   // mounted() {

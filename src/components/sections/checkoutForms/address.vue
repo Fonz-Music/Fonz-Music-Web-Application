@@ -20,17 +20,12 @@
 </template>
 
 <script>
-import CInput from "@/components/elements/Input.vue";
-import CButton from "@/components/elements/Button.vue";
 export default {
   name: "addressTab",
-  components: {
-    CInput,
-    CButton
-  },
+  components: {},
   props: {
     value: {
-      // type: String,
+      type: String,
       required: true
     }
   },
@@ -48,7 +43,11 @@ export default {
       // this.nextTab();
     },
     getAddressData: function(addressData, placeResultData, id) {
-      this.$emit("input", addressData);
+      this.$emit("input", JSON.stringify(addressData["formatted_address"]));
+      // console.log("value" + this.value);
+      console.log(
+        "address " + JSON.stringify(addressData["formatted_address"])
+      );
       this.nextTab();
       // this.value = addressData;
     }

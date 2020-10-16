@@ -42,7 +42,7 @@
     </div>
     <div class="text-center">
       <b-button-group class="mt-2">
-        <b-button>Submit</b-button>
+        <b-button @click="logOut">Submit</b-button>
       </b-button-group>
     </div>
   </div>
@@ -50,7 +50,7 @@
 
 <script>
 import CInput from "@/components/elements/Input.vue";
-import CButton from "@/components/elements/Button.vue";
+// import CButton from "@/components/elements/Button.vue";
 export default {
   name: "payment",
   props: {
@@ -62,11 +62,17 @@ export default {
   watch: {
     value() {
       this.$emit("input", this.value);
+      console.log(this.value);
     }
   },
   components: {
-    CInput,
-    CButton
+    CInput
+    // CButton
+  },
+  methods: {
+    logOut() {
+      console.log(this.value);
+    }
   }
 };
 </script>

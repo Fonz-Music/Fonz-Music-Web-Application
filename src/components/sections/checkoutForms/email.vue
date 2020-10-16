@@ -9,11 +9,12 @@
         placeholder="Email"
         form-group="desktop"
         class="inputEmail"
+        v-model="value"
       >
         <div class="text-center">
           <b-button-group class="mt-2">
             <br />
-            <b-button v-model="value" @click="nextTab">Submit</b-button>
+            <b-button @click="nextTab">Submit</b-button>
           </b-button-group>
         </div>
 
@@ -27,7 +28,7 @@
 
 <script>
 import CInput from "@/components/elements/Input.vue";
-import CButton from "@/components/elements/Button.vue";
+// import CButton from "@/components/elements/Button.vue";
 export default {
   name: "email",
   // props: {
@@ -47,11 +48,12 @@ export default {
     }
   },
   components: {
-    CInput,
-    CButton
+    CInput
+    // CButton
   },
   methods: {
     nextTab: function() {
+      console.log(this.value);
       this.$emit("nextTab", 1);
     }
   }

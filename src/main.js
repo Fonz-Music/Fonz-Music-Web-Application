@@ -28,7 +28,8 @@ import router from "./router";
 import "@/assets/scss/style.scss";
 
 Vue.config.productionTip = false;
-Vue.prototype.$API_URL = "http://localhost:5001/fonz-music-web/us-central1/app";
+// Vue.prototype.$API_URL = "http://localhost:5001/fonz-music-web/us-central1/app";
+Vue.prototype.$API_URL = "https://web.fonzmusic.com";
 Vue.prototype.currency = localStorage.getItem('currency') || 'eur';
 
 new Vue({

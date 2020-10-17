@@ -50,7 +50,7 @@
     <br />
     <p>Got a promo code from a friend?</p>
 
-    <b-form inline class="form-group row">
+    <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode" >
       <b-input
         type="promo"
         class="form-control input-sm col-8"
@@ -169,6 +169,9 @@ export default {
     };
   },
   methods: {
+    addPromoCode() {
+      // communicate with API to add promo code to cart
+    },
     calculateTotalPrice(packagePrice, tax, promo) {
       if (promo) {
         var totalPrice = packagePrice - 5 + tax;

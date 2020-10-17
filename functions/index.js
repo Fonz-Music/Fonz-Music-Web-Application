@@ -8,8 +8,10 @@ global.admin = admin;
 global.db = db;
 
 const PricingDB = db.collection('pricing');
+const AddonsDB = db.collection('addons');
 
 global.PricingDB = PricingDB;
+global.AddonsDB = AddonsDB;
 
 var express = require('express');
 var path = require('path');

@@ -14,14 +14,14 @@
       <div class="col-3">
         <c-image
           class="coasterPackageImage"
-          :src="getImgUrl(coasterPackages.single.thumbnail)"
+          :src="getImgUrl(currentPackage.thumbnail)"
           alt="coaster package"
         />
       </div>
 
       <div class="col-6 product-details">
-        <h4 class="">{{ coasterPackages.single.title }}</h4>
-        <p>{{ coasterPackages.single.information }}</p>
+        <h4 class="">{{ currentPackage.title }}</h4>
+        <p>{{ currentPackage.information }}</p>
       </div>
 
       <div class="col-3 product-price">
@@ -30,12 +30,10 @@
         </div>
         <div v-else>
           <h3 class="text-right">
-            <del>${{ coasterPackages.single.price }}</del>
+            <del>${{ currentPackage.price }}</del>
           </h3>
           <h3 class="text-right">
-            ${{
-              calculateSubtotalPrice(currentPackage.price, promoValid)
-            }}
+            ${{ calculateSubtotalPrice(currentPackage.price, promoValid) }}
           </h3>
         </div>
 
@@ -57,7 +55,7 @@
         type="promo"
         class="form-control input-sm col-8"
         id="inputPromo"
-        placeholder="Promo"
+        v-model="promoCode"
       ></b-input>
 
       <b-button type="submit" class="btn btn-sm btn-link col-3">
@@ -71,9 +69,7 @@
           <tr>
             <th scope="row">Subtotal</th>
             <td>
-              ${{
-                calculateSubtotalPrice(coasterPackages.single.price, promoValid)
-              }}
+              ${{ calculateSubtotalPrice(currentPackage.price, promoValid) }}
             </td>
           </tr>
           <tr>
@@ -92,7 +88,7 @@
           <td>
             ${{
               calculateTotalPrice(
-                coasterPackages.single.price,
+                currentPackage.price,
                 governmentTheft,
                 promoValid
               )
@@ -116,7 +112,9 @@
     </div>
     <br />
     <div class="text-center">
-      <router-link class="btn btn-link" to="/paywithcreditcard/">or checkout with Credit Card</router-link>
+      <router-link class="btn btn-link" to="/paywithcreditcard/"
+        >or checkout with Credit Card</router-link
+      >
     </div>
   </div>
 </template>
@@ -127,12 +125,13 @@ import CImage from "@/components/elements/Image.vue";
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage,
+    CImage
   },
   data() {
     return {
       promoValid: false,
       packagePrice: 60,
+      promoCode: "",
       totalPrice: 60,
       governmentTheft: 2,
       currentPackage: {
@@ -149,23 +148,23 @@ export default {
           price: 27,
           thumbnail: "singleCoasterPackage.png",
           title: "Fonz Coaster",
-          information: "One coaster to connect to the Fonz App",
+          information: "One coaster to connect to the Fonz App"
         },
         double: {
           SKU: "22222222",
           price: 47,
           thumbnail: "twoCoasterPackage.png",
           title: "Two Fonz Coasters",
-          information: "Two Coasters Packaged Together",
+          information: "Two Coasters Packaged Together"
         },
         triple: {
           SKU: "33333333",
           price: 60,
           thumbnail: "threeCoasterPackage.png",
           title: "Three Fonz Coasters",
-          information: "Three Coasters Packaged Together",
-        },
-      },
+          information: "Three Coasters Packaged Together"
+        }
+      }
       // currentPackage: coasterPackages.single
     };
   },
@@ -183,7 +182,7 @@ export default {
       if (promo) return packagePrice - 5;
       else return packagePrice;
     },
-
+    // change to getIMGURL
     getImgUrl(pic) {
       return require("@/assets/images/" + pic);
     },
@@ -191,14 +190,63 @@ export default {
       console.log("pressed update promo");
       evt.preventDefault();
       this.promoValid = !promoValid;
-    },
+    }
   },
   computed: {
     updatePromo() {
       console.log("pressed update promo");
       this.promoValid = !promoValid;
-    },
+    }
   },
+  mounted: {
+    // work in progress
+    getCurrentPackage() {
+      var pricing;
+      axios
+        .get(`${this.$API_URL}/i/prices/${this.currency}`)
+        .then(resp => {
+          pricing = resp.data.pricing;
+          console.log({ pricing });
+          // console.log({ resp })
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      var chosenPackage = localStorage.getItem("package");
+      // determine package details
+      // since its zero based, need to subtract by 1
+      // coasterQuantity = currentPackage = {};
+      if (chosenPackage == 1) {
+        this.currentPackage = {
+          id: pricing[0].product,
+          price: pricing[0].retailPrice,
+          thumbnail: "singleCoasterPackage.png",
+          title: " Single Fonz Coaster",
+          information: "One coaster to connect to the Fonz App",
+          packagedSeperately: false
+        };
+      } else if (chosenPackage == 2) {
+        this.currentPackage = {
+          id: pricing[1].product,
+          price: pricing[1].retailPrice,
+          thumbnail: "twoCoasterPackage.png",
+          title: "Two Fonz Coasters",
+          information: "Two Coasters Packaged Together",
+          packagedSeperately: false
+        };
+      } else if (chosenPackage == 3) {
+        this.currentPackage = {
+          id: pricing[2].product,
+          price: pricing[2].retailPrice,
+          thumbnail: "threeCoasterPackage.png",
+          title: "Three Fonz Coasters",
+          information: "Three Coasters Packaged Together",
+          packagedSeperately: false
+        };
+      }
+    }
+  }
 };
 </script>
 

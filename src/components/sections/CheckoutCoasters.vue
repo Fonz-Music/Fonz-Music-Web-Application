@@ -32,14 +32,8 @@
           <h3 class="text-right">
             <del>${{ currentPackage.price }}</del>
           </h3>
-          <h3 class="text-right">
-            ${{ calculateSubtotalPrice(currentPackage.price, promoValid) }}
-          </h3>
+          <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
         </div>
-
-        <!-- <button class="btn btn-sm btn-outline-primary">
-          fonz
-        </button> -->
       </div>
     </div>
     <div class="text-center">
@@ -50,7 +44,7 @@
     <br />
     <p>Got a promo code from a friend?</p>
 
-    <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode" >
+    <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
       <b-input
         type="promo"
         class="form-control input-sm col-8"
@@ -58,7 +52,11 @@
         v-model="promoCode"
       ></b-input>
 
-      <b-button type="submit" class="btn btn-sm btn-link col-3">
+      <b-button
+        @click="updatePromo"
+        type="submit"
+        class="btn btn-sm btn-link col-3"
+      >
         send it
       </b-button>
     </b-form>
@@ -68,9 +66,7 @@
         <tbody>
           <tr>
             <th scope="row">Subtotal</th>
-            <td>
-              ${{ calculateSubtotalPrice(currentPackage.price, promoValid) }}
-            </td>
+            <td>${{ calculateSubtotalPrice }}</td>
           </tr>
           <tr>
             <th scope="row">Government Theft (Tax)</th>
@@ -85,15 +81,7 @@
             <td>$5</td>
           </tr>
           <th scope="row">Total</th>
-          <td>
-            ${{
-              calculateTotalPrice(
-                currentPackage.price,
-                governmentTheft,
-                promoValid
-              )
-            }}
-          </td>
+          <td>${{ calculateTotalPrice }}</td>
         </tbody>
       </table>
     </div>
@@ -132,7 +120,7 @@ export default {
       promoValid: false,
       packagePrice: 60,
       promoCode: "",
-      totalPrice: 60,
+      totalPrice: 0,
       governmentTheft: 2,
       currentPackage: {
         SKU: "11111111",
@@ -141,50 +129,14 @@ export default {
         title: "Fonz Coaster",
         information: "One coaster to connect to the Fonz App",
         packagedSeperately: false
-      },
-      coasterPackages: {
-        single: {
-          SKU: "11111111",
-          price: 27,
-          thumbnail: "singleCoasterPackage.png",
-          title: "Fonz Coaster",
-          information: "One coaster to connect to the Fonz App"
-        },
-        double: {
-          SKU: "22222222",
-          price: 47,
-          thumbnail: "twoCoasterPackage.png",
-          title: "Two Fonz Coasters",
-          information: "Two Coasters Packaged Together"
-        },
-        triple: {
-          SKU: "33333333",
-          price: 60,
-          thumbnail: "threeCoasterPackage.png",
-          title: "Three Fonz Coasters",
-          information: "Three Coasters Packaged Together"
-        }
       }
-      // currentPackage: coasterPackages.single
     };
   },
   methods: {
     addPromoCode() {
       // communicate with API to add promo code to cart
     },
-    calculateTotalPrice(packagePrice, tax, promo) {
-      if (promo) {
-        var totalPrice = packagePrice - 5 + tax;
-        return totalPrice;
-      } else {
-        var totalPrice = packagePrice + tax;
-        return totalPrice;
-      }
-    },
-    calculateSubtotalPrice(packagePrice, promo) {
-      if (promo) return packagePrice - 5;
-      else return packagePrice;
-    },
+
     // change to getIMGURL
     getImgUrl(pic) {
       return require("@/assets/images/" + pic);
@@ -193,12 +145,25 @@ export default {
       console.log("pressed update promo");
       evt.preventDefault();
       this.promoValid = !promoValid;
+    },
+    updatePromo() {
+      console.log("pressed update promo");
+      this.promoValid = !this.promoValid;
     }
   },
   computed: {
-    updatePromo() {
-      console.log("pressed update promo");
-      this.promoValid = !promoValid;
+    calculateTotalPrice() {
+      if (this.promoValid) {
+        this.totalPrice = this.currentPackage.price - 5 + this.governmentTheft;
+        return this.totalPrice;
+      } else {
+        this.totalPrice = this.currentPackage.price + this.governmentTheft;
+        return this.totalPrice;
+      }
+    },
+    calculateSubtotalPrice() {
+      if (this.promoValid) return this.currentPackage.price - 5;
+      else return this.currentPackage.price;
     }
   },
   mounted: {

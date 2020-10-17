@@ -43,6 +43,9 @@
     <div class="text-center">
       <b-button-group class="mt-2">
         <b-button @click="logOut">Submit</b-button>
+        <router-link class="btn btn-link" to="/ordersuccess/"
+          >or checkout with Credit Card</router-link
+        >
       </b-button-group>
     </div>
   </div>

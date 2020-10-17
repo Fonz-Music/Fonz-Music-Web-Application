@@ -125,7 +125,7 @@ export default {
       currentPackage: {
         SKU: "11111111",
         price: 27,
-        thumbnail: "singleCoasterPackage.png",
+        thumbnail: "coaster1.png",
         title: "Fonz Coaster",
         information: "One coaster to connect to the Fonz App",
         packagedSeperately: false
@@ -189,7 +189,7 @@ export default {
         this.currentPackage = {
           id: pricing[0].product,
           price: pricing[0].retailPrice,
-          thumbnail: "singleCoasterPackage.png",
+          thumbnail: "coaster1.png",
           title: " Single Fonz Coaster",
           information: "One coaster to connect to the Fonz App",
           packagedSeperately: false
@@ -198,7 +198,7 @@ export default {
         this.currentPackage = {
           id: pricing[1].product,
           price: pricing[1].retailPrice,
-          thumbnail: "twoCoasterPackage.png",
+          thumbnail: "coaster2.png",
           title: "Two Fonz Coasters",
           information: "Two Coasters Packaged Together",
           packagedSeperately: false
@@ -207,7 +207,7 @@ export default {
         this.currentPackage = {
           id: pricing[2].product,
           price: pricing[2].retailPrice,
-          thumbnail: "threeCoasterPackage.png",
+          thumbnail: "coaster3.png",
           title: "Three Fonz Coasters",
           information: "Three Coasters Packaged Together",
           packagedSeperately: false

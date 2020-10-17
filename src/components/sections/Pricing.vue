@@ -23,7 +23,11 @@
         />
       </div>
 
-      <div class="tiles-wrap" :class="[pushLeft && 'push-left']" v-show="this.showPricing">
+      <div
+        class="tiles-wrap"
+        :class="[pushLeft && 'push-left']"
+        v-show="this.showPricing"
+      >
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
             <div class="mb-4 center-content">
@@ -45,9 +49,7 @@
                   <span class="pricing-item-price-amount h1">
                     {{ this.perItemPrice(0) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm">
-                    each
-                  </span>
+                  <span class="pricing-item-price-after text-sm"> each </span>
                 </div>
 
                 <div class="text-xs text-color-low">
@@ -65,7 +67,13 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="">{{ this.currencySymbol + this.addons.shipping.price }} Shipping (FREE Shipping on orders over {{ this.currencySymbol + this.pricePlans[0].price }})</li>
+                  <li class="">
+                    {{
+                      this.currencySymbol + this.addons.shipping.price
+                    }}
+                    Shipping (FREE Shipping on orders over
+                    {{ this.currencySymbol + this.pricePlans[0].price }})
+                  </li>
 
                   <li class="">100% waterproof and lightweight</li>
 
@@ -77,7 +85,9 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide @click="updatePackage(0)">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(0)"
+                >Buy Now</c-button
+              >
             </div>
           </div>
         </div>
@@ -103,12 +113,13 @@
                   <span class="pricing-item-price-amount h1">
                     {{ this.perItemPrice(2) }}
                   </span>
-                  <span class="pricing-item-price-amount h3" style="text-decoration: Line-Through; color:orange">
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="text-decoration: Line-Through; color: orange"
+                  >
                     {{ this.getRetailPrice(2) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm">
-                    each
-                  </span>
+                  <span class="pricing-item-price-after text-sm"> each </span>
                 </div>
                 <div class="text-xs text-color-low">
                   Total: {{ this.currencySymbol + this.pricePlans[2].price }}
@@ -126,7 +137,8 @@
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
-                   FREE Shipping (Usually {{ this.currencySymbol + (this.addons.shipping.price * 3) }})
+                    FREE Shipping (Usually
+                    {{ this.currencySymbol + this.addons.shipping.price * 3 }})
                   </li>
 
                   <li class="">Have a coaster to keep for your roadtrips</li>
@@ -139,7 +151,9 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide @click="updatePackage(2)">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(2)"
+                >Buy Now</c-button
+              >
             </div>
           </div>
         </div>
@@ -165,12 +179,13 @@
                   <span class="pricing-item-price-amount h1">
                     {{ this.perItemPrice(1) }}
                   </span>
-                  <span class="pricing-item-price-amount h3" style="text-decoration: Line-Through; color:orange">
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="text-decoration: Line-Through; color: orange"
+                  >
                     {{ this.getRetailPrice(1) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm">
-                    each
-                  </span>
+                  <span class="pricing-item-price-after text-sm"> each </span>
                 </div>
                 <div class="text-xs text-color-low">
                   Total: {{ this.currencySymbol + this.pricePlans[1].price }}
@@ -187,7 +202,8 @@
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
-                    FREE Shipping (Usually {{ this.currencySymbol + (this.addons.shipping.price * 2) }})
+                    FREE Shipping (Usually
+                    {{ this.currencySymbol + this.addons.shipping.price * 2 }})
                   </li>
                   <li class="">
                     Always be ready to turn your car into the dance floor
@@ -196,7 +212,9 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide @click="updatePackage(1)">Buy Now</c-button>
+              <c-button tag="a" color="primary" wide @click="updatePackage(1)"
+                >Buy Now</c-button
+              >
             </div>
           </div>
         </div>
@@ -212,9 +230,12 @@ import CButton from "@/components/elements/Button.vue";
 import CImage from "@/components/elements/Image.vue";
 
 const axios = require("axios");
+import { Checkout } from "@/plugins/checkout.js";
+console.log({ Checkout })
 
 export default {
   name: "CPricing",
+  mixins: [ Checkout ],
   components: {
     CSectionHeader,
     CButton,
@@ -238,29 +259,32 @@ export default {
         paragraph: "",
       },
       priceChangerValue: "1",
-      priceInput: {
-        // 0: "1,000",
-        // 1: "1,250"
-      },
-      priceOutput: {
-        plan1: ["$", "34"],
-        plan2: ["$", "54"],
-        plan3: ["$", "74"],
-      },
+      // priceInput: {
+      //   // 0: "1,000",
+      //   // 1: "1,250"
+      // },
+      // priceOutput: {
+      //   plan1: ["$", "34"],
+      //   plan2: ["$", "54"],
+      //   plan3: ["$", "74"],
+      // },
       showPricing: false,
-      currencySymbol: '€',
+      currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
-      addons: [],
+      addons: { "shipping": {}, "extraPackaging": {} },
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     getRetailPrice(plan) {
-      return (this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity).toFixed(2);
+      return (
+        this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity
+      ).toFixed(2);
     },
     perItemPrice(plan) {
-      return (this.pricePlans[plan].price / this.pricePlans[plan].quantity).toFixed(2);
+      return (
+        this.pricePlans[plan].price / this.pricePlans[plan].quantity
+      ).toFixed(2);
     },
     handlePricingSlide(e) {
       this.handleSliderValuePosition(e.target);
@@ -275,8 +299,8 @@ export default {
     },
     updatePackage(plan) {
       let packageId = this.pricePlans[plan].package;
-      localStorage.setItem('package', packageId);
-      this.$router.push('/checkout')
+      localStorage.setItem("package", packageId);
+      this.$router.push("/checkout");
     },
     getPricing() {
       axios
@@ -301,6 +325,7 @@ export default {
     // this.getPricing();
   },
   mounted() {
+    // this.getPricing();
     // if (this.pricingSlider) {
     //   this.$refs.slider.setAttribute("min", 0);
     //   this.$refs.slider.setAttribute(

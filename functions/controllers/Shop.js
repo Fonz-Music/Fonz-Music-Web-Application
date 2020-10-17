@@ -11,7 +11,23 @@ exports.getRegionalPricing = (currency) => {
                 status: 404,
                 message: `Currency ${currency} does not exist`
             });
-            return resolve(ref.data());
+            const ref2 = await global.AddonsDB
+                .limit(5)
+                .get();
+
+            let addons = {};
+            ref2.forEach((doc) => {
+                // addons.push(doc.id, {
+                    // id: doc.id,
+                    // ...doc.data()
+                // });
+                addons[doc.id] = doc.data();
+            })
+
+            return resolve({
+                pricing: ref.data(),
+                addons
+            });
         } catch (error) {
             reject(error);
         }
@@ -22,8 +38,9 @@ const calculateOrderAmount = items => {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent
     // people from directly manipulating the amount on the client
-    return 1400;
-  };
+
+    return 1400 + items.length;
+};
 
 exports.createPaymentIntent = (items, currency) => {
     return new Promise(async (resolve, reject) => {

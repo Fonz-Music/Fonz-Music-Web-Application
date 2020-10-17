@@ -51,6 +51,8 @@
                 </div>
 
                 <div class="text-xs text-color-low">
+                  Total: {{ this.currencySymbol + this.pricePlans[0].price }}
+                  <br />
                   For the host who loves hearing new tunes with friends and is
                   ready to simplify that process and empower their guests to
                   contribute to the vibe.
@@ -63,7 +65,7 @@
                   Benefits
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
-                  <li class="">Fonz Coaster to integrate with the Fonz App</li>
+                  <li class="">{{ this.currencySymbol + this.addons.shipping.price }} Shipping (FREE Shipping on orders over {{ this.currencySymbol + this.pricePlans[0].price }})</li>
 
                   <li class="">100% waterproof and lightweight</li>
 
@@ -101,6 +103,9 @@
                   <span class="pricing-item-price-amount h1">
                     {{ this.perItemPrice(2) }}
                   </span>
+                  <span class="pricing-item-price-amount h3" style="text-decoration: Line-Through; color:orange">
+                    {{ this.getRetailPrice(2) }}
+                  </span>
                   <span class="pricing-item-price-after text-sm">
                     each
                   </span>
@@ -121,7 +126,7 @@
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
-                    Coasters to leave in multiple rooms during a party
+                   FREE Shipping (Usually {{ this.currencySymbol + (this.addons.shipping.price * 3) }})
                   </li>
 
                   <li class="">Have a coaster to keep for your roadtrips</li>
@@ -160,11 +165,16 @@
                   <span class="pricing-item-price-amount h1">
                     {{ this.perItemPrice(1) }}
                   </span>
+                  <span class="pricing-item-price-amount h3" style="text-decoration: Line-Through; color:orange">
+                    {{ this.getRetailPrice(1) }}
+                  </span>
                   <span class="pricing-item-price-after text-sm">
                     each
                   </span>
                 </div>
                 <div class="text-xs text-color-low">
+                  Total: {{ this.currencySymbol + this.pricePlans[1].price }}
+                  <br />
                   For the chauffeur who is always playing bangers on the drive
                   home and likes hearing new tunes at their hangout sessions.
                 </div>
@@ -177,8 +187,7 @@
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
-                    Keep one in your car, keep the other on your coffeetable,
-                    firepit, or pong table
+                    FREE Shipping (Usually {{ this.currencySymbol + (this.addons.shipping.price * 2) }})
                   </li>
                   <li class="">
                     Always be ready to turn your car into the dance floor
@@ -241,13 +250,17 @@ export default {
       showPricing: false,
       currencySymbol: '€',
       pricePlans: [{}, {}, {}, {}, {}],
+      addons: [],
     };
   },
   computed: {
   },
   methods: {
+    getRetailPrice(plan) {
+      return (this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity).toFixed(2);
+    },
     perItemPrice(plan) {
-      return (this.pricePlans[plan].price / this.pricePlans[plan].quantity).toFixed(2)
+      return (this.pricePlans[plan].price / this.pricePlans[plan].quantity).toFixed(2);
     },
     handlePricingSlide(e) {
       this.handleSliderValuePosition(e.target);
@@ -260,36 +273,21 @@ export default {
       this.$refs.sliderValue.style.left =
         input.clientWidth * multiplier - thumbOffset + priceInputOffset + "px";
     },
-    getPricingData(values, set) {
-      return values[0] + values[1];
-      // return set !== undefined
-      //   ? values[this.priceChangerValue][set]
-      //   : values[this.priceChangerValue];
-    },
     updatePackage(plan) {
       let packageId = this.pricePlans[plan].package;
       localStorage.setItem('package', packageId);
       this.$router.push('/checkout')
-
     },
     getPricing() {
-      // const baseUrl = "http://localhost:5001/fonz-music-web/us-central1/app";
-      // let currency = "eur";
-      console.log("GETTING PRICING")
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
         .then((resp) => {
-          console.log("GOT PRICING")
-          const pricing = resp.data.pricing;
-          console.log({ pricing });
-          pricing.forEach((price, key) => {
-            console.log(key);
-            console.log({ price });
-            console.log(price.retailPrice.toString());
+          const coasterPricing = resp.data.coasters;
+          coasterPricing.forEach((price, key) => {
             this.pricePlans[key] = { ...price, key }
           });
+          this.addons = resp.data.addons;
           this.showPricing = true;
-          // console.log({ resp })
         })
         .catch((error) => {
           console.error(error);

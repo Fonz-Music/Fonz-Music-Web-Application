@@ -5,7 +5,7 @@
 
     <div class="emailSubmit">
       <c-input
-        type="text"
+        type="email"
         placeholder="Email"
         form-group="desktop"
         class="inputEmail"

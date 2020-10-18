@@ -14,23 +14,23 @@
       <div class="col-3">
         <c-image
           class="coasterPackageImage"
-          :src="getImgUrl(getPackageId)"
+          :src="getImgUrl"
           alt="coaster package"
         />
       </div>
 
       <div class="col-6 product-details">
-        <h4 class="">{{ getItemTitle(getPackageId) }}</h4>
-        <p>{{ getItemInfo(getPackageId) }}</p>
+        <h4 class="">{{ getItemTitle }}</h4>
+        <p>{{ getItemInfo }}</p>
       </div>
 
       <div class="col-3 product-price">
         <div v-if="!promoValid">
-          <h3 class="text-right">${{ getRetailPrice(getPackageId) }}</h3>
+          <h3 class="text-right">${{ getRetailPrice }}</h3>
         </div>
         <div v-else>
           <h3 class="text-right">
-            <del>${{ getRetailPrice(getPackageId) }}</del>
+            <del>${{ getRetailPrice }}</del>
           </h3>
           <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
         </div>
@@ -68,10 +68,10 @@
             <th scope="row">Subtotal</th>
             <td>${{ calculateSubtotalPrice }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th scope="row">Government Theft (Tax)</th>
             <td>${{ governmentTheft }}</td>
-          </tr>
+          </tr> -->
           <tr>
             <th scope="row">Shipping</th>
             <td>FREE</td>
@@ -126,76 +126,65 @@ export default {
       totalPrice: 0,
       governmentTheft: 2,
       currentPackage: {
-        SKU: "11111111",
-        price: 27,
-        thumbnail: "coaster1.png",
-        title: "Fonz Coaster",
-        information: "One coaster to connect to the Fonz App",
-        packagedSeperately: false
+        quantity: 1,
+        info: "fonz coaster",
+        price: 22,
+        retailPrice: 60,
+        title: "fonz coaster"
       },
       packageId: "",
       showPricing: false,
       currencySymbol: "€",
-      addons: { shipping: {}, extraPackaging: {} },
+      addons: { shipping: {}, extraPackaging: {} }
     };
   },
+  beforeMount() {
+    this.getPricing();
+  },
+  beforeCreate() {},
   methods: {
-    addPromoCode() {
-      // communicate with API to add promo code to cart
-      // GET /i/coupons/{couponId}
-      if(couponId == VALID) {
-      // PUT /i/cart/coupon/{couponId}
-      }
-    },
-    addAddon() {
-      // GET /i/addons/{addonsId}
-      if(addonId == VALID) {
-      // PUT /i/cart/coupon/{couponId}
-      }
-    },
+    // addPromoCode() {
+    //   // communicate with API to add promo code to cart
+    //   // GET /i/coupons/{couponId}
+    //   if (couponId == VALID) {
+    //     // PUT /i/cart/coupon/{couponId}
+    //   }
+    // },
+    // addAddon() {
+    //   // GET /i/addons/{addonsId}
+    //   if (addonId == VALID) {
+    //     // PUT /i/cart/coupon/{couponId}
+    //   }
+    // },
     // change to getIMGURL
-    getImgUrl(plan) {
-      console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/coaster" +
-        this.pricePlans[plan].quantity +
-        ".png");
-    },
-    getItemTitle(plan) {
-      console.log({ pricePlans: this.pricePlans, other: "idk" })
-      return this.pricePlans[plan].title;
-    },
-    getItemInfo(plan) {
-      return this.pricePlans[plan].info;
-    },
+
     onSubmit(evt) {
       console.log("pressed update promo");
       evt.preventDefault();
-      this.promoValid = !promoValid;
+      this.promoValid = !this.promoValid;
     },
     updatePromo() {
       console.log("pressed update promo");
       this.promoValid = !this.promoValid;
     },
-    getRetailPrice(plan) {
-      return (
-        this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity
-      ).toFixed(2);
-    },
-    perItemPrice(plan) {
-      return (
-        this.pricePlans[plan].price / this.pricePlans[plan].quantity
-      ).toFixed(2);
-    },
-    updatePackage(plan) {
-      let packageId = this.pricePlans[plan].package;
-      localStorage.setItem("package", packageId);
-      this.$router.push("/checkout");
-    },
+
+    // perItemPrice(plan) {
+    //   return (
+    //     this.pricePlans[plan].price / this.pricePlans[plan].quantity
+    //   ).toFixed(2);
+    // },
+    // updatePackage(plan) {
+    //   let packageId = this.pricePlans[plan].package;
+    //   localStorage.setItem("package", packageId);
+    //   this.$router.push("/checkout");
+    // },
     getPricing() {
+      const packageId = localStorage.getItem("package");
       axios
-        .get(`${this.$API_URL}/i/package/${packageId}`)
+        .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then(resp => {
           this.currentPackage = resp.data;
+          console.log(this.currentPackage);
           this.showPricing = true;
         })
         .catch(error => {
@@ -204,10 +193,6 @@ export default {
     }
   },
 
-  beforeMount() {
-  },
-  beforeCreate() {
-  },
   mounted() {
     this.getPricing();
     // if (this.pricingSlider) {
@@ -228,11 +213,10 @@ export default {
   computed: {
     calculateTotalPrice() {
       if (this.promoValid) {
-        this.totalPrice = this.currentPackage.price - 5 + this.governmentTheft;
-        return this.totalPrice;
+        this.currentPackage.price = this.currentPackage.price - 5;
+        return this.currentPackage.price;
       } else {
-        this.totalPrice = this.currentPackage.price + this.governmentTheft;
-        return this.totalPrice;
+        return this.currentPackage.price;
       }
     },
     calculateSubtotalPrice() {
@@ -242,6 +226,21 @@ export default {
     getPackageId() {
       return localStorage.getItem("package");
       // console.log("packageID " + this.packageID);
+    },
+    getImgUrl() {
+      // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
+      return require("@/assets/images/coaster" +
+        this.currentPackage.quantity +
+        ".png");
+    },
+    getItemTitle() {
+      return this.currentPackage.title;
+    },
+    getItemInfo() {
+      return this.currentPackage.info;
+    },
+    getRetailPrice() {
+      return this.currentPackage.price;
     }
   }
 };

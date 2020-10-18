@@ -16,4 +16,9 @@ router.get('/:currency', (req, res) => {
 
 
 
+// GET /i/package/{packageId}
+// GET /i/addons/{addonId}
+// GET /i/coupons/{couponId}
+
+
 module.exports = router;

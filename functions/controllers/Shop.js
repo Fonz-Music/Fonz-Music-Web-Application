@@ -34,6 +34,26 @@ exports.getRegionalPricing = (currency) => {
     });
 };
 
+
+exports.getPackageInformation = (packageId, currency) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let pricing = await this.getRegionalPricing(currency);
+            pricing = pricing.pricing.pricing;
+            console.log({ pricing })
+            pricing.forEach((packageD) => {
+                if(packageD.package == packageId) return resolve(
+                    packageD
+                );
+            });
+
+            reject({ message: "This package does not exist."})
+        } catch(error) {
+            reject(error);
+        }
+    })
+}
+
 const calculateOrderAmount = items => {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent

@@ -136,26 +136,36 @@ export default {
       packageId: "",
       showPricing: false,
       currencySymbol: "€",
-      pricePlans: [{}, {}, {}, {}, {}],
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
     };
   },
   methods: {
     addPromoCode() {
       // communicate with API to add promo code to cart
+      // GET /i/coupons/{couponId}
+      if(couponId == VALID) {
+      // PUT /i/cart/coupon/{couponId}
+      }
     },
-
+    addAddon() {
+      // GET /i/addons/{addonsId}
+      if(addonId == VALID) {
+      // PUT /i/cart/coupon/{couponId}
+      }
+    },
     // change to getIMGURL
     getImgUrl(plan) {
+      console.log({ pricePlans: this.pricePlans, other: "idk", plan })
       return require("@/assets/images/coaster" +
-        this.pricePlans[plans].quantity +
+        this.pricePlans[plan].quantity +
         ".png");
     },
     getItemTitle(plan) {
-      return this.pricePlans[plans].title;
+      console.log({ pricePlans: this.pricePlans, other: "idk" })
+      return this.pricePlans[plan].title;
     },
     getItemInfo(plan) {
-      return this.pricePlans[plans].info;
+      return this.pricePlans[plan].info;
     },
     onSubmit(evt) {
       console.log("pressed update promo");
@@ -183,13 +193,9 @@ export default {
     },
     getPricing() {
       axios
-        .get(`${this.$API_URL}/i/prices/${this.currency}`)
+        .get(`${this.$API_URL}/i/package/${packageId}`)
         .then(resp => {
-          const coasterPricing = resp.data.coasters;
-          coasterPricing.forEach((price, key) => {
-            this.pricePlans[key] = { ...price, key };
-          });
-          this.addons = resp.data.addons;
+          this.currentPackage = resp.data;
           this.showPricing = true;
         })
         .catch(error => {
@@ -199,13 +205,11 @@ export default {
   },
 
   beforeMount() {
-    this.getPricing();
   },
   beforeCreate() {
-    // this.getPricing();
   },
   mounted() {
-    // this.getPricing();
+    this.getPricing();
     // if (this.pricingSlider) {
     //   this.$refs.slider.setAttribute("min", 0);
     //   this.$refs.slider.setAttribute(

@@ -5,7 +5,7 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color',
+      invertColor && 'invert-color'
     ]"
   >
     <div class="container">
@@ -13,7 +13,7 @@
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider',
+          bottomDivider && 'has-bottom-divider'
         ]"
       >
         <c-section-header
@@ -68,9 +68,7 @@
                 </div>
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
-                    {{
-                      this.currencySymbol + this.addons.shipping.price
-                    }}
+                    {{ this.currencySymbol + this.addons.shipping.price }}
                     Shipping (FREE Shipping on orders over
                     {{ this.currencySymbol + this.pricePlans[0].price }})
                   </li>
@@ -231,32 +229,32 @@ import CImage from "@/components/elements/Image.vue";
 
 const axios = require("axios");
 import { Checkout } from "@/plugins/checkout.js";
-console.log({ Checkout })
+console.log({ Checkout });
 
 export default {
   name: "CPricing",
-  mixins: [ Checkout ],
+  mixins: [Checkout],
   components: {
     CSectionHeader,
     CButton,
-    CImage,
+    CImage
   },
   mixins: [SectionTilesProps],
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false,
+      default: false
     },
     pricingSlider: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: "",
+        paragraph: ""
       },
       priceChangerValue: "1",
       // priceInput: {
@@ -271,7 +269,7 @@ export default {
       showPricing: false,
       currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
-      addons: { "shipping": {}, "extraPackaging": {} },
+      addons: { shipping: {}, extraPackaging: {} }
     };
   },
   computed: {},
@@ -305,18 +303,18 @@ export default {
     getPricing() {
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
-        .then((resp) => {
+        .then(resp => {
           const coasterPricing = resp.data.coasters;
           coasterPricing.forEach((price, key) => {
-            this.pricePlans[key] = { ...price, key }
+            this.pricePlans[key] = { ...price, key };
           });
           this.addons = resp.data.addons;
           this.showPricing = true;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
-    },
+    }
   },
   beforeMount() {
     this.getPricing();
@@ -340,6 +338,6 @@ export default {
     //   );
     //   this.handleSliderValuePosition(this.$refs.slider);
     // }
-  },
+  }
 };
 </script>

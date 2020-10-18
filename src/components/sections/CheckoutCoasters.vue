@@ -14,23 +14,23 @@
       <div class="col-3">
         <c-image
           class="coasterPackageImage"
-          :src="getImgUrl(currentPackage.thumbnail)"
+          :src="getImgUrl(getPackageId)"
           alt="coaster package"
         />
       </div>
 
       <div class="col-6 product-details">
-        <h4 class="">{{ currentPackage.title }}</h4>
-        <p>{{ currentPackage.information }}</p>
+        <h4 class="">{{ getItemTitle(getPackageId) }}</h4>
+        <p>{{ getItemInfo(getPackageId) }}</p>
       </div>
 
       <div class="col-3 product-price">
         <div v-if="!promoValid">
-          <h3 class="text-right">${{ currentPackage.price }}</h3>
+          <h3 class="text-right">${{ getRetailPrice(getPackageId) }}</h3>
         </div>
         <div v-else>
           <h3 class="text-right">
-            <del>${{ currentPackage.price }}</del>
+            <del>${{ getRetailPrice(getPackageId) }}</del>
           </h3>
           <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
         </div>
@@ -108,8 +108,11 @@
 </template>
 
 <script>
+import { SectionTilesProps } from "@/utils/SectionProps.js";
 import CImage from "@/components/elements/Image.vue";
-
+const axios = require("axios");
+import { Checkout } from "@/plugins/checkout.js";
+console.log({ Checkout });
 export default {
   name: "CCheckoutCoasters",
   components: {
@@ -129,7 +132,12 @@ export default {
         title: "Fonz Coaster",
         information: "One coaster to connect to the Fonz App",
         packagedSeperately: false
-      }
+      },
+      packageId: "",
+      showPricing: false,
+      currencySymbol: "€",
+      pricePlans: [{}, {}, {}, {}, {}],
+      addons: { shipping: {}, extraPackaging: {} }
     };
   },
   methods: {
@@ -138,8 +146,16 @@ export default {
     },
 
     // change to getIMGURL
-    getImgUrl(pic) {
-      return require("@/assets/images/" + pic);
+    getImgUrl(plan) {
+      return require("@/assets/images/coaster" +
+        this.pricePlans[plans].quantity +
+        ".png");
+    },
+    getItemTitle(plan) {
+      return this.pricePlans[plans].title;
+    },
+    getItemInfo(plan) {
+      return this.pricePlans[plans].info;
     },
     onSubmit(evt) {
       console.log("pressed update promo");
@@ -149,7 +165,61 @@ export default {
     updatePromo() {
       console.log("pressed update promo");
       this.promoValid = !this.promoValid;
+    },
+    getRetailPrice(plan) {
+      return (
+        this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity
+      ).toFixed(2);
+    },
+    perItemPrice(plan) {
+      return (
+        this.pricePlans[plan].price / this.pricePlans[plan].quantity
+      ).toFixed(2);
+    },
+    updatePackage(plan) {
+      let packageId = this.pricePlans[plan].package;
+      localStorage.setItem("package", packageId);
+      this.$router.push("/checkout");
+    },
+    getPricing() {
+      axios
+        .get(`${this.$API_URL}/i/prices/${this.currency}`)
+        .then(resp => {
+          const coasterPricing = resp.data.coasters;
+          coasterPricing.forEach((price, key) => {
+            this.pricePlans[key] = { ...price, key };
+          });
+          this.addons = resp.data.addons;
+          this.showPricing = true;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
+  },
+
+  beforeMount() {
+    this.getPricing();
+  },
+  beforeCreate() {
+    // this.getPricing();
+  },
+  mounted() {
+    // this.getPricing();
+    // if (this.pricingSlider) {
+    //   this.$refs.slider.setAttribute("min", 0);
+    //   this.$refs.slider.setAttribute(
+    //     "max",
+    //     Object.keys(this.priceInput).length - 1
+    //   );
+    //   this.thumbSize = parseInt(
+    //     window
+    //       .getComputedStyle(this.$refs.sliderValue)
+    //       .getPropertyValue("--thumb-size"),
+    //     10
+    //   );
+    //   this.handleSliderValuePosition(this.$refs.slider);
+    // }
   },
   computed: {
     calculateTotalPrice() {
@@ -164,55 +234,10 @@ export default {
     calculateSubtotalPrice() {
       if (this.promoValid) return this.currentPackage.price - 5;
       else return this.currentPackage.price;
-    }
-  },
-  mounted: {
-    // work in progress
-    getCurrentPackage() {
-      var pricing;
-      axios
-        .get(`${this.$API_URL}/i/prices/${this.currency}`)
-        .then(resp => {
-          pricing = resp.data.pricing;
-          console.log({ pricing });
-          // console.log({ resp })
-        })
-        .catch(error => {
-          console.error(error);
-        });
-
-      var chosenPackage = localStorage.getItem("package");
-      // determine package details
-      // since its zero based, need to subtract by 1
-      // coasterQuantity = currentPackage = {};
-      if (chosenPackage == 1) {
-        this.currentPackage = {
-          id: pricing[0].product,
-          price: pricing[0].retailPrice,
-          thumbnail: "coaster1.png",
-          title: " Single Fonz Coaster",
-          information: "One coaster to connect to the Fonz App",
-          packagedSeperately: false
-        };
-      } else if (chosenPackage == 2) {
-        this.currentPackage = {
-          id: pricing[1].product,
-          price: pricing[1].retailPrice,
-          thumbnail: "coaster2.png",
-          title: "Two Fonz Coasters",
-          information: "Two Coasters Packaged Together",
-          packagedSeperately: false
-        };
-      } else if (chosenPackage == 3) {
-        this.currentPackage = {
-          id: pricing[2].product,
-          price: pricing[2].retailPrice,
-          thumbnail: "coaster3.png",
-          title: "Three Fonz Coasters",
-          information: "Three Coasters Packaged Together",
-          packagedSeperately: false
-        };
-      }
+    },
+    getPackageId() {
+      return localStorage.getItem("package");
+      // console.log("packageID " + this.packageID);
     }
   }
 };

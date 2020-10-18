@@ -5,7 +5,7 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color'
+      invertColor && 'invert-color',
     ]"
   >
     <div class="container">
@@ -13,7 +13,7 @@
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider'
+          bottomDivider && 'has-bottom-divider',
         ]"
       >
         <c-section-header
@@ -237,24 +237,24 @@ export default {
   components: {
     CSectionHeader,
     CButton,
-    CImage
+    CImage,
   },
   mixins: [SectionTilesProps],
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false
+      default: false,
     },
     pricingSlider: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: ""
+        paragraph: "",
       },
       priceChangerValue: "1",
       // priceInput: {
@@ -269,7 +269,7 @@ export default {
       showPricing: false,
       currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
     };
   },
   computed: {},
@@ -297,13 +297,36 @@ export default {
     },
     updatePackage(plan) {
       let packageId = this.pricePlans[plan].package;
-      localStorage.setItem("package", packageId);
-      this.$router.push("/checkout");
+      if (this.cartId) {
+        // update CART
+        axios
+          .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
+          .then((resp) => {
+            localStorage.setItem("package", packageId);
+            this.$router.push("/checkout");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        // create CART
+        axios
+          .post(`/i/cart/${packageId}/${this.currency}`)
+          .then((resp) => {
+            const cartId = resp.data.cartId;
+            localStorage.setItem("cartId", cartId);
+            localStorage.setItem("package", packageId);
+            this.$router.push("/checkout");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
     getPricing() {
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
-        .then(resp => {
+        .then((resp) => {
           const coasterPricing = resp.data.coasters;
           coasterPricing.forEach((price, key) => {
             this.pricePlans[key] = { ...price, key };
@@ -311,10 +334,10 @@ export default {
           this.addons = resp.data.addons;
           this.showPricing = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
-    }
+    },
   },
   beforeMount() {
     this.getPricing();
@@ -338,6 +361,6 @@ export default {
     //   );
     //   this.handleSliderValuePosition(this.$refs.slider);
     // }
-  }
+  },
 };
 </script>

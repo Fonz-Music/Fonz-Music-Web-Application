@@ -9,9 +9,11 @@ global.db = db;
 
 const PricingDB = db.collection('pricing');
 const AddonsDB = db.collection('addons');
+const CartDB = db.collection('cart');
 
 global.PricingDB = PricingDB;
 global.AddonsDB = AddonsDB;
+global.CartDB = CartDB;
 
 var express = require('express');
 var path = require('path');
@@ -25,7 +27,7 @@ const PricesRoute = require('./routes/Prices');
 const CheckoutRoute = require('./routes/Checkout');
 const RecentBuyerRoute = require('./routes/RecentBuyer');
 const PackageRoute = require('./routes/Package');
-// const CartRoute = require('./routes/Cart');
+const CartRoute = require('./routes/Cart');
 
 const cors = require('cors')
 app.use(cors())
@@ -41,7 +43,7 @@ app.use('/i', StatusRoute);
 app.use('/i/orders', RecentBuyerRoute);
 app.use('/i/prices', PricesRoute);
 app.use('/i/package', PackageRoute);
-// app.use('/i/cart', CartRoute);
+app.use('/i/cart', CartRoute);
 app.use('/i/checkout', CheckoutRoute);
 
 app.use((req, res) => {

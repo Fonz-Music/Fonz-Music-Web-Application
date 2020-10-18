@@ -17,6 +17,7 @@
         placeholder="Number"
         form-group="desktop"
         class="inputCreditNumber"
+        v-cardformat:formatCardNumber
         v-model="value.creditCardNumber"
       >
       </c-input>
@@ -27,6 +28,7 @@
         placeholder="Date"
         form-group="desktop"
         class="inputCreditDate"
+        v-cardformat:formatCardExpiry
         v-model="value.creditCardDate"
       >
       </c-input>
@@ -37,6 +39,7 @@
         placeholder="Security Code"
         form-group="desktop"
         class="inputSecurityCode"
+        v-cardformat:formatCardCVC
         v-model="value.creditCardCsv"
       ></c-input>
     </div>
@@ -52,6 +55,7 @@
 </template>
 
 <script>
+import VueCardFormat from "vue-credit-card-validation";
 import CInput from "@/components/elements/Input.vue";
 // import CButton from "@/components/elements/Button.vue";
 export default {
@@ -69,7 +73,8 @@ export default {
     }
   },
   components: {
-    CInput
+    CInput,
+    VueCardFormat
     // CButton
   },
   methods: {

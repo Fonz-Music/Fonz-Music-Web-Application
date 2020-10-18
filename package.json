@@ -30,6 +30,7 @@
     "path": "^0.12.7",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
+    "vue-credit-card-validation": "^0.1.9",
     "vue-router": "^3.0.3",
     "vue2-google-maps": "^0.10.7",
     "vuetify": "^2.3.12"

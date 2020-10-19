@@ -444,10 +444,7 @@ export default {
 .pricing .tiles-item-inner {
   background: #d7d7d7 !important;
 }
-.pricing .tiles-item-inner h1,
-h2,
-h3,
-li,
+.pricing .tiles-item-inner h3,
 p {
   color: white !important;
 }

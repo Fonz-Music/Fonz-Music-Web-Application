@@ -16,11 +16,15 @@
           bottomDivider && 'has-bottom-divider'
         ]"
       >
-        <c-section-header
-          :data="sectionHeader"
-          tag="h1"
-          class="center-content reveal-from-bottom"
-        />
+        <h2
+          class="mt-0 mb-16 reveal-from-bottom text-center favorite-host"
+          data-reveal-delay="150"
+        >
+          <!-- Make music
+        <span style="color: #fcc485;">collaborative</span> again. -->
+          are you ready to become your friend&apos;s
+          <span style="color: #fcc485;">favorite host?</span>
+        </h2>
       </div>
 
       <div
@@ -30,7 +34,7 @@
       >
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="mb-2 row">
+            <div class="coaster-package-info row">
               <div class="col-8 coaster-name">
                 <h2>1 Coaster</h2>
               </div>
@@ -78,8 +82,7 @@
                 <ul class="pricing-item-features-list list-reset text-xs mb-32">
                   <li class="">
                     {{ this.currencySymbol + this.addons.shipping.price }}
-                    Shipping (FREE Shipping on orders over
-                    {{ this.currencySymbol + this.pricePlans[0].price }})
+                    Shipping (FREE Shipping on purchases of two or more)
                   </li>
 
                   <li class="">100% waterproof and lightweight</li>
@@ -92,7 +95,12 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide @click="updatePackage(0)"
+              <c-button
+                class="buy-now-button"
+                tag="a"
+                color="primary"
+                wide
+                @click="updatePackage(0)"
                 >Buy Now</c-button
               >
             </div>
@@ -101,11 +109,11 @@
 
         <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
           <div class="tiles-item-inner">
-            <div class="mb-2 row">
+            <div class="coaster-package-info row">
               <div class="col-8 coaster-name">
                 <h2>3 Coasters</h2>
               </div>
-              <div class="col-4 text-right">
+              <div class="col-4 text-right package-price">
                 <span class="pricing-item-price-currency h3">
                   {{ this.currencySymbol }}
                 </span>
@@ -171,7 +179,12 @@
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
-              <c-button tag="a" color="primary" wide @click="updatePackage(2)"
+              <c-button
+                class="buy-now-button"
+                tag="a"
+                color="primary"
+                wide
+                @click="updatePackage(2)"
                 >Buy Now</c-button
               >
             </div>
@@ -180,11 +193,11 @@
 
         <div class="tiles-item reveal-from-left" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="mb-2 row">
+            <div class="coaster-package-info row">
               <div class="col-8 coaster-name">
                 <h2>2 Coasters</h2>
               </div>
-              <div class="col-4 text-right">
+              <div class="col-4 text-right package-price">
                 <span class="pricing-item-price-currency h3">
                   {{ this.currencySymbol }}
                 </span>
@@ -240,6 +253,9 @@
                   </li>
                   <li class="">
                     Always be ready to turn your car into the dance floor
+                  </li>
+                  <li class="">
+                    Give to a friend to share songs spontaneously
                   </li>
                 </ul>
               </div>
@@ -401,8 +417,27 @@ export default {
 </script>
 
 <style media="screen">
+.favorite-host {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.coaster-package-info {
+  height: 200px;
+}
+.coaster-name {
+  height: 150px !important;
+}
 .coaster-name h2 {
   padding: 0;
   margin-top: 5px;
+}
+.package-price {
+  height: 150px;
+}
+.tiles-item-inner {
+  border-radius: 25px;
+}
+.button-primary {
+  border-radius: 15px !important;
 }
 </style>

@@ -43,7 +43,12 @@
               friends, go ahead.
             </p>
             <div class="reveal-from-bottom" data-reveal-delay="600">
-              <c-button tag="a" color="primary" wide-mobile href="/checkout">
+              <c-button
+                tag="a"
+                color="primary"
+                wide-mobile
+                href="#pricingSection"
+              >
                 Buy Your Coaster
               </c-button>
             </div>

@@ -1,9 +1,7 @@
 <template>
   <fragment>
-    <c-HeroFull />
-    <c-HeroFull02 />
-
     <c-pricing pricing-switcher class="illustration-section-02" />
+    <c-HeroFull />
   </fragment>
 </template>
 

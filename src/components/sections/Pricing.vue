@@ -5,15 +5,15 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color',
+      invertColor && 'invert-color'
     ]"
   >
-    <div class="container">
+    <div class="container" id="pricingSection">
       <div
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider',
+          bottomDivider && 'has-bottom-divider'
         ]"
       >
         <c-section-header
@@ -30,8 +30,21 @@
       >
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="mb-4 center-content">
-              <h4>1 Coaster</h4>
+            <div class="mb-2 row">
+              <div class="col-8 coaster-name">
+                <h2>1 Coaster</h2>
+              </div>
+              <div class="col-4 text-right">
+                <span class="pricing-item-price-currency h3">
+                  {{ this.currencySymbol }}
+                </span>
+                <span
+                  class="pricing-item-price-amount h1"
+                  style="color: #B288B9"
+                >
+                  {{ this.pricePlans[0].price }}
+                </span>
+              </div>
             </div>
             <c-image
               class="image-medium"
@@ -42,19 +55,15 @@
             />
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
-                <div class="pricing-item-price mb-4">
+                <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
                   </span>
-                  <span class="pricing-item-price-amount h1">
+                  <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(0) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm"> each </span>
                 </div>
-
                 <div class="text-xs text-color-low">
-                  Total: {{ this.currencySymbol + this.pricePlans[0].price }}
-                  <br />
                   For the host who loves hearing new tunes with friends and is
                   ready to simplify that process and empower their guests to
                   contribute to the vibe.
@@ -92,8 +101,21 @@
 
         <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
           <div class="tiles-item-inner">
-            <div class="mb-4 center-content">
-              <h4>3 Coasters</h4>
+            <div class="mb-2 row">
+              <div class="col-8 coaster-name">
+                <h2>3 Coasters</h2>
+              </div>
+              <div class="col-4 text-right">
+                <span class="pricing-item-price-currency h3">
+                  {{ this.currencySymbol }}
+                </span>
+                <span
+                  class="pricing-item-price-amount h1"
+                  style="color: #B288B9"
+                >
+                  {{ this.pricePlans[2].price }}
+                </span>
+              </div>
             </div>
             <c-image
               class="image-medium"
@@ -104,11 +126,11 @@
             />
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
-                <div class="pricing-item-price mb-4">
+                <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
                   </span>
-                  <span class="pricing-item-price-amount h1">
+                  <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(2) }}
                   </span>
                   <span
@@ -117,11 +139,11 @@
                   >
                     {{ this.getRetailPrice(2) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm"> each </span>
+                  <span class="pricing-item-price-after text-sm"
+                    >&nbsp;each
+                  </span>
                 </div>
                 <div class="text-xs text-color-low">
-                  Total: {{ this.currencySymbol + this.pricePlans[2].price }}
-                  <br />
                   For the DJ who adores throwing parties, tailgates, and
                   pre-games. No more leaving your laptop open, being
                   interrupted, or giving your phone to a stranger.
@@ -158,8 +180,21 @@
 
         <div class="tiles-item reveal-from-left" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="mb-4">
-              <h4>2 Coasters</h4>
+            <div class="mb-2 row">
+              <div class="col-8 coaster-name">
+                <h2>2 Coasters</h2>
+              </div>
+              <div class="col-4 text-right">
+                <span class="pricing-item-price-currency h3">
+                  {{ this.currencySymbol }}
+                </span>
+                <span
+                  class="pricing-item-price-amount h1"
+                  style="color: #B288B9"
+                >
+                  {{ this.pricePlans[1].price }}
+                </span>
+              </div>
             </div>
             <c-image
               class="image-medium"
@@ -170,11 +205,11 @@
             />
             <div class="pricing-item-content">
               <div class="pricing-item-header pb-24 mb-24">
-                <div class="pricing-item-price mb-4">
+                <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
                   </span>
-                  <span class="pricing-item-price-amount h1">
+                  <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(1) }}
                   </span>
                   <span
@@ -183,11 +218,11 @@
                   >
                     {{ this.getRetailPrice(1) }}
                   </span>
-                  <span class="pricing-item-price-after text-sm"> each </span>
+                  <span class="pricing-item-price-after text-sm"
+                    >&nbsp;each
+                  </span>
                 </div>
                 <div class="text-xs text-color-low">
-                  Total: {{ this.currencySymbol + this.pricePlans[1].price }}
-                  <br />
                   For the chauffeur who is always playing bangers on the drive
                   home and likes hearing new tunes at their hangout sessions.
                 </div>
@@ -237,24 +272,24 @@ export default {
   components: {
     CSectionHeader,
     CButton,
-    CImage,
+    CImage
   },
   mixins: [SectionTilesProps],
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false,
+      default: false
     },
     pricingSlider: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: "",
+        paragraph: ""
       },
       priceChangerValue: "1",
       // priceInput: {
@@ -269,7 +304,7 @@ export default {
       showPricing: false,
       currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
-      addons: { shipping: {}, extraPackaging: {} },
+      addons: { shipping: {}, extraPackaging: {} }
     };
   },
   computed: {},
@@ -301,24 +336,24 @@ export default {
         // update CART
         axios
           .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
-          .then((resp) => {
+          .then(resp => {
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
-          .catch((error) => {
+          .catch(error => {
             console.error(error);
           });
       } else {
         // create CART
         axios
           .post(`/i/cart/${packageId}/${this.currency}`)
-          .then((resp) => {
+          .then(resp => {
             const cartId = resp.data.cartId;
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
-          .catch((error) => {
+          .catch(error => {
             console.error(error);
           });
       }
@@ -326,7 +361,7 @@ export default {
     getPricing() {
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
-        .then((resp) => {
+        .then(resp => {
           const coasterPricing = resp.data.coasters;
           coasterPricing.forEach((price, key) => {
             this.pricePlans[key] = { ...price, key };
@@ -334,10 +369,10 @@ export default {
           this.addons = resp.data.addons;
           this.showPricing = true;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
-    },
+    }
   },
   beforeMount() {
     this.getPricing();
@@ -361,6 +396,13 @@ export default {
     //   );
     //   this.handleSliderValuePosition(this.$refs.slider);
     // }
-  },
+  }
 };
 </script>
+
+<style media="screen">
+.coaster-name h2 {
+  padding: 0;
+  margin-top: 5px;
+}
+</style>

@@ -34,11 +34,11 @@
       >
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row single-coaster-package">
+            <div class="coaster-package-info row">
               <div class="col-8 coaster-name">
                 <h2>1 coaster</h2>
               </div>
-              <div class="col-4 text-right">
+              <div class="col-4 text-right coaster-price">
                 <span class="pricing-item-price-currency h3">
                   {{ this.currencySymbol }}
                 </span>
@@ -58,7 +58,7 @@
               :height="400"
             />
             <div class="pricing-item-content">
-              <div class="pricing-item-header pb-24 mb-24">
+              <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
@@ -67,19 +67,16 @@
                     {{ this.perItemPrice(0) }}
                   </span>
                 </div>
-                <div class="text-xs text-color-low">
-                  For the host who loves hearing new tunes with friends and is
-                  ready to simplify that process and empower their guests to
-                  contribute to the vibe.
+                <div class="text-xs">
+                  <p>
+                    For the host who loves hearing new tunes with friends and is
+                    ready to simplify that process and empower their guests to
+                    contribute to the vibe.
+                  </p>
                 </div>
               </div>
-              <div class="pricing-item-features mb-40">
-                <div
-                  class="pricing-item-features-title h6 text-xs text-color-high mb-24"
-                >
-                  Benefits
-                </div>
-                <ul class="pricing-item-features-list list-reset text-xs mb-32">
+              <div class=" mb-40">
+                <ul class="package-benefits">
                   <li class="">
                     {{ this.currencySymbol + this.addons.shipping.price }}
                     Shipping (FREE Shipping on purchases of two or more)
@@ -109,31 +106,33 @@
 
         <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row">
-              <div class="col-8 coaster-name">
-                <h2>3 coasters</h2>
+            <div class="coaster-package-info">
+              <div class="row">
+                <div class="col-8 coaster-name">
+                  <h2>3 coasters</h2>
+                </div>
+                <div class="col-4 text-right coaster-price">
+                  <span class="pricing-item-price-currency h3">
+                    {{ this.currencySymbol }}
+                  </span>
+                  <span
+                    class="pricing-item-price-amount h1"
+                    style="color: #B288B9"
+                  >
+                    {{ this.pricePlans[2].price }}
+                  </span>
+                </div>
               </div>
-              <div class="col-4 text-right package-price">
-                <span class="pricing-item-price-currency h3">
-                  {{ this.currencySymbol }}
-                </span>
-                <span
-                  class="pricing-item-price-amount h1"
-                  style="color: #B288B9"
-                >
-                  {{ this.pricePlans[2].price }}
-                </span>
-              </div>
-            </div>
-            <div class="percent-and-shipping">
-              <div class="percent-off">
-                <span
-                  class="pricing-item-price-amount h3"
-                  style="color: orange"
-                >
-                  {{ this.pricePlans[2].discount }}
-                </span>
-                <span class="p">% off &amp; FREE shipping</span>
+              <div class="percent-and-shipping">
+                <div class="percent-off">
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="color: orange"
+                  >
+                    {{ this.pricePlans[2].discount }}
+                  </span>
+                  <span class="p">% off &amp; FREE shipping</span>
+                </div>
               </div>
             </div>
             <c-image
@@ -144,7 +143,7 @@
               :height="400"
             />
             <div class="pricing-item-content">
-              <div class="pricing-item-header pb-24 mb-24">
+              <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
@@ -162,19 +161,16 @@
                     >&nbsp;each
                   </span>
                 </div>
-                <div class="text-xs text-color-low">
-                  For the DJ who adores throwing parties, tailgates, and
-                  pre-games. No more leaving your laptop open, being
-                  interrupted, or giving your phone to a stranger.
+                <div class="text-xs">
+                  <p>
+                    For the DJ who adores throwing parties, tailgates, and
+                    pre-games. No more leaving your laptop open, being
+                    interrupted, or giving your phone to a stranger.
+                  </p>
                 </div>
               </div>
-              <div class="pricing-item-features mb-40">
-                <div
-                  class="pricing-item-features-title h6 text-xs text-color-high mb-24"
-                >
-                  Benefits
-                </div>
-                <ul class="pricing-item-features-list list-reset text-xs mb-32">
+              <div class="">
+                <ul class="package-benefits">
                   <li class="">
                     FREE Shipping (Usually
                     {{ this.currencySymbol + this.addons.shipping.price * 3 }})
@@ -204,30 +200,32 @@
 
         <div class="tiles-item reveal-from-left" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row double-coaster-package">
-              <div class="col-8 coaster-name">
-                <h2>2 coasters</h2>
-              </div>
-              <div class="col-4 text-right package-price">
-                <span class="pricing-item-price-currency h3">
-                  {{ this.currencySymbol }}
-                </span>
-                <span
-                  class="pricing-item-price-amount h1"
-                  style="color: #B288B9"
-                >
-                  {{ this.pricePlans[1].price }}
-                </span>
-              </div>
-              <div class="percent-and-shipping ">
-                <div class="percent-off">
-                  <span
-                    class="pricing-item-price-amount h3"
-                    style="color: orange"
-                  >
-                    {{ this.pricePlans[1].discount }}
+            <div class="coaster-package-info">
+              <div class=" row">
+                <div class="col-8 coaster-name">
+                  <h2>2 coasters</h2>
+                </div>
+                <div class="col-4 text-right coaster-price">
+                  <span class="pricing-item-price-currency h3">
+                    {{ this.currencySymbol }}
                   </span>
-                  <span class="p">% off &amp; FREE shipping</span>
+                  <span
+                    class="pricing-item-price-amount h1"
+                    style="color: #B288B9"
+                  >
+                    {{ this.pricePlans[1].price }}
+                  </span>
+                </div>
+                <div class="percent-and-shipping ">
+                  <div class="percent-off">
+                    <span
+                      class="pricing-item-price-amount h3"
+                      style="color: orange"
+                    >
+                      {{ this.pricePlans[1].discount }}
+                    </span>
+                    <span class="p">% off &amp; FREE shipping</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -239,7 +237,7 @@
               :height="400"
             />
             <div class="pricing-item-content">
-              <div class="pricing-item-header pb-24 mb-24">
+              <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
                     {{ this.currencySymbol }}
@@ -264,13 +262,8 @@
                   </p>
                 </div>
               </div>
-              <div class="pricing-item-features mb-40">
-                <div
-                  class="pricing-item-features-title h6 text-xs text-color-high mb-24"
-                >
-                  Benefits
-                </div>
-                <ul class="pricing-item-features-list list-reset text-xs mb-32">
+              <div class="">
+                <ul class="package-benefits">
                   <li class="">
                     FREE Shipping (Usually
                     {{ this.currencySymbol + this.addons.shipping.price * 2 }})
@@ -453,14 +446,18 @@ p {
   margin: 0 auto;
 }
 .coaster-package-info {
-  height: 75px;
+  height: 100px;
 }
 .single-coaster-package,
-.double-coaster-package {
-  height: 140px;
+.double-coaster-package,
+.triple-coaster-package {
+  height: 50px;
 }
 .coaster-name {
-  /* height: 150px !important; */
+  padding: 0 10px;
+}
+.coaster-price {
+  padding: 0 10px;
 }
 .percent-and-shipping {
   margin-bottom: 25px;
@@ -472,11 +469,16 @@ p {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
 .tiles-item-inner {
   border-radius: 25px;
+  padding-top: 10px !important;
 }
 .button-primary {
   border-radius: 15px !important;
+}
+.package-benefits {
+  list-style: circle !important;
+  color: white;
+  font-size: 12pt;
 }
 </style>

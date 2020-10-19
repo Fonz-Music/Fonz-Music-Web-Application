@@ -54,4 +54,7 @@ export default {
 .we-love-music {
   max-width: 900px;
 }
+.we-love-music p {
+  color: grey !important;
+}
 </style>

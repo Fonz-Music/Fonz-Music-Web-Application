@@ -176,3 +176,8 @@ export default {
   }
 };
 </script>
+<style media="screen">
+.team p {
+  color: grey !important;
+}
+</style>

@@ -52,7 +52,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/splashcoaster.png')"
+              :src="require('@/assets/images/coaster1.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"
@@ -138,7 +138,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/splashcoaster.png')"
+              :src="require('@/assets/images/coaster3.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"
@@ -233,7 +233,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/splashcoaster.png')"
+              :src="require('@/assets/images/coaster2.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"
@@ -257,9 +257,11 @@
                     >&nbsp;each
                   </span>
                 </div>
-                <div class="text-xs text-color-low">
-                  For the chauffeur who is always playing bangers on the drive
-                  home and likes hearing new tunes at their hangout sessions.
+                <div class="text-xs">
+                  <p>
+                    For the chauffeur who is always playing bangers on the drive
+                    home and likes hearing new tunes at their hangout sessions.
+                  </p>
                 </div>
               </div>
               <div class="pricing-item-features mb-40">
@@ -439,6 +441,16 @@ export default {
 </script>
 
 <style media="screen">
+.pricing .tiles-item-inner {
+  background: #d7d7d7 !important;
+}
+.pricing .tiles-item-inner h1,
+h2,
+h3,
+li,
+p {
+  color: white !important;
+}
 .favorite-host {
   max-width: 500px;
   margin: 0 auto;

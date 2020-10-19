@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <c-pricing pricing-switcher class="illustration-section-02" />
+    <c-pricing pricing-switcher class="" />
     <c-HeroFull />
   </fragment>
 </template>

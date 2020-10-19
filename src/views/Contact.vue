@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <c-contact-head class="illustration-section-01" />
+    <c-contact-head class="" />
     <c-generic-section top-divider>
       <div class="container-xs">
         <c-section-header

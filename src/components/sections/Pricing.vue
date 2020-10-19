@@ -34,9 +34,9 @@
       >
         <div class="tiles-item reveal-from-right" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row">
+            <div class="coaster-package-info row single-coaster-package">
               <div class="col-8 coaster-name">
-                <h2>1 Coaster</h2>
+                <h2>1 coaster</h2>
               </div>
               <div class="col-4 text-right">
                 <span class="pricing-item-price-currency h3">
@@ -111,7 +111,7 @@
           <div class="tiles-item-inner">
             <div class="coaster-package-info row">
               <div class="col-8 coaster-name">
-                <h2>3 Coasters</h2>
+                <h2>3 coasters</h2>
               </div>
               <div class="col-4 text-right package-price">
                 <span class="pricing-item-price-currency h3">
@@ -123,6 +123,17 @@
                 >
                   {{ this.pricePlans[2].price }}
                 </span>
+              </div>
+            </div>
+            <div class="percent-and-shipping">
+              <div class="percent-off">
+                <span
+                  class="pricing-item-price-amount h3"
+                  style="color: orange"
+                >
+                  {{ this.pricePlans[2].discount }}
+                </span>
+                <span class="p">% off &amp; FREE shipping</span>
               </div>
             </div>
             <c-image
@@ -145,7 +156,7 @@
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
                   >
-                    {{ this.getRetailPrice(2) }}
+                    {{ this.perItemPrice(0) }}
                   </span>
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
@@ -193,9 +204,9 @@
 
         <div class="tiles-item reveal-from-left" data-reveal-delay="400">
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row">
+            <div class="coaster-package-info row double-coaster-package">
               <div class="col-8 coaster-name">
-                <h2>2 Coasters</h2>
+                <h2>2 coasters</h2>
               </div>
               <div class="col-4 text-right package-price">
                 <span class="pricing-item-price-currency h3">
@@ -207,6 +218,17 @@
                 >
                   {{ this.pricePlans[1].price }}
                 </span>
+              </div>
+              <div class="percent-and-shipping ">
+                <div class="percent-off">
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="color: orange"
+                  >
+                    {{ this.pricePlans[1].discount }}
+                  </span>
+                  <span class="p">% off &amp; FREE shipping</span>
+                </div>
               </div>
             </div>
             <c-image
@@ -229,7 +251,7 @@
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
                   >
-                    {{ this.getRetailPrice(1) }}
+                    {{ this.perItemPrice(0) }}
                   </span>
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
@@ -422,18 +444,26 @@ export default {
   margin: 0 auto;
 }
 .coaster-package-info {
-  height: 200px;
+  height: 75px;
+}
+.single-coaster-package,
+.double-coaster-package {
+  height: 140px;
 }
 .coaster-name {
-  height: 150px !important;
+  /* height: 150px !important; */
+}
+.percent-and-shipping {
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .coaster-name h2 {
   padding: 0;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
-.package-price {
-  height: 150px;
-}
+
 .tiles-item-inner {
   border-radius: 25px;
 }

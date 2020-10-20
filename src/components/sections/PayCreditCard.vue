@@ -84,7 +84,7 @@ export default {
 </script>
 <style media="screen">
 .progress-tabs {
-  padding: 50px;
+  padding: 30px;
 }
 .nav-pills .nav-link.active {
   background-color: #b288b9;

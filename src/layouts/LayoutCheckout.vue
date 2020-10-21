@@ -1,10 +1,11 @@
 <template>
   <fragment>
-    <!-- <c-header nav-position="right" hide-nav /> -->
-    <main class="site-content">
-      <slot />
-    </main>
-    <c-footerOnlyLogo />
+    <div class="background-mountain">
+      <main class="site-content">
+        <slot />
+      </main>
+      <c-footerOnlyLogo />
+    </div>
   </fragment>
 </template>
 
@@ -17,3 +18,12 @@ export default {
   }
 };
 </script>
+<style media="screen">
+.background-mountain {
+  background: url(../assets/images/backgroundMountain.svg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 70%;
+}
+</style>

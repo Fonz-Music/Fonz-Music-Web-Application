@@ -1,11 +1,13 @@
-<template>
+<template class="">
   <fragment>
-    <c-header nav-position="right" class="reveal-from-top" />
-    <main class="site-content">
-      <slot />
-    </main>
-    <recent-orders />
-    <c-footer />
+    <div class="background-mountain">
+      <c-header nav-position="right" class="reveal-from-top" />
+      <main class="site-content entire-site">
+        <slot />
+      </main>
+      <recent-orders />
+      <c-footer />
+    </div>
   </fragment>
 </template>
 
@@ -17,7 +19,17 @@ export default {
   components: {
     CHeader,
     CFooter,
-    RecentOrders,
-  },
+    RecentOrders
+  }
 };
 </script>
+
+<style media="screen">
+.background-mountain {
+  background: url(../assets/images/backgroundMountain.svg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 70%;
+}
+</style>

@@ -3,7 +3,7 @@
   top: 0;
   width: 100%;
   z-index: 10 !important;
-  background: color-bg(header);
+  background: white;
 
   + .site-content {
     .section:first-of-type {
@@ -95,7 +95,8 @@
       right: 0;
       top: 100%;
       z-index: 9999;
-      background: color-bg(menu-mobile);
+      background: white;
+      // border: 2px solid orange;
       max-height: 0;
       opacity: 0;
       overflow: hidden;

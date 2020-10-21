@@ -439,7 +439,7 @@ export default {
 }
 .pricing .tiles-item-inner h3,
 p {
-  color: white !important;
+  /* color: white !important; */
 }
 .favorite-host {
   max-width: 500px;

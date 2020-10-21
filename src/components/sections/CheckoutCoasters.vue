@@ -4,7 +4,7 @@
       <router-link to="/">
         <c-image
           class="logoWordmark"
-          :src="require('@/assets/images/fonzLogoWordmarkWhite.svg')"
+          :src="require('@/assets/images/fonzLogoWordmarkBlack.svg')"
           alt="Neon"
         />
       </router-link>
@@ -289,7 +289,8 @@ export default {
   margin-left: 15px;
 }
 table {
-  color: white;
+  color: grey;
+  /* border-collapse: collapse; */
 }
 .paymentOptions {
   margin: 0 auto;

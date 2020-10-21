@@ -82,6 +82,7 @@ export default {
 }
 .btn-secondary {
   background-color: #b288b9;
+  border-radius: 25px !important;
 }
 .paymentTab p {
   text-align: center;
@@ -93,6 +94,12 @@ export default {
 .search-address {
   background-color: white;
   margin: 20px 0;
+  width: 60vw;
+  min-width: 300px;
+  max-width: 600px;
+  text-align: center;
+  border: 2px solid #b288b9;
+  border-radius: 15px;
   /* width: 100%; */
 }
 .autocomplete label {

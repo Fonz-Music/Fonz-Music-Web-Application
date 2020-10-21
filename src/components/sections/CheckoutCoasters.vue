@@ -42,24 +42,26 @@
       </b-button>
     </div>
     <br />
-    <p>Got a promo code from a friend?</p>
+    <div class="promo-section">
+      <p>Got a promo code from a friend?</p>
 
-    <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
-      <b-input
-        type="promo"
-        class="form-control input-sm col-8"
-        id="inputPromo"
-        v-model="promoCode"
-      ></b-input>
+      <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
+        <b-input
+          type="promo"
+          class="form-control input-sm col-8"
+          id="inputPromo"
+          v-model="promoCode"
+        ></b-input>
 
-      <b-button
-        @click="updatePromo"
-        type="submit"
-        class="btn btn-sm btn-link col-3"
-      >
-        send it
-      </b-button>
-    </b-form>
+        <b-button
+          @click="updatePromo"
+          type="submit"
+          class="btn btn-sm btn-link col-3"
+        >
+          send it
+        </b-button>
+      </b-form>
+    </div>
 
     <div class="totalTable">
       <table class="table table-sm table-borderless">
@@ -287,6 +289,7 @@ export default {
 }
 #inputPromo {
   margin-left: 15px;
+  color: grey;
 }
 table {
   color: grey;

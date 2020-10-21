@@ -28,7 +28,7 @@
           <!-- <template v-slot:title>
             payment
           </template> -->
-          <payment v-model="form.creditCardInfo" />
+          <payment />
         </b-tab>
       </b-tabs>
     </div>
@@ -58,14 +58,7 @@ export default {
     return {
       form: {
         email: "",
-        placeAddress: "",
-        creditCardInfo: {
-          firstname: "",
-          lastname: "",
-          creditCardNumber: "",
-          creditCardDate: "",
-          creditCardCsv: ""
-        }
+        placeAddress: ""
       },
       tabIndex: 0,
       sectionHeader: {

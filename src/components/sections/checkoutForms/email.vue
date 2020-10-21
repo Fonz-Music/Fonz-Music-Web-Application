@@ -1,13 +1,12 @@
 <template lang="html">
   <div class="emailTab">
-    <h3>What&apos;s Your Email?</h3>
+    <h3 class="text-center">what&apos;s your email?</h3>
     <p>Enter It Below</p>
 
     <div class="emailSubmit">
       <c-input
         type="email"
         placeholder="Email"
-        form-group="desktop"
         class="inputEmail"
         v-model="value"
       >
@@ -54,7 +53,15 @@ export default {
   methods: {
     nextTab: function() {
       console.log(this.value);
-      this.$emit("nextTab", 1);
+      // this checks if its a valid email
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
+        this.$emit("input", this.value);
+        this.$emit("nextTab", 1);
+        // this.$emit("nextTab", 1);
+      }
+    },
+    emailIsValid: function(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
   }
 };
@@ -86,6 +93,10 @@ export default {
 }
 .button-block {
   margin: 35px 0;
+}
+
+.form-input {
+  border-radius: 25px !important;
 }
 b-button {
   background-color: orange;

@@ -43,21 +43,11 @@ export default {
       required: true
     }
   },
-  watch: {
-    value() {
-      this.$emit("input", this.value);
-      console.log(this.value);
-    }
-  },
+
   components: {
     CInput,
     VueCardFormat
     // CButton
-  },
-  methods: {
-    logOut() {
-      console.log(this.value);
-    }
   }
 };
 </script>

@@ -42,7 +42,7 @@
       </b-button>
     </div>
     <br />
-    <div class="promo-section">
+    <!-- <div class="promo-section">
       <p>Got a promo code from a friend?</p>
 
       <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
@@ -55,13 +55,13 @@
 
         <b-button
           @click="updatePromo"
-          type="submit"
+          type="submit" 
           class="btn btn-sm btn-link col-3"
         >
           send it
         </b-button>
       </b-form>
-    </div>
+    </div> -->
 
     <div class="totalTable">
       <table class="table table-sm table-borderless">
@@ -76,7 +76,12 @@
           </tr> -->
           <tr>
             <th scope="row">Shipping</th>
-            <td>FREE</td>
+            <!-- <div v-if="determineShipping"> -->
+            <td v-if="determineShipping">FREE</td>
+            <!-- </div>
+            <div v-else> -->
+            <td v-else>$3</td>
+            <!-- </div> -->
           </tr>
           <tr v-if="promoValid">
             <th scope="row">Discount</th>
@@ -124,6 +129,7 @@ export default {
     return {
       promoValid: false,
       packagePrice: 60,
+      shippingFree: true,
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -243,6 +249,10 @@ export default {
     },
     getRetailPrice() {
       return this.currentPackage.price;
+    },
+    determineShipping() {
+      if (this.currentPackage.quantity == 1) return false;
+      else return true;
     }
   }
 };

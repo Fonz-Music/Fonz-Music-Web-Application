@@ -138,7 +138,8 @@ export default {
         info: "fonz coaster",
         price: 22,
         retailPrice: 60,
-        title: "fonz coaster"
+        title: "fonz coaster",
+        freeShipping: true
       },
       packageId: "",
       showPricing: false,
@@ -251,8 +252,7 @@ export default {
       return this.currentPackage.price;
     },
     determineShipping() {
-      if (this.currentPackage.quantity == 1) return false;
-      else return true;
+      return this.currentPackage.freeShipping;
     }
   }
 };

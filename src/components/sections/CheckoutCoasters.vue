@@ -37,7 +37,10 @@
       </div>
     </div>
     <div class="text-center">
-      <b-button class="btn btn-center btn-link pack-separate">
+      <b-button
+        class="btn btn-center btn-link pack-separate"
+        @click="updateExtraPackaging"
+      >
         I want my coasters packaged SEPARATELY
       </b-button>
     </div>
@@ -87,6 +90,10 @@
             <th scope="row">Discount</th>
             <td>$5</td>
           </tr>
+          <tr v-if="extraPackaging">
+            <th scope="row">Extra Packaging</th>
+            <td>$3</td>
+          </tr>
           <th scope="row">Total</th>
           <td>${{ calculateTotalPrice }}</td>
         </tbody>
@@ -129,7 +136,7 @@ export default {
     return {
       promoValid: false,
       packagePrice: 60,
-      shippingFree: true,
+      extraPackaging: false,
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -176,6 +183,11 @@ export default {
       console.log("pressed update promo");
       this.promoValid = !this.promoValid;
     },
+    updateExtraPackaging() {
+      console.log("pressed update extra packaging");
+      // tell api that you must add packaging fee
+      this.extraPackaging = !this.extraPackaging;
+    },
 
     // perItemPrice(plan) {
     //   return (
@@ -221,12 +233,17 @@ export default {
   },
   computed: {
     calculateTotalPrice() {
+      var addonTotal = 0;
       if (this.promoValid) {
-        this.currentPackage.price = this.currentPackage.price - 5;
-        return this.currentPackage.price;
-      } else {
-        return this.currentPackage.price;
+        addonTotal -= 5;
       }
+      if (!this.currentPackage.freeShipping) {
+        addonTotal += 3;
+      }
+      if (this.extraPackaging) {
+        addonTotal += 3;
+      }
+      return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {
       if (this.promoValid) return this.currentPackage.price - 5;

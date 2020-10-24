@@ -5,7 +5,7 @@
       <main class="site-content entire-site">
         <slot />
       </main>
-      <!-- <recent-orders /> -->
+      <recent-orders />
       <c-footer />
     </div>
   </fragment>

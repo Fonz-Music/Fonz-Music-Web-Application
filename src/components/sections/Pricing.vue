@@ -367,6 +367,12 @@ export default {
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
         // update CART
+        firebase.analytics().logEvent('change_cart', {
+          content_type: 'coaster',
+          packageId, 
+          currency: this.currency,
+          items: [{ cartId: this.cardId, ...this.pricePlans[plan] }]
+        });
         axios
           .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
           .then(resp => {
@@ -382,6 +388,12 @@ export default {
           .post(`/i/cart/${packageId}/${this.currency}`)
           .then(resp => {
             const cartId = resp.data.cartId;
+            firebase.analytics().logEvent('new_cart', {
+              content_type: 'coaster',
+              packageId, 
+              currency: this.currency,
+              items: [{ cartId, ...this.pricePlans[plan] }]
+            });
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");

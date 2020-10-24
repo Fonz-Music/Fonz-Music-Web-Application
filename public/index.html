@@ -9,10 +9,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+	<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script> -->
 
 	<!-- Firebase Scripts -->
-	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
 	<script>
 		// Your web app's Firebase configuration
@@ -30,6 +30,7 @@
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
 		firebase.analytics();
+		console.log({ title: "FIREBASE", firebase })
 	</script>
 
 	<title>Fonz Music</title>
@@ -45,5 +46,6 @@
 		<!-- built files will be auto injected -->
 	</div>
 </body>
+<script async src="https://www.googletagmanager.com/gtag/js"></script>
 
 </html>

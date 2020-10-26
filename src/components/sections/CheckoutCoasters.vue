@@ -1,49 +1,55 @@
 <template lang="html">
   <div class="container checkout-page">
-    <div class="topLogo">
-      <router-link to="/">
-        <c-image
-          class="logoWordmark"
-          :src="require('@/assets/images/fonzLogoWordmarkBlack.svg')"
-          alt="Neon"
-        />
-      </router-link>
-    </div>
-    <h3 class="text-left">Order Summary</h3>
-    <div class="row">
-      <div class="col-3">
+    <h2 class="text-center">order summary</h2>
+    <div>
+      <div class="">
         <c-image
           class="coasterPackageImage"
           :src="getImgUrl"
           alt="coaster package"
         />
       </div>
-
-      <div class="col-6 product-details">
-        <h4 class="">{{ getItemTitle }}</h4>
-        <p>{{ getItemInfo }}</p>
-      </div>
-
-      <div class="col-3 product-price">
-        <div v-if="!promoValid">
-          <h3 class="text-right">${{ getRetailPrice }}</h3>
+      <div class=" row package-total-and-name">
+        <div class="col-8 product-details">
+          <h4 class="">{{ getItemTitle }}</h4>
+          <!-- <p>{{ getItemInfo }}</p> -->
         </div>
-        <div v-else>
-          <h3 class="text-right">
-            <del>${{ getRetailPrice }}</del>
-          </h3>
-          <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
+
+        <div class="col-4 product-price">
+          <div v-if="!promoValid">
+            <h3 class="text-right">${{ getRetailPrice }}</h3>
+          </div>
+          <div v-else>
+            <h3 class="text-right">
+              <del>${{ getRetailPrice }}</del>
+            </h3>
+            <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
+          </div>
         </div>
       </div>
     </div>
-    <div class="text-center">
+    <div class="checkbox-for-packaging">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="defaultCheck1"
+          @click="updateExtraPackaging"
+        />
+        <label class="form-check-label" for="defaultCheck1">
+          I want my coasters packaged SEPARATELY
+        </label>
+      </div>
+    </div>
+    <!-- <div class="text-center">
       <b-button
         class="btn btn-center btn-link pack-separate"
         @click="updateExtraPackaging"
       >
         I want my coasters packaged SEPARATELY
       </b-button>
-    </div>
+    </div> -->
     <br />
     <!-- <div class="promo-section">
       <p>Got a promo code from a friend?</p>
@@ -71,7 +77,7 @@
         <tbody>
           <tr>
             <th scope="row">Subtotal</th>
-            <td>${{ calculateSubtotalPrice }}</td>
+            <td class="text-right">${{ calculateSubtotalPrice }}</td>
           </tr>
           <!-- <tr>
             <th scope="row">Government Theft (Tax)</th>
@@ -80,22 +86,24 @@
           <tr>
             <th scope="row">Shipping</th>
             <!-- <div v-if="determineShipping"> -->
-            <td v-if="determineShipping">FREE</td>
+            <td class="text-right" v-if="determineShipping">FREE</td>
             <!-- </div>
             <div v-else> -->
-            <td v-else>$3</td>
+            <td class="text-right" v-else>$3</td>
             <!-- </div> -->
           </tr>
           <tr v-if="promoValid">
             <th scope="row">Discount</th>
-            <td>$5</td>
+            <td class="text-right">$5</td>
           </tr>
           <tr v-if="extraPackaging">
             <th scope="row">Extra Packaging</th>
-            <td>$3</td>
+            <td class="text-right">$3</td>
           </tr>
-          <th scope="row">Total</th>
-          <td>${{ calculateTotalPrice }}</td>
+          <tr>
+            <th scope="row">Total</th>
+            <td class="text-right">${{ calculateTotalPrice }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -115,7 +123,7 @@
     <br />
     <div class="text-center">
       <router-link class="btn btn-link" to="/paywithcreditcard/"
-        >or checkout with Credit Card</router-link
+        >Credit / Debit Card</router-link
       >
     </div>
   </div>
@@ -278,6 +286,8 @@ export default {
 <style lang="css" scoped>
 .checkout-page {
   max-width: 900px;
+  width: 80vw;
+  padding-top: 100px;
 }
 .logoWordmark {
   margin: 10px auto;
@@ -288,10 +298,14 @@ export default {
 .checkout-page h3 {
   margin: 0px;
 }
+.form-check-label {
+  font-size: 12px;
+}
 .coasterPackageImage {
   /* min-width: 50px;
   max-width: 500px; */
   /* width: 100%; */
+  margin: 30px auto;
 }
 .btn-secondary {
   color: #b288b9;

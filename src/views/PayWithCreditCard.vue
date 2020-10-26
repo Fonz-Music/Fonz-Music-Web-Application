@@ -26,7 +26,7 @@
   margin: 35px 0;
 }
 </style>
-
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script> -->
 <script>
 // import layout
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
@@ -40,15 +40,23 @@ import CPayCreditCard from "@/components/sections/PayCreditCard.vue";
 export default {
   name: "Secondary",
   components: {
-    CPayCreditCard
+    CPayCreditCard,
   },
   data() {
     return {
-      demoModalActive: false
+      demoModalActive: false,
     };
   },
   created() {
     this.$emit("update:layout", CLayoutCheck);
-  }
+  },
+  mounted() {
+    // let polyfillScript = document.createElement("script");
+    // polyfillScript.setAttribute(
+    //   "src",
+    //   "https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"
+    // );
+    // document.head.appendChild(polyfillScript);
+  },
 };
 </script>

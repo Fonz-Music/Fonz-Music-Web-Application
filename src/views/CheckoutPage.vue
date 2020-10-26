@@ -28,6 +28,13 @@ export default {
   // }
   created() {
     this.$emit("update:layout", CLayout);
+    /* Include PolyFill CDN (Credit Card Verification) */
+    let ckeditor = document.createElement("script");
+    ckeditor.setAttribute(
+      "src",
+      "//polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"
+    );
+    document.head.appendChild(ckeditor);
   }
 };
 </script>

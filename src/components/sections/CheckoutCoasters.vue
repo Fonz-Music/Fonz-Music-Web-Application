@@ -17,13 +17,17 @@
 
         <div class="col-4 product-price">
           <div v-if="!promoValid">
-            <h3 class="text-right">${{ getRetailPrice }}</h3>
+            <h3 class="text-right">
+              {{ this.currencySymbol }}{{ getRetailPrice }}
+            </h3>
           </div>
           <div v-else>
             <h3 class="text-right">
-              <del>${{ getRetailPrice }}</del>
+              <del>{{ this.currencySymbol }}{{ getRetailPrice }}</del>
             </h3>
-            <h3 class="text-right">${{ calculateSubtotalPrice }}</h3>
+            <h3 class="text-right">
+              {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
+            </h3>
           </div>
         </div>
       </div>
@@ -38,7 +42,7 @@
           @click="updateExtraPackaging"
         />
         <label class="form-check-label" for="defaultCheck1">
-          I want my coasters packaged separately
+          I want my coasters packaged separately {{ this.currencySymbol }}3
         </label>
       </div>
     </div>
@@ -77,11 +81,13 @@
         <tbody>
           <tr>
             <th scope="row">Subtotal</th>
-            <td class="text-right">${{ calculateSubtotalPrice }}</td>
+            <td class="text-right">
+              {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
+            </td>
           </tr>
           <!-- <tr>
             <th scope="row">Government Theft (Tax)</th>
-            <td>${{ governmentTheft }}</td>
+            <td>{{ this.currencySymbol }}{{ governmentTheft }}</td>
           </tr> -->
           <tr>
             <th scope="row">Shipping</th>
@@ -89,20 +95,22 @@
             <td class="text-right" v-if="determineShipping">FREE</td>
             <!-- </div>
             <div v-else> -->
-            <td class="text-right" v-else>$3</td>
+            <td class="text-right" v-else>{{ this.currencySymbol }}3</td>
             <!-- </div> -->
           </tr>
           <tr v-if="promoValid">
             <th scope="row">Discount</th>
-            <td class="text-right">$5</td>
+            <td class="text-right">{{ this.currencySymbol }}5</td>
           </tr>
           <tr v-if="extraPackaging">
             <th scope="row">Extra Packaging</th>
-            <td class="text-right">$3</td>
+            <td class="text-right">{{ this.currencySymbol }}3</td>
           </tr>
           <tr class="total-amount">
             <th scope="row">Total</th>
-            <td class="text-right">${{ calculateTotalPrice }}</td>
+            <td class="text-right">
+              {{ this.currencySymbol }}{{ calculateTotalPrice }}
+            </td>
           </tr>
         </tbody>
       </table>

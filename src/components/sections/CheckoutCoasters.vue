@@ -38,7 +38,7 @@
           @click="updateExtraPackaging"
         />
         <label class="form-check-label" for="defaultCheck1">
-          I want my coasters packaged SEPARATELY
+          I want my coasters packaged separately
         </label>
       </div>
     </div>
@@ -100,7 +100,7 @@
             <th scope="row">Extra Packaging</th>
             <td class="text-right">$3</td>
           </tr>
-          <tr>
+          <tr class="total-amount">
             <th scope="row">Total</th>
             <td class="text-right">${{ calculateTotalPrice }}</td>
           </tr>
@@ -122,7 +122,7 @@
     </div>
     <br />
     <div class="text-center">
-      <router-link class="btn btn-link" to="/paywithcreditcard/"
+      <router-link class="btn btn-link pay-with-credit" to="/paywithcreditcard/"
         >Credit / Debit Card</router-link
       >
     </div>
@@ -299,7 +299,8 @@ export default {
   margin: 0px;
 }
 .form-check-label {
-  font-size: 12px;
+  font-size: 10pt;
+  vertical-align: top;
 }
 .coasterPackageImage {
   /* min-width: 50px;
@@ -336,9 +337,19 @@ table {
   color: grey;
   /* border-collapse: collapse; */
 }
+th {
+  font-weight: 400;
+}
+.total-amount th,
+.total-amount td {
+  border-bottom: hidden;
+}
 .paymentOptions {
   margin: 0 auto;
   max-width: 300px;
   width: 75%;
+}
+.pay-with-credit {
+  font-size: 12pt;
 }
 </style>

@@ -32,4 +32,13 @@ export default {
   background-position: bottom right;
   background-size: 80%;
 }
+@media (max-width: 767px) {
+  .background-mountain {
+    background: url(../assets/images/backgroundMountain.svg);
+    background-attachment: initial;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 80%;
+  }
+}
 </style>

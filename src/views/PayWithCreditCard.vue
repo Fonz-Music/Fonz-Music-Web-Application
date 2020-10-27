@@ -1,7 +1,9 @@
 <template>
-  <fragment>
-    <c-PayCreditCard />
-  </fragment>
+  <div class="pay-with-credit-card-page">
+    <fragment>
+      <c-PayCreditCard />
+    </fragment>
+  </div>
 </template>
 <style lang="css" scoped>
 /* c-button {
@@ -25,6 +27,9 @@
 .button-block {
   margin: 35px 0;
 }
+.pay-with-credit-card-page {
+  min-height: 900px;
+}
 </style>
 <!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script> -->
 <script>
@@ -40,11 +45,11 @@ import CPayCreditCard from "@/components/sections/PayCreditCard.vue";
 export default {
   name: "Secondary",
   components: {
-    CPayCreditCard,
+    CPayCreditCard
   },
   data() {
     return {
-      demoModalActive: false,
+      demoModalActive: false
     };
   },
   created() {
@@ -57,6 +62,6 @@ export default {
     //   "https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"
     // );
     // document.head.appendChild(polyfillScript);
-  },
+  }
 };
 </script>

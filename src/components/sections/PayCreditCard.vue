@@ -1,4 +1,4 @@
-<script> 
+<script>
 /* Disable minification (remove `.min` from URL path) for more info
 
 (function(self, undefined) {function ArrayCreate(r){if(1/r==-Infinity&&(r=0),r>Math.pow(2,32)-1)throw new RangeError("Invalid array length");var n=[];return n.length=r,n}function Call(t,l){var n=arguments.length>2?arguments[2]:[];if(!1===IsCallable(t))throw new TypeError(Object.prototype.toString.call(t)+"is not a function.");return t.apply(l,n)}function Get(n,t){return n[t]}function HasOwnProperty(r,t){return Object.prototype.hasOwnProperty.call(r,t)}function HasProperty(n,r){return r in n}function IsArray(r){return"[object Array]"===Object.prototype.toString.call(r)}function IsCallable(n){return"function"==typeof n}function SameValueNonNumber(e,n){return e===n}function ToBoolean(o){return Boolean(o)}function ToInteger(n){var i=Number(n);return isNaN(i)?0:1/i===Infinity||1/i==-Infinity||i===Infinity||i===-Infinity?i:(i<0?-1:1)*Math.floor(Math.abs(i))}function ToLength(n){var t=ToInteger(n);return t<=0?0:Math.min(t,Math.pow(2,53)-1)}function ToObject(e){if(null===e||e===undefined)throw TypeError();return Object(e)}function GetV(t,e){return ToObject(t)[e]}function GetMethod(e,n){var r=GetV(e,n);if(null===r||r===undefined)return undefined;if(!1===IsCallable(r))throw new TypeError("Method not callable: "+n);return r}function Type(e){switch(typeof e){case"undefined":return"undefined";case"boolean":return"boolean";case"number":return"number";case"string":return"string";case"symbol":return"symbol";default:return null===e?"null":"Symbol"in self&&(e instanceof self.Symbol||e.constructor===self.Symbol)?"symbol":"object"}}function GetPrototypeFromConstructor(t,o){var r=Get(t,"prototype");return"object"!==Type(r)&&(r=o),r}function IsConstructor(t){return"object"===Type(t)&&("function"==typeof t&&!!t.prototype)}function OrdinaryToPrimitive(r,t){if("string"===t)var e=["toString","valueOf"];else e=["valueOf","toString"];for(var i=0;i<e.length;++i){var n=e[i],a=Get(r,n);if(IsCallable(a)){var o=Call(a,r);if("object"!==Type(o))return o}}throw new TypeError("Cannot convert to primitive.")}function SameValueZero(n,e){return Type(n)===Type(e)&&("number"===Type(n)?!(!isNaN(n)||!isNaN(e))||(1/n===Infinity&&1/e==-Infinity||(1/n==-Infinity&&1/e===Infinity||n===e)):SameValueNonNumber(n,e))}function ToPrimitive(e){var t=arguments.length>1?arguments[1]:undefined;if("object"===Type(e)){if(arguments.length<2)var i="default";else t===String?i="string":t===Number&&(i="number");var r="function"==typeof self.Symbol&&"symbol"==typeof self.Symbol.toPrimitive?GetMethod(e,self.Symbol.toPrimitive):undefined;if(r!==undefined){var n=Call(r,e,[i]);if("object"!==Type(n))return n;throw new TypeError("Cannot convert exotic object to primitive.")}return"default"===i&&(i="number"),OrdinaryToPrimitive(e,i)}return e}function ToString(t){switch(Type(t)){case"symbol":throw new TypeError("Cannot convert a Symbol value to a string");case"object":return ToString(ToPrimitive(t,String));default:return String(t)}}function ToPropertyKey(r){var i=ToPrimitive(r,String);return"symbol"===Type(i)?i:ToString(i)}if (!("document"in self
@@ -31,7 +31,7 @@ try{return new Event("click"),!0}catch(t){return!1}})(self)
 */
 </script>
 <template>
-  <section>
+  <section class="">
     <div class="progress-tabs ">
       <!-- <div class="progress">
         <div
@@ -62,6 +62,12 @@ try{return new Event("click"),!0}catch(t){return!1}})(self)
           </template> -->
           <payment />
         </b-tab>
+        <b-tab>
+          <!-- <template v-slot:title>
+            payment
+          </template> -->
+          <stripePaymentVue />
+        </b-tab>
       </b-tabs>
     </div>
   </section>
@@ -75,6 +81,7 @@ import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import email from "@/components/sections/checkoutForms/email.vue";
 import addressTab from "@/components/sections/checkoutForms/address.vue";
 import payment from "@/components/sections/checkoutForms/payment.vue";
+import stripePaymentVue from "@/components/sections/checkoutForms/stripePaymentVue.vue";
 
 export default {
   name: "CPayCreditCard",
@@ -83,7 +90,8 @@ export default {
 
     addressTab,
     email,
-    payment
+    payment,
+    stripePaymentVue
   },
   mixins: [SectionSplitProps],
   data() {
@@ -114,6 +122,7 @@ export default {
 .nav-pills .nav-link.active {
   background-color: #b288b9;
 }
+
 /* .active-tab-class {
   background-color: #b288b9;
   color: #b288b9;

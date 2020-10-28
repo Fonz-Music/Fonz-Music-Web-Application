@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <form id="payment-form">
       <slot name="card-element">
@@ -159,4 +159,4 @@ export default {
 .hide {
   visibility: hidden;
 }
-</style>
+</style> -->

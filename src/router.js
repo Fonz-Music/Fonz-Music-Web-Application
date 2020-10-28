@@ -8,6 +8,7 @@ import Contact from "./views/Contact.vue";
 import CheckoutPage from "./views/CheckoutPage.vue";
 import PayWithCreditCard from "./views/PayWithCreditCard.vue";
 import OrderSuccess from "./views/OrderSuccess.vue";
+import PageNotFoundPage from "./views/404notFound.vue";
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: "/ordersuccess",
       name: "ordersuccess",
       component: OrderSuccess
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: PageNotFoundPage
     }
   ],
   mode: "history"

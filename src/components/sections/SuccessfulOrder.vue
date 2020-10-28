@@ -1,98 +1,247 @@
 <template lang="html">
-  <div class="order-success">
-    <div class="topLogo">
-      <router-link to="/">
+  <div class="container checkout-page">
+    <h2 class="text-center">your order has been placed!</h2>
+    <div>
+      <div class="">
         <c-image
-          class="logoWordmark"
-          :src="require('@/assets/images/fonzLogoWordmarkWhite.svg')"
-          alt="Neon"
+          class="coasterPackageImage"
+          :src="getImgUrl"
+          alt="coaster package"
         />
-      </router-link>
-    </div>
-    <h3 class="text-center">your order was successful</h3>
-    <p>You&apos;ll get email updates about the status of your order.</p>
+      </div>
+      <div class=" row package-total-and-name">
+        <div class="col-8 product-details">
+          <h4 class="">{{ getItemTitle }}</h4>
+          <!-- <p>{{ getItemInfo }}</p> -->
+        </div>
 
-    <h4>
-      while you&apos;re waiting to be the party&apos;s favorite host, checkout
-      our socials to follow our story, participate in giveaways, &amp; hear new
-      tunes
-    </h4>
-    <div class="footer-social">
-      <ul class="list-reset">
-        <li>
-          <a href="https://www.facebook.com/usefonz/">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Facebook</title>
-              <path
-                d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z"
-              />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/company/68361647/">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>LinkedIn</title>
-              <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-              />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://instagram.com/usefonz/">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Instagram</title>
-              <g>
-                <circle cx="12.145" cy="3.892" r="1" />
-                <path
-                  d="M8 12c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm0-6c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2z"
-                />
-                <path
-                  d="M12 16H4c-2.056 0-4-1.944-4-4V4c0-2.056 1.944-4 4-4h8c2.056 0 4 1.944 4 4v8c0 2.056-1.944 4-4 4zM4 2c-.935 0-2 1.065-2 2v8c0 .953 1.047 2 2 2h8c.935 0 2-1.065 2-2V4c0-.935-1.065-2-2-2H4z"
-                />
-              </g>
-            </svg>
-          </a>
-        </li>
-      </ul>
+        <div class="col-4 product-price">
+          <h3 class="text-right">
+            {{ this.currencySymbol }}{{ getRetailPrice }}
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="orderReviewTable">
+      <table class="table table-sm table-borderless">
+        <tbody>
+          <tr>
+            <th scope="row">Order Number</th>
+            <td class="text-right">
+              {{ calculateSubtotalPrice }}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">E-mail</th>
+            <td class="text-right">email</td>
+          </tr>
+          <tr>
+            <th scope="row">Packaging + Devivery</th>
+            <td class="text-right">{{ this.currencySymbol }}3</td>
+          </tr>
+          <tr class="total-amount">
+            <th scope="row">Total</th>
+            <td class="text-right">
+              {{ this.currencySymbol }}{{ calculateTotalPrice }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="after-order-details center-content">
+      <p>You&apos;ll get email updates about the status of your order.</p>
+      <p class="follow-our-socials">
+        While you&apos;re waiting to be the party&apos;s favorite host, checkout
+        our socials to follow our story, participate in giveaways, &amp;
+        discover new tunes!
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { SectionTilesProps } from "@/utils/SectionProps.js";
 import CImage from "@/components/elements/Image.vue";
+const axios = require("axios");
+import { Checkout } from "@/plugins/checkout.js";
+console.log({ Checkout });
 export default {
-  name: "SuccessfulOrder",
+  name: "CCheckoutCoasters",
   components: {
     CImage
+  },
+  data() {
+    return {
+      promoValid: false,
+      packagePrice: 60,
+      extraPackaging: false,
+      promoCode: "",
+      totalPrice: 0,
+      governmentTheft: 2,
+      currentPackage: {
+        quantity: 1,
+        info: "fonz coaster",
+        price: 22,
+        retailPrice: 60,
+        title: "fonz coaster",
+        freeShipping: true
+      },
+      packageId: "",
+      showPricing: false,
+      currencySymbol: "€",
+      addons: { shipping: {}, extraPackaging: {} }
+    };
+  },
+  beforeMount() {
+    this.getPricing();
+  },
+  beforeCreate() {},
+  methods: {
+    // addPromoCode() {
+    //   // communicate with API to add promo code to cart
+    //   // GET /i/coupons/{couponId}
+    //   if (couponId == VALID) {
+    //     // PUT /i/cart/coupon/{couponId}
+    //   }
+    // },
+    // addAddon() {
+    //   // GET /i/addons/{addonsId}
+    //   if (addonId == VALID) {
+    //     // PUT /i/cart/coupon/{couponId}
+    //   }
+    // },
+    // change to getIMGURL
+    getPricing() {
+      const packageId = localStorage.getItem("package");
+      axios
+        .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
+        .then(resp => {
+          this.currentPackage = resp.data;
+          console.log(this.currentPackage);
+          this.showPricing = true;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  },
+
+  mounted() {
+    this.getPricing();
+  },
+  computed: {
+    calculateTotalPrice() {
+      var addonTotal = 0;
+      if (this.promoValid) {
+        addonTotal -= 5;
+      }
+      if (!this.currentPackage.freeShipping) {
+        addonTotal += 3;
+      }
+      if (this.extraPackaging) {
+        addonTotal += 3;
+      }
+      return this.currentPackage.price + addonTotal;
+    },
+    calculateSubtotalPrice() {
+      if (this.promoValid) return this.currentPackage.price - 5;
+      else return this.currentPackage.price;
+    },
+    getPackageId() {
+      return localStorage.getItem("package");
+      // console.log("packageID " + this.packageID);
+    },
+    getImgUrl() {
+      // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
+      return require("@/assets/images/coaster" +
+        this.currentPackage.quantity +
+        ".png");
+    },
+    getItemTitle() {
+      return this.currentPackage.title;
+    },
+    getRetailPrice() {
+      return this.currentPackage.price;
+    },
+    determineShipping() {
+      return this.currentPackage.freeShipping;
+    }
   }
 };
 </script>
 
 <style lang="css" scoped>
-.order-success {
+.checkout-page {
   max-width: 900px;
-  margin: 10px auto;
+  width: 80vw;
+  padding-top: 100px;
 }
 .logoWordmark {
   margin: 10px auto;
   width: 25%;
   max-width: 150px;
+}
+.checkout-page h2,
+.checkout-page h3 {
+  margin: 0px;
+}
+.form-check-label {
+  font-size: 10pt;
+  vertical-align: top;
+}
+.coasterPackageImage {
+  /* min-width: 50px;
+  max-width: 500px; */
+  /* width: 100%; */
+  margin: 30px auto;
+}
+.btn-secondary {
+  color: #b288b9;
+  background-color: transparent;
+  border: 0;
+}
+.product-details p {
+  font-size: 10pt;
+}
+.product-details h4 {
+  font-size: 12pt;
+  margin: 0px 0px 0px 0px;
+}
+.product-price h3 {
+  margin: 0px 0px 0px 0px;
+}
+.pack-separate {
+  font-size: 16px;
+}
+.form-group {
+  font-size: 16px;
+}
+#inputPromo {
+  margin-left: 15px;
+  color: grey;
+}
+table {
+  color: grey;
+  /* border-collapse: collapse; */
+}
+th {
+  font-weight: 400;
+}
+.total-amount th,
+.total-amount td {
+  border-bottom: hidden;
+}
+.paymentOptions {
+  margin: 0 auto;
+  max-width: 300px;
+  width: 75%;
+}
+.pay-with-credit {
+  font-size: 12pt;
+}
+.follow-our-socials {
+  max-width: 650px;
+  margin: 0 auto;
 }
 </style>

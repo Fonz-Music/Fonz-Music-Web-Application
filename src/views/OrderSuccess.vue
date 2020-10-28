@@ -3,12 +3,21 @@
 </template>
 
 <script>
+import CLayout from "@/layouts/LayoutAlternative.vue";
 import SuccessfulOrder from "@/components/sections/SuccessfulOrder.vue";
 
 export default {
   name: "OrderSuccess",
   components: {
     SuccessfulOrder
+  },
+  data() {
+    return {
+      demoModalActive: false
+    };
+  },
+  created() {
+    this.$emit("update:layout", CLayout);
   }
 };
 </script>

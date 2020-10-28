@@ -263,15 +263,21 @@ const calculateOrderAmount = items => {
     return 1400 + items.length;
 };
 
-exports.createPaymentIntent = (items, currency) => {
+exports.createPayment = (items, currency, amount) => {
     return new Promise(async (resolve, reject) => {
         // TODO: Verify that the items provided exist and are correct price
         try {
-            const paymentIntent = await stripe.paymentIntents.create({
-                amount: calculateOrderAmount(items),
-                currency
-            });
-            resolve(paymentIntent)
+            // const paymentIntent = await stripe.paymentIntents.create({
+            //     amount: calculateOrderAmount(items),
+            //     currency
+            // });
+            const charge = await stripe.charges.create({
+                amount,
+                currency,
+                description: 'My First Test Charge (created for API docs)',
+              });
+              console.log({ charge })
+            resolve(charge)
         } catch (error) {
             reject(error);
         }

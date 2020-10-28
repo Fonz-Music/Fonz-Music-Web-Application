@@ -26,7 +26,10 @@ export default {
     publishableKey:
       "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
     token: null,
-    charge: null
+    charge: null,
+    items: {
+      packageId: localStorage.getItem("package")
+    }
   }),
   methods: {
     submit() {
@@ -43,9 +46,17 @@ export default {
       this.sendTokenToServer(this.charge);
     },
     sendTokenToServer(charge) {
-      axios.post("/i/checkout/payment-intent").then(resp => {
-        this.token = resp.data.clientSecret;
-      });
+      axios.post("/i/checkout/payment-intent", {
+        items: this.items,
+        currency: this.currency,
+        amount: this.amount
+      }).then(resp => {
+        // this.token = resp.data.clientSecret;
+        // PAYMENT SUCCESS
+        // this.$router.to('/')
+      }).catch((error) => {
+        // PAYMENT FAILED
+      })
     }
   }
 };

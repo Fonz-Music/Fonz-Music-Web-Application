@@ -1,4 +1,5 @@
 'use strict';
+
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const stripe = require("stripe")("sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7");
 
@@ -76,7 +77,126 @@ exports.updateCart = (packageId, currency, cartId) => {
     })
 }
 
+exports.getCoupon = (couponId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const couponRef = await global.CouponsDB
+                .doc(couponId)
+                .get();
+            if (!couponRef.exists) return reject({
+                status: 404,
+                message: `Coupon ${couponId} does not exist`
+            })
+            resolve(couponRef.data())
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 
+exports.getCart = (cartId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const cartRef = await global.CartDB
+                .doc(cartId)
+                .get();
+            if (!cartRef.exists) return reject({
+                status: 404,
+                message: `Cart ${cartId} does not exist`
+            })
+            resolve(cartRef.data());
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+exports.addCouponToCart = (couponId, cartId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const cart = await this.getCart(cartId);
+            const coupon = await this.getCoupon(couponId);
+            const cartRef = await global.CartDB
+                .doc(cartId)
+                .update({
+                    coupon: couponId
+                });
+            resolve({
+                coupon
+            })
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+exports.getAddon = (addonId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const addonRef = await global.AddonsDB
+                .doc(addonId)
+                .get();
+            if (!addonRef.exists) return reject({
+                status: 404,
+                message: `Addon ${addonId} does not exist`
+            })
+            resolve(addonRef.data());
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+exports.addAddonToCart = (addonId, cartId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const cart = await this.getCart(cartId);
+            const {
+                addons
+            } = cart;
+            if (addons.includes(addonId)) return reject({
+                status: 403,
+                message: `Addon ${addonId} is already in your cart.`
+            });
+            const updatedAddons = [addonId, ...addons]
+            const addon = await this.getAddon(addonId);
+            const cartRef = await global.CartDB
+                .doc(cartId)
+                .update({
+                    addons: updatedAddons
+                });
+            resolve({
+                addons: updatedAddons
+            })
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+exports.removeAddonFromCart = (addonId, cartId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const addon = await this.getAddon(addonId);
+            const cart = await this.getCart(cartId);
+            let addons = cart.addons;
+            if (!addons.includes(addonId)) return reject({
+                status: 403,
+                message: `Addon ${addonId} is not in your cart.`
+            });
+            addons.splice(addons.indexOf(addonId), 1);
+            const cartRef = await global.CartDB
+                .doc(cartId)
+                .update({
+                    addons
+                });
+            resolve(addons);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 
 exports.getRegionalPricing = (currency) => {
     return new Promise(async (resolve, reject) => {

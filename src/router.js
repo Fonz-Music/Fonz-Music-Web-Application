@@ -58,6 +58,11 @@ export default new Router({
       path: "/404",
       name: "404",
       component: PageNotFoundPage
+    },
+    {
+      path: "/*",
+      name: "404",
+      component: PageNotFoundPage
     }
   ],
   mode: "history"

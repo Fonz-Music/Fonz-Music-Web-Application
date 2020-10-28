@@ -1,0 +1,34 @@
+<template>
+  <div class="brand">
+    <h1 class="m-0">
+      <router-link to="/">
+        <c-image
+          class="logo"
+          :src="require('@/assets/images/fonzLogoBlackF.svg')"
+          alt="Neon"
+          :width="64"
+          :height="64"
+        />
+      </router-link>
+    </h1>
+  </div>
+</template>
+
+<script>
+import CImage from "@/components/elements/Image.vue";
+
+export default {
+  name: "CLogoHeader",
+  components: {
+    CImage
+  }
+};
+</script>
+
+<style media="screen">
+.logo {
+  margin: 10px auto;
+  width: 15%;
+  max-width: 100px;
+}
+</style>

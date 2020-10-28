@@ -54,11 +54,11 @@ export default new Router({
       name: "ordersuccess",
       component: OrderSuccess
     },
-    {
-      path: "/404",
-      name: "404",
-      component: PageNotFoundPage
-    },
+    // {
+    //   path: "/404",
+    //   name: "404",
+    //   component: PageNotFoundPage
+    // },
     {
       path: "/*",
       name: "404",

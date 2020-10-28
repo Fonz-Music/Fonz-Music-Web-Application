@@ -8,15 +8,8 @@
         class="site-header-inner"
         :class="bottomDivider && 'has-bottom-divider'"
       >
-        <router-link to="/">
-          <c-image
-            class="logo"
-            :src="require('@/assets/images/logo.svg')"
-            alt="Neon"
-            :width="64"
-            :height="64"
-          />
-        </router-link>
+        <c-logo />
+        <c-logoHeader />
         <button
           v-if="!hideNav"
           ref="hamburger"
@@ -78,11 +71,13 @@
 
 <script>
 import CLogo from "@/components/layout/partials/Logo.vue";
+import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
 
 export default {
   name: "CHeader",
   components: {
-    CLogo
+    CLogo,
+    CLogoHeader
   },
   props: {
     active: Boolean,

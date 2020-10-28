@@ -238,13 +238,6 @@ var loading = function(isLoading) {
 .paymentTab p {
   text-align: center;
 }
-.submitButton {
-  background-color: #ff9425;
-  color: white;
-}
-.button-block {
-  margin: 35px 0;
-}
 </style>
 
 <style scoped>
@@ -273,7 +266,7 @@ body {
 }
 
 form {
-  width: 80vw;
+  width: 100%;
 
   min-width: 300px;
   max-width: 600px;

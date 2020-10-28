@@ -24,11 +24,12 @@
             @nextTab="updateTab($event)"
           />
         </b-tab>
+
         <b-tab>
           <!-- <template v-slot:title>
             payment
           </template> -->
-          <payment />
+          <stripePaymentVue />
         </b-tab>
       </b-tabs>
     </div>

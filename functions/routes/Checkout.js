@@ -11,7 +11,7 @@ router.post('/payment-intent', (req, res) => {
     if (!items || !currency) return res.status(400).json({
         message: 'Missing parameters.'
     })
-    Shop.createPaymentIntent(items, currency).then((paymentIntent) => {
+    Shop.createPayment(items, currency).then((paymentIntent) => {
         res.json(paymentIntent)
         // res.json({
             // clientSecret: paymentIntent.client_secret

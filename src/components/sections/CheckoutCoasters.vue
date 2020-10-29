@@ -212,16 +212,21 @@ export default {
           this.extraPackaging = true;
         })
         .catch(error => {
+          if (error.response.status == 403) {
+            console.log("resp.status " + error.response.status);
+            this.extraPackaging = true;
+          }
           console.error(error);
         });
     },
     removeExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
       const cartIdFromUser = localStorage.getItem("cartId");
+      console.log("inside remove cartid" + cartIdFromUser);
       var response;
       axios
         .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          cartId: cartIdFromUser
+          data: { cartId: cartIdFromUser }
         })
         // add cartID to body
         .then(resp => {

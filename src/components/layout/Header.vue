@@ -8,13 +8,8 @@
         class="site-header-inner"
         :class="bottomDivider && 'has-bottom-divider'"
       >
-        <router-link to="/"
-          ><img
-            src="@/assets/images/logo.svg"
-            class="header-logo"
-            alt="logo"
-            width="64"
-            height="64"
+        <router-link class="header-logo" to="/"
+          ><img src="@/assets/images/logo.svg" class="header-logo" alt="logo"
         /></router-link>
 
         <!-- <c-logo />
@@ -163,9 +158,12 @@ export default {
 };
 </script>
 <style media="screen">
-.header-logo {
-  margin: 15px auto !important;
+.header-logo img {
+  margin: 400px auto;
+  width: 10vw;
 
-  max-width: 100px !important;
+  /* height: 10vw; */
+  max-width: 125px;
+  min-width: 70px;
 }
 </style>

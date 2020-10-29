@@ -178,12 +178,15 @@ export default {
   beforeCreate() {},
   methods: {
     addPromoCode(promoCode) {
+      const cartIdFromUser = localStorage.getItem("cartId");
       this.enteredpromo = true;
       // communicate with API to add promo code to cart
       // GET /i/coupons/{couponId}
       var response;
       axios
-        .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
+        .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
+          cartId: cartIdFromUser
+        })
         .then(resp => {
           response = resp.data;
           console.log(response);

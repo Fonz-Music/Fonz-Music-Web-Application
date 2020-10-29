@@ -30,9 +30,9 @@ import "@/assets/scss/style.scss";
 Vue.config.productionTip = false;
 // Vue.prototype.$API_URL = "http://localhost:5001/fonz-music-web/us-central1/app";
 Vue.prototype.$API_URL = "https://web.fonzmusic.com";
-Vue.prototype.currency = localStorage.getItem('currency') || 'eur';
+Vue.prototype.currency = localStorage.getItem("currency") || "eur";
 // Vue.prototype.currencySymbol =;
-Vue.prototype.cartId = localStorage.getItem('cartId') || ''; 
+Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 
 new Vue({
   router,

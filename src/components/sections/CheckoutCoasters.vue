@@ -55,7 +55,7 @@
       </b-button>
     </div> -->
     <br />
-    <!-- <div class="promo-section">
+    <div class="promo-section">
       <p>Got a promo code from a friend?</p>
 
       <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
@@ -67,14 +67,15 @@
         ></b-input>
 
         <b-button
-          @click="updatePromo"
-          type="submit" 
+          @click="addPromoCode(promoCode)"
+          type="submit"
           class="btn btn-sm btn-link col-3"
         >
           send it
         </b-button>
       </b-form>
-    </div> -->
+      <p v-if="!promoValid && enteredpromo">that code is not valid</p>
+    </div>
 
     <div class="totalTable">
       <table class="table table-sm table-borderless">
@@ -150,7 +151,8 @@ export default {
   },
   data() {
     return {
-      promoValid: false,
+      promoValid: null,
+      enteredpromo: false,
       packagePrice: 60,
       extraPackaging: false,
       promoCode: "",
@@ -175,34 +177,80 @@ export default {
   },
   beforeCreate() {},
   methods: {
-    // addPromoCode() {
-    //   // communicate with API to add promo code to cart
-    //   // GET /i/coupons/{couponId}
-    //   if (couponId == VALID) {
-    //     // PUT /i/cart/coupon/{couponId}
-    //   }
-    // },
-    // addAddon() {
-    //   // GET /i/addons/{addonsId}
-    //   if (addonId == VALID) {
-    //     // PUT /i/cart/coupon/{couponId}
-    //   }
-    // },
-    // change to getIMGURL
+    addPromoCode(promoCode) {
+      this.enteredpromo = true;
+      // communicate with API to add promo code to cart
+      // GET /i/coupons/{couponId}
+      var response;
+      axios
+        .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
 
+          this.promoValid = true;
+        })
+        .catch(error => {
+          console.error(error);
+          this.promoValid = false;
+        });
+    },
+    addExtraPackaging() {
+      // PUT /i/cart/coupon/{couponId}
+      var response;
+      axios
+        .put(`${this.$API_URL}/i/cart/addons/extraPackaging`)
+        // add cartID to body
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
+
+          this.extraPackaging = true;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    removeExtraPackaging() {
+      // PUT /i/cart/coupon/{couponId}
+      var response;
+      axios
+        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`)
+        // add cartID to body
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
+          this.extraPackaging = false;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    addShippingCost() {
+      // PUT /i/cart/coupon/{couponId}
+      var response;
+      axios
+        .put(`${this.$API_URL}/i/cart/addons/shipping`)
+        // add cartID to body
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     onSubmit(evt) {
       console.log("pressed update promo");
       evt.preventDefault();
       this.promoValid = !this.promoValid;
     },
-    updatePromo() {
-      console.log("pressed update promo");
-      this.promoValid = !this.promoValid;
-    },
     updateExtraPackaging() {
       console.log("pressed update extra packaging");
       // tell api that you must add packaging fee
-      this.extraPackaging = !this.extraPackaging;
+      if (!this.extraPackaging) {
+        this.addExtraPackaging();
+      } else this.removeExtraPackaging();
     },
 
     // perItemPrice(plan) {
@@ -227,6 +275,10 @@ export default {
         .catch(error => {
           console.error(error);
         });
+      // if a single coaster, add shipping cost
+      if (this.currentPackage.quantity == 1) {
+        this.addShippingCost();
+      }
     }
   },
 
@@ -295,7 +347,7 @@ export default {
 .checkout-page {
   max-width: 900px;
   width: 80vw;
-  padding-top: 100px;
+  padding-top: 160px;
 }
 .logoWordmark {
   margin: 10px auto;

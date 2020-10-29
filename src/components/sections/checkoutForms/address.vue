@@ -3,7 +3,7 @@
     <h3 class="text-center">please fill in your address</h3>
     <div class="text-center autocomplete">
       <label>
-        Address:
+        Address
         <br />
         <GmapAutocomplete
           class="search-address"

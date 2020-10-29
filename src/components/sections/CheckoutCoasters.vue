@@ -1,139 +1,137 @@
 <template lang="html">
   <div class="container checkout-page">
     <h2 class="text-center">order summary</h2>
-    <div>
-      <div class="">
+    <div class="row">
+      <div class="col-lg-6">
         <c-image
           class="coasterPackageImage"
           :src="getImgUrl"
           alt="coaster package"
         />
       </div>
-      <div class=" row package-total-and-name">
-        <div class="col-8 product-details">
-          <h4 class="">{{ getItemTitle }}</h4>
-          <!-- <p>{{ getItemInfo }}</p> -->
+      <div class="col-lg-6">
+        <div class=" row package-total-and-name">
+          <div class="col-8 product-details">
+            <h4 class="">{{ getItemTitle }}</h4>
+            <!-- <p>{{ getItemInfo }}</p> -->
+          </div>
+
+          <div class="col-4 product-price">
+            <div v-if="!promoValid">
+              <h3 class="text-right">
+                {{ this.currencySymbol }}{{ getRetailPrice }}
+              </h3>
+            </div>
+            <div v-else>
+              <h3 class="text-right">
+                <del>{{ this.currencySymbol }}{{ getRetailPrice }}</del>
+              </h3>
+              <h3 class="text-right">
+                {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="checkbox-for-packaging">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="defaultCheck1"
+              @click="updateExtraPackaging"
+            />
+            <label class="form-check-label" for="defaultCheck1">
+              I want my coasters packaged separately {{ this.currencySymbol }}3
+            </label>
+          </div>
+        </div>
+        <br />
+        <div class="promo-section">
+          <p>Got a promo code from a friend?</p>
+
+          <b-form inline class="row" @submit.stop.prevent="addPromoCode">
+            <b-input
+              type="promo"
+              class="input-sm"
+              id="inputPromo"
+              v-model="promoCode"
+            ></b-input>
+
+            <b-button
+              @click="addPromoCode(promoCode)"
+              type="submit"
+              class="btn btn-sm btn-link col-3"
+            >
+              send it
+            </b-button>
+          </b-form>
+          <p v-if="!promoValid && enteredpromo">that code is not valid</p>
         </div>
 
-        <div class="col-4 product-price">
-          <div v-if="!promoValid">
-            <h3 class="text-right">
-              {{ this.currencySymbol }}{{ getRetailPrice }}
-            </h3>
-          </div>
-          <div v-else>
-            <h3 class="text-right">
-              <del>{{ this.currencySymbol }}{{ getRetailPrice }}</del>
-            </h3>
-            <h3 class="text-right">
-              {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
-            </h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="checkbox-for-packaging">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="defaultCheck1"
-          @click="updateExtraPackaging"
-        />
-        <label class="form-check-label" for="defaultCheck1">
-          I want my coasters packaged separately {{ this.currencySymbol }}3
-        </label>
-      </div>
-    </div>
-    <!-- <div class="text-center">
-      <b-button
-        class="btn btn-center btn-link pack-separate"
-        @click="updateExtraPackaging"
-      >
-        I want my coasters packaged SEPARATELY
-      </b-button>
-    </div> -->
-    <br />
-    <div class="promo-section">
-      <p>Got a promo code from a friend?</p>
-
-      <b-form inline class="form-group row" @submit.stop.prevent="addPromoCode">
-        <b-input
-          type="promo"
-          class="form-control input-sm col-8"
-          id="inputPromo"
-          v-model="promoCode"
-        ></b-input>
-
-        <b-button
-          @click="addPromoCode(promoCode)"
-          type="submit"
-          class="btn btn-sm btn-link col-3"
-        >
-          send it
-        </b-button>
-      </b-form>
-      <p v-if="!promoValid && enteredpromo">that code is not valid</p>
-    </div>
-
-    <div class="totalTable">
-      <table class="table table-sm table-borderless">
-        <tbody>
-          <tr>
-            <th scope="row">Subtotal</th>
-            <td class="text-right">
-              {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
-            </td>
-          </tr>
-          <!-- <tr>
+        <div class="totalTable">
+          <table class="table table-sm table-borderless">
+            <tbody>
+              <tr>
+                <th scope="row">Subtotal</th>
+                <td class="text-right">
+                  {{ this.currencySymbol }}{{ this.currentPackage.price }}
+                </td>
+              </tr>
+              <!-- <tr>
             <th scope="row">Government Theft (Tax)</th>
             <td>{{ this.currencySymbol }}{{ governmentTheft }}</td>
           </tr> -->
-          <tr>
-            <th scope="row">Shipping</th>
-            <!-- <div v-if="determineShipping"> -->
-            <td class="text-right" v-if="determineShipping">FREE</td>
-            <!-- </div>
+              <tr>
+                <th scope="row">Shipping</th>
+                <!-- <div v-if="determineShipping"> -->
+                <td class="text-right" v-if="determineShipping">FREE</td>
+                <!-- </div>
             <div v-else> -->
-            <td class="text-right" v-else>{{ this.currencySymbol }}3</td>
-            <!-- </div> -->
-          </tr>
-          <tr v-if="promoValid">
-            <th scope="row">Discount</th>
-            <td class="text-right">{{ this.currencySymbol }}5</td>
-          </tr>
-          <tr v-if="extraPackaging">
-            <th scope="row">Extra Packaging</th>
-            <td class="text-right">{{ this.currencySymbol }}3</td>
-          </tr>
-          <tr class="total-amount">
-            <th scope="row">Total</th>
-            <td class="text-right">
-              {{ this.currencySymbol }}{{ calculateTotalPrice }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="paymentOptions text-center">
-      <c-image
-        class="applePay"
-        :src="require('@/assets/images/buyWithApple.png')"
-        alt="coaster package"
-      />
+                <td class="text-right" v-else>{{ this.currencySymbol }}3</td>
+                <!-- </div> -->
+              </tr>
+              <tr v-if="promoValid">
+                <th scope="row">Discount</th>
+                <td class="text-right discount-text">
+                  {{ this.currencySymbol }}5
+                </td>
+              </tr>
+              <tr v-if="extraPackaging">
+                <th scope="row">Extra Packaging</th>
+                <td class="text-right">{{ this.currencySymbol }}3</td>
+              </tr>
+              <tr class="total-amount">
+                <th scope="row">Total</th>
+                <td class="text-right">
+                  {{ this.currencySymbol }}{{ calculateTotalPrice }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="paymentOptions text-center">
+        <c-image
+          class="applePay"
+          :src="require('@/assets/images/buyWithApple.png')"
+          alt="coaster package"
+        />
+        <br />
+        <c-image
+          class=""
+          :src="require('@/assets/images/buyWithGoogle.png')"
+          alt="coaster package"
+        />
+      </div>
       <br />
-      <c-image
-        class=""
-        :src="require('@/assets/images/buyWithGoogle.png')"
-        alt="coaster package"
-      />
-    </div>
-    <br />
-    <div class="text-center">
-      <router-link class="btn btn-link pay-with-credit" to="/paywithcreditcard/"
-        >Credit / Debit Card</router-link
-      >
+      <div class="text-center">
+        <router-link
+          class="btn btn-link pay-with-credit"
+          to="/paywithcreditcard/"
+          >Credit / Debit Card</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -261,8 +259,14 @@ export default {
       console.log("pressed update extra packaging");
       // tell api that you must add packaging fee
       if (!this.extraPackaging) {
+        console.log("adding extra package cost");
+        console.log("extra packaging var " + this.extraPackaging);
         this.addExtraPackaging();
-      } else this.removeExtraPackaging();
+      } else {
+        console.log("removing extra package cost");
+        console.log("extra packaging var " + this.extraPackaging);
+        this.removeExtraPackaging();
+      }
     },
 
     // perItemPrice(plan) {
@@ -398,12 +402,16 @@ export default {
 .pack-separate {
   font-size: 16px;
 }
+.discount-text {
+  color: red;
+}
 .form-group {
   font-size: 16px;
 }
 #inputPromo {
   margin-left: 15px;
   color: grey;
+  height: 35px;
 }
 table {
   color: grey;

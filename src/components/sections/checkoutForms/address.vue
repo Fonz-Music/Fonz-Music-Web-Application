@@ -82,7 +82,7 @@ export default {
 }
 .btn-secondary {
   background-color: #b288b9;
-  border-radius: 25px !important;
+  border-radius: 15px !important;
 }
 .paymentTab p {
   text-align: center;

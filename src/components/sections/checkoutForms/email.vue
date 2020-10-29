@@ -94,7 +94,6 @@ export default {
 .button-block {
   margin: 35px 0;
 }
-
 .form-input {
   border-radius: 25px !important;
 }

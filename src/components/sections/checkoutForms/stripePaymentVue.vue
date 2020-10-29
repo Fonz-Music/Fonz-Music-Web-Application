@@ -1,15 +1,20 @@
 <template>
-  <div class="stripe-payment-tab">
-    <stripe-elements
-      ref="elementsRef"
-      :pk="publishableKey"
-      :amount="amount"
-      locale="de"
-      @token="tokenCreated"
-      @loading="loading = $event"
-    >
-    </stripe-elements>
-    <button @click="submit">Pay ${{ amount / 100 }}</button>
+  <div class="stripe-payment-tab center-content">
+    <div class="payment-content center-content">
+      <h3 class="">please enter your card details</h3>
+    </div>
+    <div class="stripe-form center-content">
+      <stripe-elements
+        ref="elementsRef"
+        :pk="publishableKey"
+        :amount="amount"
+        locale="en"
+        @token="tokenCreated"
+        @loading="loading = $event"
+      >
+      </stripe-elements>
+    </div>
+    <b-button @click="submit">purchase</b-button>
   </div>
 </template>
 
@@ -46,23 +51,36 @@ export default {
       this.sendTokenToServer(this.charge);
     },
     sendTokenToServer(charge) {
-      axios.post("/i/checkout/payment-intent", {
-        items: this.items,
-        currency: this.currency,
-        amount: this.amount
-      }).then(resp => {
-        // this.token = resp.data.clientSecret;
-        // PAYMENT SUCCESS
-        // this.$router.to('/')
-      }).catch((error) => {
-        // PAYMENT FAILED
-      })
+      axios
+        .post("/i/checkout/payment-intent", {
+          items: this.items,
+          currency: this.currency,
+          amount: this.amount
+        })
+        .then(resp => {
+          // this.token = resp.data.clientSecret;
+          // PAYMENT SUCCESS
+          // this.$router.to('/')
+        })
+        .catch(error => {
+          // PAYMENT FAILED
+        });
     }
   }
 };
 </script>
 <style media="screen">
 .stripe-payment-tab {
-  padding: 250px !important;
+  /* padding-top: 250px !important; */
+  margin: auto;
+}
+.stripe-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.btn-secondary {
+  background-color: #b288b9;
+  border-radius: 15px !important;
 }
 </style>

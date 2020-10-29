@@ -197,9 +197,12 @@ export default {
     },
     addExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
+      const cartIdFromUser = localStorage.getItem("cartId");
       var response;
       axios
-        .put(`${this.$API_URL}/i/cart/addons/extraPackaging`)
+        .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
+          cartId: cartIdFromUser
+        })
         // add cartID to body
         .then(resp => {
           response = resp.data;
@@ -213,9 +216,12 @@ export default {
     },
     removeExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
+      const cartIdFromUser = localStorage.getItem("cartId");
       var response;
       axios
-        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`)
+        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
+          cartId: cartIdFromUser
+        })
         // add cartID to body
         .then(resp => {
           response = resp.data;
@@ -228,16 +234,19 @@ export default {
     },
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
+      const cartIdFromUser = localStorage.getItem("cartId");
       var response;
       axios
-        .put(`${this.$API_URL}/i/cart/addons/shipping`)
+        .put(`${this.$API_URL}/i/cart/addons/shipping`, {
+          cartId: cartIdFromUser
+        })
         // add cartID to body
         .then(resp => {
           response = resp.data;
-          console.log(response);
+          console.log("shipping cost: " + response);
         })
         .catch(error => {
-          console.error(error);
+          console.error("shipping error: " + error);
         });
     },
     onSubmit(evt) {

@@ -154,9 +154,7 @@
                   <span
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
-                  >
-                    {{ this.perItemPrice(0) }}
-                  </span>
+                  >{{ this.perItemPrice(0) }}</span>
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
                   </span>
@@ -248,9 +246,7 @@
                   <span
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
-                  >
-                    {{ this.perItemPrice(0) }}
-                  </span>
+                  >{{ this.perItemPrice(0) }}</span>
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
                   </span>

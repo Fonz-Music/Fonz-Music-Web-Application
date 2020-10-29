@@ -26,15 +26,16 @@
             We sourced product, began development, and started accepting
             pre-orders (thank you to those who believed in us)
           </c-timeline-item>
-          <c-timeline-item title="1 October 2020">
+          <c-timeline-item title="1 November 2020">
             Our app beta launched supporting Spotify &amp; distributed coasters
             to our believers
           </c-timeline-item>
-          <c-timeline-item title="15 November 2020">
+          <c-timeline-item title="15 December 2020">
             Plans to add support for Apple Music
           </c-timeline-item>
           <c-timeline-item title="1 January 2021">
-            Upating search feature, adding new platforms, &amp; allow DJ setting
+            Updating search feature, adding new platforms, &amp; allow DJ
+            setting
           </c-timeline-item>
         </c-timeline>
       </div>

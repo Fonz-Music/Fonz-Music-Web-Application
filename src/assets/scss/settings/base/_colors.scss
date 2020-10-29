@@ -5,7 +5,8 @@ $palette: (
 	light: (
 		1: #F9FAFF,
 		2: #959CB1,
-		3: #6A6F82
+		3: #6A6F82,
+		4: #ACB3C6
 	),
 	dark: (
 		1: #16171B,
@@ -65,8 +66,8 @@ $color: (
 
 // Borders and dividers: color
 $border--color: (
-	divider:			get-color(dark, 3),
-	divider-inverse:	darken(get-color(light, 1), 4%)
+	divider:			get-color(light, 4),
+	divider-inverse:	get-color(light, 4)
 );
 
 // Icons: fill color

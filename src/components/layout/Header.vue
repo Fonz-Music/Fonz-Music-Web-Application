@@ -163,7 +163,7 @@ export default {
   width: 10vw;
 
   /* height: 10vw; */
-  max-width: 125px;
+  max-width: 80px;
   min-width: 70px;
 }
 </style>

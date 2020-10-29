@@ -1,8 +1,8 @@
 <template>
   <fragment>
-    <c-hero-split class="" />
+    <c-hero-split/>
     <c-clients top-divider class="center-content" />
-    <c-CoasterBuyInfo />
+    <c-CoasterBuyInfo top-divider/>
     <DownloadApp />
     <c-roadmap top-divider class="center-content" />
   </fragment>

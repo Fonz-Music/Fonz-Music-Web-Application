@@ -9,6 +9,7 @@
           :width="64"
           :height="64"
         />
+        <!-- <img src="@/assets/images/logo.svg" alt="logo" /> -->
       </router-link>
     </h1>
   </div>

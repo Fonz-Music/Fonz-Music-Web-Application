@@ -8,8 +8,17 @@
         class="site-header-inner"
         :class="bottomDivider && 'has-bottom-divider'"
       >
-        <c-logo />
-        <c-logoHeader />
+        <router-link to="/"
+          ><img
+            src="@/assets/images/logo.svg"
+            class="header-logo"
+            alt="logo"
+            width="64"
+            height="64"
+        /></router-link>
+
+        <!-- <c-logo />
+        <c-logoHeader /> -->
         <button
           v-if="!hideNav"
           ref="hamburger"
@@ -153,3 +162,10 @@ export default {
   }
 };
 </script>
+<style media="screen">
+.header-logo {
+  margin: 15px auto !important;
+
+  max-width: 100px !important;
+}
+</style>

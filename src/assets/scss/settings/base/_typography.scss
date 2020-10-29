@@ -1,21 +1,12 @@
 // Typography
 
-$font--provider: "Google Fonts";
+// $font--provider: ;
 $font--import: "Fira+Sans:600|Heebo:400,500,700";
-
-$font--provider: "MuseoSans100";
-$font--import: "MuseoSans:100";
-$font--provider: "MuseoSans300";
-$font--import: "MuseoSans:300";
-$font--provider: "MuseoSans500";
-$font--import: "MuseoSans:500";
-$font--provider: "MuseoSans700";
-$font--import: "MuseoSans700:700";
 
 // The font set
 $font--family: (
-  heading: '"MuseoSans", Courier',
-  base: '"MuseoSans", Courier',
+  heading: '"MuseoSans700", Courier',
+  base: '"MuseoSans300", Courier',
   code: 'Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace',
   pre: '"Courier 10 Pitch", Courier, monospace'
 );

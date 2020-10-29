@@ -1,15 +1,3 @@
-@if ($font--provider == "Google Fonts") {
-  @import url("https://fonts.googleapis.com/css?family=#{$font--import}&display=swap");
-}
-@if ($font--provider == "MuseoSans100") {
-  @import url("@/assets/fonts/MuseoSans-100.otf");
-}
-@if ($font--provider == "MuseoSans300") {
-  @import url("@/assets/fonts/MuseoSans-300.otf");
-}
-@if ($font--provider == "MuseoSans500") {
-  @import url("@/assets/fonts/MuseoSans_500.otf");
-}
-// @if ( $font--provider == 'MuseoSans700' ) {
-//     @import url('@/assets/fonts/MuseoSans_700.otf');
+// @if ($font--provider == "Google Fonts") {
+//   @import url("https://fonts.googleapis.com/css?family=#{$font--import}&display=swap");
 // }

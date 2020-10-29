@@ -152,13 +152,16 @@ exports.addAddonToCart = (addonId, cartId) => {
     return new Promise(async (resolve, reject) => {
         try {
             const cart = await this.getCart(cartId);
-            const {
-                addons
-            } = cart;
-            if (addons.includes(addonId)) return reject({
-                status: 403,
-                message: `Addon ${addonId} is already in your cart.`
-            });
+            let addons = cart.addons;
+            console.log({ addons })
+            if (addons != undefined) {
+                if (addons.includes(addonId)) return reject({
+                    status: 403,
+                    message: `Addon ${addonId} is already in your cart.`
+                });
+            } else {
+                addons = [];
+            }
             const updatedAddons = [addonId, ...addons]
             const addon = await this.getAddon(addonId);
             const cartRef = await global.CartDB
@@ -275,8 +278,10 @@ exports.createPayment = (items, currency, amount) => {
                 amount,
                 currency,
                 description: 'My First Test Charge (created for API docs)',
-              });
-              console.log({ charge })
+            });
+            console.log({
+                charge
+            })
             resolve(charge)
         } catch (error) {
             reject(error);

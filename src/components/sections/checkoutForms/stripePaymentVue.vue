@@ -27,7 +27,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    amount: 1000,
+    amount: null,
     publishableKey:
       "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
     token: null,
@@ -58,12 +58,19 @@ export default {
           amount: this.amount
         })
         .then(resp => {
+          console.log("success order");
           // this.token = resp.data.clientSecret;
+          //resp.data has a ton of info
           // PAYMENT SUCCESS
           // this.$router.to('/')
+          this.$router.push("/");
         })
         .catch(error => {
+          console.log("fail order");
+          console.log("error: " + error);
           // PAYMENT FAILED
+          // route to failure page
+          this.$router.push("/404");
         });
     }
   }

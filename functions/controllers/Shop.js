@@ -280,7 +280,7 @@ const calculateOrderAmount = (packageId, currency, addons, coupon) => {
                 totalAmount += parseInt(price);
             });
             // Take away discount :D
-            let { discount } = await this.getCoupon(coupon);
+            let { discount } = (coupon) ? await this.getCoupon(coupon) : { discount: 0};
             totalAmount -= parseInt(discount);
             totalAmount *= 100; // Total must be multiplied by 100 as Stripe deals in cents not euros
             resolve(totalAmount);

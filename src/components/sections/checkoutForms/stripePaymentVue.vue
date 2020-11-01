@@ -63,14 +63,14 @@ export default {
           //resp.data has a ton of info
           // PAYMENT SUCCESS
           // this.$router.to('/')
-          this.$router.push("/");
+          this.$router.push({ path: "/ordersuccess" });
         })
         .catch(error => {
           console.log("fail order");
           console.log("error: " + error);
           // PAYMENT FAILED
           // route to failure page
-          this.$router.push("/404");
+          this.$router.push({ path: "/orderfailure" });
         });
     }
   }

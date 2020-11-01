@@ -4,14 +4,23 @@ const Shop = require('../controllers/Shop');
 
 router.post('/payment-intent', (req, res) => {
     const {
-        items,
-        currency,
-        amount
+        cartId,
+        source
     } = req.body;
-    if (!items || !currency) return res.status(400).json({
-        message: 'Missing parameters.'
+    if(!source || !cartId) return res.status(400).json({
+        message: "Missing parameters."
     })
-    Shop.createPayment(items, currency).then((paymentIntent) => {
+    // const {
+        // items,
+        // currency
+    // } = req.body;
+    // if (!items || !currency) return res.status(400).json({
+        // message: 'Missing parameters.'
+    // })
+    // const items = { "packageId": 1234 },
+        // currency = "EUR",
+        // amount = 100;
+    Shop.createPayment(cartId, source).then((paymentIntent) => {
         res.json(paymentIntent)
         // res.json({
             // clientSecret: paymentIntent.client_secret

@@ -14,9 +14,9 @@ import OrderSuccess from "@/components/sections/SuccessfulOrder.vue";
 // import CHeroFull02 from "@/components/sections/HeroFull02.vue";
 
 export default {
-  name: "OrderFailure",
+  name: "OrderFailurePage",
   components: {
-    OrderFailure,
+    OrderFailureComponent,
     OrderSuccess
   },
   data() {

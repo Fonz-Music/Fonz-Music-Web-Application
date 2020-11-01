@@ -296,10 +296,6 @@ export default {
         .catch(error => {
           console.error(error);
         });
-      // if a single coaster, add shipping cost
-      if (this.currentPackage.quantity == 1) {
-        this.addShippingCost();
-      }
     }
   },
 

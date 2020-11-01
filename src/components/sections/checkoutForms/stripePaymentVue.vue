@@ -27,7 +27,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    amount: null,
+    amount: 1000,
     publishableKey:
       "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
     token: null,
@@ -63,6 +63,28 @@ export default {
           this.$router.push({ path: "/ordersuccess" });
         })
         .catch(error => {
+          if (error.requiresAction) {
+            // Use Stripe.js to handle required card action
+            stripe.handleCardAction(error.clientSecret).then(function(result) {
+              if (result.error) {
+                // Show `result.error.message` in payment form
+              } else {
+                // The card action has been handled
+                // The PaymentIntent can be confirmed again on the server
+                fetch("/pay", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    payment_intent_id: result.paymentIntent.id
+                  })
+                })
+                  .then(function(confirmResult) {
+                    return confirmResult.json();
+                  })
+                  .then(handleServerResponse);
+              }
+            });
+          }
           console.log("fail order");
           console.log("error: " + error);
           // PAYMENT FAILED

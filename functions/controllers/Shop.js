@@ -258,30 +258,51 @@ exports.getPackageInformation = (packageId, currency) => {
     })
 }
 
-const calculateOrderAmount = items => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
+// const calculateOrderAmount = items => {
+//     // Replace this constant with a calculation of the order's amount
+//     // Calculate the order total on the server to prevent
+//     // people from directly manipulating the amount on the client
 
-    return 1400 + items.length;
-};
+//     return 1400 + items.length;
+// };
 
-exports.createPayment = (items, currency, amount) => {
+const calculateOrderAmount = (packageId, currency, addons, coupon) => {
     return new Promise(async (resolve, reject) => {
-        // TODO: Verify that the items provided exist and are correct price
         try {
-            // const paymentIntent = await stripe.paymentIntents.create({
-            //     amount: calculateOrderAmount(items),
-            //     currency
-            // });
+            let totalAmount = 0;
+            // Add cost of coaster
+            let { price, freeShipping } = await this.getPackageInformation(packageId, currency);
+            const shippingCost = (freeShipping) ? 0 : 3; // Shipping cost hardcoded to 3.00 for the moment
+            totalAmount += parseInt(price) + parseInt(shippingCost);
+            // Add cost of addons
+            addons.forEach(async (addon) => {
+                let { price } = await this.getAddon(addon);
+                totalAmount += parseInt(price);
+            });
+            // Take away discount :D
+            let { discount } = await this.getCoupon(coupon);
+            totalAmount -= parseInt(discount);
+            totalAmount *= 100; // Total must be multiplied by 100 as Stripe deals in cents not euros
+            resolve(totalAmount);
+        } catch(error) {
+            console.error(error);
+            reject(error);
+        }
+    });
+}
+
+exports.createPayment = (cartId, source) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const { currency, coupon, packageId, addons, quantity } = await this.getCart(cartId);
+            const amount = await calculateOrderAmount(packageId, currency, addons, coupon);
             const charge = await stripe.charges.create({
                 amount,
                 currency,
-                description: 'My First Test Charge (created for API docs)',
+                description: `${quantity} Fonz Coasters.`,
+                source,
             });
-            console.log({
-                charge
-            })
+
             resolve(charge)
         } catch (error) {
             reject(error);

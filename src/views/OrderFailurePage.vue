@@ -1,8 +1,7 @@
 <template>
   <div class="order-failure-page">
-    <fragment>
-      <OrderFailure />
-    </fragment>
+    <OrderFailureComponent />
+    <!-- <OrderSuccess /> -->
   </div>
 </template>
 
@@ -10,13 +9,15 @@
 // import layout
 import CLayout from "@/layouts/LayoutAlternative.vue";
 
-import OrderFailure from "@/components/sections/OrderFailure.vue";
+import OrderFailureComponent from "@/components/sections/OrderFailure.vue";
+import OrderSuccess from "@/components/sections/SuccessfulOrder.vue";
 // import CHeroFull02 from "@/components/sections/HeroFull02.vue";
 
 export default {
   name: "OrderFailure",
   components: {
-    OrderFailure
+    OrderFailure,
+    OrderSuccess
   },
   data() {
     return {

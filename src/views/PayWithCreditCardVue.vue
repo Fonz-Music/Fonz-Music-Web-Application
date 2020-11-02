@@ -1,6 +1,6 @@
-<template>
+<!-- <template>
   <fragment>
-    <!-- <c-PayCreditCard /> -->
+
     <section>
       <div class="progress-tabs">
         <b-tabs>
@@ -562,4 +562,4 @@ button:disabled {
     width: 80vw;
   }
 }
-</style>
+</style> -->

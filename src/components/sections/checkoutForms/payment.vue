@@ -7,9 +7,7 @@
       <br />
       <div class="stripe-payment center-content">
         <form id="payment-form">
-          <div id="card-element">
-            
-          </div>
+          <div id="card-element"></div>
 
           <button id="submit">
             <div class="spinner hidden" id="spinner"></div>
@@ -26,113 +24,184 @@
             pay again.
           </p>
         </form>
+      </div> 
+      <div id="app">
+        <card
+          class="stripe-card"
+          :class="{ complete }"
+          stripe="pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU"
+          :options="stripeOptions"
+          @change="complete = $event.complete"
+        />
+        <button class="pay-with-stripe" @click="pay" :disabled="!complete">
+          Pay with credit card
+        </button>
       </div>
     </section>
+
+    
   </div>
 </template>
 
 <script>
 import VueCardFormat from "vue-credit-card-validation";
 import CInput from "@/components/elements/Input.vue";
+
+import { Card, createToken } from "vue-stripe-elements-plus";
+const axios = require("axios");
+import { loadStripe } from "@stripe/stripe-js";
 // import CButton from "@/components/elements/Button.vue";
 export default {
   name: "payment",
-  props: {
-    value: {
-      type: Object,
-      required: true
-    }
-  },
-
+  data: () => ({
+    loading: false,
+    complete: false,
+    stripe: null,
+    amount: 1000,
+    publishableKey:
+      "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
+    token: null,
+    charge: null,
+    items: {
+      packageId: localStorage.getItem("package")
+    },
+    cartId: localStorage.getItem("cartId")
+  }),
   components: {
     CInput,
-    VueCardFormat
+    VueCardFormat,
+    Card
     // CButton
+  },
+  methods: {
+    pay() {
+      // createToken returns a Promise which resolves in a result object with
+      // either a token or an error key.
+      // See https://stripe.com/docs/api#tokens for the token object.
+      // See https://stripe.com/docs/api#errors for the error object.
+      // More general https://stripe.com/docs/stripe.js#stripe-create-token.
+      createToken().then(data => {
+        this.tokenCreated(data.token);
+
+        this.sendTokenToServer(this.charge);
+      });
+    },
+    async mounted() {
+      this.stripe = await loadStripe("pk_test_Xg7qi3wvJZJYGcNRrVPF9aOc");
+      var elements = this.stripe.elements();
+      // this.createIntent();
+    },
+    tokenCreated(token) {
+      this.token = token;
+
+      // for additional charge objects go to https://stripe.com/docs/api/charges/object
+      this.charge = {
+        source: token.id,
+        cartId: this.cartId,
+        description: this.description // optional description that will show up on stripe when looking at payments
+      };
+      // this.sendTokenToServer(this.charge);
+    },
+    sendTokenToServer(charge) {
+      this.stripe = Stripe(
+        "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU"
+      );
+      // console.log("stripe: " + stripe);
+      axios
+        .post("/i/checkout/payment-intent", { ...charge })
+        .then(function(result) {
+          return result.json();
+        })
+        .then(function(data) {
+          var style = {
+            base: {
+              color: "#32325d",
+              fontFamily: "Arial, sans-serif",
+              fontSmoothing: "antialiased",
+              fontSize: "16px",
+              "::placeholder": {
+                color: "#32325d"
+              }
+            },
+            invalid: {
+              fontFamily: "Arial, sans-serif",
+              color: "#fa755a",
+              iconColor: "#fa755a"
+            }
+          };
+          var card = elements.create("card", { style: style });
+          // Stripe injects an iframe into the DOM
+          card.mount("#card-element");
+          card.on("change", function(event) {
+            // Disable the Pay button if there are no card details in the Element
+            document.querySelector("button").disabled = event.empty;
+            document.querySelector("#card-error").textContent = event.error
+              ? event.error.message
+              : "";
+          });
+          var form = document.getElementById("payment-form");
+          form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Complete payment when the submit button is clicked
+            this.payWithCard(this.stripe, card, data.clientSecret);
+          });
+        });
+    },
+    payWithCard: function(stripe, card, clientSecret) {
+      this.loading(true);
+      stripe
+        .confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: card
+          }
+        })
+        .then(function(result) {
+          if (result.error) {
+            // Show error to your customer
+            this.showError(result.error.message);
+          } else {
+            // The payment succeeded!
+            console.log("PAYMENT COMPLETED ");
+            this.orderComplete(result.paymentIntent.id);
+          }
+        });
+    },
+    orderComplete: function(paymentIntentId) {
+      this.loading(false);
+
+      document
+
+        .querySelector(".result-message a")
+
+        .setAttribute(
+          "href",
+
+          "https://dashboard.stripe.com/test/payments/" + paymentIntentId
+        );
+
+      document.querySelector(".result-message").classList.remove("hidden");
+
+      document.querySelector("button").disabled = true;
+    },
+    showError: function(errorMsgText) {
+      this.loading(false);
+
+      var errorMsg = document.querySelector("#card-error");
+
+      errorMsg.textContent = errorMsgText;
+
+      setTimeout(function() {
+        errorMsg.textContent = "";
+      }, 4000);
+    }
   }
 };
-</script>
-<script>
-var stripe = Stripe(
-  "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU"
-);
 
 // The items the customer wants to buy
-
-var purchase = {
-  items: [{ id: "xl-tshirt" }],
-  currency: "eur"
-};
 
 // Disable the button until we have Stripe set up on the page
 
 // document.querySelector("button").disabled = true;
-
-fetch("/i/checkout/payment-intent", {
-  method: "POST",
-
-  headers: {
-    "Content-Type": "application/json"
-  },
-
-  body: JSON.stringify(purchase)
-})
-  .then(function(result) {
-    return result.json();
-  })
-
-  .then(function(data) {
-    var elements = stripe.elements();
-
-    var style = {
-      base: {
-        color: "#32325d",
-
-        fontFamily: "Arial, sans-serif",
-
-        fontSmoothing: "antialiased",
-
-        fontSize: "16px",
-
-        "::placeholder": {
-          color: "#32325d"
-        }
-      },
-
-      invalid: {
-        fontFamily: "Arial, sans-serif",
-
-        color: "#fa755a",
-
-        iconColor: "#fa755a"
-      }
-    };
-
-    var card = elements.create("card", { style: style });
-
-    // Stripe injects an iframe into the DOM
-
-    card.mount("#card-element");
-
-    card.on("change", function(event) {
-      // Disable the Pay button if there are no card details in the Element
-
-      document.querySelector("button").disabled = event.empty;
-
-      document.querySelector("#card-error").textContent = event.error
-        ? event.error.message
-        : "";
-    });
-
-    var form = document.getElementById("payment-form");
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      // Complete payment when the submit button is clicked
-
-      payWithCard(stripe, card, data.clientSecret);
-    });
-  });
 
 // Calls stripe.confirmCardPayment
 
@@ -140,87 +209,31 @@ fetch("/i/checkout/payment-intent", {
 
 // prompt the user to enter authentication details without leaving your page.
 
-var payWithCard = function(stripe, card, clientSecret) {
-  loading(true);
-
-  stripe
-
-    .confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: card
-      }
-    })
-
-    .then(function(result) {
-      if (result.error) {
-        // Show error to your customer
-
-        showError(result.error.message);
-      } else {
-        // The payment succeeded!
-
-        console.log("PAYMENT COMPLETED ");
-
-        orderComplete(result.paymentIntent.id);
-      }
-    });
-};
-
 /* ------- UI helpers ------- */
 
 // Shows a success message when the payment is complete
 
-var orderComplete = function(paymentIntentId) {
-  loading(false);
-
-  document
-
-    .querySelector(".result-message a")
-
-    .setAttribute(
-      "href",
-
-      "https://dashboard.stripe.com/test/payments/" + paymentIntentId
-    );
-
-  document.querySelector(".result-message").classList.remove("hidden");
-
-  document.querySelector("button").disabled = true;
-};
-
 // Show the customer the error from Stripe if their card fails to charge
-
-var showError = function(errorMsgText) {
-  loading(false);
-
-  var errorMsg = document.querySelector("#card-error");
-
-  errorMsg.textContent = errorMsgText;
-
-  setTimeout(function() {
-    errorMsg.textContent = "";
-  }, 4000);
-};
 
 // Show a spinner on payment submission
 
-var loading = function(isLoading) {
-  if (isLoading) {
-    // Disable the button and show a spinner
-
-    document.querySelector("button").disabled = true;
-
-    document.querySelector("#spinner").classList.remove("hidden");
-
-    document.querySelector("#button-text").classList.add("hidden");
-  } else {
-    document.querySelector("button").disabled = false;
-
-    document.querySelector("#spinner").classList.add("hidden");
-
-    document.querySelector("#button-text").classList.remove("hidden");
-  }
-};
+// var loading = function(isLoading) {
+//   if (isLoading) {
+//     // Disable the button and show a spinner
+//
+//     document.querySelector("button").disabled = true;
+//
+//     document.querySelector("#spinner").classList.remove("hidden");
+//
+//     document.querySelector("#button-text").classList.add("hidden");
+//   } else {
+//     document.querySelector("button").disabled = false;
+//
+//     document.querySelector("#spinner").classList.add("hidden");
+//
+//     document.querySelector("#button-text").classList.remove("hidden");
+//   }
+// };
 </script>
 
 <style lang="css" scoped>

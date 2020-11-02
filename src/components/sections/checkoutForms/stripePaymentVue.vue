@@ -73,34 +73,12 @@ export default {
         })
         .catch(error => {
           console.log("fail order");
-          if (error.requiresAction) {
-            console.log("requires action");
-            // Use Stripe.js to handle required card action
-            stripe.handleCardAction(error.clientSecret).then(function(result) {
-              if (result.error) {
-                // Show `result.error.message` in payment form
-              } else {
-                // The card action has been handled
-                // The PaymentIntent can be confirmed again on the server
-                fetch("/pay", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    payment_intent_id: result.paymentIntent.id
-                  })
-                })
-                  .then(function(confirmResult) {
-                    return confirmResult.json();
-                  })
-                  .then(handleServerResponse);
-              }
-            });
-          }
-          // this.confirmCardPayment(error.client_secret);
-          // console.log("error: " + error);
-          // // PAYMENT FAILED
-          // // route to failure page
-          // this.$router.push({ path: "/orderfailure" });
+
+          this.confirmCardPayment(error.client_secret);
+          console.log("error: " + error);
+          // PAYMENT FAILED
+          // route to failure page
+          this.$router.push({ path: "/orderfailure" });
         });
     },
     confirmCardPayment(clientSecret) {
@@ -140,7 +118,7 @@ export default {
       axios
         .post("/i/payment-intent", { ...this.cartId })
         .then(resp => {
-          console.log("beginning intent");
+          console.log("beginning i");
           // this.token = resp.data.clientSecret;
           //resp.data has a ton of info
           // PAYMENT SUCCESS

@@ -1,34 +1,23 @@
 <template>
   <section class="">
     <div class="progress-tabs ">
-      <!-- <div class="progress">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          style="width: 25%"
-          aria-valuenow="25"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div> -->
       <b-tabs v-model="tabIndex" align="center" pills justified>
         <b-tab>
           <email v-model="form.email" @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
-          <!-- <template v-slot:title>
-            address
-          </template> -->
           <addressTab
             v-model="form.placeAddress"
             @nextTab="updateTab($event)"
           />
         </b-tab>
-
+        <!-- <b-tab>
+          <payment />
+        </b-tab>
         <b-tab>
-          <!-- <template v-slot:title>
-            payment
-          </template> -->
+          <paymentTwo />
+        </b-tab> -->
+        <b-tab>
           <stripePaymentVue />
         </b-tab>
       </b-tabs>
@@ -44,6 +33,7 @@ import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import email from "@/components/sections/checkoutForms/email.vue";
 import addressTab from "@/components/sections/checkoutForms/address.vue";
 import payment from "@/components/sections/checkoutForms/payment.vue";
+import paymentTwo from "@/components/sections/checkoutForms/paymentTakeTwo.vue";
 import stripePaymentVue from "@/components/sections/checkoutForms/stripePaymentVue.vue";
 
 export default {
@@ -54,6 +44,7 @@ export default {
     addressTab,
     email,
     payment,
+    paymentTwo,
     stripePaymentVue
   },
   mixins: [SectionSplitProps],

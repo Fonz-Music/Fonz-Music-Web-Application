@@ -10,6 +10,7 @@ import PayWithCreditCard from "./views/PayWithCreditCard.vue";
 import OrderSuccess from "./views/OrderSuccess.vue";
 import PageNotFoundPage from "./views/404notFound.vue";
 import OrderFailurePage from "./views/OrderFailurePage.vue";
+import PayWithCreditCardVue from "./views/PayWithCreditCardVue.vue";
 
 Vue.use(Router);
 
@@ -59,6 +60,11 @@ export default new Router({
       path: "/orderfailure",
       name: "orderfailure",
       component: OrderFailurePage
+    },
+    {
+      path: "/payvue",
+      name: "payvue",
+      component: PayWithCreditCardVue
     },
     // this must be last
     {

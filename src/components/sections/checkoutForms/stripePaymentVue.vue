@@ -23,7 +23,7 @@ import { StripeElements } from "vue-stripe-checkout";
 const axios = require("axios");
 export default {
   components: {
-    StripeElements
+    StripeElements,
   },
   data: () => ({
     loading: false,
@@ -33,9 +33,9 @@ export default {
     token: null,
     charge: null,
     items: {
-      packageId: localStorage.getItem("package")
+      packageId: localStorage.getItem("package"),
     },
-    cartId: localStorage.getItem('cartId')
+    cartId: localStorage.getItem("cartId"),
   }),
   methods: {
     submit() {
@@ -46,26 +46,30 @@ export default {
       // for additional charge objects go to https://stripe.com/docs/api/charges/object
       this.charge = {
         source: token.id,
-        cartId: this.cartId, 
-        description: this.description // optional description that will show up on stripe when looking at payments
+        cartId: this.cartId,
+        description: this.description, // optional description that will show up on stripe when looking at payments
       };
       this.sendTokenToServer(this.charge);
     },
     sendTokenToServer(charge) {
       axios
         .post("/i/checkout/payment-intent", { ...charge })
-        .then(resp => {
-          console.log("success order");
-          // this.token = resp.data.clientSecret;
-          //resp.data has a ton of info
-          // PAYMENT SUCCESS
-          // this.$router.to('/')
-          this.$router.push({ path: "/ordersuccess" });
+        .then((resp) => {
+          if (resp.data.status == "requires_payment_method") {
+            console.log("Requires Payment")
+          } else {
+            console.log("success order");
+            // this.token = resp.data.clientSecret;
+            //resp.data has a ton of info
+            // PAYMENT SUCCESS
+            // this.$router.to('/')
+            this.$router.push({ path: "/ordersuccess" });
+          }
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.requiresAction) {
             // Use Stripe.js to handle required card action
-            stripe.handleCardAction(error.clientSecret).then(function(result) {
+            stripe.handleCardAction(error.clientSecret).then(function (result) {
               if (result.error) {
                 // Show `result.error.message` in payment form
               } else {
@@ -75,10 +79,10 @@ export default {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
-                    payment_intent_id: result.paymentIntent.id
-                  })
+                    payment_intent_id: result.paymentIntent.id,
+                  }),
                 })
-                  .then(function(confirmResult) {
+                  .then(function (confirmResult) {
                     return confirmResult.json();
                   })
                   .then(handleServerResponse);
@@ -91,8 +95,8 @@ export default {
           // route to failure page
           this.$router.push({ path: "/orderfailure" });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style media="screen">

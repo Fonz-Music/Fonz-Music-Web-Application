@@ -36,9 +36,6 @@ exports.createCart = (packageId, currency) => {
 exports.updateCart = (packageId, currency, cartId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log({
-                cartId
-            })
             const cartRef = await global.CartDB
                 .doc(cartId)
                 .get();
@@ -48,9 +45,6 @@ exports.updateCart = (packageId, currency, cartId) => {
             })
             // const cart = cartRef.data();
             this.getPackageInformation(packageId, currency).then(async (packageInfo) => {
-                console.log({
-                    packageInfo
-                })
                 const {
                     price,
                     quantity,
@@ -291,19 +285,23 @@ const calculateOrderAmount = (packageId, currency, addons, coupon) => {
     });
 }
 
-exports.createPayment = (cartId, source) => {
+exports.createPayment = (cartId ) => {
     return new Promise(async (resolve, reject) => {
         try {
             const { currency, coupon, packageId, addons, quantity } = await this.getCart(cartId);
             const amount = await calculateOrderAmount(packageId, currency, addons, coupon);
-            const charge = await stripe.charges.create({
+            // const charge = await stripe.charges.create({
+            //     amount,
+            //     currency,
+            //     description: `${quantity} Fonz Coasters.`,
+            //     source,
+            // });
+            const paymentIntent = await stripe.paymentIntents.create({
                 amount,
                 currency,
-                description: `${quantity} Fonz Coasters.`,
-                source,
-            });
-
-            resolve(charge)
+                payment_method_types: ['card'],
+              });
+            resolve(paymentIntent)
         } catch (error) {
             reject(error);
         }

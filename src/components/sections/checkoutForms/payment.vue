@@ -1,4 +1,4 @@
-<template lang="html">
+<!-- <template lang="html">
   <div class="paymentTab">
     <section>
       <div class="payment-content center-content">
@@ -8,7 +8,7 @@
       <div class="stripe-payment center-content">
         <form id="payment-form">
           <div id="card-element">
-            <!--Stripe.js injects the Card Element-->
+            
           </div>
 
           <button id="submit">
@@ -503,4 +503,4 @@ button:disabled {
     width: 85vw;
   }
 }
-</style>
+</style> -->

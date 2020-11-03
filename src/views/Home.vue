@@ -34,6 +34,22 @@ export default {
     CRoadmap,
     DownloadApp
   },
+
+  methods: {
+    eventPageViewHome() {
+      firebase.analytics().logEvent('page_view', {
+        page_location: 'http://web.fonzmusic.com',
+        page_path: '/',
+        page_title: 'Home'
+      });
+      console.log('home event logged');
+    }
+  },
+
+  beforeMount() {
+    this.eventPageViewHome();
+  },
+
   data() {
     return {
       genericSection01Header: {

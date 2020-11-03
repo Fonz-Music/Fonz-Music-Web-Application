@@ -21,12 +21,18 @@
 <script>
 import { StripeElements } from "vue-stripe-checkout";
 const axios = require("axios");
+import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
+// stripe = await loadStripe(
+//   "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU"
+// );
 export default {
   components: {
     StripeElements,
   },
   data: () => ({
     loading: false,
+
     amount: 1000,
     publishableKey:
       "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
@@ -35,7 +41,7 @@ export default {
     items: {
       packageId: localStorage.getItem("package"),
     },
-    cartId: localStorage.getItem("cartId"),
+    cartId: localStorage.getItem("cartId")
   }),
   methods: {
     submit() {
@@ -47,56 +53,87 @@ export default {
       this.charge = {
         source: token.id,
         cartId: this.cartId,
-        description: this.description, // optional description that will show up on stripe when looking at payments
+        description: this.description // optional description that will show up on stripe when looking at payments
       };
       this.sendTokenToServer(this.charge);
     },
     sendTokenToServer(charge) {
+      // console.log("stripe: " + stripe);
       axios
         .post("/i/checkout/payment-intent", { ...charge })
-        .then((resp) => {
-          if (resp.data.status == "requires_payment_method") {
-            console.log("Requires Payment")
-          } else {
-            console.log("success order");
-            // this.token = resp.data.clientSecret;
-            //resp.data has a ton of info
-            // PAYMENT SUCCESS
-            // this.$router.to('/')
-            this.$router.push({ path: "/ordersuccess" });
-          }
+        .then(resp => {
+          console.log("beginning on confirming");
+
+          console.log("success order");
+          // this.token = resp.data.clientSecret;
+          //resp.data has a ton of info
+          // PAYMENT SUCCESS
+          // this.$router.to('/')
+          this.$router.push({ path: "/ordersuccess" });
         })
-        .catch((error) => {
-          if (error.requiresAction) {
-            // Use Stripe.js to handle required card action
-            stripe.handleCardAction(error.clientSecret).then(function (result) {
-              if (result.error) {
-                // Show `result.error.message` in payment form
-              } else {
-                // The card action has been handled
-                // The PaymentIntent can be confirmed again on the server
-                fetch("/pay", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    payment_intent_id: result.paymentIntent.id,
-                  }),
-                })
-                  .then(function (confirmResult) {
-                    return confirmResult.json();
-                  })
-                  .then(handleServerResponse);
-              }
-            });
-          }
+        .catch(error => {
           console.log("fail order");
+
+          this.confirmCardPayment(error.client_secret);
           console.log("error: " + error);
           // PAYMENT FAILED
           // route to failure page
           this.$router.push({ path: "/orderfailure" });
         });
     },
+    confirmCardPayment(clientSecret) {
+      // var stripe = Stripe(this.publishableKey);
+      const card = this.$refs.elementsRef.card;
+      if (clientSecret && stripe && card) {
+        stripe
+          .confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: card
+            }
+          })
+          .then(r => {
+            console.log(r);
+            if (r.error) {
+              // Show error to your customer (e.g., insufficient funds)
+              console.log(result.error.message);
+            } else {
+              if (r.paymentIntent.status === "succeeded") {
+                // Show a success message to your customer
+                // There's a risk of the customer closing the window before callback
+                // execution. Set up a webhook or plugin to listen for the
+                // payment_intent.succeeded event that handles any business critical
+                // post-payment actions.
+              }
+            }
+          });
+      }
+    },
+    async mounted() {
+      this.stripe = await loadStripe("pk_test_Xg7qi3wvJZJYGcNRrVPF9aOc");
+      this.createIntent();
+    },
+    createIntent() {
+      // charge should just be the cartId
+      // need to define charge
+      axios
+        .post("/i/payment-intent", { ...this.cartId })
+        .then(resp => {
+          console.log("beginning i");
+          // this.token = resp.data.clientSecret;
+          //resp.data has a ton of info
+          // PAYMENT SUCCESS
+          // this.$router.to('/')
+          // this.$router.push({ path: "/ordersuccess" });
+        })
+        .catch(error => {
+          console.log("error on mount: " + error);
+          // PAYMENT FAILED
+          // route to failure page
+          // this.$router.push({ path: "/orderfailure" });
+        });
+    }
   },
+  mounted: {}
 };
 </script>
 <style media="screen">

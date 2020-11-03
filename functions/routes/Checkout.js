@@ -1,6 +1,6 @@
-let express = require('express');
+let express = require("express");
 let router = express.Router();
-const Shop = require('../controllers/Shop');
+const Shop = require("../controllers/Shop");
 
 router.post('/payment-intent', (req, res) => {
     const {

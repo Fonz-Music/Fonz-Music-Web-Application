@@ -27,6 +27,21 @@ router.post('/payment-intent', (req, res) => {
     }).catch((error) => {
         res.status(error.status || 500).json(error);
     })
+});
+
+router.post('/pay', (req, res) => {
+    const {
+        paymentIntent
+    } = req.body;
+    if(!paymentIntent) return res.status(400).json({
+        message: "Missing parameters."
+    });
+    
+    Shop.confirmPaymentIntent(paymentIntent).then((paymentIntent) => {
+        res.json(paymentIntent);
+    }).catch((error) => {
+        res.status(error.status || 500).json(error);
+    })
 })
 
 module.exports = router;

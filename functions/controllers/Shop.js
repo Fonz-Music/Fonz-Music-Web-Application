@@ -307,3 +307,16 @@ exports.createPayment = (cartId ) => {
         }
     })
 };
+
+exports.confirmPaymentIntent = (paymentIntent) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const intent = await stripe.paymentIntents.confirm(
+                paymentIntent
+              );
+            resolve(intent);
+        } catch(error) {
+            reject(error);
+        }
+    })
+}

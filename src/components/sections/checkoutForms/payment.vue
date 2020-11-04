@@ -1,4 +1,4 @@
-<!-- <template lang="html">
+<template lang="html">
   <div class="paymentTab">
     <section>
       <div class="payment-content center-content">
@@ -24,8 +24,8 @@
             pay again.
           </p>
         </form>
-      </div> 
-      <div id="app">
+      </div>
+      <!-- <div id="app">
         <card
           class="stripe-card"
           :class="{ complete }"
@@ -36,10 +36,8 @@
         <button class="pay-with-stripe" @click="pay" :disabled="!complete">
           Pay with credit card
         </button>
-      </div>
+      </div> -->
     </section>
-
-    
   </div>
 </template>
 
@@ -73,7 +71,29 @@ export default {
     Card
     // CButton
   },
+  mounted() {
+    let stripeScript = document.createElement("script");
+    stripeScript.setAttribute("src", "https://js.stripe.com/v3/");
+    document.head.appendChild(stripeScript);
+    this.setUpStripe();
+  },
   methods: {
+    setUpStripe() {
+      if (window.Stripe === undefined) {
+        alert("Stripe V3 library not loaded!");
+      } else {
+        const stripe = window.Stripe("public_key");
+        this.stripe = stripe;
+        const elements = stripe.elements();
+        this.cardCvc = elements.create("cardCvc");
+        this.cardExpiry = elements.create("cardExpiry");
+        this.cardNumber = elements.create("cardNumber");
+        this.cardCvc.mount("#card-cvc");
+        this.cardExpiry.mount("#card-expiry");
+        this.cardNumber.mount("#card-number");
+        this.listenForErrors();
+      }
+    },
     pay() {
       // createToken returns a Promise which resolves in a result object with
       // either a token or an error key.
@@ -516,4 +536,4 @@ button:disabled {
     width: 85vw;
   }
 }
-</style> -->
+</style>

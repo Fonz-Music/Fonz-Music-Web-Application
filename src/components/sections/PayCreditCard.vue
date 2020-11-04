@@ -13,8 +13,8 @@
         </b-tab>
         <!-- <b-tab>
           <payment />
-        </b-tab>
-        <b-tab>
+        </b-tab> -->
+        <!-- <b-tab>
           <paymentTwo />
         </b-tab> -->
         <b-tab>

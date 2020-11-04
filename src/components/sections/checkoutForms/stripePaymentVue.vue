@@ -28,7 +28,7 @@ import { loadStripe } from "@stripe/stripe-js";
 // );
 export default {
   components: {
-    StripeElements,
+    StripeElements
   },
   data: () => ({
     loading: false,
@@ -39,7 +39,7 @@ export default {
     token: null,
     charge: null,
     items: {
-      packageId: localStorage.getItem("package"),
+      packageId: localStorage.getItem("package")
     },
     cartId: localStorage.getItem("cartId")
   }),
@@ -63,13 +63,30 @@ export default {
         .post("/i/checkout/payment-intent", { ...charge })
         .then(resp => {
           console.log("beginning on confirming");
+          alert(JSON.stringify(resp, null, 4));
+          // alert(JSON.stringify(resp.data, null, 4));
+          // console.log("resp data " + resp.data);
+          axios
+            .post("/i/checkout/pay", {
+              paymentIntent: resp.data.id
+            })
+            .then(resp => {
+              console.log("success order");
+              // this.token = resp.data.clientSecret;
+              //resp.data has a ton of info
+              // PAYMENT SUCCESS
+              // this.$router.to('/')
+              this.$router.push({ path: "/ordersuccess" });
+            })
+            .catch(error => {
+              console.log("fail order");
 
-          console.log("success order");
-          // this.token = resp.data.clientSecret;
-          //resp.data has a ton of info
-          // PAYMENT SUCCESS
-          // this.$router.to('/')
-          this.$router.push({ path: "/ordersuccess" });
+              this.confirmCardPayment(error.client_secret);
+              console.log("error: " + error);
+              // PAYMENT FAILED
+              // route to failure page
+              this.$router.push({ path: "/orderfailure" });
+            });
         })
         .catch(error => {
           console.log("fail order");

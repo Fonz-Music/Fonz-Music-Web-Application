@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <form id="payment-form">
-      <slot name="card-element">
-        <div id="card-element"></div>
-      </slot>
-      <slot name="card-errors">
-        <div id="card-errors" role="alert"></div>
-      </slot>
-      <button ref="submitButtonRef" type="submit" class="">
-        butto here
-      </button>
-    </form>
+  <div class="stripe-payment-tab center-content">
+    <div class="payment-content center-content">
+      <h3 class="">please enter your card details</h3>
+    </div>
+    <div class="stripe-form center-content">
+      <form id="payment-form">
+        <slot name="card-element">
+          <div id="card-element"></div>
+        </slot>
+        <slot name="card-errors">
+          <div id="card-errors" role="alert"></div>
+        </slot>
+        <b-button ref="submitButtonRef" type="submit" class="purchaseButton">
+          purchase
+        </b-button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -164,7 +169,11 @@ export default {
               }
             })
             .then(resp => {
-              // alert(JSON.stringify(resp, null, 4));
+              alert(JSON.stringify(resp, null, 4));
+              if (resp.code == "card_declined") {
+                this.$emit("error", error);
+                this.$router.push({ path: "/orderfailure" });
+              }
               this.$router.push({ path: "/ordersuccess" });
             })
             .catch(error => {
@@ -213,5 +222,21 @@ export default {
 }
 #payment-form {
   max-width: 900px;
+}
+.stripe-payment-tab {
+  /* padding-top: 250px !important; */
+  margin: auto;
+}
+.stripe-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.purchaseButton {
+  margin: 30px;
+}
+
+.btn-secondary {
+  background-color: #b288b9;
+  border-radius: 15px !important;
 }
 </style>

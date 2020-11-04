@@ -1,54 +1,217 @@
-<!-- <template>
-  <div id="app">
-    <h1>Please give us your payment details:</h1>
-    <card
-      class="stripe-card"
-      :class="{ complete }"
-      stripe="pk_test_XXXXXXXXXXXXXXXXXXXXXXXX"
-      :options="stripeOptions"
-      @change="complete = $event.complete"
-    />
-    <button class="pay-with-stripe" @click="pay" :disabled="!complete">
-      Pay with credit card
-    </button>
+<template>
+  <div>
+    <form id="payment-form">
+      <slot name="card-element">
+        <div id="card-element"></div>
+      </slot>
+      <slot name="card-errors">
+        <div id="card-errors" role="alert"></div>
+      </slot>
+      <button ref="submitButtonRef" type="submit" class="">
+        butto here
+      </button>
+    </form>
   </div>
 </template>
 
 <script>
-// import { stripeKey, stripeOptions } from "./stripeConfig.json";
-import { Card, createToken } from "vue-stripe-elements-plus";
-
+// import { loadStripeSdk } from "./load-checkout";
+const axios = require("axios");
 export default {
+  props: {
+    pk:
+      "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
+    amount: 1000,
+    stripeAccount: {
+      type: String
+    },
+    apiVersion: "v3",
+    locale: {
+      type: String,
+      default: "auto"
+    },
+    styleObject: {
+      type: Object
+    }
+  },
   data() {
     return {
-      complete: false,
-      stripeOptions: {
-        // see https://stripe.com/docs/stripe.js#element-options for details
-      }
+      loading: false,
+      stripe: null,
+      elements: null,
+      card: null
     };
   },
-
-  components: { Card },
-
-  methods: {
-    pay() {
-      // createToken returns a Promise which resolves in a result object with
-      // either a token or an error key.
-      // See https://stripe.com/docs/api#tokens for the token object.
-      // See https://stripe.com/docs/api#errors for the error object.
-      // More general https://stripe.com/docs/stripe.js#stripe-create-token.
-      createToken().then(data => console.log(data.token));
+  computed: {
+    style() {
+      return {
+        base: {
+          color: "#32325d",
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: "antialiased",
+          fontSize: "16px",
+          "::placeholder": {
+            color: "#aab7c4"
+          }
+        },
+        invalid: {
+          color: "#fa755a",
+          iconColor: "#fa755a"
+        }
+      };
+    },
+    form() {
+      return document.getElementById("payment-form");
     }
+  },
+  methods: {
+    submit() {
+      this.$refs.submitButtonRef.click();
+    },
+    sendPaymentToStripe(card) {
+      axios
+        .post("/i/checkout/pay", {
+          paymentIntent: this.clientSecret,
+          paymentMethod: card
+        })
+        .then(resp => {
+          console.log("success order");
+          // this.token = resp.data.clientSecret;
+          //resp.data has a ton of info
+          // PAYMENT SUCCESS
+          // this.$router.to('/')
+          this.$router.push({ path: "/ordersuccess" });
+        })
+        .catch(error => {
+          console.log("fail order");
+
+          // this.confirmCardPayment(error.client_secret);
+          console.log("error: " + error);
+          // PAYMENT FAILED
+          // route to failure page
+          this.$router.push({ path: "/orderfailure" });
+        });
+    },
+    loadStripeSdk: (pk, version = "v3", callback) => {
+      console.log("opening window");
+      if (window.Stripe) {
+        callback();
+        return;
+      }
+      let e = document.createElement("script");
+      e.src = `https://js.stripe.com/v3`;
+      e.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(e);
+      e.addEventListener("load", callback);
+      console.log("finished loadSDK");
+    },
+    sendCartIdToServer() {
+      // console.log("stripe: " + stripe);
+      axios
+        .post("/i/checkout/payment-intent", { cartId: this.cartId })
+        .then(resp => {
+          console.log("beginning on payment intent");
+          // alert(JSON.stringify(resp, null, 4));
+          this.clientSecret = resp.data.client_secret;
+          // alert(JSON.stringify(resp.data, null, 4));
+          // console.log("resp data " + resp.data);
+        })
+        .catch(error => {
+          console.log("fail making payment intent");
+        });
+    }
+  },
+  mounted() {
+    this.loadStripeSdk(this.pk, "v3", () => {
+      const options = {
+        stripeAccount: this.stripeAccount,
+        apiVersion: this.apiVersion,
+        locale: this.locale
+      };
+      this.stripe = window.Stripe(
+        "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
+        options
+      );
+      this.elements = this.stripe.elements();
+      this.card = this.elements.create("card", {
+        style: this.styleObject || this.style
+      });
+      this.card.mount("#card-element");
+      this.card.addEventListener("change", ({ error }) => {
+        const displayError = document.getElementById("card-errors");
+        if (error) {
+          displayError.textContent = error.message;
+          return;
+        }
+        displayError.textContent = "";
+      });
+
+      this.form.addEventListener("submit", async event => {
+        try {
+          this.$emit("loading", true);
+          event.preventDefault();
+          const data = {
+            ...this.card
+          };
+          // alert(JSON.stringify(data, null, 4));
+          // console.log("data: " + data);
+          if (this.amount) data.amount = this.amount;
+          // const { token, error } = await this.sendPaymentToStripe(data);
+          const { token, error } = await this.stripe
+            .confirmCardPayment(this.clientSecret, {
+              payment_method: {
+                card: data
+              }
+            })
+            .then(resp => {
+              // alert(JSON.stringify(resp, null, 4));
+              this.$router.push({ path: "/ordersuccess" });
+            })
+            .catch(error => {
+              const errorElement = document.getElementById("card-errors");
+              errorElement.textContent = error.message;
+              console.error(error);
+              this.$emit("error 1", error);
+              return;
+            });
+        } catch (error) {
+          console.error(error);
+          this.$emit("error", error);
+        } finally {
+          this.$emit("loading", false);
+        }
+      });
+    });
+    this.sendCartIdToServer();
   }
 };
 </script>
 
-<style>
-.stripe-card {
-  width: 300px;
-  border: 1px solid grey;
+<style scoped>
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
 }
-.stripe-card.complete {
-  border-color: green;
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
 }
-</style> -->
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+.hide {
+  visibility: hidden;
+}
+#payment-form {
+  max-width: 900px;
+}
+</style>

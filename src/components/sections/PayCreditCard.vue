@@ -14,12 +14,12 @@
         <!-- <b-tab>
           <payment />
         </b-tab> -->
-        <!-- <b-tab>
-          <paymentTwo />
-        </b-tab> -->
         <b-tab>
-          <stripePaymentVue />
+          <paymentTwo />
         </b-tab>
+        <!-- <b-tab>
+          <stripePaymentVue />
+        </b-tab> -->
       </b-tabs>
     </div>
   </section>

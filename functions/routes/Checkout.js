@@ -31,19 +31,19 @@ router.post("/payment-intent", (req, res) => {
 });
 
 router.post("/pay", (req, res) => {
-  const { paymentIntent } = req.body;
+  const { paymentIntent, paymentMethod } = req.body;
   if (!paymentIntent)
     return res.status(400).json({
       message: "Missing paymentID."
     });
-  // if (!paymentMethod)
-  //   return res.status(400).json({
-  //     message: "Missing paymentMethod."
-  //   });
+  if (!paymentMethod)
+    return res.status(400).json({
+      message: "Missing paymentMethod."
+    });
 
-  Shop.confirmPaymentIntent(paymentIntent)
+  Shop.confirmPaymentIntent(paymentIntent, paymentMethod)
     .then(paymentIntent => {
-      res.json(paymentIntent);
+      res.json(paymentIntent, paymentMethod);
     })
     .catch(error => {
       res.status(error.status || 500).json(error);

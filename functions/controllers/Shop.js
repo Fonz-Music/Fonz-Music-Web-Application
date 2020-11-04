@@ -302,10 +302,13 @@ exports.createPayment = cartId => {
   });
 };
 
-exports.confirmPaymentIntent = paymentIntent => {
+exports.confirmPaymentIntent = (paymentIntent, payment_method) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const intent = await stripe.paymentIntents.confirm(paymentIntent);
+      const intent = await stripe.paymentIntents.confirm(
+        paymentIntent,
+        payment_method
+      );
       resolve(intent);
     } catch (error) {
       reject(error);

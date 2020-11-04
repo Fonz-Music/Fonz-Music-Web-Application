@@ -1,4 +1,4 @@
-<template lang="html">
+<!-- <template lang="html">
   <div class="paymentTab">
     <section>
       <div class="payment-content center-content">
@@ -25,18 +25,7 @@
           </p>
         </form>
       </div>
-      <!-- <div id="app">
-        <card
-          class="stripe-card"
-          :class="{ complete }"
-          stripe="pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU"
-          :options="stripeOptions"
-          @change="complete = $event.complete"
-        />
-        <button class="pay-with-stripe" @click="pay" :disabled="!complete">
-          Pay with credit card
-        </button>
-      </div> -->
+      
     </section>
   </div>
 </template>
@@ -536,4 +525,4 @@ button:disabled {
     width: 85vw;
   }
 }
-</style>
+</style> -->

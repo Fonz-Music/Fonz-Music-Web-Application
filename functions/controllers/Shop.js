@@ -10,7 +10,12 @@ exports.createCart = (packageId, currency) => {
     try {
       this.getPackageInformation(packageId, currency)
         .then(async packageInfo => {
-          const { price, quantity, retailPrice, discount } = packageInfo;
+          const {
+            price,
+            quantity,
+            retailPrice,
+            discount
+          } = packageInfo;
 
           const newCartRef = await global.CartDB.add({
             packageId,
@@ -43,7 +48,12 @@ exports.updateCart = (packageId, currency, cartId) => {
       // const cart = cartRef.data();
       this.getPackageInformation(packageId, currency)
         .then(async packageInfo => {
-          const { price, quantity, retailPrice, discount } = packageInfo;
+          const {
+            price,
+            quantity,
+            retailPrice,
+            discount
+          } = packageInfo;
           const cartUpdateRef = await global.CartDB.doc(cartId).update({
             packageId,
             currency,
@@ -133,7 +143,9 @@ exports.addAddonToCart = (addonId, cartId) => {
     try {
       const cart = await this.getCart(cartId);
       let addons = cart.addons;
-      console.log({ addons });
+      console.log({
+        addons
+      });
       if (addons != undefined) {
         if (addons.includes(addonId))
           return reject({
@@ -243,21 +255,33 @@ const calculateOrderAmount = (packageId, currency, addons, coupon) => {
     try {
       let totalAmount = 0;
       // Add cost of coaster
-      let { price, freeShipping } = await this.getPackageInformation(
+      let {
+        price,
+        freeShipping
+      } = await this.getPackageInformation(
         packageId,
         currency
       );
       const shippingCost = freeShipping ? 0 : 3; // Shipping cost hardcoded to 3.00 for the moment
       totalAmount += parseInt(price) + parseInt(shippingCost);
       // Add cost of addons
-      addons.forEach(async addon => {
-        let { price } = await this.getAddon(addon);
-        totalAmount += parseInt(price);
-      });
+      if (addons) {
+        addons.forEach(async addon => {
+          let {
+            price
+          } = await this.getAddon(addon);
+          totalAmount += parseInt(price);
+        });
+      }
       // Take away discount :D
-      let { discount } = coupon
-        ? await this.getCoupon(coupon)
-        : { discount: 0 };
+      let {
+        discount
+      } = coupon
+        ?
+        await this.getCoupon(coupon) :
+        {
+          discount: 0
+        };
       totalAmount -= parseInt(discount);
       totalAmount *= 100; // Total must be multiplied by 100 as Stripe deals in cents not euros
       resolve(totalAmount);

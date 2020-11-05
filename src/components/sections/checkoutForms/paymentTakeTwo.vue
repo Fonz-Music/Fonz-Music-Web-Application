@@ -118,7 +118,8 @@ export default {
         .then(resp => {
           console.log("beginning on payment intent");
           // alert(JSON.stringify(resp, null, 4));
-          this.clientSecret = resp.data.client_secret;
+          localStorage.setItem("clientSecret", resp.data.client_secret);
+          // this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);
         })
@@ -161,17 +162,18 @@ export default {
           };
           // alert(JSON.stringify(data, null, 4));
           // console.log("data: " + data);
+          var clientSecretLocal = localStorage.getItem("clientSecret");
           if (this.amount) data.amount = this.amount;
           // const { token, error } = await this.sendPaymentToStripe(data);
           const { token, error } = await this.stripe
-            .confirmCardPayment(this.clientSecret, {
+            .confirmCardPayment(clientSecretLocal, {
               payment_method: {
                 card: data
               }
             })
             .then(resp => {
-              // alert(JSON.stringify(resp.error.code, null, 4));
-              console.log(resp.error.code);
+              alert(JSON.stringify(resp, null, 4));
+              // console.log(resp.error.code);
 
               if (resp.error) {
                 // alert(JSON.stringify(resp.error, null, 4));

@@ -294,6 +294,8 @@ exports.createPayment = cartId => {
         amount,
         currency,
         payment_method_types: ["card"]
+        // shipping,
+        // receipt_email
       });
       resolve(paymentIntent);
     } catch (error) {

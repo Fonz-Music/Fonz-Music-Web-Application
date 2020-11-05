@@ -112,9 +112,15 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
+      const addressIntent = localStorage.getItem("guestAddress");
+      const emailIntent = localStorage.getItem("guestEmail");
       // console.log("stripe: " + stripe);
       axios
-        .post("/i/checkout/payment-intent", { cartId: this.cartId })
+        .post("/i/checkout/payment-intent", {
+          cartId: this.cartId
+          // shipping: { address: addressIntent },
+          // receipt_email: emailIntent
+        })
         .then(resp => {
           console.log("beginning on payment intent");
           // alert(JSON.stringify(resp, null, 4));

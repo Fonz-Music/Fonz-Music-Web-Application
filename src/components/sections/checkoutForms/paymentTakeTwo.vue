@@ -11,6 +11,7 @@
         <slot name="card-errors">
           <div id="card-errors" role="alert"></div>
         </slot>
+        <!-- <p class="error" v-if="this.error">{{ this.errorMessage }}</p> -->
         <b-button ref="submitButtonRef" type="submit" class="purchaseButton">
           purchase
         </b-button>
@@ -169,12 +170,18 @@ export default {
               }
             })
             .then(resp => {
-              alert(JSON.stringify(resp, null, 4));
-              if (resp.code == "card_declined") {
+              // alert(JSON.stringify(resp.error.code, null, 4));
+              console.log(resp.error.code);
+
+              if (resp.error) {
+                // alert(JSON.stringify(resp.error, null, 4));
                 this.$emit("error", error);
-                this.$router.push({ path: "/orderfailure" });
+                const errorElement = document.getElementById("card-errors");
+                errorElement.textContent = resp.error.message;
+                // this.$router.push({ path: "/orderfailure" });
+              } else {
+                this.$router.push({ path: "/ordersuccess" });
               }
-              this.$router.push({ path: "/ordersuccess" });
             })
             .catch(error => {
               const errorElement = document.getElementById("card-errors");

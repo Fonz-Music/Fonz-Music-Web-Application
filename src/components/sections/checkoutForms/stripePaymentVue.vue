@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="stripe-payment-tab center-content">
     <div class="payment-content center-content">
       <h3 class="">please enter your card details</h3>
@@ -190,4 +190,4 @@ export default {
   background-color: #b288b9;
   border-radius: 15px !important;
 }
-</style>
+</style> -->

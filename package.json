@@ -49,6 +49,20 @@
     "vue-template-compiler": "^2.6.10",
     "vue2-touch-events": "^2.0.0"
   },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
   "postcss": {
     "plugins": {
       "autoprefixer": {}

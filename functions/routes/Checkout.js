@@ -33,13 +33,14 @@ router.post("/payment-intent", (req, res) => {
 });
 
 router.post('/webhook', (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  if(!sig || !req.body) return res.status(400).json({
+  const sig = req.headers['stripe-signature'].toString();
+  if(!sig || !req.rawBody) return res.status(400).json({
     message: "Missing parameters"
   });
-  Shop.confirmOrder(req.body, sig).then((resp) => {
+  Shop.confirmOrder(req.rawBody, sig).then((resp) => {
     res.json(resp);
   }).catch((error) => {
+    global.logger.warn(error);
     console.error(error);
     res.status(error.status || 500).json(error);
   })

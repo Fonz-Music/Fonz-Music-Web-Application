@@ -6,6 +6,8 @@ admin.initializeApp({
 const db = admin.firestore();
 global.admin = admin;
 global.db = db;
+global.functions = functions;
+global.logger = global.functions.logger;
 
 const PricingDB = db.collection('pricing');
 const AddonsDB = db.collection('addons');
@@ -48,6 +50,15 @@ app.use('/i/orders', RecentBuyerRoute);
 app.use('/i/prices', PricesRoute);
 app.use('/i/package', PackageRoute);
 app.use('/i/cart', CartRoute);
+
+app.use(bodyParser.json({
+    verify: function (req, res, buf) {
+      var url = req.originalUrl;
+      if (url.startsWith('/webhook')) {
+         req.rawBody = buf.toString();
+      }
+    }
+  }));
 app.use('/i/checkout', CheckoutRoute);
 
 app.use((req, res) => {

@@ -117,7 +117,7 @@ export default {
       // console.log("stripe: " + stripe);
       axios
         .post("/i/checkout/payment-intent", {
-          cartId: this.cartId
+          cartId: localStorage.getItem('cartId')
           // shipping: { address: addressIntent },
           // receipt_email: emailIntent
         })

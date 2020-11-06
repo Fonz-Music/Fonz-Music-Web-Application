@@ -246,15 +246,7 @@ exports.getPackageInformation = (packageId, currency) => {
   });
 };
 
-// const calculateOrderAmount = items => {
-//     // Replace this constant with a calculation of the order's amount
-//     // Calculate the order total on the server to prevent
-//     // people from directly manipulating the amount on the client
-
-//     return 1400 + items.length;
-// };
-
-const calculateOrderAmount = (packageId, currency, addons, coupon) => {
+exports.calculateOrderAmount = (packageId, currency, addons, coupon) => {
   return new Promise(async (resolve, reject) => {
     try {
       let totalAmount = 0;
@@ -296,7 +288,7 @@ const calculateOrderAmount = (packageId, currency, addons, coupon) => {
   });
 };
 
-exports.createPayment = cartId => {
+exports.createPayment = (cartId) => {
   return new Promise(async (resolve, reject) => {
     try {
       const {
@@ -306,18 +298,13 @@ exports.createPayment = cartId => {
         addons,
         quantity
       } = await this.getCart(cartId);
-      const amount = await calculateOrderAmount(
+      const amount = await this.calculateOrderAmount(
         packageId,
         currency,
         addons,
         coupon
       );
-      // const charge = await stripe.charges.create({
-      //     amount,
-      //     currency,
-      //     description: `${quantity} Fonz Coasters.`,
-      //     source,
-      // });
+
       const paymentIntent = await stripe.paymentIntents.create({
         amount,
         currency,
@@ -326,6 +313,7 @@ exports.createPayment = cartId => {
           cartId
         }
       });
+
       resolve(paymentIntent);
     } catch (error) {
       reject(error);
@@ -333,7 +321,7 @@ exports.createPayment = cartId => {
   });
 };
 
-const createOrder = (cart, stripe) => {
+exports.createOrder = (cart, stripe) => {
   return new Promise(async (resolve, reject) => {
     try {
       const orderRef = await global.OrdersDB.add({
@@ -354,16 +342,25 @@ exports.confirmOrder = (requestBody, signature) => {
     try {
       const event = stripe.webhooks.constructEvent(requestBody, signature, webhookSecret);
       const intent = event.data.object;
-      switch(event) {
+      global.logger.log(event);
+      switch(event.type) {
         case 'payment_intent.succeeded':
+          // eslint-disable-next-line no-case-declarations
           const cartId = intent.metadata.cartId;
-          const cart = this.getCart(cartId);
+          // eslint-disable-next-line no-case-declarations
+          const cart = await this.getCart(cartId);
+          // eslint-disable-next-line no-case-declarations
           const { packageId, currency, addons, coupon } = cart;
-          const totalCost = this.calculateOrderAmount(packageId, currency, addons, coupon);
+          // eslint-disable-next-line no-case-declarations
+          const totalCost = await this.calculateOrderAmount(packageId, currency, addons, coupon);
           if(totalCost == intent.amount && currency == intent.currency) {
             const stripe = intent.charges.data[0];
             const orderId = await this.createOrder(cart, stripe);
+            console.log({ orderId })
+            global.logger.log("Order id", { orderId } )
+            resolve(orderId);
           } else {
+            reject({ message: "Incorrect quantity or currency", expectedCost: { totalCost, paid: intent.amount, currency, currencyUser: intent.currency } })
             // INCORRECT QUANTITY PAID OR CURRENCY
           }
 
@@ -379,8 +376,8 @@ exports.confirmOrder = (requestBody, signature) => {
           reject({ status: 400, message: 'Untracked event. Could not process.'});
           break;
       }
-      resolve(event)
     } catch(error) {
+      console.error(error);
       reject(error);
     }
   })

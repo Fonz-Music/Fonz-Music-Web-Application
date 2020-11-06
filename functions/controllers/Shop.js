@@ -4,6 +4,10 @@
 const stripe = require("stripe")(
   "sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7"
 );
+// const webhookSecret = 'whsec_SF9PEj4j6q7cYwQKiTWv5g0YUPsvcvs5';
+// const webhookSecret = 'whsec_Me0F0ciWUZn2Qo4nkRgkm7uQxHHgF5GI';
+const webhookSecret = 'whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S';
+
 
 exports.createCart = (packageId, currency) => {
   return new Promise(async (resolve, reject) => {
@@ -317,7 +321,10 @@ exports.createPayment = cartId => {
       const paymentIntent = await stripe.paymentIntents.create({
         amount,
         currency,
-        payment_method_types: ["card"]
+        payment_method_types: ["card"],
+        metadata: {
+          cartId
+        }
       });
       resolve(paymentIntent);
     } catch (error) {
@@ -326,16 +333,69 @@ exports.createPayment = cartId => {
   });
 };
 
-exports.confirmPaymentIntent = (paymentIntent, payment_method) => {
+const createOrder = (cart, stripe) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const intent = await stripe.paymentIntents.confirm(
-        paymentIntent,
-        payment_method
-      );
-      resolve(intent);
-    } catch (error) {
+      const orderRef = await global.OrdersDB.add({
+        cart,
+        stripe,
+        fulfilled: false,
+        assignedTo: 'Dukes'
+      });
+      resolve(orderRef.id);
+    } catch(error) {
       reject(error);
     }
   });
-};
+}
+
+exports.confirmOrder = (requestBody, signature) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const event = stripe.webhooks.constructEvent(requestBody, signature, webhookSecret);
+      const intent = event.data.object;
+      switch(event) {
+        case 'payment_intent.succeeded':
+          const cartId = intent.metadata.cartId;
+          const cart = this.getCart(cartId);
+          const { packageId, currency, addons, coupon } = cart;
+          const totalCost = this.calculateOrderAmount(packageId, currency, addons, coupon);
+          if(totalCost == intent.amount && currency == intent.currency) {
+            const stripe = intent.charges.data[0];
+            const orderId = await this.createOrder(cart, stripe);
+          } else {
+            // INCORRECT QUANTITY PAID OR CURRENCY
+          }
+
+          break;
+        case 'payment_intent.payment_failed':
+          // DIDNT GO THROUGH
+          // eslint-disable-next-line no-case-declarations
+          const message = intent.last_payment_error && intent.last_payment_error.message;
+          reject({ message });
+          break;
+        default:
+          // ANYTHING ELSE
+          reject({ status: 400, message: 'Untracked event. Could not process.'});
+          break;
+      }
+      resolve(event)
+    } catch(error) {
+      reject(error);
+    }
+  })
+}
+
+// exports.confirmPaymentIntent = (paymentIntent, payment_method) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const intent = await stripe.paymentIntents.confirm(
+//         paymentIntent,
+//         payment_method
+//       );
+//       resolve(intent);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };

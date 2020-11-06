@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     nextTab: function() {
-      console.log(this.value);
       // this checks if its a valid email
       if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
+        localStorage.setItem("guestEmail", this.value);
+        console.log("email from storage " + localStorage.getItem("guestEmail"));
         this.$emit("input", this.value);
         this.$emit("nextTab", 1);
         // this.$emit("nextTab", 1);

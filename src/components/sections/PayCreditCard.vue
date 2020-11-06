@@ -11,15 +11,10 @@
             @nextTab="updateTab($event)"
           />
         </b-tab>
-        <!-- <b-tab>
-          <payment />
-        </b-tab> -->
+
         <b-tab>
           <paymentTwo />
         </b-tab>
-        <!-- <b-tab>
-          <stripePaymentVue />
-        </b-tab> -->
       </b-tabs>
     </div>
   </section>
@@ -32,9 +27,9 @@ import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 
 import email from "@/components/sections/checkoutForms/email.vue";
 import addressTab from "@/components/sections/checkoutForms/address.vue";
-import payment from "@/components/sections/checkoutForms/payment.vue";
+// import payment from "@/components/sections/checkoutForms/payment.vue";
 import paymentTwo from "@/components/sections/checkoutForms/paymentTakeTwo.vue";
-import stripePaymentVue from "@/components/sections/checkoutForms/stripePaymentVue.vue";
+// import stripePaymentVue from "@/components/sections/checkoutForms/stripePaymentVue.vue";
 
 export default {
   name: "CPayCreditCard",
@@ -43,9 +38,9 @@ export default {
 
     addressTab,
     email,
-    payment,
-    paymentTwo,
-    stripePaymentVue
+    // payment,
+    paymentTwo
+    // stripePaymentVue
   },
   mixins: [SectionSplitProps],
   data() {

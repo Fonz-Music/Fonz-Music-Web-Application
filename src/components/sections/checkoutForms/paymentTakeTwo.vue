@@ -11,6 +11,7 @@
         <slot name="card-errors">
           <div id="card-errors" role="alert"></div>
         </slot>
+        <!-- <p class="error" v-if="this.error">{{ this.errorMessage }}</p> -->
         <b-button ref="submitButtonRef" type="submit" class="purchaseButton">
           purchase
         </b-button>
@@ -111,13 +112,20 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
+      const addressIntent = localStorage.getItem("guestAddress");
+      const emailIntent = localStorage.getItem("guestEmail");
       // console.log("stripe: " + stripe);
       axios
-        .post("/i/checkout/payment-intent", { cartId: this.cartId })
+        .post("/i/checkout/payment-intent", {
+          cartId: this.cartId
+          // shipping: { address: addressIntent },
+          // receipt_email: emailIntent
+        })
         .then(resp => {
           console.log("beginning on payment intent");
           // alert(JSON.stringify(resp, null, 4));
-          this.clientSecret = resp.data.client_secret;
+          localStorage.setItem("clientSecret", resp.data.client_secret);
+          // this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);
         })
@@ -160,21 +168,28 @@ export default {
           };
           // alert(JSON.stringify(data, null, 4));
           // console.log("data: " + data);
+          var clientSecretLocal = localStorage.getItem("clientSecret");
           if (this.amount) data.amount = this.amount;
           // const { token, error } = await this.sendPaymentToStripe(data);
           const { token, error } = await this.stripe
-            .confirmCardPayment(this.clientSecret, {
+            .confirmCardPayment(clientSecretLocal, {
               payment_method: {
                 card: data
               }
             })
             .then(resp => {
               alert(JSON.stringify(resp, null, 4));
-              if (resp.code == "card_declined") {
+              // console.log(resp.error.code);
+
+              if (resp.error) {
+                // alert(JSON.stringify(resp.error, null, 4));
                 this.$emit("error", error);
-                this.$router.push({ path: "/orderfailure" });
+                const errorElement = document.getElementById("card-errors");
+                errorElement.textContent = resp.error.message;
+                // this.$router.push({ path: "/orderfailure" });
+              } else {
+                this.$router.push({ path: "/ordersuccess" });
               }
-              this.$router.push({ path: "/ordersuccess" });
             })
             .catch(error => {
               const errorElement = document.getElementById("card-errors");

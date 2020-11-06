@@ -1,53 +1,65 @@
 <template lang="html">
   <div class="container checkout-page">
-    <h2 class="text-center">your order has been placed!</h2>
-    <div>
-      <div class="">
-        <c-image
-          class="coasterPackageImage"
-          :src="getImgUrl"
-          alt="coaster package"
-        />
-      </div>
-      <div class=" row package-total-and-name">
-        <div class="col-8 product-details">
-          <h4 class="">{{ getItemTitle }}</h4>
-          <!-- <p>{{ getItemInfo }}</p> -->
-        </div>
-
-        <div class="col-4 product-price">
-          <h3 class="text-right">
-            {{ this.currencySymbol }}{{ getRetailPrice }}
-          </h3>
+    <h2 class="text-center order-placed-heading">
+      your order has been placed!
+    </h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="">
+          <c-image
+            class="coasterPackageImage"
+            :src="getImgUrl"
+            alt="coaster package"
+          />
         </div>
       </div>
-    </div>
 
-    <div class="orderReviewTable">
-      <table class="table table-sm table-borderless">
-        <tbody>
-          <tr>
-            <th scope="row">Order Number</th>
-            <td class="text-right">
-              {{ calculateSubtotalPrice }}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">E-mail</th>
-            <td class="text-right">email</td>
-          </tr>
-          <tr>
-            <th scope="row">Packaging + Devivery</th>
-            <td class="text-right">{{ this.currencySymbol }}3</td>
-          </tr>
-          <tr class="total-amount">
-            <th scope="row">Total</th>
-            <td class="text-right">
-              {{ this.currencySymbol }}{{ calculateTotalPrice }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="orderReviewTable col-lg-6">
+        <div class=" row package-total-and-name">
+          <div class="col-8 product-details">
+            <h4 class="">{{ getItemTitle }}</h4>
+            <!-- <p>{{ getItemInfo }}</p> -->
+          </div>
+
+          <div class="col-4 product-price">
+            <h3 class="text-right">
+              {{ this.currencySymbol }}{{ getRetailPrice }}
+            </h3>
+          </div>
+        </div>
+        <div class="orderReviewTable">
+          <table class="table table-sm table-borderless">
+            <tbody>
+              <tr>
+                <th scope="row">Order Number</th>
+                <td class="text-right">
+                  1
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">E-mail</th>
+                <td class="text-right">{{ this.email }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Address</th>
+                <td class="text-right">
+                  {{ this.address.replace(/['"]+/g, "") }}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Packaging + Delivery</th>
+                <td class="text-right">{{ this.currencySymbol }}3</td>
+              </tr>
+              <tr class="total-amount">
+                <th scope="row">Total</th>
+                <td class="text-right">
+                  {{ this.currencySymbol }}{{ calculateTotalPrice }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="after-order-details center-content">
       <p>You&apos;ll get email updates about the status of your order.</p>
@@ -74,6 +86,8 @@ export default {
   data() {
     return {
       promoValid: false,
+      email: localStorage.getItem("guestEmail"),
+      address: localStorage.getItem("guestAddress"),
       packagePrice: 60,
       extraPackaging: false,
       promoCode: "",
@@ -190,11 +204,14 @@ export default {
   font-size: 10pt;
   vertical-align: top;
 }
+.order-placed-heading {
+  padding: 50px;
+}
 .coasterPackageImage {
   /* min-width: 50px;
   max-width: 500px; */
   /* width: 100%; */
-  margin: 30px auto;
+  margin: 0px auto;
 }
 .btn-secondary {
   color: #b288b9;

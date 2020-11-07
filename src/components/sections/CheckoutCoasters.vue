@@ -179,7 +179,6 @@ export default {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.enteredpromo = true;
       // communicate with API to add promo code to cart
-      // GET /i/coupons/{couponId}
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {

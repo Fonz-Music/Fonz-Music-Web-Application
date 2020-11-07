@@ -77,6 +77,20 @@ exports.updateCart = (packageId, currency, cartId) => {
   });
 };
 
+exports.addEmailToCart = (cartId, email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const cart = await this.getCart(cartId);
+      const cartUpdateRef = await global.CartDB.doc(cartId).update({
+        email
+      });
+      resolve(cartUpdateRef);
+    } catch(error) {
+      reject(error);
+    }
+  })
+}
+
 exports.getCoupon = couponId => {
   return new Promise(async (resolve, reject) => {
     try {

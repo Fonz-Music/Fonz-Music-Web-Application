@@ -1,40 +1,43 @@
 let express = require("express");
 let router = express.Router();
 const Shop = require("../controllers/Shop");
+const _ = require("lodash");
 
 router.post("/payment-intent", (req, res) => {
   const {
     cartId
   } = req.body;
-  if (!cartId)
-    return res.status(400).json({
-      message: "Missing parameters."
-    });
-  // const {
-  // items,
-  // currency
-  // } = req.body;
-  // if (!items || !currency) return res.status(400).json({
-  // message: 'Missing parameters.'
-  // })
-  // const items = { "packageId": 1234 },
-  // currency = "EUR",
-  // amount = 100;
-  Shop.createPayment(cartId)
-    .then(paymentIntent => {
+  if (!cartId) return res.status(400).json({
+    message: "Missing parameters."
+  });
+
+  // if (req.cookies.hasOwnProperty('paymentIntent')) {
+    // console.log(req.cookies['paymentIntent'])
+
+  if (_.has(req.cookies, 'paymentIntent')) {
+    // let { paymentIntent } = res.cookies;
+    let paymentIntent = req.cookies['paymentIntent'];
+    console.log({ paymentIntent })
+    Shop.getPaymentIntent(paymentIntent).then((paymentIntent) => {
       res.json(paymentIntent);
-      // res.json({
-      // clientSecret: paymentIntent.client_secret
-      // });
-    })
-    .catch(error => {
+    }).catch((error) => {
+      console.error(error)
       res.status(error.status || 500).json(error);
     });
+  } else {
+    Shop.createPayment(cartId).then((paymentIntent) => {
+        res.cookie('paymentIntent', paymentIntent.id, {expire: 3600000 + Date.now()}); 
+        res.json(paymentIntent);
+      }).catch((error) => {
+        console.error(error);
+        res.status(error.status || 500).json(error);
+      });
+  }
 });
 
 router.post('/webhook', (req, res) => {
   const sig = req.headers['stripe-signature'].toString();
-  if(!sig || !req.rawBody) return res.status(400).json({
+  if (!sig || !req.rawBody) return res.status(400).json({
     message: "Missing parameters"
   });
   Shop.confirmOrder(req.rawBody, sig).then((resp) => {

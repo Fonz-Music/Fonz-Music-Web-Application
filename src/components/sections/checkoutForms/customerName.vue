@@ -1,13 +1,13 @@
 <template lang="html">
-  <div class="emailTab">
-    <h3 class="text-center">what&apos;s your email?</h3>
+  <div class="nameTab">
+    <h3 class="text-center">what&apos;s your name?</h3>
     <p>Enter It Below</p>
 
-    <div class="emailSubmit">
+    <div class="nameSubmit">
       <c-input
-        type="email"
-        placeholder="Email"
-        class="inputEmail"
+        type="text"
+        placeholder="fistname lastname"
+        class="inputname"
         v-model="value"
       >
         <div class="text-center">
@@ -30,7 +30,12 @@ const axios = require("axios");
 import CInput from "@/components/elements/Input.vue";
 // import CButton from "@/components/elements/Button.vue";
 export default {
-  name: "email",
+  name: "customerName",
+  data() {
+    return {
+      customerName: ""
+    };
+  },
   // props: {
   //   tabNumber: {
   //     type: Integer
@@ -54,15 +59,13 @@ export default {
   methods: {
     nextTab: function() {
       // this checks if its a valid email
-      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
-        localStorage.setItem("guestEmail", this.value);
-        var localEmail = localStorage.getItem("guestEmail");
-        console.log("email from storage " + localEmail);
-        this.addEmailToCart(localEmail);
-        this.$emit("input", this.value);
-        this.$emit("nextTab", 1);
-        // this.$emit("nextTab", 1);
-      }
+
+      localStorage.setItem("guestName", this.value);
+      var localEmail = localStorage.getItem("guestName");
+      console.log("name from storage " + localEmail);
+      // this.$emit("input", this.value);
+      this.$emit("nextTab", 2);
+      // this.$emit("nextTab", 1);
     },
     emailIsValid: function(email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -94,13 +97,13 @@ export default {
 .btn-secondary {
   background-color: #b288b9;
 }
-.emailTab {
+.nameTab {
   max-width: 500px;
   /* padding: auto; */
   margin: auto;
 }
 
-.emailTab p {
+.nameTab p {
   text-align: center;
 }
 .submitButton {

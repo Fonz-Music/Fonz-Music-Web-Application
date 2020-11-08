@@ -6,6 +6,9 @@
           <email v-model="form.email" @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
+          <customerName @nextTab="updateTab($event)" />
+        </b-tab>
+        <b-tab>
           <addressTab
             v-model="form.placeAddress"
             @nextTab="updateTab($event)"
@@ -26,6 +29,7 @@ import { SectionSplitProps } from "@/utils/SectionProps.js";
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 
 import email from "@/components/sections/checkoutForms/email.vue";
+import customerName from "@/components/sections/checkoutForms/customerName.vue";
 import addressTab from "@/components/sections/checkoutForms/address.vue";
 // import payment from "@/components/sections/checkoutForms/payment.vue";
 import paymentTwo from "@/components/sections/checkoutForms/paymentTakeTwo.vue";
@@ -38,6 +42,7 @@ export default {
 
     addressTab,
     email,
+    customerName,
     // payment,
     paymentTwo
     // stripePaymentVue

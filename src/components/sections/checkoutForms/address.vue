@@ -32,7 +32,7 @@ export default {
   methods: {
     nextTab: function() {
       localStorage.setItem("guestAddress", this.value);
-      this.$emit("nextTab", 2);
+      this.$emit("nextTab", 3);
     },
     setDescription(description) {
       this.description = description;
@@ -46,6 +46,7 @@ export default {
     getAddressData: function(addressData, placeResultData, id) {
       this.$emit("input", JSON.stringify(addressData["formatted_address"]));
       // console.log("value" + this.value);
+      console.log("address " + JSON.stringify(addressData));
       console.log(
         "address " +
           JSON.parse(JSON.stringify(addressData["formatted_address"]))

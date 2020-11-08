@@ -6,18 +6,21 @@
           <email v-model="form.email" @nextTab="updateTab($event)" />
         </b-tab>
         <b-tab>
-          <customerName @nextTab="updateTab($event)" />
+          <customerName
+            v-model="form.customerName"
+            @nextTab="updateTab($event)"
+          />
         </b-tab>
         <b-tab>
           <addressTab
             v-model="form.placeAddress"
-            @nextTab="updateTab($event)"
+            @nextTab="proceedToCheckout()"
           />
         </b-tab>
 
-        <b-tab>
+        <!-- <b-tab>
           <paymentTwo />
-        </b-tab>
+        </b-tab> -->
       </b-tabs>
     </div>
   </section>
@@ -51,8 +54,9 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        placeAddress: ""
+        email: null,
+        placeAddress: null,
+        customerName: null
       },
       tabIndex: 0,
       sectionHeader: {
@@ -65,6 +69,19 @@ export default {
   methods: {
     updateTab: function(newTab) {
       this.tabIndex = newTab;
+    },
+    proceedToCheckout: function() {
+      console.log("email: " + this.form.email);
+      console.log("addr: " + this.form.placeAddress);
+      console.log("name: " + this.form.customerName);
+      if (
+        this.form.email != null &&
+        this.form.placeAddress != null &&
+        this.form.customerName != null
+      ) {
+        localStorage.setItem("guestAddress", this.form.placeAddress);
+        this.$router.push({ path: "/paymentpage" });
+      }
     }
   }
 };

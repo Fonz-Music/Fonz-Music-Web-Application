@@ -44,20 +44,18 @@ export default {
       // this.nextTab();
     },
     getAddressData: function(addressData, placeResultData, id) {
-      this.$emit("input", JSON.stringify(addressData["formatted_address"]));
+      var givenAddress = JSON.parse(
+        JSON.stringify(addressData["formatted_address"]).toString()
+      );
+      this.$emit("input", givenAddress);
       // console.log("value" + this.value);
-      console.log("address " + JSON.stringify(addressData));
+      // console.log("address " + JSON.stringify(addressData));
+      console.log("address " + givenAddress);
+      localStorage.setItem("guestAddress", JSON.stringify(givenAddress));
+      console.log(typeof givenAddress);
       console.log(
-        "address " +
-          JSON.parse(JSON.stringify(addressData["formatted_address"]))
+        "address from storage " + localStorage.getItem("guestAddress")
       );
-      localStorage.setItem(
-        "guestAddress",
-        JSON.parse(JSON.stringify(addressData["formatted_address"]))
-      );
-      // console.log(
-      //   "address from storage " + localStorage.getItem("guestAddress")
-      // );
       this.nextTab();
       // this.value = addressData;
     }

@@ -6,20 +6,14 @@ const stripe = require("stripe")(
 );
 // const webhookSecret = 'whsec_SF9PEj4j6q7cYwQKiTWv5g0YUPsvcvs5';
 // const webhookSecret = 'whsec_Me0F0ciWUZn2Qo4nkRgkm7uQxHHgF5GI';
-const webhookSecret = 'whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S';
-
+const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S";
 
 exports.createCart = (packageId, currency) => {
   return new Promise(async (resolve, reject) => {
     try {
       this.getPackageInformation(packageId, currency)
         .then(async packageInfo => {
-          const {
-            price,
-            quantity,
-            retailPrice,
-            discount
-          } = packageInfo;
+          const { price, quantity, retailPrice, discount } = packageInfo;
 
           const newCartRef = await global.CartDB.add({
             packageId,
@@ -52,12 +46,7 @@ exports.updateCart = (packageId, currency, cartId) => {
       // const cart = cartRef.data();
       this.getPackageInformation(packageId, currency)
         .then(async packageInfo => {
-          const {
-            price,
-            quantity,
-            retailPrice,
-            discount
-          } = packageInfo;
+          const { price, quantity, retailPrice, discount } = packageInfo;
           const cartUpdateRef = await global.CartDB.doc(cartId).update({
             packageId,
             currency,
@@ -245,36 +234,31 @@ exports.calculateOrderAmount = (packageId, currency, addons, coupon) => {
     try {
       let totalAmount = 0;
       // Add cost of coaster
-      let {
-        price,
-        freeShipping
-      } = await this.getPackageInformation(
+      let { price, freeShipping } = await this.getPackageInformation(
         packageId,
         currency
       );
 
       console.log({
         freeShipping
-      })
+      });
       const shippingCost = freeShipping ? 0 : 3; // Shipping cost hardcoded to 3.00 for the moment
       totalAmount += parseInt(price) + parseInt(shippingCost);
       console.log({
         totalAmount
-      })
+      });
       // totalAmount += parseInt(price);
 
       // Add cost of addons
       if (addons) {
-        addons.forEach(async (addon) => {
-          let {
-            price
-          } = await this.getAddon(addon);
+        addons.forEach(async addon => {
+          let { price } = await this.getAddon(addon);
           console.log({
             addon,
             price
-          })
-          if (addon == 'shipping' && addons.includes('shipping')) {
-            addons.splice(addons.indexOf('shipping'), 1);
+          });
+          if (addon == "shipping" && addons.includes("shipping")) {
+            addons.splice(addons.indexOf("shipping"), 1);
           } else {
             totalAmount += parseInt(price);
           }
@@ -282,13 +266,11 @@ exports.calculateOrderAmount = (packageId, currency, addons, coupon) => {
       }
       console.log({
         totalAmount
-      })
+      });
       // Take away discount :D
       if (coupon) {
         // let { discount } = coupon ? await this.getCoupon(coupon) : { discount: 0 };
-        let {
-          discount
-        } = await this.getCoupon(coupon);
+        let { discount } = await this.getCoupon(coupon);
         totalAmount -= parseInt(discount);
       }
 
@@ -301,28 +283,23 @@ exports.calculateOrderAmount = (packageId, currency, addons, coupon) => {
   });
 };
 
-exports.getPaymentIntent = (paymentIntent) => {
+exports.getPaymentIntent = paymentIntent => {
   return new Promise(async (resolve, reject) => {
     try {
-      const paymentResp = await stripe.paymentIntents.retrieve(
-        paymentIntent
-      );
+      const paymentResp = await stripe.paymentIntents.retrieve(paymentIntent);
       resolve(paymentResp);
-    } catch(error) {
+    } catch (error) {
       reject(error);
     }
   });
-}
+};
 
-exports.createPayment = (cartId) => {
+exports.createPayment = (cartId, shipping, receipt_email) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const {
-        currency,
-        coupon,
-        packageId,
-        addons
-      } = await this.getCart(cartId);
+      const { currency, coupon, packageId, addons } = await this.getCart(
+        cartId
+      );
       const amount = await this.calculateOrderAmount(
         packageId,
         currency,
@@ -336,7 +313,9 @@ exports.createPayment = (cartId) => {
         payment_method_types: ["card"],
         metadata: {
           cartId
-        }
+        },
+        shipping,
+        receipt_email
       });
 
       resolve(paymentIntent);
@@ -353,37 +332,41 @@ exports.createOrder = (cart, stripe) => {
         cart,
         stripe,
         fulfilled: false,
-        assignedTo: 'Dukes'
+        assignedTo: "Dukes"
       });
       resolve(orderRef.id);
     } catch (error) {
       reject(error);
     }
   });
-}
+};
 
 exports.confirmOrder = (requestBody, signature) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const event = stripe.webhooks.constructEvent(requestBody, signature, webhookSecret);
+      const event = stripe.webhooks.constructEvent(
+        requestBody,
+        signature,
+        webhookSecret
+      );
       const intent = event.data.object;
       global.logger.log(event);
-      if (event.type == 'payment_intent.succeeded') {
+      if (event.type == "payment_intent.succeeded") {
         const cartId = intent.metadata.cartId;
         const cart = await this.getCart(cartId);
-        const {
-          currency,
-          coupon,
+        const { currency, coupon, packageId, addons } = cart;
+        const amount = await this.calculateOrderAmount(
           packageId,
-          addons
-        } = cart;
-        const amount = await this.calculateOrderAmount(packageId, currency, addons, coupon);
+          currency,
+          addons,
+          coupon
+        );
         if (amount == intent.amount && currency == intent.currency) {
           const stripe = intent.charges.data[0];
           const orderId = await this.createOrder(cart, stripe);
           global.logger.log("Order id", {
             orderId
-          })
+          });
           return resolve(orderId);
         } else {
           // INCORRECT QUANTITY PAID OR CURRENCY
@@ -397,15 +380,16 @@ exports.confirmOrder = (requestBody, signature) => {
             }
           });
         }
-      } else if (event.type == 'payment_intent.payment_failed') {
-        const message = intent.last_payment_error && intent.last_payment_error.message;
+      } else if (event.type == "payment_intent.payment_failed") {
+        const message =
+          intent.last_payment_error && intent.last_payment_error.message;
         return reject({
           message
         });
       } else {
         return reject({
           status: 400,
-          message: 'Untracked event. Could not process.'
+          message: "Untracked event. Could not process."
         });
       }
       /* switch(event.type) {
@@ -459,8 +443,8 @@ exports.confirmOrder = (requestBody, signature) => {
       console.error(error);
       reject(error);
     }
-  })
-}
+  });
+};
 
 // exports.confirmPaymentIntent = (paymentIntent, payment_method) => {
 //   return new Promise(async (resolve, reject) => {

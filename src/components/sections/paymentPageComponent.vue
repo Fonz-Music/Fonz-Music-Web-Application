@@ -116,7 +116,7 @@ export default {
       const emailIntent = localStorage.getItem("guestEmail");
       const nameIntent = localStorage.getItem("guestName");
 
-      // console.log("stripe: " + stripe);
+      console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
           cartId: localStorage.getItem("cartId"),

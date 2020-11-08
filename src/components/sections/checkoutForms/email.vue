@@ -55,7 +55,9 @@ export default {
       // this checks if its a valid email
       if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
         localStorage.setItem("guestEmail", this.value);
-        console.log("email from storage " + localStorage.getItem("guestEmail"));
+        var localEmail = localStorage.getItem("guestEmail");
+        console.log("email from storage " + localEmail);
+        this.addEmailToCart(localEmail);
         this.$emit("input", this.value);
         this.$emit("nextTab", 1);
         // this.$emit("nextTab", 1);
@@ -63,6 +65,22 @@ export default {
     },
     emailIsValid: function(email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    },
+    addEmailToCart(emailAddress) {
+      const cartIdFromUser = localStorage.getItem("cartId");
+
+      // communicate with API to add promo code to cart
+      // PUT /i/cart/{cartId}/{emailAddress}
+      var response;
+      axios
+        .put(`${this.$API_URL}/i/cart/${cartIdFromUser}/${emailAddress}`)
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 };

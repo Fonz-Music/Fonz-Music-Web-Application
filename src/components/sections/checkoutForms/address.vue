@@ -25,8 +25,8 @@ export default {
   components: {},
   props: {
     value: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     }
   },
   methods: {

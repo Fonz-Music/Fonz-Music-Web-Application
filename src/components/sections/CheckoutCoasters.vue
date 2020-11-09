@@ -60,7 +60,6 @@
 
             <b-button
               @click="addPromoCode(promoCode)"
-              type="submit"
               class="btn btn-sm btn-link col-3"
             >
               send it
@@ -179,6 +178,7 @@ export default {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.enteredpromo = true;
       // communicate with API to add promo code to cart
+      // GET /i/coupons/{couponId}
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
@@ -225,7 +225,7 @@ export default {
       var response;
       axios
         .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          data: { cartId: cartIdFromUser }
+          data: { cardId: cartIdFromUser }
         })
         // add cartID to body
         .then(resp => {

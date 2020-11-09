@@ -66,6 +66,7 @@
             </b-button>
           </b-form>
           <p v-if="!promoValid && enteredpromo">that code is not valid</p>
+          <p v-if="promoValid && enteredpromo">success, applied your coupon</p>
         </div>
 
         <div class="totalTable">
@@ -151,7 +152,10 @@ export default {
       promoValid: null,
       enteredpromo: false,
       packagePrice: 60,
-      extraPackaging: false,
+      extraPackaging: {
+        value: localStorage.getItem("addedExtraPackaging"),
+        default: false
+      },
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -176,7 +180,7 @@ export default {
   methods: {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
-      this.enteredpromo = true;
+
       // communicate with API to add promo code to cart
       // GET /i/coupons/{couponId}
       var response;
@@ -197,6 +201,7 @@ export default {
     },
     addExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
+
       const cartIdFromUser = localStorage.getItem("cartId");
       var response;
       axios
@@ -225,7 +230,7 @@ export default {
       var response;
       axios
         .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          data: { cardId: cartIdFromUser }
+          cardId: cartIdFromUser
         })
         // add cartID to body
         .then(resp => {
@@ -265,10 +270,12 @@ export default {
       if (!this.extraPackaging) {
         console.log("adding extra package cost");
         console.log("extra packaging var " + this.extraPackaging);
+        localStorage.setItem("addedExtraPackaging", true);
         this.addExtraPackaging();
       } else {
         console.log("removing extra package cost");
         console.log("extra packaging var " + this.extraPackaging);
+        localStorage.setItem("addedExtraPackaging", false);
         this.removeExtraPackaging();
       }
     },

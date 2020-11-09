@@ -230,7 +230,7 @@ export default {
       var response;
       axios
         .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          cardId: cartIdFromUser
+          data: { cardId: "1234" }
         })
         // add cartID to body
         .then(resp => {

@@ -185,7 +185,7 @@ export default {
               if (resp.error) {
                 // alert(JSON.stringify(resp.error, null, 4));
                 this.$emit("error", error);
-                alert(JSON.stringify(resp, null, 4));
+                // alert(JSON.stringify(resp, null, 4));
                 const errorElement = document.getElementById("card-errors");
                 errorElement.textContent = resp.error.message;
                 // this.$router.push({ path: "/orderfailure" });

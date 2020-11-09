@@ -12,6 +12,7 @@ import PageNotFoundPage from "./views/404notFound.vue";
 import OrderFailurePage from "./views/OrderFailurePage.vue";
 import PayWithCreditCardVue from "./views/PayWithCreditCardVue.vue";
 import PaymentPage from "./views/PaymentPage.vue";
+import PrivacyPolicy from "./views/PrivacyPolicy.vue";
 
 Vue.use(Router);
 
@@ -71,6 +72,11 @@ export default new Router({
       path: "/paymentPage",
       name: "paymentPage",
       component: PaymentPage
+    },
+    {
+      path: "/privacy-policy",
+      name: "privacyPolicy",
+      component: PrivacyPolicy
     },
     // this must be last
     {

@@ -145,17 +145,14 @@ console.log({ Checkout });
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage
+    CImage,
   },
   data() {
     return {
       promoValid: null,
       enteredpromo: false,
       packagePrice: 60,
-      extraPackaging: {
-        value: localStorage.getItem("addedExtraPackaging"),
-        default: false
-      },
+      extraPackaging: false,
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -165,12 +162,12 @@ export default {
         price: 22,
         retailPrice: 60,
         title: "fonz coaster",
-        freeShipping: true
+        freeShipping: true,
       },
       packageId: "",
       showPricing: false,
       currencySymbol: "€",
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
     };
   },
   beforeMount() {
@@ -186,15 +183,15 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
-          cartId: cartIdFromUser
+          cartId: cartIdFromUser,
         })
-        .then(resp => {
+        .then((resp) => {
           response = resp.data;
           console.log(response);
 
           this.promoValid = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           this.promoValid = false;
         });
@@ -206,16 +203,16 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          cartId: cartIdFromUser
+          cartId: cartIdFromUser,
         })
         // add cartID to body
-        .then(resp => {
+        .then((resp) => {
           response = resp.data;
           console.log(response);
 
           this.extraPackaging = true;
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.status == 403) {
             console.log("resp.status " + error.response.status);
             this.extraPackaging = true;
@@ -229,16 +226,13 @@ export default {
       console.log("inside remove cartid" + cartIdFromUser);
       var response;
       axios
-        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          data: { cardId: "1234" }
-        })
-        // add cartID to body
-        .then(resp => {
+        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`).then((resp) => {
+          // add cartID to body
           response = resp.data;
           console.log(response);
           this.extraPackaging = false;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
@@ -248,14 +242,14 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/addons/shipping`, {
-          cartId: cartIdFromUser
+          cartId: cartIdFromUser,
         })
         // add cartID to body
-        .then(resp => {
+        .then((resp) => {
           response = resp.data;
           console.log("shipping cost: " + response);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("shipping error: " + error);
         });
     },
@@ -267,6 +261,7 @@ export default {
     updateExtraPackaging() {
       console.log("pressed update extra packaging");
       // tell api that you must add packaging fee
+      console.log({ ep: this.extraPackaging.length });
       if (!this.extraPackaging) {
         console.log("adding extra package cost");
         console.log("extra packaging var " + this.extraPackaging);
@@ -294,15 +289,15 @@ export default {
       const packageId = localStorage.getItem("package");
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
-        .then(resp => {
+        .then((resp) => {
           this.currentPackage = resp.data;
           console.log(this.currentPackage);
           this.showPricing = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
-    }
+    },
   },
 
   mounted() {
@@ -361,8 +356,8 @@ export default {
     },
     determineShipping() {
       return this.currentPackage.freeShipping;
-    }
-  }
+    },
+  },
 };
 </script>
 

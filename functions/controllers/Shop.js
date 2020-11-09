@@ -7,6 +7,7 @@ const stripe = require("stripe")(
 // const webhookSecret = 'whsec_SF9PEj4j6q7cYwQKiTWv5g0YUPsvcvs5';
 // const webhookSecret = 'whsec_Me0F0ciWUZn2Qo4nkRgkm7uQxHHgF5GI';
 const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S";
+const Email = require('./Email.js');
 
 exports.createCart = (packageId, currency) => {
   return new Promise(async (resolve, reject) => {
@@ -346,7 +347,8 @@ exports.createOrder = (cart, stripe) => {
         cart,
         stripe,
         fulfilled: false,
-        assignedTo: "Dukes"
+        assignedTo: "Dukes",
+        created: global.admin.firestore.Timestamp.now()
       });
       resolve(orderRef.id);
     } catch (error) {
@@ -354,6 +356,16 @@ exports.createOrder = (cart, stripe) => {
     }
   });
 };
+
+exports.sendTransactionalOrderEmail = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      Email.sendEmail();
+    } catch(error) {
+      reject(error);
+    }
+  });
+}
 
 exports.confirmOrder = (requestBody, signature) => {
   return new Promise(async (resolve, reject) => {

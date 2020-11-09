@@ -46,4 +46,14 @@ router.put("/:cartId", (req, res) => {
     });
 });
 
+const Email = require('../controllers/Email.js');
+
+router.post('/email', (req, res) => {
+    Email.sendEmail("contact@dermotobrien.me").then((resp) => {
+        res.send(resp);
+    }).catch((error) => {
+        res.status(500).send(error);
+    })
+})
+
 module.exports = router;

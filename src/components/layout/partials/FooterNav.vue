@@ -13,6 +13,9 @@
             <li>
                 <router-link to="/about">FAQs</router-link>
             </li>
+            <li>
+                <router-link to="/privacy-policy">Privacy Policy</router-link>
+            </li>
         </ul>
     </nav>
 </template>

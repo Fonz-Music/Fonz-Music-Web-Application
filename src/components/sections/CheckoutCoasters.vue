@@ -306,7 +306,30 @@ export default {
       e.addEventListener("load", callback);
       console.log("finished loadSDK");
     },
-    createPaymentRequest() {}
+    sendCartIdToServer() {
+      // const addressIntent = localStorage.getItem("guestAddress");
+      // const emailIntent = localStorage.getItem("guestEmail");
+      // const nameIntent = localStorage.getItem("guestName");
+
+      console.log("guestAddress: " + addressIntent);
+      axios
+        .post("/i/checkout/payment-intent", {
+          cartId: localStorage.getItem("cartId")
+          // shipping: { address: { line1: addressIntent }, name: nameIntent },
+          // receipt_email: emailIntent
+        })
+        .then(resp => {
+          console.log("beginning on payment intent");
+          // alert(JSON.stringify(resp, null, 4));
+          localStorage.setItem("clientSecret", resp.data.client_secret);
+          // this.clientSecret = resp.data.client_secret;
+          // alert(JSON.stringify(resp.data, null, 4));
+          // console.log("resp data " + resp.data);
+        })
+        .catch(error => {
+          console.log("fail making payment intent");
+        });
+    }
   },
 
   async mounted() {
@@ -342,14 +365,53 @@ export default {
       localPaymentReq.canMakePayment().then(function(result) {
         console.log("result is " + result);
         if (result) {
-          console.log("mounting the button ");
-          // this.card.mount("#payment-request-button");
-          prButton.mount("#payment-request-button");
+          //   console.log("mounting the button ");
+          this.card.mount("#payment-request-button");
+          // prButton.mount("#payment-request-button");
+
+          this.sendCartIdToServer();
         } else {
           console.log("NOT mounting the button ");
           document.getElementById("payment-request-button").style.display =
             "none";
         }
+      });
+      var clientSecretLocal = localStorage.getItem("clientSecret");
+      localPaymentReq.on("paymentmethod", function(ev) {
+        // Confirm the PaymentIntent without handling potential next actions (yet).
+        stripe
+          .confirmCardPayment(
+            clientSecretLocal,
+            { payment_method: ev.paymentMethod.id },
+            { handleActions: false }
+          )
+          .then(function(confirmResult) {
+            if (confirmResult.error) {
+              // Report to the browser that the payment failed, prompting it to
+              // re-show the payment interface, or show an error message and close
+              // the payment interface.
+              ev.complete("fail");
+            } else {
+              // Report to the browser that the confirmation was successful, prompting
+              // it to close the browser payment method collection interface.
+              ev.complete("success");
+              // Check if the PaymentIntent requires any actions and if so let Stripe.js
+              // handle the flow. If using an API version older than "2019-02-11" instead
+              // instead check for: `paymentIntent.status === "requires_source_action"`.
+              if (confirmResult.paymentIntent.status === "requires_action") {
+                // Let Stripe.js handle the rest of the payment flow.
+                stripe.confirmCardPayment(clientSecret).then(function(result) {
+                  if (result.error) {
+                    // The payment failed -- ask your customer for a new payment method.
+                  } else {
+                    // The payment has succeeded.
+                  }
+                });
+              } else {
+                // The payment has succeeded.
+              }
+            }
+          });
       });
     });
   },

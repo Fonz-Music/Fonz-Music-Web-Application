@@ -37,6 +37,7 @@
             <input
               class="form-check-input"
               type="checkbox"
+              v-model="extraPackaging"
               value=""
               id="defaultCheck1"
               @click="updateExtraPackaging"
@@ -154,7 +155,10 @@ export default {
       promoValid: null,
       enteredpromo: false,
       packagePrice: 60,
-      extraPackaging: false,
+      extraPackaging: {
+        value: localStorage.getItem("addedExtraPackaging"),
+        default: false
+      },
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,

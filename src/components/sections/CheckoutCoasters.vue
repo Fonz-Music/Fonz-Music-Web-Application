@@ -37,6 +37,7 @@
             <input
               class="form-check-input"
               type="checkbox"
+              v-model="extraPackaging"
               value=""
               id="defaultCheck1"
               @click="updateExtraPackaging"
@@ -112,7 +113,9 @@
         </div>
       </div>
       <div class="paymentOptions text-center">
-        <c-image
+        <div id="payment-request-button" class="center-content"></div>
+
+        <!-- <c-image
           class="applePay"
           :src="require('@/assets/images/buyWithApple.png')"
           alt="coaster package"
@@ -122,7 +125,7 @@
           class=""
           :src="require('@/assets/images/buyWithGoogle.png')"
           alt="coaster package"
-        />
+        /> -->
       </div>
       <br />
       <div class="text-center">
@@ -145,14 +148,17 @@ console.log({ Checkout });
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage,
+    CImage
   },
   data() {
     return {
       promoValid: null,
       enteredpromo: false,
       packagePrice: 60,
-      extraPackaging: false,
+      extraPackaging: {
+        value: localStorage.getItem("addedExtraPackaging"),
+        default: false
+      },
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -162,12 +168,12 @@ export default {
         price: 22,
         retailPrice: 60,
         title: "fonz coaster",
-        freeShipping: true,
+        freeShipping: true
       },
       packageId: "",
       showPricing: false,
       currencySymbol: "€",
-      addons: { shipping: {}, extraPackaging: {} },
+      addons: { shipping: {}, extraPackaging: {} }
     };
   },
   beforeMount() {
@@ -183,15 +189,15 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
-          cartId: cartIdFromUser,
+          cartId: cartIdFromUser
         })
-        .then((resp) => {
+        .then(resp => {
           response = resp.data;
           console.log(response);
 
           this.promoValid = true;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
           this.promoValid = false;
         });
@@ -203,16 +209,16 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          cartId: cartIdFromUser,
+          cartId: cartIdFromUser
         })
         // add cartID to body
-        .then((resp) => {
+        .then(resp => {
           response = resp.data;
           console.log(response);
 
           this.extraPackaging = true;
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.status == 403) {
             console.log("resp.status " + error.response.status);
             this.extraPackaging = true;
@@ -226,13 +232,16 @@ export default {
       console.log("inside remove cartid" + cartIdFromUser);
       var response;
       axios
-        .delete(`${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`).then((resp) => {
+        .delete(
+          `${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`
+        )
+        .then(resp => {
           // add cartID to body
           response = resp.data;
           console.log(response);
           this.extraPackaging = false;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
@@ -242,14 +251,14 @@ export default {
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/addons/shipping`, {
-          cartId: cartIdFromUser,
+          cartId: cartIdFromUser
         })
         // add cartID to body
-        .then((resp) => {
+        .then(resp => {
           response = resp.data;
           console.log("shipping cost: " + response);
         })
-        .catch((error) => {
+        .catch(error => {
           console.error("shipping error: " + error);
         });
     },
@@ -274,48 +283,141 @@ export default {
         this.removeExtraPackaging();
       }
     },
-
-    // perItemPrice(plan) {
-    //   return (
-    //     this.pricePlans[plan].price / this.pricePlans[plan].quantity
-    //   ).toFixed(2);
-    // },
-    // updatePackage(plan) {
-    //   let packageId = this.pricePlans[plan].package;
-    //   localStorage.setItem("package", packageId);
-    //   this.$router.push("/checkout");
-    // },
     getPricing() {
       const packageId = localStorage.getItem("package");
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
-        .then((resp) => {
+        .then(resp => {
           this.currentPackage = resp.data;
           console.log(this.currentPackage);
           this.showPricing = true;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
+    // for apple pay
+    loadStripeSdk: (pk, version = "v3", callback) => {
+      console.log("opening window");
+      if (window.Stripe) {
+        callback();
+        return;
+      }
+      let e = document.createElement("script");
+      e.src = `https://js.stripe.com/v3`;
+      e.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(e);
+      e.addEventListener("load", callback);
+      console.log("finished loadSDK");
+    },
+    sendCartIdToServer() {
+      // const addressIntent = localStorage.getItem("guestAddress");
+      // const emailIntent = localStorage.getItem("guestEmail");
+      // const nameIntent = localStorage.getItem("guestName");
+
+      console.log("guestAddress: " + addressIntent);
+      axios
+        .post("/i/checkout/payment-intent", {
+          cartId: localStorage.getItem("cartId")
+          // shipping: { address: { line1: addressIntent }, name: nameIntent },
+          // receipt_email: emailIntent
+        })
+        .then(resp => {
+          console.log("beginning on payment intent");
+          // alert(JSON.stringify(resp, null, 4));
+          localStorage.setItem("clientSecret", resp.data.client_secret);
+          // this.clientSecret = resp.data.client_secret;
+          // alert(JSON.stringify(resp.data, null, 4));
+          // console.log("resp data " + resp.data);
+        })
+        .catch(error => {
+          console.log("fail making payment intent");
+        });
+    }
   },
 
-  mounted() {
+  async mounted() {
     this.getPricing();
-    // if (this.pricingSlider) {
-    //   this.$refs.slider.setAttribute("min", 0);
-    //   this.$refs.slider.setAttribute(
-    //     "max",
-    //     Object.keys(this.priceInput).length - 1
-    //   );
-    //   this.thumbSize = parseInt(
-    //     window
-    //       .getComputedStyle(this.$refs.sliderValue)
-    //       .getPropertyValue("--thumb-size"),
-    //     10
-    //   );
-    //   this.handleSliderValuePosition(this.$refs.slider);
-    // }
+    this.loadStripeSdk(this.pk, "v3", () => {
+      const options = {
+        stripeAccount: this.stripeAccount,
+        apiVersion: "2020-08-27",
+        locale: this.locale
+      };
+      this.stripe = window.Stripe(
+        "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
+        options
+      );
+      // this creates payment req
+      var localPaymentReq = this.stripe.paymentRequest({
+        country: "US",
+        currency: "usd",
+        total: {
+          label: "Demo total",
+          amount: 1099
+        },
+        requestPayerName: true,
+        requestPayerEmail: true
+      });
+      console.log(localPaymentReq);
+
+      this.elements = this.stripe.elements();
+      var prButton = this.elements.create("paymentRequestButton", {
+        paymentRequest: localPaymentReq
+      });
+
+      localPaymentReq.canMakePayment().then(function(result) {
+        console.log("result is " + result);
+        if (result) {
+          //   console.log("mounting the button ");
+          this.card.mount("#payment-request-button");
+          // prButton.mount("#payment-request-button");
+
+          this.sendCartIdToServer();
+        } else {
+          console.log("NOT mounting the button ");
+          document.getElementById("payment-request-button").style.display =
+            "none";
+        }
+      });
+      var clientSecretLocal = localStorage.getItem("clientSecret");
+      localPaymentReq.on("paymentmethod", function(ev) {
+        // Confirm the PaymentIntent without handling potential next actions (yet).
+        stripe
+          .confirmCardPayment(
+            clientSecretLocal,
+            { payment_method: ev.paymentMethod.id },
+            { handleActions: false }
+          )
+          .then(function(confirmResult) {
+            if (confirmResult.error) {
+              // Report to the browser that the payment failed, prompting it to
+              // re-show the payment interface, or show an error message and close
+              // the payment interface.
+              ev.complete("fail");
+            } else {
+              // Report to the browser that the confirmation was successful, prompting
+              // it to close the browser payment method collection interface.
+              ev.complete("success");
+              // Check if the PaymentIntent requires any actions and if so let Stripe.js
+              // handle the flow. If using an API version older than "2019-02-11" instead
+              // instead check for: `paymentIntent.status === "requires_source_action"`.
+              if (confirmResult.paymentIntent.status === "requires_action") {
+                // Let Stripe.js handle the rest of the payment flow.
+                stripe.confirmCardPayment(clientSecret).then(function(result) {
+                  if (result.error) {
+                    // The payment failed -- ask your customer for a new payment method.
+                  } else {
+                    // The payment has succeeded.
+                  }
+                });
+              } else {
+                // The payment has succeeded.
+              }
+            }
+          });
+      });
+    });
   },
   computed: {
     calculateTotalPrice() {
@@ -356,8 +458,8 @@ export default {
     },
     determineShipping() {
       return this.currentPackage.freeShipping;
-    },
-  },
+    }
+  }
 };
 </script>
 

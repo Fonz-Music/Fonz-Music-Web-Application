@@ -65,18 +65,21 @@ https
 
       // The whole response has been received. Print out the result.
       resp.on("end", () => {
-        // console.log(JSON.parse(data));
-        if (data.country_code == "US") {
-          this.currency = "USD";
-        } else if (data.country_code == "UK") {
-          this.currency = "GBP";
+        var userInfo = JSON.parse(data);
+        // console.log(userInfo.country_code);
+        if (userInfo.country_code == "US") {
+          this.currency = "usd";
+        } else if (userInfo.country_code == "UK") {
+          // console.log("going w gbp ");
+          this.currency = "gbp";
         } else {
-          this.currency = "EUR";
+          // console.log("going w eur ");
+          this.currency = "eur";
         }
       });
     }
   )
   .on("error", err => {
-    this.currency = "EUR";
+    this.currency = "eur";
     // console.log("Error: " + err.message);
   });

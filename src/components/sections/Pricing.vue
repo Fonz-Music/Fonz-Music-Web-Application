@@ -40,7 +40,7 @@
               </div>
               <div class="col-4 text-right coaster-price">
                 <span class="pricing-item-price-currency h3">
-                  {{ this.currencySymbol }}
+                  {{ determineCurrencySymbol }}
                 </span>
                 <span
                   class="pricing-item-price-amount h1"
@@ -61,7 +61,7 @@
               <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
-                    {{ this.currencySymbol }}
+                    {{ determineCurrencySymbol }}
                   </span>
                   <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(0) }}
@@ -78,7 +78,7 @@
               <div class=" mb-40">
                 <ul class="package-benefits">
                   <li class="">
-                    {{ this.currencySymbol + this.addons.shipping.price }}
+                    {{ determineCurrencySymbol + this.addons.shipping.price }}
                     Shipping (FREE Shipping on purchases of two or more)
                   </li>
 
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-4 text-right coaster-price">
                   <span class="pricing-item-price-currency h3">
-                    {{ this.currencySymbol }}
+                    {{ determineCurrencySymbol }}
                   </span>
                   <span
                     class="pricing-item-price-amount h1"
@@ -146,7 +146,7 @@
               <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
-                    {{ this.currencySymbol }}
+                    {{ determineCurrencySymbol }}
                   </span>
                   <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(2) }}
@@ -154,7 +154,8 @@
                   <span
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
-                  >{{ this.perItemPrice(0) }}</span>
+                    >{{ this.perItemPrice(0) }}</span
+                  >
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
                   </span>
@@ -171,7 +172,9 @@
                 <ul class="package-benefits">
                   <li class="">
                     FREE Shipping (Usually
-                    {{ this.currencySymbol + this.addons.shipping.price * 3 }})
+                    {{
+                      determineCurrencySymbol + this.addons.shipping.price * 3
+                    }})
                   </li>
 
                   <li class="">Have a coaster to keep for your roadtrips</li>
@@ -205,7 +208,7 @@
                 </div>
                 <div class="col-4 text-right coaster-price">
                   <span class="pricing-item-price-currency h3">
-                    {{ this.currencySymbol }}
+                    {{ determineCurrencySymbol }}
                   </span>
                   <span
                     class="pricing-item-price-amount h1"
@@ -238,7 +241,7 @@
               <div class="">
                 <div class="pricing-item-price mb-4 center-content">
                   <span class="pricing-item-price-currency h3">
-                    {{ this.currencySymbol }}
+                    {{ determineCurrencySymbol }}
                   </span>
                   <span class="pricing-item-price-amount h2">
                     {{ this.perItemPrice(1) }}
@@ -246,7 +249,8 @@
                   <span
                     class="pricing-item-price-amount h3"
                     style="text-decoration: Line-Through; color: orange"
-                  >{{ this.perItemPrice(0) }}</span>
+                    >{{ this.perItemPrice(0) }}</span
+                  >
                   <span class="pricing-item-price-after text-sm"
                     >&nbsp;each
                   </span>
@@ -262,7 +266,9 @@
                 <ul class="package-benefits">
                   <li class="">
                     FREE Shipping (Usually
-                    {{ this.currencySymbol + this.addons.shipping.price * 2 }})
+                    {{
+                      determineCurrencySymbol + this.addons.shipping.price * 2
+                    }})
                   </li>
                   <li class="">
                     Always be ready to turn your car into the dance floor
@@ -331,12 +337,19 @@ export default {
       //   plan3: ["$", "74"],
       // },
       showPricing: false,
-      currencySymbol: "€",
+      // currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
       addons: { shipping: {}, extraPackaging: {} }
     };
   },
-  computed: {},
+  computed: {
+    determineCurrencySymbol() {
+      console.log("this cur " + this.currency);
+      if (this.currency == "usd") return "$";
+      else if (this.currency == "gbp") return "£";
+      else return "€";
+    }
+  },
   methods: {
     getRetailPrice(plan) {
       return (
@@ -363,9 +376,9 @@ export default {
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
         // update CART
-        firebase.analytics().logEvent('change_cart', {
-          content_type: 'coaster',
-          packageId, 
+        firebase.analytics().logEvent("change_cart", {
+          content_type: "coaster",
+          packageId,
           currency: this.currency,
           items: [{ cartId: this.cardId, ...this.pricePlans[plan] }]
         });
@@ -384,9 +397,9 @@ export default {
           .post(`/i/cart/${packageId}/${this.currency}`)
           .then(resp => {
             const cartId = resp.data.cartId;
-            firebase.analytics().logEvent('new_cart', {
-              content_type: 'coaster',
-              packageId, 
+            firebase.analytics().logEvent("new_cart", {
+              content_type: "coaster",
+              packageId,
               currency: this.currency,
               items: [{ cartId, ...this.pricePlans[plan] }]
             });

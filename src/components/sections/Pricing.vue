@@ -374,8 +374,6 @@ export default {
     },
     updatePackage(plan) {
       let packageId = this.pricePlans[plan].package;
-      console.log(this.pricePlans[1]);
-      console.log("pack id " + this.pricePlans[plan].package);
       if (this.cartId) {
         // update CART
         firebase.analytics().logEvent("change_cart", {

@@ -95,7 +95,7 @@
                 </td>
                 <!-- </div> -->
               </tr>
-              <tr v-if="addedPromoSuccess">
+              <tr v-if="determineAddDiscount">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ determineCurrencySymbol }}5
@@ -158,16 +158,12 @@ export default {
       enteredpromo: false,
       packagePrice: 60,
       // this checks to see if the user has added extra packaging
-      extraPackaging: {
-        value: localStorage.getItem("addedExtraPackaging"),
-        default: false
-      },
+      extraPackaging: false,
       // tjos checks to see if the user has added a successful
       // promo. This is throughout the entire checkout process
-      addedPromoSuccess: {
-        value: localStorage.getItem("addedPromoSuccess"),
-        default: false
-      },
+      // addedPromoSuccess: {
+      //   value: localStorage.getItem("addedPromoSuccess")
+      // },
       // this changes on each entered promo code
       promoValid: null,
       promoCode: "",
@@ -182,10 +178,23 @@ export default {
         freeShipping: true
       },
       packageId: "",
-      showPricing: false,
-      currencySymbol: "€",
+      freeShipping: false,
       addons: { shipping: {}, extraPackaging: {} }
     };
+  },
+  watch: {
+    determineExtraPacking() {
+      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
+      console.log("packing from local " + extraPackingFromLocal);
+      console.log(typeof extraPackingFromLocal);
+      if (extraPackingFromLocal == "true") {
+        console.log("returning true ");
+        return true;
+      } else {
+        console.log("returning false");
+        return false;
+      }
+    }
   },
   beforeMount() {
     this.getPricing();
@@ -240,6 +249,7 @@ export default {
           }
           console.error(error);
         });
+      localStorage.setItem("extraPackaging", true);
     },
     removeExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
@@ -259,6 +269,7 @@ export default {
         .catch(error => {
           console.error(error);
         });
+      localStorage.setItem("extraPackaging", false);
     },
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
@@ -359,13 +370,15 @@ export default {
         apiVersion: "2020-08-27",
         locale: this.locale
       };
+      var country = localStorage.getItem("country");
       this.stripe = window.Stripe(
         "pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU",
         options
       );
       // this creates payment req
       var localPaymentReq = this.stripe.paymentRequest({
-        currency: "usd",
+        currency: this.currency,
+        country: country,
         total: {
           label: "Demo total",
           amount: this.calculateTotalPrice * 100
@@ -478,6 +491,17 @@ export default {
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
+    },
+    determineAddDiscount() {
+      var addPromoFromLocal = localStorage.getItem("addedPromoSuccess");
+      console.log("promo from local" + addPromoFromLocal);
+      if (addPromoFromLocal == true) {
+        console.log("returning true ");
+        return true;
+      } else {
+        console.log("returning false");
+        return false;
+      }
     }
   }
 };

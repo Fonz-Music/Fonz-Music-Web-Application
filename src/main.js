@@ -6,28 +6,17 @@ Vue.use(Fragment.Plugin);
 import Vue2TouchEvents from "vue2-touch-events";
 Vue.use(Vue2TouchEvents);
 
-import {
-  library
-} from "@fortawesome/fontawesome-svg-core";
-import {
-  faUserSecret
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faGooglePlay,
-  faAppStore
-} from "@fortawesome/free-brands-svg-icons";
-import {
-  FontAwesomeIcon
-} from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faGooglePlay, faAppStore } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faUserSecret);
 library.add(faGooglePlay, faAppStore);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 // import vuetify from './plugins/vuetify' // path to vuetify export
 // import Vuetify from 'vuetify/lib'
-import {
-  BootstrapVue
-} from "bootstrap-vue";
+import { BootstrapVue } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -45,23 +34,29 @@ Vue.prototype.$API_URL = "https://web.fonzmusic.com";
 // Vue.prototype.currencySymbol =;
 Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 
-
-const axios = require('axios');
+const axios = require("axios");
 let setCurrency = "eur";
-axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785").then((resp) => {
-  let country_code = resp.data.country_code;
-  if (country_code == "US") {
-    setCurrency = "usd";
-  } else if (country_code == "GB") {
-    setCurrency = "gbp"
-  }
-  // Vue.prototype.currency = setCurrency;
-  localStorage.setItem('currency', setCurrency)
-}).catch((error) => {
-  console.error("COULD NOT GET LOCATION DATA FOR PRICING ", error)
-})
+let setCountry = "IE";
+axios
+  .get(
+    "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785"
+  )
+  .then(resp => {
+    let country_code = resp.data.country_code;
+    if (country_code == "US") {
+      setCurrency = "usd";
+    } else if (country_code == "GB") {
+      setCurrency = "gbp";
+    }
+    // Vue.prototype.currency = setCurrency;
+    localStorage.setItem("currency", setCurrency);
+    localStorage.setItem("country", country_code);
+  })
+  .catch(error => {
+    console.error("COULD NOT GET LOCATION DATA FOR PRICING ", error);
+  });
 
-Vue.prototype.currency = localStorage.getItem('currency');
+Vue.prototype.currency = localStorage.getItem("currency");
 new Vue({
   router,
   render: h => h(App)
@@ -79,8 +74,6 @@ Vue.use(VueGoogleMaps, {
     // (as you require)
   }
 });
-
-
 
 // const https = require("https");
 // https

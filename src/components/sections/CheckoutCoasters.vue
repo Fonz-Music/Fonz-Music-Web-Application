@@ -158,7 +158,10 @@ export default {
       enteredpromo: false,
       packagePrice: 60,
       // this checks to see if the user has added extra packaging
-      extraPackaging: false,
+      extraPackaging: {
+        value: localStorage.getItem("extraPackaging"),
+        default: false
+      },
       // tjos checks to see if the user has added a successful
       // promo. This is throughout the entire checkout process
       // addedPromoSuccess: {
@@ -181,20 +184,6 @@ export default {
       freeShipping: false,
       addons: { shipping: {}, extraPackaging: {} }
     };
-  },
-  watch: {
-    determineExtraPacking() {
-      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
-      console.log("packing from local " + extraPackingFromLocal);
-      console.log(typeof extraPackingFromLocal);
-      if (extraPackingFromLocal == "true") {
-        console.log("returning true ");
-        return true;
-      } else {
-        console.log("returning false");
-        return false;
-      }
-    }
   },
   beforeMount() {
     this.getPricing();
@@ -239,7 +228,7 @@ export default {
         .then(resp => {
           response = resp.data;
           console.log(response);
-
+          localStorage.setItem("extraPackaging", true);
           this.extraPackaging = true;
         })
         .catch(error => {
@@ -249,7 +238,6 @@ export default {
           }
           console.error(error);
         });
-      localStorage.setItem("extraPackaging", true);
     },
     removeExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
@@ -265,11 +253,11 @@ export default {
           response = resp.data;
           console.log(response);
           this.extraPackaging = false;
+          localStorage.setItem("extraPackaging", false);
         })
         .catch(error => {
           console.error(error);
         });
-      localStorage.setItem("extraPackaging", false);
     },
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
@@ -496,6 +484,18 @@ export default {
       var addPromoFromLocal = localStorage.getItem("addedPromoSuccess");
       console.log("promo from local" + addPromoFromLocal);
       if (addPromoFromLocal == true) {
+        console.log("returning true ");
+        return true;
+      } else {
+        console.log("returning false");
+        return false;
+      }
+    },
+    determineExtraPacking() {
+      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
+      console.log("packing from local " + extraPackingFromLocal);
+      console.log(typeof extraPackingFromLocal);
+      if (extraPackingFromLocal == "true") {
         console.log("returning true ");
         return true;
       } else {

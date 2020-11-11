@@ -51,3 +51,32 @@ Vue.use(VueGoogleMaps, {
     // (as you require)
   }
 });
+
+const https = require("https");
+https
+  .get(
+    "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785",
+    resp => {
+      let data = "";
+      // A chunk of data has been received.
+      resp.on("data", chunk => {
+        data += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      resp.on("end", () => {
+        // console.log(JSON.parse(data));
+        if (data.country_code == "US") {
+          this.currency = "USD";
+        } else if (data.country_code == "UK") {
+          this.currency = "GBP";
+        } else {
+          this.currency = "EUR";
+        }
+      });
+    }
+  )
+  .on("error", err => {
+    this.currency = "EUR";
+    // console.log("Error: " + err.message);
+  });

@@ -92,7 +92,7 @@
                 <td class="text-right" v-else>{{ this.currencySymbol }}3</td>
                 <!-- </div> -->
               </tr>
-              <tr v-if="promoValid">
+              <tr v-if="addedPromoSuccess">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ this.currencySymbol }}5
@@ -152,13 +152,21 @@ export default {
   },
   data() {
     return {
-      promoValid: null,
       enteredpromo: false,
       packagePrice: 60,
+      // this checks to see if the user has added extra packaging
       extraPackaging: {
         value: localStorage.getItem("addedExtraPackaging"),
         default: false
       },
+      // tjos checks to see if the user has added a successful
+      // promo. This is throughout the entire checkout process
+      addedPromoSuccess: {
+        value: localStorage.getItem("addedPromoSuccess"),
+        default: false
+      },
+      // this changes on each entered promo code
+      promoValid: null,
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -194,12 +202,16 @@ export default {
         .then(resp => {
           response = resp.data;
           console.log(response);
+          this.addedPromoSuccess = true;
+          localStorage.setItem("addedPromoSuccess", true);
 
           this.promoValid = true;
+          this.enteredpromo = true;
         })
         .catch(error => {
           console.error(error);
           this.promoValid = false;
+          this.enteredpromo = true;
         });
     },
     addExtraPackaging() {
@@ -350,11 +362,10 @@ export default {
       );
       // this creates payment req
       var localPaymentReq = this.stripe.paymentRequest({
-        country: "US",
         currency: "usd",
         total: {
           label: "Demo total",
-          amount: 1099
+          amount: this.calculateTotalPrice * 100
         },
         requestPayerName: true,
         requestPayerEmail: true

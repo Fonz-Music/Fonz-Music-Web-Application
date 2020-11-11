@@ -1,8 +1,8 @@
 <template>
   <fragment>
-    <c-hero-split/>
+    <c-hero-split />
     <c-clients top-divider class="center-content" />
-    <c-CoasterBuyInfo top-divider/>
+    <c-CoasterBuyInfo top-divider />
     <DownloadApp />
     <c-roadmap top-divider class="center-content" />
   </fragment>
@@ -37,12 +37,12 @@ export default {
 
   methods: {
     eventPageViewHome() {
-      firebase.analytics().logEvent('page_view', {
-        page_location: 'http://web.fonzmusic.com',
-        page_path: '/',
-        page_title: 'Home'
+      firebase.analytics().logEvent("page_view", {
+        page_location: "http://web.fonzmusic.com",
+        page_path: "/",
+        page_title: "Home"
       });
-      console.log('home event logged');
+      console.log("home event logged");
     }
   },
 

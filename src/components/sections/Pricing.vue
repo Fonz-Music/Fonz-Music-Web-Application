@@ -374,6 +374,8 @@ export default {
     },
     updatePackage(plan) {
       let packageId = this.pricePlans[plan].package;
+      console.log(this.pricePlans[1]);
+      console.log("pack id " + this.pricePlans[plan].package);
       if (this.cartId) {
         // update CART
         firebase.analytics().logEvent("change_cart", {
@@ -382,6 +384,7 @@ export default {
           currency: this.currency,
           items: [{ cartId: this.cardId, ...this.pricePlans[plan] }]
         });
+        console.log("pack id " + packageId);
         axios
           .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
           .then(resp => {

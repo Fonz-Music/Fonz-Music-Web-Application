@@ -19,15 +19,15 @@
           <div class="col-4 product-price">
             <div v-if="!promoValid">
               <h3 class="text-right">
-                {{ this.currencySymbol }}{{ getRetailPrice }}
+                {{ determineCurrencySymbol }}{{ getRetailPrice }}
               </h3>
             </div>
             <div v-else>
               <h3 class="text-right">
-                <del>{{ this.currencySymbol }}{{ getRetailPrice }}</del>
+                <del>{{ determineCurrencySymbol }}{{ getRetailPrice }}</del>
               </h3>
               <h3 class="text-right">
-                {{ this.currencySymbol }}{{ calculateSubtotalPrice }}
+                {{ determineCurrencySymbol }}{{ calculateSubtotalPrice }}
               </h3>
             </div>
           </div>
@@ -43,7 +43,8 @@
               @click="updateExtraPackaging"
             />
             <label class="form-check-label" for="defaultCheck1">
-              I want my coasters packaged separately {{ this.currencySymbol }}3
+              I want my coasters packaged separately
+              {{ determineCurrencySymbol }}3
             </label>
           </div>
         </div>
@@ -76,7 +77,7 @@
               <tr>
                 <th scope="row">Subtotal</th>
                 <td class="text-right">
-                  {{ this.currencySymbol }}{{ this.currentPackage.price }}
+                  {{ determineCurrencySymbol }}{{ this.currentPackage.price }}
                 </td>
               </tr>
               <!-- <tr>
@@ -89,23 +90,25 @@
                 <td class="text-right" v-if="determineShipping">FREE</td>
                 <!-- </div>
             <div v-else> -->
-                <td class="text-right" v-else>{{ this.currencySymbol }}3</td>
+                <td class="text-right" v-else>
+                  {{ determineCurrencySymbol }}3
+                </td>
                 <!-- </div> -->
               </tr>
               <tr v-if="addedPromoSuccess">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
-                  {{ this.currencySymbol }}5
+                  {{ determineCurrencySymbol }}5
                 </td>
               </tr>
               <tr v-if="extraPackaging">
                 <th scope="row">Extra Packaging</th>
-                <td class="text-right">{{ this.currencySymbol }}3</td>
+                <td class="text-right">{{ determineCurrencySymbol }}3</td>
               </tr>
               <tr class="total-amount">
                 <th scope="row">Total</th>
                 <td class="text-right">
-                  {{ this.currencySymbol }}{{ calculateTotalPrice }}
+                  {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
                 </td>
               </tr>
             </tbody>
@@ -469,6 +472,12 @@ export default {
     },
     determineShipping() {
       return this.currentPackage.freeShipping;
+    },
+    determineCurrencySymbol() {
+      console.log("this cur " + this.currency);
+      if (this.currency == "usd") return "$";
+      else if (this.currency == "gbp") return "£";
+      else return "€";
     }
   }
 };

@@ -170,7 +170,7 @@ export default {
       currentPackage: {
         quantity: 1,
         info: "fonz coaster",
-        price: 22,
+        price: 28,
         retailPrice: 60,
         title: "fonz coaster",
         freeShipping: true
@@ -379,6 +379,12 @@ export default {
       });
 
       localPaymentReq.canMakePayment().then(function(result) {
+        this.stripe.paymentRequest.update({
+          total: {
+            label: "Fonz Coaster for you",
+            amount: this.totalPrice * 100
+          }
+        });
         console.log("result is " + JSON.stringify(result));
         if (result) {
           //   console.log("mounting the button ");
@@ -394,13 +400,7 @@ export default {
       localPaymentReq.on("paymentmethod", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
 
-        this.stripe.paymentRequest.update({
-          total: {
-            label: "Fonz Coaster for you",
-            amount: this.totalPrice * 100
-          }
-        });
-        this.sendCartIdToServer();
+        sendCartIdToServer();
         var clientSecretLocal = localStorage.getItem("clientSecret");
 
         // Confirm the PaymentIntent without handling potential next actions (yet).

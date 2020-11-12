@@ -165,7 +165,7 @@ export default {
       // this changes on each entered promo code
       promoValid: null,
       promoCode: "",
-      totalPrice: 0,
+      totalPrice: this.currentPackage.price,
       governmentTheft: 2,
       currentPackage: {
         quantity: 1,

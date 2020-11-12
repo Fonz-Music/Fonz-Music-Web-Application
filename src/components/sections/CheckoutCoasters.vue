@@ -384,6 +384,12 @@ export default {
           console.log("mounting the button ");
           // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
+          localPaymentReq.paymentRequest.update({
+            total: {
+              label: "Fonz Coaster for you",
+              amount: this.totalPrice * 100
+            }
+          });
         } else {
           console.log("NOT mounting the button ");
           document.getElementById("payment-request-button").style.display =
@@ -392,12 +398,6 @@ export default {
       });
 
       localPaymentReq.on("paymentmethod", function(ev) {
-        localPaymentReq.paymentRequest.update({
-          total: {
-            label: "Fonz Coaster for you",
-            amount: this.totalPrice * 100
-          }
-        });
         // this.stripe.paymentIntents.update(clientSecretLocal);
 
         sendCartIdToServer();

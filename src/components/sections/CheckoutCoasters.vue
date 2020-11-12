@@ -381,7 +381,7 @@ export default {
         country: country,
         total: {
           label: "Fonz Coaster",
-          amount: this.currentPackage.price * 100
+          amount: this.totalPrice * 100
         },
         requestPayerName: true,
         requestPayerEmail: true

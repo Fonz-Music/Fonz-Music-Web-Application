@@ -158,15 +158,10 @@ export default {
       enteredpromo: false,
       packagePrice: 60,
       // this checks to see if the user has added extra packaging
-      extraPackaging: {
-        value: localStorage.getItem("extraPackaging"),
-        default: false
-      },
+      extraPackaging: false,
       // tjos checks to see if the user has added a successful
       // promo. This is throughout the entire checkout process
-      addedPromoSuccess: {
-        value: false
-      },
+      addedPromoSuccess: false,
       // this changes on each entered promo code
       promoValid: null,
       promoCode: "",
@@ -397,6 +392,12 @@ export default {
       });
       var clientSecretLocal = localStorage.getItem("clientSecret");
       localPaymentReq.on("paymentmethod", function(ev) {
+        this.stripe.paymentRequest.update({
+          total: {
+            label: "Demo total",
+            amount: this.calculateTotalPrice * 100
+          }
+        });
         // Confirm the PaymentIntent without handling potential next actions (yet).
         stripe
           .confirmCardPayment(

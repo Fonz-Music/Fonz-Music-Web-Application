@@ -95,7 +95,7 @@
                 </td>
                 <!-- </div> -->
               </tr>
-              <tr v-if="determineAddDiscount">
+              <tr v-if="addedPromoSuccess">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ determineCurrencySymbol }}5
@@ -161,9 +161,7 @@ export default {
       extraPackaging: false,
       // tjos checks to see if the user has added a successful
       // promo. This is throughout the entire checkout process
-      // addedPromoSuccess: {
-      //   value: localStorage.getItem("addedPromoSuccess")
-      // },
+      addedPromoSuccess: false,
       // this changes on each entered promo code
       promoValid: null,
       promoCode: "",
@@ -181,20 +179,6 @@ export default {
       freeShipping: false,
       addons: { shipping: {}, extraPackaging: {} }
     };
-  },
-  watch: {
-    determineExtraPacking() {
-      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
-      console.log("packing from local " + extraPackingFromLocal);
-      console.log(typeof extraPackingFromLocal);
-      if (extraPackingFromLocal == "true") {
-        console.log("returning true ");
-        return true;
-      } else {
-        console.log("returning false");
-        return false;
-      }
-    }
   },
   beforeMount() {
     this.getPricing();
@@ -239,7 +223,7 @@ export default {
         .then(resp => {
           response = resp.data;
           console.log(response);
-
+          localStorage.setItem("extraPackaging", true);
           this.extraPackaging = true;
         })
         .catch(error => {
@@ -249,7 +233,6 @@ export default {
           }
           console.error(error);
         });
-      localStorage.setItem("extraPackaging", true);
     },
     removeExtraPackaging() {
       // PUT /i/cart/coupon/{couponId}
@@ -265,11 +248,11 @@ export default {
           response = resp.data;
           console.log(response);
           this.extraPackaging = false;
+          localStorage.setItem("extraPackaging", false);
         })
         .catch(error => {
           console.error(error);
         });
-      localStorage.setItem("extraPackaging", false);
     },
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
@@ -409,6 +392,12 @@ export default {
       });
       var clientSecretLocal = localStorage.getItem("clientSecret");
       localPaymentReq.on("paymentmethod", function(ev) {
+        this.stripe.paymentRequest.update({
+          total: {
+            label: "Demo total",
+            amount: this.calculateTotalPrice * 100
+          }
+        });
         // Confirm the PaymentIntent without handling potential next actions (yet).
         stripe
           .confirmCardPayment(
@@ -487,7 +476,7 @@ export default {
       return this.currentPackage.freeShipping;
     },
     determineCurrencySymbol() {
-      console.log("this cur " + this.currency);
+      // console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
@@ -496,6 +485,18 @@ export default {
       var addPromoFromLocal = localStorage.getItem("addedPromoSuccess");
       console.log("promo from local" + addPromoFromLocal);
       if (addPromoFromLocal == true) {
+        console.log("returning true ");
+        return true;
+      } else {
+        console.log("returning false");
+        return false;
+      }
+    },
+    determineExtraPacking() {
+      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
+      console.log("packing from local " + extraPackingFromLocal);
+      console.log(typeof extraPackingFromLocal);
+      if (extraPackingFromLocal == "true") {
         console.log("returning true ");
         return true;
       } else {

@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 export default {
   created() {
     this.$emit("update:layout", CLayout);

@@ -10,7 +10,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CGuestInstructions from "@/components/sections/GuestInstructions.vue";
@@ -36,19 +36,18 @@ export default {
 
   methods: {
     eventPageViewAbout() {
-      firebase.analytics().logEvent('page_view', {
-        page_location: 'http://web.fonzmusic.com/',
-        page_path: '/about',
-        page_title: 'About'
+      firebase.analytics().logEvent("page_view", {
+        page_location: "http://web.fonzmusic.com/",
+        page_path: "/about",
+        page_title: "About"
       });
-      console.log('about event logged');
+      console.log("about event logged");
     }
   },
 
   beforeMount() {
     this.eventPageViewAbout();
   },
-
 
   created() {
     this.$emit("update:layout", CLayout);

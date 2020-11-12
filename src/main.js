@@ -34,27 +34,69 @@ Vue.prototype.$API_URL = "https://web.fonzmusic.com";
 // Vue.prototype.currencySymbol =;
 Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 
+// progress bars
+
 const axios = require("axios");
-let setCurrency = "eur";
-let setCountry = "IE";
-axios
-  .get(
-    "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785"
-  )
-  .then(resp => {
-    let country_code = resp.data.country_code;
-    if (country_code == "US") {
-      setCurrency = "usd";
-    } else if (country_code == "GB") {
-      setCurrency = "gbp";
-    }
-    // Vue.prototype.currency = setCurrency;
-    localStorage.setItem("currency", setCurrency);
-    localStorage.setItem("country", country_code);
-  })
-  .catch(error => {
-    console.error("COULD NOT GET LOCATION DATA FOR PRICING ", error);
-  });
+let setCurrency;
+
+var localCurrency = localStorage.getItem("currency");
+var lastTimeChecked = getWithExpiry("timestamp");
+// console.log("local cur " + localCurrency);
+if (localCurrency == null || lastTimeChecked == null) {
+  axios
+    .get(
+      "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785"
+    )
+    .then(resp => {
+      console.error("runnign this code ");
+      let country_code = resp.data.country_code;
+      if (country_code == "US") {
+        setCurrency = "usd";
+      } else if (country_code == "GB") {
+        setCurrency = "gbp";
+      }
+      // Vue.prototype.currency = setCurrency;
+      setWithExpiry("timestamp", setCurrency, 604800000);
+      localStorage.setItem("currency", setCurrency);
+      localStorage.setItem("country", country_code);
+    })
+    .catch(error => {
+      console.error("COULD NOT GET LOCATION DATA FOR PRICING ", error);
+    });
+}
+
+// adds timestamp to localstorage
+function setWithExpiry(key, value, ttl) {
+  const now = new Date();
+
+  // `item` is an object which contains the original value
+  // as well as the time when it's supposed to expire
+  const item = {
+    value: value,
+    expiry: now.getTime() + ttl
+  };
+  localStorage.setItem(key, JSON.stringify(item));
+}
+
+// this gets the timestamp
+function getWithExpiry(key) {
+  const itemStr = localStorage.getItem(key);
+  // if the item doesn't exist, return null
+  if (!itemStr) {
+    return null;
+  }
+  console.log(itemStr);
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+  // compare the expiry time of the item with the current time
+  if (now.getTime() > item.expiry) {
+    // If the item is expired, delete the item from storage
+    // and return null
+    localStorage.removeItem(key);
+    return null;
+  }
+  return item.value;
+}
 
 Vue.prototype.currency = localStorage.getItem("currency");
 new Vue({

@@ -48,7 +48,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CAccordion from "@/components/elements/Accordion.vue";

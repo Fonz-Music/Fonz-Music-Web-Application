@@ -26,6 +26,14 @@
           <span style="color: #fcc485;">favorite host?</span>
         </h2>
       </div>
+      <div v-if="loading" class="spinner center-content">
+        <FingerprintSpinner
+          class="the-spinner"
+          :animation-duration="2000"
+          :size="100"
+          :color="'#ff9425'"
+        />
+      </div>
 
       <div
         class="tiles-wrap"
@@ -296,7 +304,7 @@ import { SectionTilesProps } from "@/utils/SectionProps.js";
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import CButton from "@/components/elements/Button.vue";
 import CImage from "@/components/elements/Image.vue";
-
+import { FingerprintSpinner } from "epic-spinners";
 const axios = require("axios");
 import { Checkout } from "@/plugins/checkout.js";
 console.log({ Checkout });
@@ -307,7 +315,9 @@ export default {
   components: {
     CSectionHeader,
     CButton,
-    CImage
+    CImage,
+    FingerprintSpinner
+    // VueProgress
   },
   mixins: [SectionTilesProps],
   props: {
@@ -339,7 +349,8 @@ export default {
       showPricing: false,
       // currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
+      loading: true
     };
   },
   computed: {
@@ -423,6 +434,7 @@ export default {
           });
           this.addons = resp.data.addons;
           this.showPricing = true;
+          this.loading = false;
         })
         .catch(error => {
           console.error(error);
@@ -502,5 +514,8 @@ p {
   list-style: circle !important;
   color: white;
   font-size: 12pt;
+}
+.the-spinner {
+  margin: 0 auto !important;
 }
 </style>

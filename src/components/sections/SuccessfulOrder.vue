@@ -23,7 +23,7 @@
 
           <div class="col-4 product-price">
             <h3 class="text-right">
-              {{ this.currencySymbol }}{{ getRetailPrice }}
+              {{ determineCurrencySymbol }}{{ getRetailPrice }}
             </h3>
           </div>
         </div>
@@ -48,12 +48,12 @@
               </tr>
               <tr>
                 <th scope="row">Packaging + Delivery</th>
-                <td class="text-right">{{ this.currencySymbol }}3</td>
+                <td class="text-right">{{ determineCurrencySymbol }}3</td>
               </tr>
               <tr class="total-amount">
                 <th scope="row">Total</th>
                 <td class="text-right">
-                  {{ this.currencySymbol }}{{ calculateTotalPrice }}
+                  {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
                 </td>
               </tr>
             </tbody>
@@ -180,6 +180,12 @@ export default {
     },
     determineShipping() {
       return this.currentPackage.freeShipping;
+    },
+    determineCurrencySymbol() {
+      // console.log("this cur " + this.currency);
+      if (this.currency == "usd") return "$";
+      else if (this.currency == "gbp") return "£";
+      else return "€";
     }
   }
 };

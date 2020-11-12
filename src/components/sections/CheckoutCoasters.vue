@@ -379,12 +379,12 @@ export default {
       });
 
       localPaymentReq.canMakePayment().then(function(result) {
-        this.stripe.paymentRequest.update({
-          total: {
-            label: "Fonz Coaster for you",
-            amount: this.totalPrice * 100
-          }
-        });
+        // localPaymentReq.paymentRequest.update({
+        //   total: {
+        //     label: "Fonz Coaster for you",
+        //     amount: this.totalPrice * 100
+        //   }
+        // });
         console.log("result is " + JSON.stringify(result));
         if (result) {
           console.log("mounting the button ");

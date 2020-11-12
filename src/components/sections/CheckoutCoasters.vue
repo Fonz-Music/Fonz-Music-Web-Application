@@ -416,8 +416,11 @@ export default {
             amount: passInPrice * 100
           }
         });
+      });
+      prButton.on("paymentmethod", function(ev) {
+        // this.stripe.paymentIntents.update(clientSecretLocal);
 
-        sendCartIdToServer();
+        this.sendCartIdToServer();
         var clientSecretLocal = localStorage.getItem("clientSecret");
 
         // Confirm the PaymentIntent without handling potential next actions (yet).

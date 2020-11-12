@@ -323,11 +323,12 @@ export default {
       // const addressIntent = localStorage.getItem("guestAddress");
       // const emailIntent = localStorage.getItem("guestEmail");
       // const nameIntent = localStorage.getItem("guestName");
-
+      var localCartId = localStorage.getItem("cartId");
+      console.log("local cart" + localCartId);
       // console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
-          cartId: localStorage.getItem("cartId")
+          cartId: localCartId
           // shipping: { address: { line1: addressIntent }, name: nameIntent },
           // receipt_email: emailIntent
         })

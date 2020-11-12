@@ -391,7 +391,7 @@ export default {
         }
       });
 
-      localPaymentReq.on("click", function(ev) {
+      prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
         localPaymentReq.paymentRequest.update({

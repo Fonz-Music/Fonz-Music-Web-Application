@@ -394,10 +394,12 @@ export default {
       prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
+        var passInPrice = this.totalPrice;
+        console.log("passed in price " + passInPrice);
         localPaymentReq.update({
           total: {
             label: "Fonz Coaster",
-            amount: this.calculateTotalPrice() * 100
+            amount: passInPrice * 100
           }
         });
 
@@ -453,7 +455,7 @@ export default {
       if (this.extraPackaging) {
         addonTotal += 3;
       }
-      // this.totalPrice = this.currentPackage.price + addonTotal;
+      this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {

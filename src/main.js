@@ -34,18 +34,21 @@ Vue.prototype.$API_URL = "https://web.fonzmusic.com";
 // Vue.prototype.currencySymbol =;
 Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 
+// progress bars
+
 const axios = require("axios");
 let setCurrency;
 
-var localCurrency = getWithExpiry("currency");
+var localCurrency = localStorage.getItem("currency");
+var lastTimeChecked = getWithExpiry("timestamp");
 // console.log("local cur " + localCurrency);
-if (localCurrency == null) {
+if (localCurrency == null || lastTimeChecked == null) {
   axios
     .get(
       "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785"
     )
     .then(resp => {
-      // console.error("runnign this code ");
+      console.error("runnign this code ");
       let country_code = resp.data.country_code;
       if (country_code == "US") {
         setCurrency = "usd";
@@ -53,8 +56,9 @@ if (localCurrency == null) {
         setCurrency = "gbp";
       }
       // Vue.prototype.currency = setCurrency;
-      setWithExpiry("currency", setCurrency, 604800000);
-      localStorage.setItem("country", country_code, 604800000);
+      setWithExpiry("timestamp", setCurrency, 604800000);
+      localStorage.setItem("currency", setCurrency);
+      localStorage.setItem("country", country_code);
     })
     .catch(error => {
       console.error("COULD NOT GET LOCATION DATA FOR PRICING ", error);
@@ -81,6 +85,7 @@ function getWithExpiry(key) {
   if (!itemStr) {
     return null;
   }
+  console.log(itemStr);
   const item = JSON.parse(itemStr);
   const now = new Date();
   // compare the expiry time of the item with the current time

@@ -23,6 +23,7 @@
     "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "epic-spinners": "^1.1.0",
     "eslint-loader": "^2.1.2",
     "express": "^4.17.1",
     "firebase": "^7.21.0",

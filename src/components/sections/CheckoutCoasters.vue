@@ -348,7 +348,7 @@ export default {
   },
 
   async mounted() {
-    this.getPricing();
+    await this.getPricing();
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
         stripeAccount: this.stripeAccount,

@@ -408,7 +408,7 @@ export default {
       prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
-        var passInPrice = this.getTotalPrice();
+        var passInPrice = localStorage.getItem("totalPrice");
         console.log("passed in price " + passInPrice);
         localPaymentReq.update({
           total: {
@@ -470,6 +470,7 @@ export default {
         addonTotal += 3;
       }
       this.totalPrice = this.currentPackage.price + addonTotal;
+      localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {

@@ -7,6 +7,7 @@ const stripe = require("stripe")(
 // const webhookSecret = 'whsec_SF9PEj4j6q7cYwQKiTWv5g0YUPsvcvs5';
 // const webhookSecret = 'whsec_Me0F0ciWUZn2Qo4nkRgkm7uQxHHgF5GI';
 const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S";
+const { parse } = require("path");
 const Email = require('./Email.js');
 
 exports.createCart = (packageId, currency) => {
@@ -254,43 +255,44 @@ exports.calculateOrderAmount = (packageId, currency, addons, coupon) => {
         currency
       );
 
-      console.log({
-        freeShipping
-      });
       const shippingCost = freeShipping ? 0 : 3; // Shipping cost hardcoded to 3.00 for the moment
+      let coasterCost = parseInt(price);
       totalAmount += parseInt(price) + parseInt(shippingCost);
-      console.log({
-        totalAmount
-      });
-      // totalAmount += parseInt(price);
 
       // Add cost of addons
-      if (addons) {
-        addons.forEach(async addon => {
+      // let totalAddons = 0;
+      // if (addons) {
+      //   addons.forEach(async addon => {
+      //     let { price } = await this.getAddon(addon);
+      //     if (addon == "shipping" && addons.includes("shipping")) {
+      //       addons.splice(addons.indexOf("shipping"), 1);
+      //     } else {
+      //       totalAddons += parseInt(price);
+      //       totalAmount += parseInt(price);
+      //     }
+      //   });
+      // }
+
+      let totalAddons = 0;
+      if(addons) {
+        addons.forEach(async (addon) => {
           let { price } = await this.getAddon(addon);
-          console.log({
-            addon,
-            price
-          });
-          if (addon == "shipping" && addons.includes("shipping")) {
-            addons.splice(addons.indexOf("shipping"), 1);
-          } else {
-            totalAmount += parseInt(price);
-          }
-        });
+          totalAddons += parseInt(price);
+          totalAmount += parseInt(price);
+        })
       }
-      console.log({
-        totalAmount
-      });
+
       // Take away discount :D
+      let totalDiscount = 0;
       if (coupon) {
         // let { discount } = coupon ? await this.getCoupon(coupon) : { discount: 0 };
         let { discount } = await this.getCoupon(coupon);
+        totalDiscount = parseInt(discount);
         totalAmount -= parseInt(discount);
       }
 
       totalAmount *= 100; // Total must be multiplied by 100 as Stripe deals in cents not euros
-      resolve(totalAmount);
+      resolve({ totalAmount, shippingCost, totalDiscount, totalAddons, coasterCost });
     } catch (error) {
       console.error(error);
       reject(error);
@@ -315,7 +317,7 @@ exports.createPayment = (cartId, shipping, receipt_email) => {
       const { currency, coupon, packageId, addons } = await this.getCart(
         cartId
       );
-      const amount = await this.calculateOrderAmount(
+      const { totalAmount: amount } = await this.calculateOrderAmount(
         packageId,
         currency,
         addons,
@@ -340,7 +342,7 @@ exports.createPayment = (cartId, shipping, receipt_email) => {
   });
 };
 
-exports.createOrder = (cart, stripe) => {
+exports.createOrder = (cart, stripe, orderCosts) => {
   return new Promise(async (resolve, reject) => {
     try {
       const orderRef = await global.OrdersDB.add({
@@ -350,6 +352,12 @@ exports.createOrder = (cart, stripe) => {
         assignedTo: "Dukes",
         created: global.admin.firestore.Timestamp.now()
       });
+      const orderId = orderRef.id;
+      this.sendTransactionalOrderEmail(cart.email, orderCosts, cart.quantity, cart.currency, orderId).then((resp) => {
+        console.log(resp);
+      }).catch((error) => {
+        reject(error);
+      })
       resolve(orderRef.id);
     } catch (error) {
       reject(error);
@@ -357,10 +365,13 @@ exports.createOrder = (cart, stripe) => {
   });
 };
 
-exports.sendTransactionalOrderEmail = () => {
+exports.sendTransactionalOrderEmail = (emailTo, orderCosts, quantity, currency, orderId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      Email.sendEmail();
+      let currencySymbol = "€";
+      if(currency == "usd") currencySymbol = "$";
+      else if(currency == "gbp") currencySymbol = "£";
+      Email.sendEmail(emailTo, orderCosts, quantity, currencySymbol, orderId);
     } catch(error) {
       reject(error);
     }
@@ -381,29 +392,39 @@ exports.confirmOrder = (requestBody, signature) => {
         const cartId = intent.metadata.cartId;
         const cart = await this.getCart(cartId);
         const { currency, coupon, packageId, addons } = cart;
-        const amount = await this.calculateOrderAmount(
+        let { totalAmount, shippingCost, totalDiscount, totalAddons, coasterCost } = await this.calculateOrderAmount(
           packageId,
           currency,
           addons,
           coupon
         );
-        if (amount == intent.amount && currency == intent.currency) {
+
+        if (totalAmount == intent.amount && currency == intent.currency) {
+          totalAmount = (totalAmount/100).toFixed(2);
+          shippingCost = shippingCost.toFixed(2);
+          totalDiscount = totalDiscount.toFixed(2);
+          totalAddons = totalAddons.toFixed(2);
+          coasterCost = coasterCost.toFixed(2);
+  
+          const orderCosts = { totalAmount, shippingCost, totalDiscount, totalAddons, coasterCost };
           const stripe = intent.charges.data[0];
-          const orderId = await this.createOrder(cart, stripe);
+          const orderId = await this.createOrder(cart, stripe, orderCosts);
           global.logger.log("Order id", {
             orderId
           });
           return resolve(orderId);
         } else {
           // INCORRECT QUANTITY PAID OR CURRENCY
+          const orderCosts = { totalAmount, shippingCost, totalDiscount, totalAddons, coasterCost };
           return reject({
             message: "Incorrect quantity or currency",
             expectedCost: {
-              amount,
+              totalAmount,
               paid: intent.amount,
               currency,
               currencyUser: intent.currency
-            }
+            },
+            orderCosts
           });
         }
       } else if (event.type == "payment_intent.payment_failed") {

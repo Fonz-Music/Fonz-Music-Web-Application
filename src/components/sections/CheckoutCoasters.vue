@@ -363,6 +363,7 @@ export default {
 
   async mounted() {
     this.getPricing();
+    localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
         stripeAccount: this.stripeAccount,

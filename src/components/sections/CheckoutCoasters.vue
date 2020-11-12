@@ -397,7 +397,7 @@ export default {
         localPaymentReq.update({
           total: {
             label: "Fonz Coaster",
-            amount: this.totalPrice * 100
+            amount: this.calculateTotalPrice * 100
           }
         });
 

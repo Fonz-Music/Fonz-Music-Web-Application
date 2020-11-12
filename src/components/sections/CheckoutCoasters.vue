@@ -377,7 +377,7 @@ export default {
       });
 
       localPaymentReq.canMakePayment().then(function(result) {
-        console.log("result is " + JSON.parse(result));
+        console.log("result is " + JSON.stringify(result));
         if (result) {
           //   console.log("mounting the button ");
           // this.card.mount("#payment-request-button");

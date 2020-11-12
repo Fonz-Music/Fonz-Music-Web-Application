@@ -1,6 +1,6 @@
 'use strict';
 const nodemailer = require('nodemailer');
-const Shop = require('./Shop');
+// const Shop = require('./Shop');
 
 const userEmail = 'contact@fonzmusic.com';
 const userPassword = 'BlackBird20$';
@@ -31,6 +31,7 @@ exports.sendEmail = (emailTo, orderCosts, quantity, currency, orderId) => {
                 return resolve(info.response);
             });
         } catch(error) {
+            // eslint-disable-next-line no-console
             console.error(error);
             reject(error);
         }

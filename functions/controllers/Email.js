@@ -937,7 +937,7 @@ We already know it's going to bring your parties, events and get-togethers to a 
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                         
-                            <span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><strong>Fonz Music LTD.</strong><br>
+                            <span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><strong>Fonz Music LLC</strong><br>
 157 Vassall St.&nbsp;<br>
 Quincy, MA 02170<br>
 United States of America</span>

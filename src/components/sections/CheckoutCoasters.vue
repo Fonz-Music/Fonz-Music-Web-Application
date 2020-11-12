@@ -364,8 +364,8 @@ export default {
         currency: this.currency,
         country: country,
         total: {
-          label: "Demo total",
-          amount: this.totalPrice * 100
+          label: "Fonz Coaster",
+          amount: this.currentPackage.price * 100
         },
         requestPayerName: true,
         requestPayerEmail: true
@@ -383,6 +383,12 @@ export default {
           //   console.log("mounting the button ");
           // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
+          this.stripe.paymentRequest.update({
+            total: {
+              label: "Fonz Coaster",
+              amount: this.totalPrice * 100
+            }
+          });
           this.sendCartIdToServer();
           var clientSecretLocal = localStorage.getItem("clientSecret");
         } else {
@@ -394,12 +400,7 @@ export default {
 
       localPaymentReq.on("paymentmethod", function(ev) {
         this.stripe.paymentIntents.update(clientSecretLocal);
-        this.stripe.paymentRequest.update({
-          total: {
-            label: "Demo total",
-            amount: this.totalPrice * 100
-          }
-        });
+
         // Confirm the PaymentIntent without handling potential next actions (yet).
         stripe
           .confirmCardPayment(

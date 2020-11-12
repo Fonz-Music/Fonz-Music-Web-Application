@@ -292,6 +292,20 @@ export default {
         this.removeExtraPackaging();
       }
     },
+    getTotalPrice() {
+      var addonTotal = 0;
+      if (this.promoValid) {
+        addonTotal -= 5;
+      }
+      if (!this.currentPackage.freeShipping) {
+        addonTotal += 3;
+      }
+      if (this.extraPackaging) {
+        addonTotal += 3;
+      }
+      // this.totalPrice = this.currentPackage.price + addonTotal;
+      return this.currentPackage.price + addonTotal;
+    },
     getPricing() {
       const packageId = localStorage.getItem("package");
       axios
@@ -394,7 +408,7 @@ export default {
       prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
-        var passInPrice = this.totalPrice;
+        var passInPrice = localStorage.getItem("totalPrice");
         console.log("passed in price " + passInPrice);
         localPaymentReq.update({
           total: {
@@ -402,8 +416,11 @@ export default {
             amount: passInPrice * 100
           }
         });
+      });
+      prButton.on("paymentmethod", function(ev) {
+        // this.stripe.paymentIntents.update(clientSecretLocal);
 
-        sendCartIdToServer();
+        this.sendCartIdToServer();
         var clientSecretLocal = localStorage.getItem("clientSecret");
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
@@ -418,15 +435,20 @@ export default {
               // Report to the browser that the payment failed, prompting it to
               // re-show the payment interface, or show an error message and close
               // the payment interface.
+              console.log("failed");
+              console.log("error is " + confirmResult.error);
               ev.complete("fail");
             } else {
               // Report to the browser that the confirmation was successful, prompting
               // it to close the browser payment method collection interface.
+              console.log("sucess");
+              console.log("resp is " + JSON.stringify(confirmResult));
               ev.complete("success");
               // Check if the PaymentIntent requires any actions and if so let Stripe.js
               // handle the flow. If using an API version older than "2019-02-11" instead
               // instead check for: `paymentIntent.status === "requires_source_action"`.
               if (confirmResult.paymentIntent.status === "requires_action") {
+                console.log("needs action");
                 // Let Stripe.js handle the rest of the payment flow.
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
@@ -436,6 +458,7 @@ export default {
                   }
                 });
               } else {
+                console.log("great success");
                 // The payment has succeeded.
               }
             }
@@ -456,6 +479,7 @@ export default {
         addonTotal += 3;
       }
       this.totalPrice = this.currentPackage.price + addonTotal;
+      localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {

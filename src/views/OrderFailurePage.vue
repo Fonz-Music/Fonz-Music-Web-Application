@@ -7,7 +7,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 
 import OrderFailureComponent from "@/components/sections/OrderFailure.vue";
 import OrderSuccess from "@/components/sections/SuccessfulOrder.vue";

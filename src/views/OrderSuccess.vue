@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import SuccessfulOrder from "@/components/sections/SuccessfulOrder.vue";
 
 export default {

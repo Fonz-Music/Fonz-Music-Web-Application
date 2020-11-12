@@ -475,7 +475,7 @@ export default {
       return this.currentPackage.freeShipping;
     },
     determineCurrencySymbol() {
-      console.log("this cur " + this.currency);
+      // console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";

@@ -65,6 +65,16 @@ router.post("/webhook", (req, res) => {
     });
 });
 
+const Email = require('../controllers/Email');
+router.get('/email', (req, res) => {
+  Email.generateEmailSuccessfulOrder({totalAmount: 100, shippingCost: 10, totalDiscount: 5, totalAddons: 10, coasterCost: 40}, 3).then((resp) => {
+    res.send(resp);
+  }).catch((error) => {
+    console.error(error);
+    res.send(error);
+  });
+})
+
 // router.post("/pay", (req, res) => {
 //   const {
 //     paymentIntent,

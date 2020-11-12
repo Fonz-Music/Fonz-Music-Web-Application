@@ -324,6 +324,7 @@ export default {
       // const emailIntent = localStorage.getItem("guestEmail");
       // const nameIntent = localStorage.getItem("guestName");
       var localCartId = localStorage.getItem("cartId");
+      console.log("getting card ");
       console.log("local cart" + localCartId);
       // console.log("guestAddress: " + addressIntent);
       axios
@@ -383,14 +384,6 @@ export default {
           //   console.log("mounting the button ");
           // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
-          this.stripe.paymentRequest.update({
-            total: {
-              label: "Fonz Coaster",
-              amount: this.totalPrice * 100
-            }
-          });
-          this.sendCartIdToServer();
-          var clientSecretLocal = localStorage.getItem("clientSecret");
         } else {
           console.log("NOT mounting the button ");
           document.getElementById("payment-request-button").style.display =
@@ -399,7 +392,16 @@ export default {
       });
 
       localPaymentReq.on("paymentmethod", function(ev) {
-        this.stripe.paymentIntents.update(clientSecretLocal);
+        // this.stripe.paymentIntents.update(clientSecretLocal);
+
+        this.stripe.paymentRequest.update({
+          total: {
+            label: "Fonz Coaster for you",
+            amount: this.totalPrice * 100
+          }
+        });
+        this.sendCartIdToServer();
+        var clientSecretLocal = localStorage.getItem("clientSecret");
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
         stripe

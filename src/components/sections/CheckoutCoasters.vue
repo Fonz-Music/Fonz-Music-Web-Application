@@ -377,11 +377,11 @@ export default {
       });
 
       localPaymentReq.canMakePayment().then(function(result) {
-        console.log("result is " + JSON.stringify(result));
+        console.log("result is " + JSON.parse(result));
         if (result) {
           //   console.log("mounting the button ");
-          this.card.mount("#payment-request-button");
-          // prButton.mount("#payment-request-button");
+          // this.card.mount("#payment-request-button");
+          prButton.mount("#payment-request-button");
 
           this.sendCartIdToServer();
         } else {

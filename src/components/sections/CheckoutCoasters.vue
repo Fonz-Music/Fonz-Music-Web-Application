@@ -417,8 +417,6 @@ export default {
             amount: passInPrice * 100
           }
         });
-        this.sendCartIdToServer();
-        var clientSecretLocal = localStorage.getItem("clientSecret");
       });
       prButton.on("paymentmethod", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
@@ -469,6 +467,8 @@ export default {
           });
       });
     });
+    this.sendCartIdToServer();
+    var clientSecretLocal = localStorage.getItem("clientSecret");
   },
   computed: {
     calculateTotalPrice() {

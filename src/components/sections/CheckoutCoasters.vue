@@ -95,7 +95,7 @@
                 </td>
                 <!-- </div> -->
               </tr>
-              <tr v-if="determineAddDiscount">
+              <tr v-if="addedPromoSuccess">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ determineCurrencySymbol }}5
@@ -164,9 +164,9 @@ export default {
       },
       // tjos checks to see if the user has added a successful
       // promo. This is throughout the entire checkout process
-      // addedPromoSuccess: {
-      //   value: localStorage.getItem("addedPromoSuccess")
-      // },
+      addedPromoSuccess: {
+        value: false
+      },
       // this changes on each entered promo code
       promoValid: null,
       promoCode: "",

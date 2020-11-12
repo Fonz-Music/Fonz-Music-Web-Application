@@ -394,7 +394,7 @@ export default {
       prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
-        localPaymentReq.paymentRequest.update({
+        localPaymentReq.update({
           total: {
             label: "Fonz Coaster",
             amount: this.totalPrice * 100

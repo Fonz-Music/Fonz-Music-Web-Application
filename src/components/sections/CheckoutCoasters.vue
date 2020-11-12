@@ -292,6 +292,20 @@ export default {
         this.removeExtraPackaging();
       }
     },
+    getTotalPrice() {
+      var addonTotal = 0;
+      if (this.promoValid) {
+        addonTotal -= 5;
+      }
+      if (!this.currentPackage.freeShipping) {
+        addonTotal += 3;
+      }
+      if (this.extraPackaging) {
+        addonTotal += 3;
+      }
+      // this.totalPrice = this.currentPackage.price + addonTotal;
+      return this.currentPackage.price + addonTotal;
+    },
     getPricing() {
       const packageId = localStorage.getItem("package");
       axios
@@ -394,7 +408,7 @@ export default {
       prButton.on("click", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
-        var passInPrice = this.totalPrice;
+        var passInPrice = this.getTotalPrice();
         console.log("passed in price " + passInPrice);
         localPaymentReq.update({
           total: {

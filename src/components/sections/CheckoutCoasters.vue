@@ -453,7 +453,7 @@ export default {
       if (this.extraPackaging) {
         addonTotal += 3;
       }
-      this.totalPrice = this.currentPackage.price + addonTotal;
+      // this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {

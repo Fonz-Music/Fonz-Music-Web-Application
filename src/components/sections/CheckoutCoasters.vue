@@ -348,7 +348,7 @@ export default {
   },
 
   async mounted() {
-    await this.getPricing();
+    this.getPricing();
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
         stripeAccount: this.stripeAccount,
@@ -366,12 +366,12 @@ export default {
         country: country,
         total: {
           label: "Fonz Coaster",
-          amount: 50
+          amount: this.currentPackage.price * 100
         },
         requestPayerName: true,
         requestPayerEmail: true
       });
-      console.log(localPaymentReq);
+      // console.log(localPaymentReq);
 
       this.elements = this.stripe.elements();
       var prButton = this.elements.create("paymentRequestButton", {
@@ -387,7 +387,7 @@ export default {
         });
         console.log("result is " + JSON.stringify(result));
         if (result) {
-          //   console.log("mounting the button ");
+          console.log("mounting the button ");
           // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
         } else {

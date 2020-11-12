@@ -364,7 +364,7 @@ export default {
         country: country,
         total: {
           label: "Demo total",
-          amount: this.calculateTotalPrice * 100
+          amount: this.totalPrice * 100
         },
         requestPayerName: true,
         requestPayerEmail: true
@@ -395,7 +395,7 @@ export default {
         this.stripe.paymentRequest.update({
           total: {
             label: "Demo total",
-            amount: this.calculateTotalPrice * 100
+            amount: this.totalPrice * 100
           }
         });
         // Confirm the PaymentIntent without handling potential next actions (yet).
@@ -447,6 +447,7 @@ export default {
       if (this.extraPackaging) {
         addonTotal += 3;
       }
+      this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {

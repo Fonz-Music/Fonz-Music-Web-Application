@@ -37,12 +37,12 @@ Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 // progress bars
 
 const axios = require("axios");
-let setCurrency;
 
+let setCurrency = "eur";
 var localCurrency = localStorage.getItem("currency");
 var lastTimeChecked = getWithExpiry("timestamp");
 // console.log("local cur " + localCurrency);
-if (localCurrency == null || lastTimeChecked == null) {
+if (localCurrency == undefined || lastTimeChecked == null) {
   axios
     .get(
       "https://ipgeolocation.abstractapi.com/v1/?api_key=eb598e256fe04910a25aba0bce726785"
@@ -98,7 +98,7 @@ function getWithExpiry(key) {
   return item.value;
 }
 
-Vue.prototype.currency = localStorage.getItem("currency");
+Vue.prototype.currency = localStorage.getItem("currency") || "eur";
 new Vue({
   router,
   render: h => h(App)

@@ -435,15 +435,20 @@ export default {
               // Report to the browser that the payment failed, prompting it to
               // re-show the payment interface, or show an error message and close
               // the payment interface.
+              console.log("failed");
+              console.log("error is " + confirmResult.error);
               ev.complete("fail");
             } else {
               // Report to the browser that the confirmation was successful, prompting
               // it to close the browser payment method collection interface.
+              console.log("sucess");
+              console.log("resp is " + JSON.stringify(confirmResult));
               ev.complete("success");
               // Check if the PaymentIntent requires any actions and if so let Stripe.js
               // handle the flow. If using an API version older than "2019-02-11" instead
               // instead check for: `paymentIntent.status === "requires_source_action"`.
               if (confirmResult.paymentIntent.status === "requires_action") {
+                console.log("needs action");
                 // Let Stripe.js handle the rest of the payment flow.
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
@@ -453,6 +458,7 @@ export default {
                   }
                 });
               } else {
+                console.log("great success");
                 // The payment has succeeded.
               }
             }

@@ -417,12 +417,11 @@ export default {
             amount: passInPrice * 100
           }
         });
+        this.sendCartIdToServer();
+        var clientSecretLocal = localStorage.getItem("clientSecret");
       });
       prButton.on("paymentmethod", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
-
-        this.sendCartIdToServer();
-        var clientSecretLocal = localStorage.getItem("clientSecret");
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
         stripe

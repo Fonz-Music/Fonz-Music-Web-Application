@@ -4,10 +4,8 @@
 const stripe = require("stripe")(
   "sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7"
 );
-// const webhookSecret = 'whsec_SF9PEj4j6q7cYwQKiTWv5g0YUPsvcvs5';
-// const webhookSecret = 'whsec_Me0F0ciWUZn2Qo4nkRgkm7uQxHHgF5GI';
-const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S";
-const { parse } = require("path");
+// const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S"; // TEST MODE
+const webhookSecret = "whsec_ihgH4WTmZgRxWJBvsqUWVz5gkE1Q2vbS";
 const Email = require('./Email.js');
 
 exports.createCart = (packageId, currency) => {

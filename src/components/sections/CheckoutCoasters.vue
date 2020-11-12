@@ -438,6 +438,7 @@ export default {
               console.log("failed");
               console.log("error is " + confirmResult.error);
               ev.complete("fail");
+              this.$router.push({ path: "/orderfailure" });
             } else {
               // Report to the browser that the confirmation was successful, prompting
               // it to close the browser payment method collection interface.
@@ -452,13 +453,16 @@ export default {
                 // Let Stripe.js handle the rest of the payment flow.
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
+                    this.$router.push({ path: "/orderfailure" });
                     // The payment failed -- ask your customer for a new payment method.
                   } else {
+                    this.$router.push({ path: "/ordersuccess" });
                     // The payment has succeeded.
                   }
                 });
               } else {
                 console.log("great success");
+                this.$router.push({ path: "/ordersuccess" });
                 // The payment has succeeded.
               }
             }

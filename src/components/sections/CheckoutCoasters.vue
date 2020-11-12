@@ -324,7 +324,7 @@ export default {
       // const emailIntent = localStorage.getItem("guestEmail");
       // const nameIntent = localStorage.getItem("guestName");
 
-      console.log("guestAddress: " + addressIntent);
+      // console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
           cartId: localStorage.getItem("cartId")
@@ -382,16 +382,16 @@ export default {
           //   console.log("mounting the button ");
           // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
-
-          this.sendCartIdToServer();
         } else {
           console.log("NOT mounting the button ");
           document.getElementById("payment-request-button").style.display =
             "none";
         }
       });
-      var clientSecretLocal = localStorage.getItem("clientSecret");
+
       localPaymentReq.on("paymentmethod", function(ev) {
+        this.sendCartIdToServer();
+        var clientSecretLocal = localStorage.getItem("clientSecret");
         this.stripe.paymentRequest.update({
           total: {
             label: "Demo total",

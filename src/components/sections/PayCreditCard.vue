@@ -79,6 +79,8 @@ export default {
         this.form.placeAddress != null &&
         this.form.customerName != null
       ) {
+        localStorage.setItem("guestName", this.form.customerName);
+        localStorage.setItem("guestEmail", this.form.email);
         localStorage.setItem("guestAddress", this.form.placeAddress);
         this.$router.push({ path: "/paymentpage" });
       }

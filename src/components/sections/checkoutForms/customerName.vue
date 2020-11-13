@@ -58,33 +58,12 @@ export default {
   },
   methods: {
     nextTab: function() {
-      // this checks if its a valid email
-
       localStorage.setItem("guestName", this.value);
-      var localEmail = localStorage.getItem("guestName");
-      console.log("name from storage " + localEmail);
+      var localName = localStorage.getItem("guestName");
+      console.log("name from storage " + localName);
       // this.$emit("input", this.value);
       this.$emit("nextTab", 2);
       // this.$emit("nextTab", 1);
-    },
-    emailIsValid: function(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    },
-    addEmailToCart(emailAddress) {
-      const cartIdFromUser = localStorage.getItem("cartId");
-
-      // communicate with API to add promo code to cart
-      // PUT /i/cart/{cartId}/{emailAddress}
-      var response;
-      axios
-        .put(`${this.$API_URL}/i/cart/${cartIdFromUser}/${emailAddress}`)
-        .then(resp => {
-          response = resp.data;
-          console.log(response);
-        })
-        .catch(error => {
-          console.error(error);
-        });
     }
   }
 };

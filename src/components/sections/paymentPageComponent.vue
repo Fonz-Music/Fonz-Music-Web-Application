@@ -112,9 +112,9 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
-      const addressIntent = localStorage.getItem("guestAddress");
-      const emailIntent = localStorage.getItem("guestEmail");
-      const nameIntent = localStorage.getItem("guestName");
+      var addressIntent = localStorage.getItem("guestAddress");
+      var emailIntent = localStorage.getItem("guestEmail");
+      var nameIntent = localStorage.getItem("guestName");
 
       console.log("guestAddress: " + addressIntent);
       axios
@@ -171,13 +171,18 @@ export default {
           // alert(JSON.stringify(data, null, 4));
           // console.log("data: " + data);
           var clientSecretLocal = localStorage.getItem("clientSecret");
+          var addressIntent = localStorage.getItem("guestAddress");
+          var emailIntent = localStorage.getItem("guestEmail");
+          var nameIntent = localStorage.getItem("guestName");
           if (this.amount) data.amount = this.amount;
           // const { token, error } = await this.sendPaymentToStripe(data);
           const { token, error } = await this.stripe
             .confirmCardPayment(clientSecretLocal, {
               payment_method: {
                 card: data
-              }
+              },
+              shipping: { address: { line1: addressIntent }, name: nameIntent },
+              receipt_email: emailIntent
             })
             .then(resp => {
               // console.log(resp.error.code);

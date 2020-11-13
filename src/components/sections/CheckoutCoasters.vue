@@ -115,29 +115,20 @@
           </table>
         </div>
       </div>
-      <div class="paymentOptions text-center">
-        <div id="payment-request-button" class="center-content"></div>
 
-        <!-- <c-image
-          class="applePay"
-          :src="require('@/assets/images/buyWithApple.png')"
-          alt="coaster package"
-        />
-        <br />
-        <c-image
-          class=""
-          :src="require('@/assets/images/buyWithGoogle.png')"
-          alt="coaster package"
-        /> -->
-      </div>
       <br />
-      <div class="text-center">
+    </div>
+    <div class="paymentOptions text-center">
+      <div id="payment-request-button" class="center-content"></div>
+    </div>
+    <div class="text-center">
+      <b-button class="submitButton">
         <router-link
           class="btn btn-link pay-with-credit"
           to="/paywithcreditcard/"
           >Credit / Debit Card</router-link
         >
-      </div>
+      </b-button>
     </div>
   </div>
 </template>
@@ -617,5 +608,14 @@ th {
 }
 .pay-with-credit {
   font-size: 12pt;
+}
+.submitButton {
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: #b288b9;
+  color: white;
+}
+.pay-with-credit {
+  font-size: 16px;
 }
 </style>

@@ -618,4 +618,7 @@ th {
 .pay-with-credit {
   font-size: 16px;
 }
+.paymentOptions {
+  padding: 30px;
+}
 </style>

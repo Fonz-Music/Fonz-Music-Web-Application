@@ -5,9 +5,9 @@ const _ = require("lodash");
 
 router.post("/payment-intent", (req, res) => {
   const { cartId, shipping, receipt_email } = req.body;
-  if (!cartId)
+  if (!cartId || !shipping || !receipt_email)
     return res.status(400).json({
-      message: "Missing cartId."
+      message: "Missing parameters."
     });
   // if (!shipping)
   //   return res.status(400).json({
@@ -20,6 +20,7 @@ router.post("/payment-intent", (req, res) => {
 
   // if (req.cookies.hasOwnProperty('paymentIntent')) {
   // console.log(req.cookies['paymentIntent'])
+  
 
   if (_.has(req.cookies, "paymentIntent")) {
     // let { paymentIntent } = res.cookies;

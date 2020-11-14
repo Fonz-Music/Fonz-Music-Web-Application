@@ -439,9 +439,9 @@ export default {
                 // the payment interface.
                 orderSuccess = false;
                 console.log("failed");
-                console.log("error is " + confirmResult.error);
+                console.log("error is " + JSON.stringify(confirmResult.error));
                 ev.complete("fail");
-                this.$router.push({ path: "/orderfailure" });
+                // this.$router.push({ path: "/orderfailure" });
               } else {
                 // Report to the browser that the confirmation was successful, prompting
                 // it to close the browser payment method collection interface.

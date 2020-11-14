@@ -354,6 +354,8 @@ export default {
 
   async mounted() {
     this.getPricing();
+    this.sendCartIdToServer();
+    var clientSecretLocal = localStorage.getItem("clientSecret");
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
@@ -410,6 +412,7 @@ export default {
         });
       });
       localPaymentReq.on("paymentmethod", function(ev) {
+        console.log("running paymentMethod");
         // this.stripe.paymentIntents.update(clientSecretLocal);
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
@@ -458,8 +461,6 @@ export default {
           });
       });
     });
-    this.sendCartIdToServer();
-    var clientSecretLocal = localStorage.getItem("clientSecret");
   },
   computed: {
     calculateTotalPrice() {

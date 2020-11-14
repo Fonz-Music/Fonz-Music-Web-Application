@@ -414,9 +414,18 @@ export default {
       localPaymentReq.on("paymentmethod", function(ev) {
         console.log("running paymentMethod");
         // this.stripe.paymentIntents.update(clientSecretLocal);
+        const options = {
+          stripeAccount: this.stripeAccount,
+          apiVersion: "2020-08-27",
+          locale: this.locale
+        };
+        this.stripe = window.Stripe(
+          "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
+          options
+        );
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
-        await this.stripe
+        this.stripe
           .confirmCardPayment(
             clientSecretLocal,
             { payment_method: ev.paymentMethod.id },

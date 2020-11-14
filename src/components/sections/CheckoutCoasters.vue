@@ -416,7 +416,7 @@ export default {
         // this.stripe.paymentIntents.update(clientSecretLocal);
 
         // Confirm the PaymentIntent without handling potential next actions (yet).
-        stripe
+        this.stripe
           .confirmCardPayment(
             clientSecretLocal,
             { payment_method: ev.paymentMethod.id },

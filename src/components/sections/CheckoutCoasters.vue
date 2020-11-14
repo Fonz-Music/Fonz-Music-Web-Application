@@ -475,6 +475,9 @@ export default {
           });
       });
       console.log("orderSuccess var " + orderSuccess);
+      if (orderSuccess) {
+        this.$router.push({ path: "/ordersuccess" });
+      }
     });
   },
   computed: {

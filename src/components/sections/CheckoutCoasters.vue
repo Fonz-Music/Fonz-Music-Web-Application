@@ -479,11 +479,9 @@ export default {
             }
           });
       });
-      console.log("respPayment is " + respPayment);
+      console.log("respPayment is " + JSON.stringify(respPayment));
       if (respPayment) {
         this.$router.push({ path: "/ordersuccess" });
-      } else {
-        this.$router.push({ path: "/orderfailure" });
       }
     });
   },

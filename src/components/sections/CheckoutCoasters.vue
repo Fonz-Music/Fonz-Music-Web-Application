@@ -441,7 +441,7 @@ export default {
               console.log("failed");
               console.log("error is " + JSON.stringify(confirmResult.error));
               ev.complete("fail");
-              // this.$router.push({ path: "/orderfailure" });
+              $router.push({ path: "/orderfailure" });
             } else {
               // Report to the browser that the confirmation was successful, prompting
               // it to close the browser payment method collection interface.

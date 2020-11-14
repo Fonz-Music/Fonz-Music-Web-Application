@@ -474,6 +474,7 @@ export default {
             }
           });
       });
+      console.log("orderSuccess var " + orderSuccess);
     });
   },
   computed: {

@@ -411,6 +411,7 @@ export default {
           }
         });
       });
+      var orderSuccess;
       localPaymentReq.on("paymentmethod", function(ev) {
         console.log("running paymentMethod");
         // this.stripe.paymentIntents.update(clientSecretLocal);
@@ -435,6 +436,7 @@ export default {
               // Report to the browser that the payment failed, prompting it to
               // re-show the payment interface, or show an error message and close
               // the payment interface.
+              orderSuccess = false;
               console.log("failed");
               console.log("error is " + confirmResult.error);
               ev.complete("fail");
@@ -453,21 +455,33 @@ export default {
                 // Let Stripe.js handle the rest of the payment flow.
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
-                    this.$router.push({ path: "/orderfailure" });
+                    orderSuccess = false;
+                    // this.$router.push({ path: "/orderfailure" });
                     // The payment failed -- ask your customer for a new payment method.
                   } else {
-                    this.$router.push({ path: "/ordersuccess" });
+                    orderSuccess = true;
+                    // this.$router.push({ path: "/ordersuccess" });
                     // The payment has succeeded.
                   }
                 });
               } else {
                 console.log("great success");
-                this.$router.push({ path: "/ordersuccess" });
+                orderSuccess = true;
+                // this.$router.push({ path: "/ordersuccess" });
                 // The payment has succeeded.
               }
             }
           });
-      });
+      }).then(
+        if (orderSuccess) {
+          this.$router.push({ path: "/ordersuccess" });
+        }
+        else {
+          console.log("something went wrong");
+          console.log("var total: " + orderSuccess);
+        }
+
+      );
     });
   },
   computed: {

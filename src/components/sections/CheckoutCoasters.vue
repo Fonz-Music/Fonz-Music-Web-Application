@@ -412,7 +412,7 @@ export default {
         });
       });
       var orderSuccess;
-      var respPayment = localPaymentReq.on("paymentmethod", function(ev) {
+      localPaymentReq.on("paymentmethod", function(ev) {
         console.log("running paymentMethod");
         // this.stripe.paymentIntents.update(clientSecretLocal);
         // const options = {
@@ -438,11 +438,9 @@ export default {
               // re-show the payment interface, or show an error message and close
               // the payment interface.
               orderSuccess = false;
-
               console.log("failed");
               console.log("error is " + JSON.stringify(confirmResult.error));
               ev.complete("fail");
-              return false;
               // this.$router.push({ path: "/orderfailure" });
             } else {
               // Report to the browser that the confirmation was successful, prompting
@@ -459,12 +457,10 @@ export default {
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
                     orderSuccess = false;
-                    return false;
                     // this.$router.push({ path: "/orderfailure" });
                     // The payment failed -- ask your customer for a new payment method.
                   } else {
                     orderSuccess = true;
-                    return true;
                     // this.$router.push({ path: "/ordersuccess" });
                     // The payment has succeeded.
                   }
@@ -472,17 +468,12 @@ export default {
               } else {
                 console.log("great success");
                 orderSuccess = true;
-                return true;
                 // this.$router.push({ path: "/ordersuccess" });
                 // The payment has succeeded.
               }
             }
           });
       });
-      console.log("respPayment is " + JSON.stringify(respPayment));
-      if (respPayment) {
-        this.$router.push({ path: "/ordersuccess" });
-      }
     });
   },
   computed: {

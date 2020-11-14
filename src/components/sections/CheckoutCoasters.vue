@@ -409,7 +409,7 @@ export default {
           }
         });
       });
-      prButton.on("paymentmethod", function(ev) {
+      localPaymentReq.on("paymentmethod", function(ev) {
         // this.stripe.paymentIntents.update(clientSecretLocal);
 
         // Confirm the PaymentIntent without handling potential next actions (yet).

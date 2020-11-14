@@ -355,7 +355,7 @@ export default {
   async mounted() {
     this.getPricing();
     this.sendCartIdToServer();
-    var clientSecretLocal = localStorage.getItem("clientSecret");
+
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
@@ -424,6 +424,7 @@ export default {
           var strope = window.Stripe(
             "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap"
           );
+          var clientSecretLocal = localStorage.getItem("clientSecret");
 
           // Confirm the PaymentIntent without handling potential next actions (yet).
           strope

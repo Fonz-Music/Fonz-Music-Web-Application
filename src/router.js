@@ -14,6 +14,11 @@ import PayWithCreditCardVue from "./views/PayWithCreditCardVue.vue";
 import PaymentPage from "./views/PaymentPage.vue";
 import PrivacyPolicy from "./views/PrivacyPolicy.vue";
 
+import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
+import AffiliateAnalytics from "./views/Affiliate/AffiliateAnalytics.vue";
+import AffiliateFinancial from "./views/Affiliate/AffiliateFinancial.vue";
+import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -74,10 +79,39 @@ export default new Router({
       component: PaymentPage
     },
     {
-      path: "/privacy-policy",
+      path: "/privacyPolicy",
       name: "privacyPolicy",
       component: PrivacyPolicy
     },
+
+    // Affiliate Program
+    {
+      path: "/affiliate-home",
+      name: "affiliateHome",
+      component: AffiliateHome
+    },
+
+    // Affiliate Analytics
+    {
+      path:"/affiliate-analytics",
+      name:"affiliateanalytics",
+      component: AffiliateAnalytics
+    },
+
+    // Affiliate Financial
+    {
+      path:"/affiliate-financial",
+      name:"affiliatefinancial",
+      component: AffiliateFinancial
+    },
+
+    // Affiliate Profile
+    {
+      path:"/affiliate-profile",
+      name:"affiliateprofile",
+      component: AffiliateProfile
+    },
+
     // this must be last
     {
       path: "/*",

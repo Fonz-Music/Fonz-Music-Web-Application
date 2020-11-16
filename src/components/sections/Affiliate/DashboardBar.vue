@@ -11,15 +11,8 @@
 
    <!-- Dashboard Bar Container -->
   <div class="container" id="dashboardBarSection">  
-    <div
-      class="pricing-inner section-inner"
-      :class="[
-        topDivider && 'has-top-divider',
-        bottomDivider && 'has-bottom-divider'
-      ]"
-    >
-      <h2 class="text-left mt-0 mb-0">Hi, Ben!</h2>
-    </div>
+      <h2 class="text-left mt-20 mb-15">Hi, Ben!</h2>
+
 
 
     <!-- Tiles -->
@@ -29,17 +22,47 @@
       :class="[pushLeft && 'push-left']"
     >
       <div class="row">
+  
+        <!-- Tile One -->
+        <div class="col reduce-padding">
+          <div class="tiles-item">
+            <div class="tiles-item-inner">
+              <div class="row element-border">
+                <div class="col text">
+                  <p> Image </p>
+                </div>
+
+                <div class="col text">
+                  <div class="row">
+                    <p> Total Income </p>
+                    <p>€1,025.43</p>
+                  </div>
+                  <!-- <div class="row">
+                    <p>€1,025.43</p>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Tile One -->
-        <div class="col">
+        <div class="col reduce-padding">
           <div class="tiles-item">
             <div class="tiles-item-inner">
-              <div class="row">
-                <div class="col">
-                  <h6> Tile1 </h6>
+              <div class="row element-border">
+                <div class="col text">
+                  <p> Image </p>
                 </div>
-                <div class="col">
-                  <h6> Tile1 </h6>
+
+                <div class="col text">
+                  <div class="row">
+                    <p> Total Income </p>
+                    <p>€1,025.43</p>
+                  </div>
+                  <!-- <div class="row">
+                    <p>€1,025.43</p>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -47,74 +70,74 @@
         </div>
 
         <!-- Tile One -->
-        <div class="col">
+        <div class="col reduce-padding">
           <div class="tiles-item">
             <div class="tiles-item-inner">
-              <div class="row">
-                <div class="col">
-                  <h6> Tile2 </h6>
+              <div class="row element-border">
+                <div class="col text">
+                  <p> Image </p>
                 </div>
-                <div class="col">
-                  <h6> Tile2 </h6>
+
+                <div class="col text">
+                  <div class="row">
+                    <p> Total Income </p>
+                    <p>€1,025.43</p>
+                  </div>
+                  <!-- <div class="row">
+                    <p>€1,025.43</p>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Tile Three -->
-        <div class="col">
+  
+        <!-- Tile One -->
+        <div class="col reduce-padding">
           <div class="tiles-item">
             <div class="tiles-item-inner">
-              <div class="row">
-                <div class="col">
-                  <h6> Tile3 </h6>
+              <div class="row element-border">
+                <div class="col text">
+                  <p> Image </p>
                 </div>
-                <div class="col">
-                  <h6> Tile3 </h6>
+
+                <div class="col text">
+                  <div class="row ">
+                    <p> Total Income </p>
+                    <p>€1,025.43</p>
+                  </div>
+                  <!-- <div class="row">
+                    <p>€1,025.43</p>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Tile Four -->
-        <div class="col">
+  
+        <!-- Tile One -->
+        <div class="col reduce-padding">
           <div class="tiles-item">
             <div class="tiles-item-inner">
-              <div class="row">
-                <div class="col">
-                  <h6> Tile4 </h6>
+              <div class="row element-border">
+                <div class="col text">
+                  <p> Image </p>
                 </div>
-                <div class="col">
-                  <h6> Tile4 </h6>
+
+                <div class="col text">
+                  <div class="row">
+                    <p> Total Income </p>
+                    <p>€1,025.43</p>
+                  </div>
+                  <!-- <div class="row">
+                    <p>€1,025.43</p>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Tile Five -->
-        <div class="col">
-          <div class="tiles-item">
-            <div class="tiles-item-inner">
-              <div class="row">
-                <div class="col">
-                  <h6> Tile5 </h6>
-                </div>
-                <div class="col">
-                  <h6> Tile5 </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
       </div>
-
-
-
     </div>
   </div>
 
@@ -188,17 +211,40 @@ export default {
 
 
 <style media="screen">
+
+.dashboard-bar .tiles-wrap .reduce-padding {
+  margin-right: -8px;
+  margin-left: -8px;
+  margin-top: -16px;
+  margin-bottom: -16px;
+}
+
+.dashboard-bar {
+  margin-bottom: -24px;
+}
+
 .dashboard-bar .tiles-item-inner {
-  background: #f0f0f0 !important;
+  border: 2px #bebebe !important;
 }
 
 .dashboard-bar .tiles-item-inner .text {
-  font-size:18px;
+  font-size:14px !important;
+  text-align: left !important;
 }
 
-.tiles-item-inner {
-  border-radius: 25px;
-  padding-top: 10px !important;
+.dashboard-bar .tiles-item-inner .col .reduce-padding{
+  padding-top: 0px;
+  padding-right: 0px;
+}
+
+.dashboard-bar .tiles-item-inner .image {
+  text-align: left !important;
+}
+
+.element-border {
+  border: 1px solid rgb(206, 206, 206) !important;
+  border-radius: 20px;
+  padding-right: 5px;
 }
 
 </style>

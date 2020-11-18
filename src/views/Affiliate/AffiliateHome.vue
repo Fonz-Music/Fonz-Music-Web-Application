@@ -3,10 +3,10 @@
       <c-dashboard-bar/> 
       <div class="container">
         <div class="row">
-          <div class="col-8 chart-style">
+          <div class="col-8 container-style">
             <c-line-chart-container/> 
           </div>
-          <div class="col text-style">
+          <div class="col container-style">
             <c-referrals-info/>
           </div>
         </div>  
@@ -43,28 +43,15 @@ export default {
 </script>
 
 <style>
-
-  .chart-style {
-    background-color: rgb(255, 255, 255) !important;
-    border: 1px solid rgb(206, 206, 206) !important;
-    border-radius: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-}
-  .text-style {
-    background-color: rgb(255, 255, 255) !important;
-    border: 1px solid rgb(206, 206, 206) !important;
-    border-radius: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-  }
-
   .dashboard-padding {
     padding-bottom: -5px;
   }
 
+  .container-style {
+    background-color: rgb(255, 255, 255) !important;
+    border: 1px solid rgb(206, 206, 206) !important;
+    border-radius: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
 </style>

@@ -213,10 +213,10 @@ export default {
 <style media="screen">
 
 .dashboard-bar .tiles-wrap .reduce-padding {
-  margin-right: -8px;
-  margin-left: -8px;
-  margin-top: -16px;
-  margin-bottom: -16px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .dashboard-bar {
@@ -244,7 +244,7 @@ export default {
 .element-border {
   border: 1px solid rgb(206, 206, 206) !important;
   border-radius: 20px;
-  padding-right: 5px;
+  padding-right: 3px;
 }
 
 </style>

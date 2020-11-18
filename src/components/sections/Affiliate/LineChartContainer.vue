@@ -1,6 +1,6 @@
 <template>
-    <div class="small">
-        <c-line-chart/>
+    <div>
+      <c-line-chart class="chart-style"/>
     </div>
 </template>
 
@@ -19,10 +19,6 @@ export default {
 }
 </script>
 
-
 <style>
-  .small {
-    max-width: 800px;
-    margin:  0px 0px;
-  }
+
 </style>

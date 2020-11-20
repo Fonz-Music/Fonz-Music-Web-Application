@@ -13,6 +13,7 @@ import OrderFailurePage from "./views/OrderFailurePage.vue";
 import PayWithCreditCardVue from "./views/PayWithCreditCardVue.vue";
 import PaymentPage from "./views/PaymentPage.vue";
 import PrivacyPolicy from "./views/PrivacyPolicy.vue";
+import TermsOfService from "./views/TermsOfService.vue";
 
 import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
 import AffiliateAnalytics from "./views/Affiliate/AffiliateAnalytics.vue";
@@ -82,6 +83,11 @@ export default new Router({
       path: "/privacyPolicy",
       name: "privacyPolicy",
       component: PrivacyPolicy
+    },
+    {
+      path: "/tos",
+      name: "tos",
+      component: TermsOfService
     },
 
     // Affiliate Program

@@ -60,7 +60,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/coaster1.png')"
+              :src="require('@/assets/images/CoasterPictures/coaster1.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"
@@ -145,7 +145,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/coaster3.png')"
+              :src="require('@/assets/images/CoasterPictures/coaster3.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"
@@ -240,7 +240,7 @@
             </div>
             <c-image
               class="image-medium"
-              :src="require('@/assets/images/coaster2.png')"
+              :src="require('@/assets/images/CoasterPictures/coaster2.png')"
               alt="Splash Coaster"
               :width="712"
               :height="400"

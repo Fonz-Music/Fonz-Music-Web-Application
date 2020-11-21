@@ -17,35 +17,35 @@
                 <ul class="list-reset">
                     <li class="reveal-from-top">
                         <c-image
-                            :src="require('@/assets/images/clients-01.svg')"
+                            :src="require('@/assets/images/ClientIcons/clients-01.svg')"
                             alt="Client 01"
                             :width="124"
                             :height="24" />
                     </li>
                     <li class="reveal-from-bottom" data-reveal-delay="150">
                         <c-image
-                            :src="require('@/assets/images/clients-02.svg')"
+                            :src="require('@/assets/images/ClientIcons/clients-02.svg')"
                             alt="Client 02"
                             :width="83"
                             :height="30" />
                     </li>
                     <li class="reveal-from-top" data-reveal-delay="300">
                         <c-image
-                            :src="require('@/assets/images/clients-03.svg')"
+                            :src="require('@/assets/images/ClientIcons/clients-03.svg')"
                             alt="Client 03"
                             :width="125"
                             :height="39" />
                     </li>
                     <li class="reveal-from-bottom" data-reveal-delay="450">
                         <c-image
-                            :src="require('@/assets/images/clients-04.svg')"
+                            :src="require('@/assets/images/ClientIcons/clients-04.svg')"
                             alt="Client 04"
                             :width="150"
                             :height="31" />
                     </li>
                     <li class="reveal-from-top" data-reveal-delay="600">
                         <c-image
-                            :src="require('@/assets/images/clients-05.svg')"
+                            :src="require('@/assets/images/ClientIcons/clients-05.svg')"
                             alt="Client 05"
                             :width="113"
                             :height="30" />

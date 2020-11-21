@@ -70,7 +70,7 @@
                             <div class="features-tiles-item-header">
                                 <div class="features-tiles-item-image mb-16">
                                     <c-image
-                                        :src="require('@/assets/images/queueIconWhite.svg')"
+                                        :src="require('@/assets/images/Icons/QueueIconWhite.svg')"
                                         alt="Feature tile icon 05"
                                         :width="72"
                                         :height="72" />

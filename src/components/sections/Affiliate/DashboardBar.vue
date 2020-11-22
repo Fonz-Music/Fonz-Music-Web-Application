@@ -28,7 +28,11 @@
             <div class="tiles-item-inner">
               <div class="row element-border">
                 <div class="col text">
-                  <p> Image </p>
+                  <c-image
+                  :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                  alt="Feature tile icon 02"
+                  :width="72"
+                  :height="72" />
                 </div>
 
                 <div class="col text">
@@ -51,7 +55,11 @@
             <div class="tiles-item-inner">
               <div class="row element-border">
                 <div class="col text">
-                  <p> Image </p>
+                  <c-image
+                  :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                  alt="Feature tile icon 02"
+                  :width="72"
+                  :height="72" />
                 </div>
 
                 <div class="col text">
@@ -59,9 +67,6 @@
                     <p> Total Income </p>
                     <p>€1,025.43</p>
                   </div>
-                  <!-- <div class="row">
-                    <p>€1,025.43</p>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -74,7 +79,11 @@
             <div class="tiles-item-inner">
               <div class="row element-border">
                 <div class="col text">
-                  <p> Image </p>
+                  <c-image
+                  :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                  alt="Feature tile icon 02"
+                  :width="72"
+                  :height="72" />
                 </div>
 
                 <div class="col text">
@@ -82,9 +91,6 @@
                     <p> Total Income </p>
                     <p>€1,025.43</p>
                   </div>
-                  <!-- <div class="row">
-                    <p>€1,025.43</p>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -97,7 +103,11 @@
             <div class="tiles-item-inner">
               <div class="row element-border">
                 <div class="col text">
-                  <p> Image </p>
+                  <c-image
+                  :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                  alt="Feature tile icon 02"
+                  :width="72"
+                  :height="72" />
                 </div>
 
                 <div class="col text">
@@ -105,9 +115,6 @@
                     <p> Total Income </p>
                     <p>€1,025.43</p>
                   </div>
-                  <!-- <div class="row">
-                    <p>€1,025.43</p>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -120,7 +127,11 @@
             <div class="tiles-item-inner">
               <div class="row element-border">
                 <div class="col text">
-                  <p> Image </p>
+                  <c-image
+                  :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                  alt="Feature tile icon 02"
+                  :width="72"
+                  :height="72" />
                 </div>
 
                 <div class="col text">
@@ -128,9 +139,6 @@
                     <p> Total Income </p>
                     <p>€1,025.43</p>
                   </div>
-                  <!-- <div class="row">
-                    <p>€1,025.43</p>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -139,53 +147,6 @@
       </div>
     </div>
   </div>
-
-
-
-<!-- 
-    <div class="container dashboard-bar">
-      <div class="row">
-
-        <div class="reveal-from-right col-sm" data-reveal-delay="400">
-
-          <div class="tiles-item-inner">
-            <div class="col-sm text">
-              <p> image </p>
-            </div>
-            <div class="col-sm text">
-              <p> total income </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal-from-right col-sm" data-reveal-delay="400">
-          <div class="tiles-item-inner">
-            <p>total withdrawn</p>
-          </div>
-        </div>
-
-        <div class="reveal-from-right col-sm" data-reveal-delay="400">
-          <div class="tiles-item-inner">
-            <p>available withdrawals</p>
-          </div>
-        </div>
-
-        <div class="reveal-from-right col-sm" data-reveal-delay="400">
-          <div class="tiles-item-inner">
-            <div class="text">
-              <p>pending withdrawals</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal-from-right col-sm" data-reveal-delay="400">
-          <div class="tiles-item-inner">
-            <p>total clicks</p>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </section>
 </template>
 
@@ -212,18 +173,18 @@ export default {
 <style media="screen">
 
 .dashboard-bar .tiles-wrap .reduce-padding {
-  padding-right: 8px;
-  padding-left: 8px;
-  padding-top: 16px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
   padding-bottom: 16px;
-}
-
-.dashboard-bar {
-  margin-bottom: -24px;
 }
 
 .dashboard-bar .tiles-item-inner {
   border: 2px #bebebe !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .dashboard-bar .tiles-item-inner .text {
@@ -243,7 +204,6 @@ export default {
 .element-border {
   border: 1px solid rgb(206, 206, 206) !important;
   border-radius: 20px;
-  padding-right: 3px;
 }
 
 </style>

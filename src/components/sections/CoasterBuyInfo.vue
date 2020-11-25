@@ -30,11 +30,11 @@
               class="split-item-content center-content-mobile reveal-from-right"
               data-reveal-container=".split-item"
             >
-              <h3 class="mt-0 mb-12">
-                Become Everyone&apos;s Favorite Host
-              </h3>
+              <h4 class="mt-0 mb-12">
+                become everyone&apos;s favorite host
+              </h4>
               <p class="m-0">
-                the fonz coaster integrates with our Fonz App to solve the
+                The fonz coaster integrates with our Fonz App to solve the
                 problem of collaborative queuing. No more interrupting, shoulder
                 tapping, or yelling to add to the vibe.
               </p>
@@ -58,9 +58,9 @@
               class="split-item-content center-content-mobile reveal-from-left"
               data-reveal-container=".split-item"
             >
-              <h3 class="mt-0 mb-12">
-                Optimized For Your Lifestyle
-              </h3>
+              <h4 class="mt-0 mb-12">
+                optimized for your lifestyle
+              </h4>
               <p class="m-0">
                 Made with high quality lightweight plastic, the fonz coaster is
                 built to be portable as well as completely spill-proof, so no

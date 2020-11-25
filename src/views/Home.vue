@@ -3,7 +3,8 @@
     <c-hero-split />
     <c-clients top-divider class="center-content" />
     <c-CoasterBuyInfo top-divider />
-    <DownloadApp />
+    <DownloadAppHome />
+    <!-- <DownloadApp /> -->
     <c-roadmap top-divider class="center-content" />
   </fragment>
 </template>
@@ -14,7 +15,7 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CHeroSplit from "@/components/sections/HeroSplit.vue";
-import CGenericSection from "@/components/sections/GenericSection.vue";
+
 import CClients from "@/components/sections/Clients.vue";
 import CRoadmap from "@/components/sections/Roadmap.vue";
 import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
@@ -22,17 +23,19 @@ import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
 import DownloadApp from "@/components/sections/DownloadApp.vue";
+import DownloadAppHome from "@/components/sections/DownloadAppHome.vue";
 
 export default {
   name: "Home",
   components: {
     CImage,
     CHeroSplit,
-    CGenericSection,
+
     CClients,
     CCoasterBuyInfo,
     CRoadmap,
-    DownloadApp
+    DownloadApp,
+    DownloadAppHome
   },
 
   methods: {

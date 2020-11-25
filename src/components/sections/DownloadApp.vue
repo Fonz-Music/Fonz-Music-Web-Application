@@ -3,9 +3,9 @@
     class="cta section center-content-mobile reveal-from-bottom"
     :class="[
       topOuterDivider && 'has-top-divider',
-      bottomOuterDivider && 'has-bottom-divider',
-      hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color',
+      bottomOuterDivider && 'has-bottom-divider'
+      /* hasBgColor && 'has-bg-color',
+      invertColor && 'invert-color' */
     ]"
   >
     <div class="container">
@@ -14,7 +14,7 @@
         :class="[
           topDivider && 'has-top-divider',
           bottomDivider && 'has-bottom-divider',
-          split && 'cta-split',
+          split && 'cta-split'
         ]"
       >
         <div class="cta-slogan">
@@ -23,12 +23,12 @@
         <div class="cta-action">
           <c-button-group>
             <c-button tag="a" href="#">
-              <font-awesome-icon class="icon" :icon="['fab', 'google-play']" />
-              Google Play
-            </c-button>
-            <c-button tag="a" href="#">
               <font-awesome-icon class="icon" :icon="['fab', 'app-store']" />
               App Store
+            </c-button>
+            <c-button tag="a" href="#">
+              <font-awesome-icon class="icon" :icon="['fab', 'google-play']" />
+              Google Play
             </c-button>
           </c-button-group>
         </div>
@@ -46,15 +46,15 @@ export default {
   name: "DownloadApp",
   components: {
     CButton,
-    CButtonGroup,
+    CButtonGroup
   },
   mixins: [SectionProps],
   props: {
     split: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>
 <style scoped>

@@ -53,7 +53,7 @@
               <tr class="total-amount">
                 <th scope="row">Total</th>
                 <td class="text-right">
-                  {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
+                  {{ determineCurrencySymbol }}{{ this.packagePrice }}
                 </td>
               </tr>
             </tbody>
@@ -88,8 +88,9 @@ export default {
       promoValid: false,
       email: localStorage.getItem("guestEmail"),
       address: localStorage.getItem("guestAddress"),
-      packagePrice: 60,
-      extraPackaging: false,
+      packagePrice: localStorage.getItem("totalPrice"),
+      extraPackaging: localStorage.getItem("addedExtraPackaging"),
+      addedPromo: localStorage.getItem("addedPromoSuccess"),
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,

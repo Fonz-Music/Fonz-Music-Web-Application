@@ -31,7 +31,7 @@
               data-reveal-container=".split-item"
             >
               <h3 class="mt-0 mb-12">
-                Collaborative Playing
+                collaborative playing
               </h3>
               <p class="m-0">
                 If you're looking for a way to share your house party, hear new
@@ -59,7 +59,7 @@
               data-reveal-container=".split-item"
             >
               <h3 class="mt-0 mb-12">
-                A Modern Day Jukebox
+                a modern day jukebox
               </h3>
               <p class="m-0">
                 We want to give guests the option to contribute to the vibe,

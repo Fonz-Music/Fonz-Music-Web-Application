@@ -1,0 +1,16 @@
+.dashboard-bar {
+	.tiles-item-inner {
+        background: get-color(dark, 3);
+    }  
+}
+
+.dashboard-bar-item {
+	flex-basis: $dashboard-bar-item--width;
+	max-width: $dashboard-bar-item--width;
+	box-sizing: content-box;
+    padding: $tiles-items--padding__mobile / 2;
+    
+	* {
+		box-sizing: border-box;
+	}
+}

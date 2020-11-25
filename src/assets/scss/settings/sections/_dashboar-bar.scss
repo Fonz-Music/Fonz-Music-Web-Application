@@ -1,0 +1,12 @@
+// Dashboard Bar (core/sections/_dashboard-bar.scss) -----------------------
+$dashboard-bar--padding-t__mobile:		        ß;		// dashboard, top padding (mobile)
+$dashboard-bar--padding-b__mobile: 		        null;		// dashboard, bottom padding (mobile)
+$dashboard-bar--padding-t__desktop: 		    null;		// dashboard, top padding (desktop)
+$dashboard-bar--padding-b__desktop: 		    null;		// dashboard, bottom padding (desktop)
+$dashboard-bar-header--padding__mobile: 	    null;		// dashboard header, bottom padding (mobile)
+$dashboard-bar-header--padding__desktop:       	null;		// dashboard header, bottom padding (desktop)
+$dashboard-bar-items--padding__mobile: 	        null;		// padding between dashboard items (mobile)
+$dashboard-bar-items--padding__desktop: 	    null;		// padding between dashboard items (desktop)
+$dashboard-bar-item--width: 				    150px;		// dashboard item, width
+$dashboard-bar-item--inner-padding-v: 	        2px;		// dashboard item, inner top and bottom padding (it inherits $tiles-item--inner-padding-v unless you replace null with a new value)
+$dashboard-bar-item--inner-padding-h: 	        2px;		// dashboard item, inner left and right padding (it inherits $tiles-item--inner-padding-h unless you replace null with a new value)

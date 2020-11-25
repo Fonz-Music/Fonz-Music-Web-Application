@@ -27,7 +27,7 @@
               <div class="team-item-header">
                 <div class="team-item-image mb-24">
                   <c-image
-                    :src="require('@/assets/images/team-member-02.png')"
+                    :src="require('@/assets/images/TeamMembers/team-member-02.png')"
                     alt="Team member 02"
                     :width="180"
                     :height="180"
@@ -58,7 +58,7 @@
               <div class="team-item-header">
                 <div class="team-item-image mb-24">
                   <c-image
-                    :src="require('@/assets/images/team-member-01.png')"
+                    :src="require('@/assets/images/TeamMembers/team-member-01.png')"
                     alt="Team member 01"
                     :width="180"
                     :height="180"
@@ -91,7 +91,7 @@
               <div class="team-item-header">
                 <div class="team-item-image mb-24">
                   <c-image
-                    :src="require('@/assets/images/team-member-03.png')"
+                    :src="require('@/assets/images/TeamMembers/team-member-03.png')"
                     alt="Team member 03"
                     :width="180"
                     :height="180"
@@ -122,7 +122,7 @@
               <div class="team-item-header">
                 <div class="team-item-image mb-24">
                   <c-image
-                    :src="require('@/assets/images/team-member-04.png')"
+                    :src="require('@/assets/images/TeamMembers/team-member-04.png')"
                     alt="Team member 01"
                     :width="180"
                     :height="180"

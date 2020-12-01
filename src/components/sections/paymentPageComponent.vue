@@ -112,17 +112,29 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
-      var addressIntent = localStorage.getItem("guestAddress");
+      var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
       var emailIntent = localStorage.getItem("guestEmail");
       var firstNameIntent = localStorage.getItem("firstName");
       var lastNameIntent = localStorage.getItem("lastName");
       var nameIntent = firstNameIntent + " " + lastNameIntent;
 
+      console.log("adress intent 3" + addressIntent[3]);
+
       console.log("guestAddress: " + addressIntent);
+      var addressLength = addressIntent.length - 1;
       axios
         .post("/i/checkout/payment-intent", {
           cartId: localStorage.getItem("cartId"),
-          shipping: { address: { line1: addressIntent }, name: nameIntent },
+          shipping: {
+            address: {
+              line1: addressIntent[0],
+              line2: addressIntent[1],
+              city: addressIntent[2],
+              postal_code: addressIntent[addressLength - 1],
+              country: addressIntent[addressLength - 2]
+            },
+            name: nameIntent
+          },
           receipt_email: emailIntent
         })
         .then(resp => {

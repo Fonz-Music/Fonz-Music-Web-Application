@@ -81,6 +81,10 @@ export default {
           this.form.customerName.firstName +
           this.form.customerName.lastName
       );
+      var tempAdr = JSON.parse(localStorage.getItem("guestAddressArray"));
+      console.log("adress intent 3" + tempAdr[3]);
+      var addressLength = tempAdr.length - 1;
+      console.log("legnth minus 1 " + addressLength);
       if (
         this.form.email != null &&
         this.form.placeAddress != null &&
@@ -89,7 +93,7 @@ export default {
         localStorage.setItem("firstName", this.form.customerName.firstName);
         localStorage.setItem("lastName", this.form.customerName.lastName);
         localStorage.setItem("guestEmail", this.form.email);
-        localStorage.setItem("guestAddress", this.form.placeAddress);
+        localStorage.setItem("guestAddressArray", this.form.placeAddress);
         this.$router.push({ path: "/paymentpage" });
       }
     }

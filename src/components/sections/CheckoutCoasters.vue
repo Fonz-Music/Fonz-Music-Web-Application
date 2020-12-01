@@ -457,18 +457,18 @@ export default {
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
                     orderSuccess = false;
-                    // this.$router.push({ path: "/orderfailure" });
+                    this.$router.push({ path: "/orderfailure" });
                     // The payment failed -- ask your customer for a new payment method.
                   } else {
                     orderSuccess = true;
-                    // this.$router.push({ path: "/ordersuccess" });
+                    this.$router.push({ path: "/ordersuccess" });
                     // The payment has succeeded.
                   }
                 });
               } else {
                 console.log("great success");
                 orderSuccess = true;
-                // this.$router.push({ path: "/ordersuccess" });
+                this.$router.push({ path: "/ordersuccess" });
                 // The payment has succeeded.
               }
             }
@@ -506,7 +506,7 @@ export default {
     },
     getImgUrl() {
       // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/coaster" +
+      return require("@/assets/images/CoasterPictures/coaster" +
         this.currentPackage.quantity +
         ".png");
     },

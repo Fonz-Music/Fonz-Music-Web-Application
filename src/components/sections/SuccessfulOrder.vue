@@ -169,7 +169,7 @@ export default {
     },
     getImgUrl() {
       // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/coaster" +
+      return require("@/assets/images/CoasterPictures/coaster" +
         this.currentPackage.quantity +
         ".png");
     },

@@ -114,7 +114,9 @@ export default {
     sendCartIdToServer() {
       var addressIntent = localStorage.getItem("guestAddress");
       var emailIntent = localStorage.getItem("guestEmail");
-      var nameIntent = localStorage.getItem("guestName");
+      var firstNameIntent = localStorage.getItem("firstName");
+      var lastNameIntent = localStorage.getItem("lastName");
+      var nameIntent = firstNameIntent + " " + lastNameIntent;
 
       console.log("guestAddress: " + addressIntent);
       axios

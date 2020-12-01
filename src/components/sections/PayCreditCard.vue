@@ -56,7 +56,10 @@ export default {
       form: {
         email: null,
         placeAddress: null,
-        customerName: null
+        customerName: {
+          firstName: null,
+          lastName: null
+        }
       },
       tabIndex: 0,
       sectionHeader: {
@@ -73,13 +76,18 @@ export default {
     proceedToCheckout: function() {
       console.log("email: " + this.form.email);
       console.log("addr: " + this.form.placeAddress);
-      console.log("name: " + this.form.customerName);
+      console.log(
+        "name: " +
+          this.form.customerName.firstName +
+          this.form.customerName.lastName
+      );
       if (
         this.form.email != null &&
         this.form.placeAddress != null &&
         this.form.customerName != null
       ) {
-        localStorage.setItem("guestName", this.form.customerName);
+        localStorage.setItem("firstName", this.form.customerName.firstName);
+        localStorage.setItem("lastName", this.form.customerName.lastName);
         localStorage.setItem("guestEmail", this.form.email);
         localStorage.setItem("guestAddress", this.form.placeAddress);
         this.$router.push({ path: "/paymentpage" });

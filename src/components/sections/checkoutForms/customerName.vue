@@ -6,21 +6,31 @@
     <div class="nameSubmit">
       <c-input
         type="text"
-        placeholder="fistname lastname"
+        placeholder="firstname"
         class="inputname"
-        v-model="value"
+        v-model="value.firstName"
       >
-        <div class="text-center">
-          <b-button-group class="mt-2">
-            <br />
-            <b-button @click="nextTab">Submit</b-button>
-          </b-button-group>
-        </div>
+      </c-input>
+      <div class="last-name-form">
+        <c-input
+          type="text"
+          placeholder="lastname"
+          class="inputname"
+          v-model="value.lastName"
+        >
+        </c-input>
+      </div>
 
-        <!-- <a class="btn btn-link" role="button" href="/paywithcreditcard">
+      <div class="text-center">
+        <b-button-group class="mt-2">
+          <br />
+          <b-button @click="nextTab">Submit</b-button>
+        </b-button-group>
+      </div>
+
+      <!-- <a class="btn btn-link" role="button" href="/paywithcreditcard">
         Submit
       </a> -->
-      </c-input>
     </div>
   </div>
 </template>
@@ -43,7 +53,12 @@ export default {
   // },
   props: {
     value: {
-      type: String
+      firstName: {
+        type: String
+      },
+      lastName: {
+        type: String
+      }
       // required: true
     }
   },
@@ -58,8 +73,9 @@ export default {
   },
   methods: {
     nextTab: function() {
-      localStorage.setItem("guestName", this.value);
-      var localName = localStorage.getItem("guestName");
+      localStorage.setItem("firstName", this.value.firstName);
+      localStorage.setItem("lastName", this.value.lastName);
+      var localName = localStorage.getItem("firstName");
       console.log("name from storage " + localName);
       // this.$emit("input", this.value);
       this.$emit("nextTab", 2);
@@ -95,6 +111,12 @@ export default {
 }
 .button-block {
   margin: 35px 0;
+}
+.inputname {
+  padding: 50px;
+}
+.last-name-form {
+  padding: 20px 0;
 }
 .form-input {
   border-radius: 25px !important;

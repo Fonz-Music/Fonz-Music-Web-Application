@@ -1,30 +1,63 @@
 <template>
-  <section class='table-style'>
-      <b-table hover :items="items"></b-table>
+  <section class="table-style">
+
+    <!-- Date | Name | Address-->
+
+    <b-table hover :items="items"></b-table>
+
+    <p> {{ randOrderId }} </p>
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'COrdersTable',
+const db = firebase.firestore();
 
-    data() {
-      return {
-        items: [
-          {
-            order_no: 20, first_name: 'Johnathan', last_name: 'Dukes', value: '$25.00', fufilled: false
-          },
-          {
-            order_no: 69, first_name: 'Benjamin', last_name: 'Vaughan', value: '$25.00', fufilled: false
-          }
-        ]
-      }
-    }
-  }
+export default {
+  name: "COrdersTable",
+  data() {
+    return {
+      items: [],
+      randOrderId: 1234
+    };
+  },
+  methods: {
+    async getOrders() {
+      const ordersRef = db.collection("orders");
+      const orders = await ordersRef
+        .where("fulfilled", "==", false)
+        .limit(30)
+        .get();
+
+      orders.forEach((doc) => {
+
+        // const orderId = doc.id
+
+        const orderId = doc.id;
+        const { fulfilled, assignedTo, cart, stripe } = doc.data();
+        const { quantity: coasterQuantity } = cart;
+
+        const name = stripe.billing_details.name;
+        const { city, country, line1, line2, postal_code, state } = stripe.billing_details.address;
+        const address = line1 + " " + line2 + " " + city + " " + state + " " + country + " " + postal_code;
+
+        console.log({ address })
+
+        // view more button, opens modal with more information
+        // doc/stripe/billing_details/address/name
+
+        this.items.push({address});
+      });
+    },
+  },
+  mounted() {
+    this.getOrders();
+  },
+};
 </script>
 
+
 <style>
-  .table-style {
-    font-size: 5px;
-  }
+.table-style {
+  font-size: 5px;
+}
 </style>

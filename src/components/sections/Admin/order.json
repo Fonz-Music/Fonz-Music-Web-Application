@@ -1,0 +1,24 @@
+{
+    assignedTo: "Dukes",
+    cart: {
+        discount: 0,
+        email: "christencouture98@gmail.com",
+        currency: "usd",
+        packageId: "7tfhGAmbkWQcOXb5",
+        retailPrice: 25
+    },
+    created: {
+        seconds: 1606784996,
+        nanoseconds: 546000000
+    },
+    fulfilled: false,
+    stripe: {
+        status: "succeeded",
+        receipt_url: "https://pay.stripe.com/receipts/acct_1HCTMlKULAGg5…50zbkTzLRG8t/rcpt_IUM5eLUKK0TCGJKmcKVMHWLqkHZbCTe",
+        on_behalf_of: null,
+        billing_details: {
+            …},
+        statement_descriptor_suffix: null,
+    },
+    id: "Y49t9tZjV80cwsNJLy9u"
+}

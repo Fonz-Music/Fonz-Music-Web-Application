@@ -94,6 +94,10 @@ export default {
         localStorage.setItem("lastName", this.form.customerName.lastName);
         localStorage.setItem("guestEmail", this.form.email);
         localStorage.setItem("guestAddressArray", this.form.placeAddress);
+        localStorage.setItem(
+          "guestAddress",
+          this.form.placeAddress[addressLength]
+        );
         this.$router.push({ path: "/paymentpage" });
       }
     }

@@ -92,7 +92,7 @@ export default {
       ];
       localStorage.setItem("guestAddressArray", JSON.stringify(addressArray));
       // console.log("arary address " + numberAddress);
-      // localStorage.setItem("guestAddress", JSON.stringify(givenAddress));
+      localStorage.setItem("guestAddress", JSON.stringify(givenAddress));
       // console.log(typeof givenAddress);
       // console.log(
       //   "address from storage " + localStorage.getItem("guestAddress")

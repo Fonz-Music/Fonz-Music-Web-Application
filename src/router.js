@@ -27,6 +27,9 @@ import AffiliateAnalytics from "./views/Affiliate/AffiliateAnalytics.vue";
 import AffiliateFinancial from "./views/Affiliate/AffiliateFinancial.vue";
 import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
 
+// Admin
+import AdminHome from "./views/Admin/AdminHome.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -123,6 +126,13 @@ export default new Router({
       path:"/affiliate-profile",
       name:"affiliateprofile",
       component: AffiliateProfile
+    },
+
+    // Admin Home
+    {
+      path:"/admin-home",
+      name:"adminhome",
+      component: AdminHome
     },
 
     // this must be last

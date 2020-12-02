@@ -1,9 +1,10 @@
 <template>
-  <section class="table-style">
-    <b-table hover :items="items"></b-table>
-
-    <p> {{ randOrderId }} </p>
-  </section>
+  <fragment>
+    <div class="table-style">
+      <b-table hover :items="items">
+      </b-table>
+    </div>
+  </fragment>
 </template>
 
 <script>
@@ -19,6 +20,7 @@ export default {
   },
 
   methods: {
+
     async getOrders() {
 
       // assign reference to database collection 'orders'
@@ -26,8 +28,7 @@ export default {
       
       // create object orders from ordersRef
       const orders = await ordersRef 
-        // .where("assignedTo", "==", "Dukes")
-        .limit(100)
+        .limit(10)
         .get();
 
       // for each 'doc' in orders
@@ -51,10 +52,14 @@ export default {
         }
 
         // Check Address
+        // const { city, country, line1, line2, postal_code, state } = stripe.billing_details.address;
+        // const address = line1 + " " + line2 + " " + city + " " + state + " " + country + " " + postal_code;
+
         if(stripe.billing_details.address.country != null) {
-          const appleAddress = stripe.billing_details.address
-          address = appleAddress.country + " " + appleAddress.state + " " + appleAddress.postal_code + " " + appleAddress.city + " " + appleAddress.line1 + " " + appleAddress.line2;
+          const { city, country, line1, line2, postal_code, state } = stripe.billing_details.address
+          address = country + " " + state + " " + postal_code + " " + city + " " + line1 + " " + line2;
         }
+
         else if(stripe.shipping != null) {
           if(stripe.shipping.address != null) {
             if(stripe.shipping.address.country != null) {
@@ -95,28 +100,12 @@ export default {
           fufillment = fulfilled;
         }
 
-
-        console.log(doc.id, buyerName);
-
-
-        this.items.push({date, buyerName, quantity, value, fufillment, address});
-
-
-
-
-
-        // this.items.push({buyerName});
-
-
-        // console.log(formattedTime);
-
-        // this.items.push({fulfilled, buyerName});
+        this.items.push({date, buyerName, quantity, value, address, fufillment});
 
         // const { fulfilled, assignedTo, cart, stripe } = doc.data();
         // const { quantity: coasterQuantity } = cart;
 
         // const name = stripe.billing_details.name;
-        // const { city, country, line1, line2, postal_code, state } = stripe.billing_details.address;
         // const address = line1 + " " + line2 + " " + city + " " + state + " " + country + " " + postal_code;
 
         // console.log({ address })
@@ -128,6 +117,7 @@ export default {
       });
     },
   },
+
   mounted() {
     this.getOrders();
   },
@@ -138,5 +128,6 @@ export default {
 <style>
 .table-style {
   font-size: 5px;
+  padding: 5px 20px 5px 20px;
 }
 </style>

@@ -5,9 +5,6 @@
                 <c-section-header :data="sectionHeader"/>
             </div>
             <div class='row'>
-                <div class='col-8 container-style'>
-                    <c-chart-revenue/>
-                </div>
                 <div class='col container-style'>
                     <c-orders-table/>
                 </div>
@@ -20,17 +17,15 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAffiliate.vue";
+import CLayout from "@/layouts/LayoutAdmin.vue";
 
 // import components
-import CChartRevenue from "@/components/elements/Charts/Admin/ChartRevenue.vue";
 import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 import COrdersTable from '@/components/sections/Admin/OrdersTable.vue';
 
 export default {
-  name: "AdminHome",
+  name: "AdminOrders",
   components: {
-    CChartRevenue,
     CSectionHeader,
     COrdersTable
   },
@@ -49,6 +44,7 @@ export default {
   }
 };
 </script>
+
 
 
 <style>

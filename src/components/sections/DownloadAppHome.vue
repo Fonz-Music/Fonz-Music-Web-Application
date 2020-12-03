@@ -33,7 +33,7 @@
             ><c-image
               class="app-shot-item"
               :src="
-                require('@/assets/images/appScreenshots/guestScreenShot.png')
+                require('@/assets/images/appScreenshots/hostScreenShot.png')
               "
               alt="Splash Coaster"
           /></c-carousel-item>
@@ -48,7 +48,7 @@
             ><c-image
               class="app-shot-item"
               :src="
-                require('@/assets/images/appScreenshots/hostScreenShot.png')
+                require('@/assets/images/appScreenshots/guestScreenShot.png')
               "
               alt="Splash Coaster"
           /></c-carousel-item>

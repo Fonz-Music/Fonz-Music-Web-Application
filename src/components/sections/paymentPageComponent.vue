@@ -114,9 +114,9 @@ export default {
     sendCartIdToServer() {
       var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
       var emailIntent = localStorage.getItem("guestEmail");
-      var firstNameIntent = localStorage.getItem("firstName");
-      var lastNameIntent = localStorage.getItem("lastName");
-      var nameIntent = firstNameIntent + " " + lastNameIntent;
+      // var firstNameIntent = localStorage.getItem("firstName");
+      // var lastNameIntent = localStorage.getItem("lastName");
+      var nameIntent = localStorage.getItem("guestName");
 
       console.log("adress intent 3" + addressIntent[3]);
 

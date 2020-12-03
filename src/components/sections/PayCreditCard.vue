@@ -81,6 +81,11 @@ export default {
           this.form.customerName.firstName +
           this.form.customerName.lastName
       );
+      var customerName =
+        this.form.customerName.firstName +
+        " " +
+        this.form.customerName.lastName;
+      console.log("customer name " + customerName);
       var tempAdr = JSON.parse(localStorage.getItem("guestAddressArray"));
       console.log("adress intent 3" + tempAdr[3]);
       var addressLength = tempAdr.length - 1;
@@ -92,6 +97,7 @@ export default {
       ) {
         localStorage.setItem("firstName", this.form.customerName.firstName);
         localStorage.setItem("lastName", this.form.customerName.lastName);
+        localStorage.setItem("guestName", customerName);
         localStorage.setItem("guestEmail", this.form.email);
         localStorage.setItem("guestAddressArray", this.form.placeAddress);
         localStorage.setItem(

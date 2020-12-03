@@ -7,11 +7,12 @@
     </div>
 </template>
 
+
 <script>
-import CChartBase from '@/components/sections/Affiliate/Charts/core/ChartBase.vue'
+import CChartBase from '@/components/elements/Charts/core/ChartBase.vue'
 
 export default {
-  name: "ChartTest",
+  name: "ChartRevenue",
   components: { CChartBase },
 
   data: () => ({
@@ -21,7 +22,7 @@ export default {
         {
           label: null,
           backgroundColor: '#A77FA9',
-          data: [0, 10, 40, 7, 9, 2, 34, 5, 2, 9, 10, 23]
+          data: [20, 10, 30, 2, 9, 2, 34, 5, 2, 9, 10, 23]
         }
       ]
     },

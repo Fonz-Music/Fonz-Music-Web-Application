@@ -4,14 +4,15 @@
             <h1> hello </h1>
             <div class="container">
 
-              <c-button
+            <c-button
                 class="buy-now-button"
                 tag="a"
                 color="primary"
                 wide
-                @click="testClick()"
-                >Login</c-button
-              >
+                @click="userLogin()"
+                >
+                Login
+            </c-button>
             </div>
         </section>
     </fragment>
@@ -29,8 +30,7 @@ import CButton from "@/components/elements/Button.vue";
 
 // firebase auth
 const provider = new firebase.auth.GoogleAuthProvider();
-
-
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 export default {
     name: "AdminLogin",
@@ -38,26 +38,15 @@ export default {
         CButton
     },
 
-
-    // data() {
-        
-    // },
-
-
     methods: {
-        testClick() {
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-
-                // This gives you a Google Access Token. You can use it to access the Google API.
+        userLogin() {
+            firebase.auth().signInWithPopup(provider).then(() => {
                 var token = result.credential.accessToken;
-                // The signed-in user info.
                 var user = result.user;
-
-            }).catch(function(error) {
-                console.log("error!");
             })
         }
     },
+
 
 
   created() {

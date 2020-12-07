@@ -8,23 +8,70 @@
         aria-controls="my-table"
       ></b-pagination>
     </span>
+
     <span>
       <p>Total unfulfilled orders {{ rows }} </p>
     </span>
+
     <div class="table-style">
-      <b-table hover :items="items"> </b-table>
+
+      <b-table hover :items="items" :fields="fields"> 
+        
+        <template #cell(order_fufillment)="data">
+          <b-button @click='updateFufillment(data.item.order_id, data.item.order_fufillment)' >
+            {{ data.item.order_fufillment }}
+          </b-button>
+        </template>
+
+        <template #cell(order_assigned_to)="data">
+          <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
+            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Benji")'> Benji </b-dropdown-item>
+            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Dermo")'> Dermo </b-dropdown-item>
+            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Didi")'> Didi </b-dropdown-item>
+            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Jay")'> Jay </b-dropdown-item>
+          </b-dropdown>
+        </template>
+
+      </b-table>
+
     </div>
+
   </fragment>
 </template>
 
 <script>
+import { toNamespacedPath } from 'path';
 const db = firebase.firestore();
 
 export default {
-  name: "COrdersTable",
+  name: "COrdersTable2",
 
   data() {
     return {
+      fields: [
+        {
+          key: 'order_id'
+        },
+        {
+          key: 'order_name'
+        },
+        {
+          key: 'order_quantity'
+        },
+        {
+          key: 'order_value'
+        },
+        {
+          key: 'order_address'
+        },
+        {
+          key: 'order_fufillment'
+        },
+        {
+          key: 'order_assigned_to'
+        }
+      ],
+
       items: [],
       ordersUnchanged: [],
       offset: 0,
@@ -43,6 +90,7 @@ export default {
         this.rows = snap.size;
       });
     },
+
     paginate() {
       this.offset = (this.page - 1) * this.limit;
       this.getOrders(this.offset);
@@ -82,8 +130,6 @@ export default {
         }
 
         // Check Address
-        // const { city, country, line1, line2, postal_code, state } = stripe.billing_details.address;
-        // const address = line1 + " " + line2 + " " + city + " " + state + " " + country + " " + postal_code;
 
         if (stripe.billing_details.address.country != null) {
           const {
@@ -152,43 +198,42 @@ export default {
         }
 
         this.items.push({
-          orderId,
-          date,
-          buyerName,
-          quantity,
-          value,
-          address,
-          fufillment,
-        });
-
-        // const { fulfilled, assignedTo, cart, stripe } = doc.data();
-        // const { quantity: coasterQuantity } = cart;
-
-        // const name = stripe.billing_details.name;
-        // const address = line1 + " " + line2 + " " + city + " " + state + " " + country + " " + postal_code;
-
-        // console.log({ address })
-
-        // // view more button, opens modal with more information
-        // // doc/stripe/billing_details/address/name
-
-        // this.items.push({name, address});
+          order_id: orderId,
+          order_name: buyerName,
+          order_date: date,
+          order_quantity: quantity,
+          order_value: value,
+          order_address: address,
+          order_fufillment: fufillment,
+          order_assigned_to: assignedTo
+        })
       });
     },
+
+    async updateFufillment(orderId, currentFulfillment) {
+      currentFulfillment = !currentFulfillment;
+
+      db.collection("orders").doc(orderId).update({ fulfilled : currentFulfillment}).then(()=>{
+        this.getOrders(0);
+      })
+
+      console.log(currentFulfillment)
+    },
+
+    async updateAssignee(orderId, assignee) {
+      db.collection("orders").doc(orderId).update({ assignedTo : assignee}).then(() => {
+        this.getOrders(0);
+      })
+    }
   },
-  // watch: {
-  //   page: () => {
-  //     console.log("Page changed");
-  //     this.offset = (this.page - 1) * this.limit;
-  //     // this.paginate()
-  //   },
-  // },
 
   mounted() {
     this.getTotalRows();
     this.getOrders(0);
-  },
+  }
+
 };
+
 </script>
 
 
@@ -196,5 +241,10 @@ export default {
 .table-style {
   font-size: 5px;
   padding: 5px 20px 5px 20px;
+}
+
+.idbackg {
+  background-color: grey;
+  margin: auto;
 }
 </style>

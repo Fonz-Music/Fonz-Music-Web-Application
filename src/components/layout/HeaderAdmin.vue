@@ -134,8 +134,6 @@ export default {
 
 <style media="screen">
 .header-logo img {
-  margin: 400px auto;
-  width: 10vw;
 
   /* height: 10vw; */
   max-width: 80px;

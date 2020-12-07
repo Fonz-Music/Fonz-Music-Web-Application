@@ -1,14 +1,14 @@
 <template>
     <section class="section">
-        <div class='container'>
-            <div class='row title-style'>
-                <c-section-header :data="sectionHeader"/>
+      <div class='container'>
+          <div class='row title-style'>
+            <c-section-header :data="sectionHeader"/>
+          </div>
+          <div class='row'>
+            <div class='col container-style'>
+                <c-orders-table/>
             </div>
-            <div class='row'>
-                <div class='col container-style'>
-                    <c-orders-table/>
-                </div>
-            </div>
+          </div>
       </div>  
     </section>
 </template>
@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: 'Hello',
-        paragraph: 'para'
+        title: 'Welcome to your dashboard, master.',
+        paragraph: 'Here is the money that has come from a direct result of your efforts.'
       },
     }
   },

@@ -1,19 +1,23 @@
 <template> 
     <fragment>
         <section class="section">
-            <h1> hello </h1>
-            <div class="container">
-
-            <c-button
-                class="buy-now-button"
-                tag="a"
-                color="primary"
-                wide
-                @click="userLogin()"
-                >
-                Login
-            </c-button>
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                <c-input type="text" name="username" v-model="input.username" placeholder="Username"/>
+                </div>
             </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                <c-input type="password" name="password" v-model="input.password" placeholder="Password"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                <c-button type="button" @click="userLogin()">Login</c-button>
+                </div>
+            </div>
+        </div>
         </section>
     </fragment>
 </template>
@@ -23,35 +27,87 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAdmin.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 
 // import components
 import CButton from "@/components/elements/Button.vue";
+import CInput from "@/components/elements/Input.vue";
+import COrdersTable from '@/components/sections/Admin/OrdersTable.vue';
+
 
 // firebase auth
 const provider = new firebase.auth.GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+// firebase.auth().onAuthStateChanged(user => {
+//     if(user) {
+//         console.log('is auth');
+//         console.log(user.uid);
+//         // user.getIdTokenResult().then(idTokenResult => {
+//         //     console.log(idTokenResult.claims);
+//         // })
+//     }
+//     else {
+//         console.log('isnt auth');
+//     }
+// }) 
 
 export default {
     name: "AdminLogin",
     components: {
-        CButton
+        CButton,
+        COrdersTable,
+        CInput
+    },
+
+    data() {
+        return {
+            input: {
+                username:"",
+                password:""
+            }
+        }
     },
 
     methods: {
         userLogin() {
-            firebase.auth().signInWithPopup(provider).then(() => {
-                var token = result.credential.accessToken;
-                var user = result.user;
-            })
+            // const loginForm = document.querySelector('#login-form')
+
+            if(this.input.username != "" && this.input.password != "") {
+                firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
+                .then((user) => {
+                    console.log('signed in');
+                    this.$router.push('/admin-orders');
+
+                })
+                .catch((error) => {
+                    alert("Incorrect Details");
+                })
+            }
+        },
+
+
+        userLogout() {
+            firebase.auth().signOut().then(() => {
+                console.log("Just logged out");
+            });
+        },
+
+        add(a, b) {
+            var sum = parseInt(a) + parseInt(b);
+            alert(sum);
         }
     },
 
-
-
-  created() {
-    this.$emit("update:layout", CLayout);
-  }
+    created() {
+        this.$emit("update:layout", CLayout);
+    }
 };
 
 </script>
+
+<style>
+.input-style {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+</style>

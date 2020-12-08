@@ -1,6 +1,7 @@
 <template> 
     <fragment>
-        <section class="section">
+
+        <section v-if="!loggedIn()" class="section">
         <div class="container">
             <div class="row">
                 <div class="col d-flex justify-content-center">
@@ -19,10 +20,24 @@
             </div>
         </div>
         </section>
+
+        <section v-if="loggedIn()" class="section">
+            <div class='container'>
+                <div class='row title-style'>
+                    <c-section-header :data="sectionHeader"/>
+                </div>
+                <div class='row'>
+                    <div class='col container-style'>
+                        <c-orders-table/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <c-button class="col" type="button" @click="userLogout()">Logout</c-button>
+                </div>
+            </div>
+        </section>
     </fragment>
 </template>
-
-
 
 
 <script>
@@ -33,68 +48,72 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 import CButton from "@/components/elements/Button.vue";
 import CInput from "@/components/elements/Input.vue";
 import COrdersTable from '@/components/sections/Admin/OrdersTable.vue';
-
+import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
 
 // firebase auth
 const provider = new firebase.auth.GoogleAuthProvider();
 
-// firebase.auth().onAuthStateChanged(user => {
-//     if(user) {
-//         console.log('is auth');
-//         console.log(user.uid);
-//         // user.getIdTokenResult().then(idTokenResult => {
-//         //     console.log(idTokenResult.claims);
-//         // })
-//     }
-//     else {
-//         console.log('isnt auth');
-//     }
-// }) 
+firebase.auth().onAuthStateChanged(user => {
+    if(user) {
+        console.log('is auth');
+        this.input.loggedIn = true;
+    }
+    else {
+        console.log('isnt auth');
+        this.input.loggedIn = false;
+    }
+}) 
 
 export default {
     name: "AdminLogin",
     components: {
         CButton,
         COrdersTable,
-        CInput
+        CInput,
+        CSectionHeader,
+        COrdersTable
     },
 
     data() {
         return {
             input: {
                 username:"",
-                password:""
-            }
+                password:"",
+                loggedIn: false
+            },
+            sectionHeader: {
+                title: 'Welcome to your dashboard!',
+                paragraph: 'Here are our orders.'
+            },
         }
     },
 
     methods: {
         userLogin() {
-            // const loginForm = document.querySelector('#login-form')
-
             if(this.input.username != "" && this.input.password != "") {
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
                 .then((user) => {
                     console.log('signed in');
-                    this.$router.push('/admin-orders');
-
+                    this.input.loggedIn = true;
+                    this.input.username = "";
+                    this.input.password = "";
                 })
                 .catch((error) => {
                     alert("Incorrect Details");
+                    this.input.loggedIn = false;
                 })
             }
         },
 
-
         userLogout() {
             firebase.auth().signOut().then(() => {
                 console.log("Just logged out");
+                this.input.loggedIn = false;
             });
         },
 
-        add(a, b) {
-            var sum = parseInt(a) + parseInt(b);
-            alert(sum);
+        loggedIn() {
+            return this.input.loggedIn;
         }
     },
 
@@ -106,8 +125,16 @@ export default {
 </script>
 
 <style>
-.input-style {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+  .container-style {
+    background-color: rgb(255, 255, 255) !important;
+    border: 1px solid rgb(206, 206, 206) !important;
+    border-radius: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+
+  .title-style {
+      margin-top: 50px;
+  }
 </style>

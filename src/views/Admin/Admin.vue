@@ -65,7 +65,7 @@ firebase.auth().onAuthStateChanged(user => {
 }) 
 
 export default {
-    name: "AdminLogin",
+    name: "Admin",
     components: {
         CButton,
         COrdersTable,

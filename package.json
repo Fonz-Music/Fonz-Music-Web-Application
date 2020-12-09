@@ -41,6 +41,7 @@
     "vue-stripe-checkout": "^3.5.11",
     "vue-stripe-elements-plus": "^0.3.2",
     "vue2-google-maps": "^0.10.7",
+    "vuefire": "^2.2.5",
     "vuetify": "^2.3.12"
   },
   "devDependencies": {

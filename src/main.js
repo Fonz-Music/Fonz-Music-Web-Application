@@ -22,6 +22,9 @@ Vue.use(BootstrapVue);
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
+
 import App from "./App.vue";
 import router from "./router";
 

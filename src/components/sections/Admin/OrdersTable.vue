@@ -1,75 +1,160 @@
 <template>
   <fragment>
-    <span @click="paginate">
-      <b-pagination
-        v-model="page"
-        :total-rows="rows"
-        :per-page="limit"
-        aria-controls="my-table"
-      ></b-pagination>
-    </span>
+    <b-pagination
+      v-model="page"
+      :total-rows="rows"
+      :per-page="limit"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <b-row>
+      <b-dropdown class="m-md-2" :text="assignedTo">
+        <b-dropdown-item @click="(assignedTo = 'All'), getOrders()">
+          All
+        </b-dropdown-item>
+        <b-dropdown-item @click="(assignedTo = 'Benji'), getOrders()">
+          Benji
+        </b-dropdown-item>
+        <b-dropdown-item @click="(assignedTo = 'Dermo'), getOrders()">
+          Dermo
+        </b-dropdown-item>
+        <b-dropdown-item @click="(assignedTo = 'Didi'), getOrders()">
+          Didi
+        </b-dropdown-item>
+        <b-dropdown-item @click="(assignedTo = 'Jay'), getOrders()">
+          Jay
+        </b-dropdown-item>
+      </b-dropdown>
+
+      <!-- <span @click.prevent="getOrders()"> -->
+        <b-form-checkbox
+          id="checkbox-1"
+          v-model="showFulfilled"
+          @click.prevent="getOrders()"
+          name="checkbox-1"
+          value="true"
+          unchecked-value="false"
+        >
+          Show fulfilled orders
+        </b-form-checkbox>
+      <!-- </span> -->
+    </b-row>
 
     <span>
-      <p>Total unfulfilled orders {{ rows }} </p>
+      <p># Orders {{ rows }}</p>
     </span>
 
     <div class="table-style">
+      <!-- <b-table :items="orders" :limit="limit" :current-page="page" :per-page="limit" > -->
+      <!-- </b-table> -->
 
-      <b-table hover :items="items" :fields="fields"> 
-        
+      <b-table
+        hover
+        :items="items"
+        :fields="fields"
+        :per-page="limit"
+        :current-page="page"
+      >
         <template #cell(order_fufillment)="data">
-          <b-button @click='updateFufillment(data.item.order_id, data.item.order_fufillment)' >
+          <b-button
+            @click="
+              updateFufillment(
+                data.item.order_index,
+                data.item.order_id,
+                data.item.order_fufillment
+              )
+            "
+          >
             {{ data.item.order_fufillment }}
           </b-button>
         </template>
 
         <template #cell(order_assigned_to)="data">
           <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
-            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Benji")'> Benji </b-dropdown-item>
-            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Dermo")'> Dermo </b-dropdown-item>
-            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Didi")'> Didi </b-dropdown-item>
-            <b-dropdown-item @click='updateAssignee(data.item.order_id, "Jay")'> Jay </b-dropdown-item>
+            <b-dropdown-item
+              @click="
+                updateAssignee(
+                  data.item.order_index,
+                  data.item.order_id,
+                  'Benji'
+                )
+              "
+            >
+              Benji
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="
+                updateAssignee(
+                  data.item.order_index,
+                  data.item.order_id,
+                  'Dermo'
+                )
+              "
+            >
+              Dermo
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="
+                updateAssignee(
+                  data.item.order_index,
+                  data.item.order_id,
+                  'Didi'
+                )
+              "
+            >
+              Didi
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="
+                updateAssignee(data.item.order_index, data.item.order_id, 'Jay')
+              "
+            >
+              Jay
+            </b-dropdown-item>
           </b-dropdown>
         </template>
-
       </b-table>
-
     </div>
-
   </fragment>
 </template>
 
 <script>
-import { toNamespacedPath } from 'path';
+import { toNamespacedPath } from "path";
 const db = firebase.firestore();
 
 export default {
   name: "COrdersTable2",
+  watch: {
+    showFulfilled: function() {
+      this.isFulfilled = this.showFulfilled === 'true';
+      this.getOrders();
+    }
+  },
 
   data() {
     return {
       fields: [
         {
-          key: 'order_id'
+          key: "order_id",
         },
         {
-          key: 'order_name'
+          key: "order_name",
         },
         {
-          key: 'order_quantity'
+          key: "order_quantity",
         },
         {
-          key: 'order_value'
+          key: "order_value",
         },
         {
-          key: 'order_address'
+          key: "order_address",
         },
         {
-          key: 'order_fufillment'
+          key: "order_fufillment",
         },
         {
-          key: 'order_assigned_to'
-        }
+          key: "order_assigned_to",
+        },
       ],
 
       items: [],
@@ -79,36 +164,54 @@ export default {
       page: 1,
       rows: 0,
       offsetId: 0,
-      lastDoc: null
+      lastDoc: null,
+      orders: [],
+      assignedTo: "All",
+      showFulfilled: "false",
+      isFulfilled: this.showFulfilled === 'true',
     };
   },
 
   methods: {
     async getTotalRows() {
-      const ordersRef = db.collection("orders");
-      await ordersRef.get().then((snap) => {
-        this.rows = snap.size;
-      });
+      // const ordersRef = db.collection("orders");
+      // await ordersRef.get().then((snap) => {
+      //   this.rows = snap.size;
+      // });
     },
 
-    paginate() {
-      this.offset = (this.page - 1) * this.limit;
-      this.getOrders(this.offset);
-    },
+    // paginate() {
+    // this.offset = (this.page - 1) * this.limit;
+    // this.getOrders(this.offset);
+    // },
 
-    async getOrders(offset) {
+    async getOrders() {
+      console.log("getting orders");
+      console.log({ showFulfilled: this.showFulfilled, isFulfilled: this.isFulfilled  })
       this.items = [];
-      const ordersRef = db.collection("orders");
+      let ordersRef = db.collection("orders");
       this.lastDoc = this.ordersUnchanged[this.limit - 1] || 0;
 
-      const orders = await ordersRef
-        .orderBy('created')
-        .startAfter(this.lastDoc)
-        .limit(this.limit)
-        .get();
+      if (this.assignedTo !== "All") {
+        console.log("Load assigned t o ", this.assignedTo);
+        ordersRef = ordersRef.where("assignedTo", "==", this.assignedTo);
+      }
+
+      console.log(ordersRef);
+      ordersRef = ordersRef.orderBy("created");
+      // if(this.showFulfilled === "true" || this.showFulfilled == false) {
+      if(!this.isFulfilled) {
+        console.log("showing unfulfille")
+        ordersRef = ordersRef.where("fulfilled", "==", false);
+      }
+
+      const orders = await ordersRef.get();
+
+      this.rows = orders.size;
 
       let i = 0;
       this.ordersUnchanged = [];
+      let index = 0;
       orders.forEach((doc) => {
         this.ordersUnchanged.push(doc);
         const orderId = doc.id;
@@ -198,6 +301,7 @@ export default {
         }
 
         this.items.push({
+          order_index: index++,
           order_id: orderId,
           order_name: buyerName,
           order_date: date,
@@ -205,35 +309,42 @@ export default {
           order_value: value,
           order_address: address,
           order_fufillment: fufillment,
-          order_assigned_to: assignedTo
-        })
+          order_assigned_to: assignedTo,
+        });
       });
     },
 
-    async updateFufillment(orderId, currentFulfillment) {
+    async updateFufillment(index, orderId, currentFulfillment) {
       currentFulfillment = !currentFulfillment;
 
-      db.collection("orders").doc(orderId).update({ fulfilled : currentFulfillment}).then(()=>{
-        this.getOrders(0);
-      })
+      db.collection("orders")
+        .doc(orderId)
+        .update({ fulfilled: currentFulfillment })
+        .then(() => {
+          this.items[index].order_fufillment = currentFulfillment;
+        });
 
-      console.log(currentFulfillment)
+      console.log(currentFulfillment);
     },
 
-    async updateAssignee(orderId, assignee) {
-      db.collection("orders").doc(orderId).update({ assignedTo : assignee}).then(() => {
-        this.getOrders(0);
-      })
-    }
+    async updateAssignee(index, orderId, assignee) {
+      console.log({ index });
+      db.collection("orders")
+        .doc(orderId)
+        .update({ assignedTo: assignee })
+        .then(() => {
+          console.log("updating assignedto to ", assignee);
+          this.items[index].order_assigned_to = assignee;
+          // this.getOrders(0);
+        });
+    },
   },
 
   mounted() {
     this.getTotalRows();
-    this.getOrders(0);
-  }
-
+    this.getOrders();
+  },
 };
-
 </script>
 
 

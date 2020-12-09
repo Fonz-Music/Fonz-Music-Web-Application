@@ -317,6 +317,7 @@ export default {
     CButton,
     CImage,
     FingerprintSpinner
+
     // VueProgress
   },
   mixins: [SectionTilesProps],
@@ -355,6 +356,9 @@ export default {
   },
   computed: {
     determineCurrencySymbol() {
+      if (this.currency == null) {
+        console.log("grabbing currency");
+      }
       console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
@@ -425,6 +429,7 @@ export default {
       }
     },
     getPricing() {
+      this.currency = localStorage.getItem("currency");
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
         .then(resp => {

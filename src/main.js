@@ -38,7 +38,7 @@ Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 
 const axios = require("axios");
 
-let setCurrency = "eur";
+let setCurrency = "";
 var localCurrency = localStorage.getItem("currency");
 var lastTimeChecked = getWithExpiry("timestamp");
 // console.log("local cur " + localCurrency);
@@ -54,7 +54,7 @@ if (localCurrency == undefined || lastTimeChecked == null) {
         setCurrency = "usd";
       } else if (country_code == "GB") {
         setCurrency = "gbp";
-      }
+      } else setCurrency = "eur";
       // Vue.prototype.currency = setCurrency;
       setWithExpiry("timestamp", setCurrency, 604800000);
       localStorage.setItem("currency", setCurrency);
@@ -98,7 +98,7 @@ function getWithExpiry(key) {
   return item.value;
 }
 
-Vue.prototype.currency = localStorage.getItem("currency") || "eur";
+Vue.prototype.currency = localStorage.getItem("currency") || "usd";
 new Vue({
   router,
   render: h => h(App)

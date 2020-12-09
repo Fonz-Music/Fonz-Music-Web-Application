@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="checkbox-for-packaging">
+        <!-- <div class="checkbox-for-packaging">
           <div class="form-check">
             <input
               class="form-check-input"
@@ -47,7 +47,7 @@
               {{ determineCurrencySymbol }}3
             </label>
           </div>
-        </div>
+        </div> -->
         <br />
         <div class="promo-section">
           <p>Got a promo code from a friend?</p>
@@ -101,10 +101,10 @@
                   {{ determineCurrencySymbol }}5
                 </td>
               </tr>
-              <tr v-if="extraPackaging">
+              <!-- <tr v-if="extraPackaging">
                 <th scope="row">Extra Packaging</th>
                 <td class="text-right">{{ determineCurrencySymbol }}3</td>
-              </tr>
+              </tr> -->
               <tr class="total-amount">
                 <th scope="row">Total</th>
                 <td class="text-right">
@@ -201,50 +201,50 @@ export default {
           this.enteredpromo = true;
         });
     },
-    addExtraPackaging() {
-      // PUT /i/cart/coupon/{couponId}
-
-      const cartIdFromUser = localStorage.getItem("cartId");
-      var response;
-      axios
-        .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-          cartId: cartIdFromUser
-        })
-        // add cartID to body
-        .then(resp => {
-          response = resp.data;
-          console.log(response);
-          localStorage.setItem("extraPackaging", true);
-          this.extraPackaging = true;
-        })
-        .catch(error => {
-          if (error.response.status == 403) {
-            console.log("resp.status " + error.response.status);
-            this.extraPackaging = true;
-          }
-          console.error(error);
-        });
-    },
-    removeExtraPackaging() {
-      // PUT /i/cart/coupon/{couponId}
-      const cartIdFromUser = localStorage.getItem("cartId");
-      console.log("inside remove cartid" + cartIdFromUser);
-      var response;
-      axios
-        .delete(
-          `${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`
-        )
-        .then(resp => {
-          // add cartID to body
-          response = resp.data;
-          console.log(response);
-          this.extraPackaging = false;
-          localStorage.setItem("extraPackaging", false);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
+    // addExtraPackaging() {
+    //   // PUT /i/cart/coupon/{couponId}
+    //
+    //   const cartIdFromUser = localStorage.getItem("cartId");
+    //   var response;
+    //   axios
+    //     .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
+    //       cartId: cartIdFromUser
+    //     })
+    //     // add cartID to body
+    //     .then(resp => {
+    //       response = resp.data;
+    //       console.log(response);
+    //       localStorage.setItem("extraPackaging", true);
+    //       this.extraPackaging = true;
+    //     })
+    //     .catch(error => {
+    //       if (error.response.status == 403) {
+    //         console.log("resp.status " + error.response.status);
+    //         this.extraPackaging = true;
+    //       }
+    //       console.error(error);
+    //     });
+    // },
+    // removeExtraPackaging() {
+    //   // PUT /i/cart/coupon/{couponId}
+    //   const cartIdFromUser = localStorage.getItem("cartId");
+    //   console.log("inside remove cartid" + cartIdFromUser);
+    //   var response;
+    //   axios
+    //     .delete(
+    //       `${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`
+    //     )
+    //     .then(resp => {
+    //       // add cartID to body
+    //       response = resp.data;
+    //       console.log(response);
+    //       this.extraPackaging = false;
+    //       localStorage.setItem("extraPackaging", false);
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // },
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
       const cartIdFromUser = localStorage.getItem("cartId");
@@ -267,22 +267,22 @@ export default {
       evt.preventDefault();
       this.promoValid = !this.promoValid;
     },
-    updateExtraPackaging() {
-      console.log("pressed update extra packaging");
-      // tell api that you must add packaging fee
-      console.log({ ep: this.extraPackaging.length });
-      if (!this.extraPackaging) {
-        console.log("adding extra package cost");
-        console.log("extra packaging var " + this.extraPackaging);
-        localStorage.setItem("addedExtraPackaging", true);
-        this.addExtraPackaging();
-      } else {
-        console.log("removing extra package cost");
-        console.log("extra packaging var " + this.extraPackaging);
-        localStorage.setItem("addedExtraPackaging", false);
-        this.removeExtraPackaging();
-      }
-    },
+    // updateExtraPackaging() {
+    //   console.log("pressed update extra packaging");
+    //   // tell api that you must add packaging fee
+    //   console.log({ ep: this.extraPackaging.length });
+    //   if (!this.extraPackaging) {
+    //     console.log("adding extra package cost");
+    //     console.log("extra packaging var " + this.extraPackaging);
+    //     localStorage.setItem("addedExtraPackaging", true);
+    //     this.addExtraPackaging();
+    //   } else {
+    //     console.log("removing extra package cost");
+    //     console.log("extra packaging var " + this.extraPackaging);
+    //     localStorage.setItem("addedExtraPackaging", false);
+    //     this.removeExtraPackaging();
+    //   }
+    // },
     getTotalPrice() {
       var addonTotal = 0;
       if (this.promoValid) {
@@ -291,9 +291,9 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      if (this.extraPackaging) {
-        addonTotal += 3;
-      }
+      // if (this.extraPackaging) {
+      //   addonTotal += 3;
+      // }
       // this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
@@ -489,9 +489,9 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      if (this.extraPackaging) {
-        addonTotal += 3;
-      }
+      // if (this.extraPackaging) {
+      //   addonTotal += 3;
+      // }
       this.totalPrice = this.currentPackage.price + addonTotal;
       localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
@@ -538,19 +538,19 @@ export default {
         console.log("returning false");
         return false;
       }
-    },
-    determineExtraPacking() {
-      var extraPackingFromLocal = localStorage.getItem("extraPackaging");
-      console.log("packing from local " + extraPackingFromLocal);
-      console.log(typeof extraPackingFromLocal);
-      if (extraPackingFromLocal == "true") {
-        console.log("returning true ");
-        return true;
-      } else {
-        console.log("returning false");
-        return false;
-      }
     }
+    // determineExtraPacking() {
+    //   var extraPackingFromLocal = localStorage.getItem("extraPackaging");
+    //   console.log("packing from local " + extraPackingFromLocal);
+    //   console.log(typeof extraPackingFromLocal);
+    //   if (extraPackingFromLocal == "true") {
+    //     console.log("returning true ");
+    //     return true;
+    //   } else {
+    //     console.log("returning false");
+    //     return false;
+    //   }
+    // }
   }
 };
 </script>

@@ -9,7 +9,7 @@
         :class="bottomDivider && 'has-bottom-divider'"
       >
         <router-link class="header-logo" to="/"
-          ><img src="@/assets/images/logo.svg" class="header-logo" alt="logo"
+          ><img src="@/assets/images/logo.svg" alt="logo"
         /></router-link>
 
         <!-- <c-logo />
@@ -158,12 +158,14 @@ export default {
 };
 </script>
 <style media="screen">
+
 .header-logo img {
-  margin: 400px auto;
+  margin: 0px auto !important;
   width: 10vw;
 
   /* height: 10vw; */
   max-width: 80px;
   min-width: 70px;
 }
+
 </style>

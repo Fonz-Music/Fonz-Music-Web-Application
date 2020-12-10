@@ -531,6 +531,7 @@ export default {
         input.clientWidth * multiplier - thumbOffset + priceInputOffset + "px";
     },
     updatePackage(plan) {
+      console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
         // update CART

@@ -526,9 +526,17 @@ export default {
     },
     getImgUrl() {
       // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/CoasterPictures/coaster" +
-        this.currentPackage.quantity +
-        ".png");
+      if (
+        this.currentPackage.quantity == 1 ||
+        this.currentPackage.quantity == 2 ||
+        this.currentPackage.quantity == 3
+      ) {
+        return require("@/assets/images/CoasterPictures/coaster" +
+          this.currentPackage.quantity +
+          ".png");
+      } else {
+        return require("@/assets/images/CoasterPictures/coaster" + 3 + ".png");
+      }
     },
     getItemTitle() {
       return this.currentPackage.title;

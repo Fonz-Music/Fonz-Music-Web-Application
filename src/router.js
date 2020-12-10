@@ -90,7 +90,7 @@ export default new Router({
       component: PaymentPage
     },
     {
-      path: "/privacyPolicy",
+      path: "/privacy-policy",
       name: "privacyPolicy",
       component: PrivacyPolicy
     },
@@ -109,29 +109,29 @@ export default new Router({
 
     // Affiliate Analytics
     {
-      path:"/affiliate-analytics",
-      name:"affiliateanalytics",
+      path: "/affiliate-analytics",
+      name: "affiliateanalytics",
       component: AffiliateAnalytics
     },
 
     // Affiliate Financial
     {
-      path:"/affiliate-financial",
-      name:"affiliatefinancial",
+      path: "/affiliate-financial",
+      name: "affiliatefinancial",
       component: AffiliateFinancial
     },
 
     // Affiliate Profile
     {
-      path:"/affiliate-profile",
-      name:"affiliateprofile",
+      path: "/affiliate-profile",
+      name: "affiliateprofile",
       component: AffiliateProfile
     },
 
     // Admin
     {
-      path:'/admin',
-      name:'Login',
+      path: "/admin",
+      name: "Login",
       component: Admin
     },
 

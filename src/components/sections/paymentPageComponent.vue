@@ -16,6 +16,17 @@
           purchase
         </b-button>
       </form>
+      <div class="accept-privacy-policy">
+        <p>
+          by pressing purchase, you agree to our
+          <router-link
+            :to="{ name: 'privacyPolicy' }"
+            target="_blank"
+            style="color:#b188b9"
+            >privacy policy.</router-link
+          >
+        </p>
+      </div>
     </div>
   </div>
 </template>

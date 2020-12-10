@@ -1,7 +1,8 @@
 <template>
   <fragment>
     <c-hero-split />
-    <c-clients top-divider class="center-content" />
+    <c-clients top-divider bottom-divider class="center-content" />
+    <WhatDoesFonzDoHome />
     <c-CoasterBuyInfo top-divider />
     <DownloadAppHome />
     <!-- <DownloadApp /> -->
@@ -24,6 +25,7 @@ import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
 import CImage from "@/components/elements/Image.vue";
 import DownloadApp from "@/components/sections/DownloadApp.vue";
 import DownloadAppHome from "@/components/sections/DownloadAppHome.vue";
+import WhatDoesFonzDoHome from "@/components/sections/WhatDoesFonzDoHome.vue";
 
 export default {
   name: "Home",
@@ -35,7 +37,8 @@ export default {
     CCoasterBuyInfo,
     CRoadmap,
     DownloadApp,
-    DownloadAppHome
+    DownloadAppHome,
+    WhatDoesFonzDoHome
   },
 
   methods: {

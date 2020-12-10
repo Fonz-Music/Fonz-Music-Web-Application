@@ -191,10 +191,10 @@ export default {
 
       var totalPrice = localStorage.get("totalPrice");
 
-      axios.put("/i/checkout/payment-intent", {
-        paymentIntent: this.clientSecret,
-        amount: totalPrice
-      });
+      // axios.put("/i/checkout/payment-intent", {
+      //   paymentIntent: this.clientSecret,
+      //   amount: totalPrice
+      // });
 
       this.form.addEventListener("submit", async event => {
         try {

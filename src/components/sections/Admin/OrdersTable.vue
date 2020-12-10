@@ -26,18 +26,40 @@
         </b-dropdown-item>
       </b-dropdown>
 
-      <!-- <span @click.prevent="getOrders()"> -->
-        <b-form-checkbox
-          id="checkbox-1"
-          v-model="showFulfilled"
-          @click.prevent="getOrders()"
-          name="checkbox-1"
-          value="true"
-          unchecked-value="false"
+      <b-form-checkbox
+        id="checkbox-1"
+        v-model="showFulfilled"
+        @click.prevent="getOrders()"
+        name="checkbox-1"
+        value="true"
+        unchecked-value="false"
+      >
+        Show fulfilled orders
+      </b-form-checkbox>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="filterInput"
+          class="mb-0"
         >
-          Show fulfilled orders
-        </b-form-checkbox>
-      <!-- </span> -->
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''"
+                >Clear</b-button
+              >
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
     </b-row>
 
     <span>
@@ -45,15 +67,13 @@
     </span>
 
     <div class="table-style">
-      <!-- <b-table :items="orders" :limit="limit" :current-page="page" :per-page="limit" > -->
-      <!-- </b-table> -->
-
       <b-table
         hover
         :items="items"
         :fields="fields"
         :per-page="limit"
         :current-page="page"
+        :filter="filter"
       >
         <template #cell(order_fufillment)="data">
           <b-button
@@ -125,10 +145,10 @@ const db = firebase.firestore();
 export default {
   name: "COrdersTable2",
   watch: {
-    showFulfilled: function() {
-      this.isFulfilled = this.showFulfilled === 'true';
+    showFulfilled: function () {
+      this.isFulfilled = this.showFulfilled === "true";
       this.getOrders();
-    }
+    },
   },
 
   data() {
@@ -136,24 +156,34 @@ export default {
       fields: [
         {
           key: "order_id",
+          sortable: true,
         },
         {
           key: "order_name",
+          sortable: true,
         },
         {
           key: "order_quantity",
+          sortable: true,
         },
         {
           key: "order_value",
+          sortable: true,
         },
         {
           key: "order_address",
         },
         {
+          key: "order_created",
+          sortable: true,
+        },
+        {
           key: "order_fufillment",
+          sortable: true,
         },
         {
           key: "order_assigned_to",
+          sortable: true,
         },
       ],
 
@@ -168,7 +198,8 @@ export default {
       orders: [],
       assignedTo: "All",
       showFulfilled: "false",
-      isFulfilled: this.showFulfilled === 'true',
+      isFulfilled: this.showFulfilled === "true",
+      filter: null,
     };
   },
 
@@ -187,7 +218,10 @@ export default {
 
     async getOrders() {
       console.log("getting orders");
-      console.log({ showFulfilled: this.showFulfilled, isFulfilled: this.isFulfilled  })
+      console.log({
+        showFulfilled: this.showFulfilled,
+        isFulfilled: this.isFulfilled,
+      });
       this.items = [];
       let ordersRef = db.collection("orders");
       this.lastDoc = this.ordersUnchanged[this.limit - 1] || 0;
@@ -200,8 +234,8 @@ export default {
       console.log(ordersRef);
       ordersRef = ordersRef.orderBy("created");
       // if(this.showFulfilled === "true" || this.showFulfilled == false) {
-      if(!this.isFulfilled) {
-        console.log("showing unfulfille")
+      if (!this.isFulfilled) {
+        console.log("showing unfulfille");
         ordersRef = ordersRef.where("fulfilled", "==", false);
       }
 
@@ -305,6 +339,7 @@ export default {
           order_id: orderId,
           order_name: buyerName,
           order_date: date,
+          order_created: date,
           order_quantity: quantity,
           order_value: value,
           order_address: address,

@@ -49,7 +49,8 @@ export default {
     },
     styleObject: {
       type: Object
-    }
+    },
+    clientSecret: ""
   },
   data() {
     return {
@@ -122,6 +123,7 @@ export default {
       e.addEventListener("load", callback);
       console.log("finished loadSDK");
     },
+
     sendCartIdToServer() {
       var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
       var emailIntent = localStorage.getItem("guestEmail");
@@ -150,6 +152,7 @@ export default {
         })
         .then(resp => {
           console.log("beginning on payment intent");
+          this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp, null, 4));
           localStorage.setItem("clientSecret", resp.data.client_secret);
           // this.clientSecret = resp.data.client_secret;
@@ -184,6 +187,13 @@ export default {
           return;
         }
         displayError.textContent = "";
+      });
+
+      var totalPrice = localStorage.get("totalPrice");
+
+      axios.put("/i/checkout/payment-intent", {
+        paymentIntent: this.clientSecret,
+        amount: totalPrice
       });
 
       this.form.addEventListener("submit", async event => {

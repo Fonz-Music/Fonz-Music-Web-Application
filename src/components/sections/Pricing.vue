@@ -534,6 +534,7 @@ export default {
       console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
+        console.log("running analytics");
         // update CART
         firebase.analytics().logEvent("change_cart", {
           content_type: "coaster",
@@ -545,13 +546,16 @@ export default {
         axios
           .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
           .then(resp => {
+            console.log("naving to checkout");
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
           .catch(error => {
+            console.log("error naving to checkout");
             console.error(error);
           });
       } else {
+        console.log("not running analytics");
         // create CART
         axios
           .post(`/i/cart/${packageId}/${this.currency}`)
@@ -563,11 +567,13 @@ export default {
               currency: this.currency,
               items: [{ cartId, ...this.pricePlans[plan] }]
             });
+            console.log("not naving to checkout");
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
           .catch(error => {
+            console.log("big error naving to checkout");
             console.error(error);
           });
       }

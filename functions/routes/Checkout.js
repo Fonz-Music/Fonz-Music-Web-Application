@@ -4,7 +4,11 @@ const Shop = require("../controllers/Shop");
 const _ = require("lodash");
 
 router.post("/payment-intent", (req, res) => {
-  const { cartId, shipping, receipt_email } = req.body;
+  const {
+    cartId,
+    shipping,
+    receipt_email
+  } = req.body;
   if (!cartId || !shipping || !receipt_email)
     return res.status(400).json({
       message: "Missing parameters."
@@ -20,12 +24,14 @@ router.post("/payment-intent", (req, res) => {
 
   // if (req.cookies.hasOwnProperty('paymentIntent')) {
   // console.log(req.cookies['paymentIntent'])
-  
+
 
   if (_.has(req.cookies, "paymentIntent")) {
     // let { paymentIntent } = res.cookies;
     let paymentIntent = req.cookies["paymentIntent"];
-    console.log({ paymentIntent });
+    console.log({
+      paymentIntent
+    });
     Shop.getPaymentIntent(paymentIntent, shipping, receipt_email)
       .then(paymentIntent => {
         res.json(paymentIntent);
@@ -49,6 +55,26 @@ router.post("/payment-intent", (req, res) => {
   }
 });
 
+router.update("/payment-intent", (req, res) => {
+  const {
+    paymentIntent,
+    amount
+  } = req.body;
+  if (!paymentIntent || !amount) return res.status(400).json({
+    message: "Missing parameters."
+  });
+
+  Shop.updatePaymentIntent(paymentIntent, amount)
+    .then(paymentIntent => {
+      res.json(paymentIntent);
+    })
+    .catch(error => {
+      res.status(error.status || 500).json(error);
+    });
+
+
+})
+
 router.post("/webhook", (req, res) => {
   const sig = req.headers["stripe-signature"].toString();
   if (!sig || !req.rawBody)
@@ -68,7 +94,13 @@ router.post("/webhook", (req, res) => {
 
 const Email = require('../controllers/Email');
 router.get('/email', (req, res) => {
-  Email.generateEmailSuccessfulOrder({totalAmount: 100, shippingCost: 10, totalDiscount: 5, totalAddons: 10, coasterCost: 40}, 3).then((resp) => {
+  Email.generateEmailSuccessfulOrder({
+    totalAmount: 100,
+    shippingCost: 10,
+    totalDiscount: 5,
+    totalAddons: 10,
+    coasterCost: 40
+  }, 3).then((resp) => {
     res.send(resp);
   }).catch((error) => {
     console.error(error);

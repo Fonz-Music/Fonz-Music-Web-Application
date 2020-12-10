@@ -309,6 +309,17 @@ exports.getPaymentIntent = paymentIntent => {
   });
 };
 
+exports.updatePaymentIntent = (paymentIntent, amount) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const paymentResp = await stripe.paymentIntents.update(paymentIntent, { amount });
+      resolve(paymentResp);
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
 exports.createPayment = (cartId, shipping, receipt_email) => {
   return new Promise(async (resolve, reject) => {
     try {

@@ -17,13 +17,13 @@
         ]"
       >
         <h2
-          class="mt-0 mb-16 reveal-from-bottom text-center favorite-host"
+          class="reveal-from-bottom text-center favorite-host"
           data-reveal-delay="150"
         >
           <!-- Make music
         <span style="color: #fcc485;">collaborative</span> again. -->
           are you ready to become your friend&apos;s
-          <span style="color: #fcc485;">favorite host?</span>
+          <span style="color: #ff9425;">favorite host?</span>
         </h2>
       </div>
       <div v-if="loading" class="spinner center-content">
@@ -398,9 +398,10 @@
                 </div>
                 <div class="text-xs">
                   <p>
-                    For the DJ who adores throwing parties, tailgates, and
-                    pre-games. No more leaving your laptop open, being
-                    interrupted, or giving your phone to a stranger.
+                    For the frat house. For the sorority mixer. For throwing the
+                    party of the year. Have a coaster at the pool, at the pong
+                    table, at the dye table. Or, for giving out to five friends
+                    (who need your music taste).
                   </p>
                 </div>
               </div>
@@ -409,15 +410,17 @@
                   <li class="">
                     FREE Shipping (Usually
                     {{
-                      determineCurrencySymbol + this.addons.shipping.price * 3
+                      determineCurrencySymbol + this.addons.shipping.price * 5
                     }})
                   </li>
 
-                  <li class="">Have a coaster to keep for your roadtrips</li>
+                  <li class="">
+                    Now you can tell who should join the house by what they
+                    queue
+                  </li>
 
                   <li class="">
-                    No more shoulder-taps, interrupts, or requests at your
-                    shindigs
+                    Have a coaster in every room &amp; every car of your convoy
                   </li>
                 </ul>
               </div>
@@ -613,6 +616,9 @@ export default {
 </script>
 
 <style media="screen">
+.pricing-inner {
+  padding: 50px !important;
+}
 .pricing .tiles-item-inner {
   background: #d7d7d7 !important;
   height: 800px;
@@ -629,9 +635,7 @@ p {
   font-family: "MuseoSans500" !important;
   font-size: 40px;
 }
-.bundle-pricing-card {
-  /* margin-bottom: 20px; */
-}
+
 .bundle-name {
   color: #b188b9;
   font-family: "MuseoSans500" !important;
@@ -643,6 +647,9 @@ p {
 }
 #five-coasters {
   font-size: 36px;
+}
+.package-benefits li {
+  color: rgb(149, 156, 177);
 }
 /* .coaster-price span {
   color: #ff9425;

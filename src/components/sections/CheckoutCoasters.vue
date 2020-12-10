@@ -310,6 +310,25 @@ export default {
           console.error(error);
         });
     },
+    getCart() {
+      console.log("getting cart");
+      // const packageId = localStorage.getItem("package");
+      var localCartId = localStorage.getItem("cartId");
+      axios
+        .get(`${this.$API_URL}/i/cart/${localCartId}`)
+        .then(resp => {
+          console.log("got cart");
+          var currentCard = resp.data;
+          this.currentPackage.price = resp.data.price;
+          this.currentPackage.retailPrice = resp.data.retailPrice;
+          console.log(currentCard);
+          // this.showPricing = true;
+        })
+        .catch(error => {
+          console.log("got cart error");
+          console.error(error);
+        });
+    },
     // for apple pay
     loadStripeSdk: (pk, version = "v3", callback) => {
       console.log("opening window");
@@ -329,7 +348,7 @@ export default {
       // const emailIntent = localStorage.getItem("guestEmail");
       // const nameIntent = localStorage.getItem("guestName");
       var localCartId = localStorage.getItem("cartId");
-      console.log("getting card ");
+      // console.log("getting card ");
       console.log("local cart" + localCartId);
       // console.log("guestAddress: " + addressIntent);
       axios
@@ -355,6 +374,7 @@ export default {
   async mounted() {
     this.getPricing();
     this.sendCartIdToServer();
+    // this.getCart();
 
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
@@ -506,9 +526,17 @@ export default {
     },
     getImgUrl() {
       // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/CoasterPictures/coaster" +
-        this.currentPackage.quantity +
-        ".png");
+      if (
+        this.currentPackage.quantity == 1 ||
+        this.currentPackage.quantity == 2 ||
+        this.currentPackage.quantity == 3
+      ) {
+        return require("@/assets/images/CoasterPictures/coaster" +
+          this.currentPackage.quantity +
+          ".png");
+      } else {
+        return require("@/assets/images/CoasterPictures/coaster" + 3 + ".png");
+      }
     },
     getItemTitle() {
       return this.currentPackage.title;

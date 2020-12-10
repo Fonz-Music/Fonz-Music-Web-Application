@@ -17,13 +17,13 @@
         ]"
       >
         <h2
-          class="mt-0 mb-16 reveal-from-bottom text-center favorite-host"
+          class="reveal-from-bottom text-center favorite-host"
           data-reveal-delay="150"
         >
           <!-- Make music
         <span style="color: #fcc485;">collaborative</span> again. -->
           are you ready to become your friend&apos;s
-          <span style="color: #fcc485;">favorite host?</span>
+          <span style="color: #ff9425;">favorite host?</span>
         </h2>
       </div>
       <div v-if="loading" class="spinner center-content">
@@ -40,22 +40,39 @@
         :class="[pushLeft && 'push-left']"
         v-show="this.showPricing"
       >
-        <div class="tiles-item reveal-from-right" data-reveal-delay="400">
+        <div
+          class="tiles-item bundle-pricing-card reveal-from-right"
+          data-reveal-delay="400"
+        >
+          <div class="center-content bundle-name-div">
+            <h4 class="bundle-name">hangout host</h4>
+            <div class="bundle-text">
+              <p>bundle</p>
+            </div>
+          </div>
+
           <div class="tiles-item-inner">
-            <div class="coaster-package-info row">
-              <div class="col-8 coaster-name">
-                <h2>1 coaster</h2>
+            <div class="coaster-package-info">
+              <div class=" row">
+                <div class="col-8 coaster-name center-content">
+                  <h2>1 coaster</h2>
+                </div>
+                <div class="col-4 text-right coaster-price">
+                  <span class="pricing-item-price-currency h3">
+                    {{ determineCurrencySymbol }}
+                  </span>
+                  <span
+                    class="pricing-item-price-amount h1"
+                    style="color: #B288B9"
+                  >
+                    {{ this.pricePlans[0].price }}
+                  </span>
+                </div>
               </div>
-              <div class="col-4 text-right coaster-price">
-                <span class="pricing-item-price-currency h3">
-                  {{ determineCurrencySymbol }}
-                </span>
-                <span
-                  class="pricing-item-price-amount h1"
-                  style="color: #B288B9"
-                >
-                  {{ this.pricePlans[0].price }}
-                </span>
+              <div class="percent-and-shipping ">
+                <div class="percent-off center-content">
+                  <span class="p"></span>
+                </div>
               </div>
             </div>
             <c-image
@@ -112,11 +129,20 @@
           </div>
         </div>
 
-        <div class="tiles-item reveal-from-bottom" data-reveal-delay="200">
+        <div
+          class="tiles-item bundle-pricing-card reveal-from-bottom"
+          data-reveal-delay="200"
+        >
+          <div class="center-content bundle-name-div">
+            <h4 class="bundle-name">party pleaser</h4>
+            <div class="bundle-text">
+              <p>bundle</p>
+            </div>
+          </div>
           <div class="tiles-item-inner">
             <div class="coaster-package-info">
               <div class="row">
-                <div class="col-8 coaster-name">
+                <div class="col-8 coaster-name center-content">
                   <h2>3 coasters</h2>
                 </div>
                 <div class="col-4 text-right coaster-price">
@@ -132,10 +158,10 @@
                 </div>
               </div>
               <div class="percent-and-shipping">
-                <div class="percent-off">
+                <div class="percent-off center-content">
                   <span
                     class="pricing-item-price-amount h3"
-                    style="color: orange"
+                    style="color: #b188b9"
                   >
                     {{ this.pricePlans[2].discount }}
                   </span>
@@ -161,7 +187,7 @@
                   </span>
                   <span
                     class="pricing-item-price-amount h3"
-                    style="text-decoration: Line-Through; color: orange"
+                    style="text-decoration: Line-Through; color: #b188b9"
                     >{{ this.perItemPrice(0) }}</span
                   >
                   <span class="pricing-item-price-after text-sm"
@@ -207,11 +233,20 @@
           </div>
         </div>
 
-        <div class="tiles-item reveal-from-left" data-reveal-delay="400">
+        <div
+          class="tiles-item bundle-pricing-card reveal-from-left"
+          data-reveal-delay="400"
+        >
+          <div class="center-content bundle-name-div">
+            <h4 class="bundle-name">chill chauffeur</h4>
+            <div class="bundle-text">
+              <p>bundle</p>
+            </div>
+          </div>
           <div class="tiles-item-inner">
             <div class="coaster-package-info">
               <div class=" row">
-                <div class="col-8 coaster-name">
+                <div class="col-8 coaster-name center-content">
                   <h2>2 coasters</h2>
                 </div>
                 <div class="col-4 text-right coaster-price">
@@ -226,10 +261,10 @@
                   </span>
                 </div>
                 <div class="percent-and-shipping ">
-                  <div class="percent-off">
+                  <div class="percent-off center-content">
                     <span
                       class="pricing-item-price-amount h3"
-                      style="color: orange"
+                      style="color: #b188b9"
                     >
                       {{ this.pricePlans[1].discount }}
                     </span>
@@ -256,7 +291,7 @@
                   </span>
                   <span
                     class="pricing-item-price-amount h3"
-                    style="text-decoration: Line-Through; color: orange"
+                    style="text-decoration: Line-Through; color: #b188b9"
                     >{{ this.perItemPrice(0) }}</span
                   >
                   <span class="pricing-item-price-after text-sm"
@@ -289,6 +324,114 @@
             </div>
             <div class="pricing-item-cta mb-8">
               <c-button tag="a" color="primary" wide @click="updatePackage(1)"
+                >Buy Now</c-button
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="tiles-item bundle-pricing-card reveal-from-bottom"
+          data-reveal-delay="200"
+        >
+          <div class="center-content bundle-name-div">
+            <h4 class="bundle-name">rush &amp; rager</h4>
+            <div class="bundle-text">
+              <p>bundle</p>
+            </div>
+          </div>
+          <div class="tiles-item-inner">
+            <div class="coaster-package-info">
+              <div class="row">
+                <div class="col-8 coaster-name center-content">
+                  <h2 id="five-coasters">5 coasters</h2>
+                </div>
+                <div class="col-4 text-right coaster-price">
+                  <span class="pricing-item-price-currency h3">
+                    {{ determineCurrencySymbol }}
+                  </span>
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="color: #B288B9"
+                  >
+                    {{ this.pricePlans[3].price }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="percent-and-shipping">
+                <div class="percent-off center-content">
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="color: #b188b9"
+                  >
+                    {{ this.pricePlans[3].discount }}
+                  </span>
+                  <span class="p">% off &amp; FREE shipping</span>
+                </div>
+              </div>
+            </div>
+            <c-image
+              class="image-medium"
+              :src="require('@/assets/images/CoasterPictures/coaster3.png')"
+              alt="Splash Coaster"
+              :width="712"
+              :height="400"
+            />
+            <div class="pricing-item-content">
+              <div class="">
+                <div class="pricing-item-price mb-4 center-content">
+                  <span class="pricing-item-price-currency h3">
+                    {{ determineCurrencySymbol }}
+                  </span>
+                  <span class="pricing-item-price-amount h2">
+                    {{ this.perItemPrice(3) }}
+                  </span>
+                  <span
+                    class="pricing-item-price-amount h3"
+                    style="text-decoration: Line-Through; color: #b188b9"
+                    >{{ this.perItemPrice(0) }}</span
+                  >
+                  <span class="pricing-item-price-after text-sm"
+                    >&nbsp;each
+                  </span>
+                </div>
+                <div class="text-xs">
+                  <p>
+                    For the frat house. For the sorority mixer. For throwing the
+                    party of the year. Have a coaster at the pool, at the pong
+                    table, at the dye table. Or, for giving out to five friends
+                    (who need your music taste).
+                  </p>
+                </div>
+              </div>
+              <div class="">
+                <ul class="package-benefits">
+                  <li class="">
+                    FREE Shipping (Usually
+                    {{
+                      determineCurrencySymbol + this.addons.shipping.price * 5
+                    }})
+                  </li>
+
+                  <li class="">
+                    Now you can tell who should join the house by what they
+                    queue
+                  </li>
+
+                  <li class="">
+                    Have a coaster in every room &amp; every car of your convoy
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="pricing-item-cta mb-8">
+              <c-button
+                class="buy-now-button"
+                tag="a"
+                color="primary"
+                wide
+                @click="updatePackage(3)"
                 >Buy Now</c-button
               >
             </div>
@@ -388,6 +531,7 @@ export default {
         input.clientWidth * multiplier - thumbOffset + priceInputOffset + "px";
     },
     updatePackage(plan) {
+      console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
         // update CART
@@ -473,13 +617,44 @@ export default {
 </script>
 
 <style media="screen">
+.pricing-inner {
+  padding: 50px !important;
+}
 .pricing .tiles-item-inner {
   background: #d7d7d7 !important;
+  height: 800px;
 }
 .pricing .tiles-item-inner h3,
 p {
   /* color: white !important; */
 }
+.coaster-price {
+  margin: auto;
+}
+
+.coaster-name h2 {
+  font-family: "MuseoSans500" !important;
+  font-size: 40px;
+}
+
+.bundle-name {
+  color: #b188b9;
+  font-family: "MuseoSans500" !important;
+  font-size: 34px;
+  margin-bottom: 0;
+}
+.bundle-text p {
+  padding: 0;
+}
+#five-coasters {
+  font-size: 36px;
+}
+.package-benefits li {
+  color: rgb(149, 156, 177);
+}
+/* .coaster-price span {
+  color: #ff9425;
+} */
 .favorite-host {
   max-width: 500px;
   margin: 0 auto;

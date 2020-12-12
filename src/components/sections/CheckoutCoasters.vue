@@ -12,7 +12,8 @@
       <div class="col-lg-6">
         <div class=" row package-total-and-name">
           <div class="col-8 product-details">
-            <h4 class="">{{ getItemTitle }}</h4>
+            <h4 class="bundle-title center-content">{{ getItemTitle }}</h4>
+            <p class="bundle-text center-content">bundle</p>
             <!-- <p>{{ getItemInfo }}</p> -->
           </div>
 
@@ -48,7 +49,7 @@
             </label>
           </div>
         </div> -->
-        <br />
+        <!-- <br /> -->
         <div class="promo-section">
           <p>Got a promo code from a friend?</p>
 
@@ -598,6 +599,15 @@ export default {
 .checkout-page h3 {
   margin: 0px;
 }
+.bundle-title {
+  color: #b188b9;
+  font-family: "MuseoSans500" !important;
+  font-size: 34px;
+  margin-bottom: 0;
+}
+.bundle-text p {
+  padding: 0;
+}
 .form-check-label {
   font-size: 10pt;
   vertical-align: top;
@@ -606,7 +616,7 @@ export default {
   /* min-width: 50px;
   max-width: 500px; */
   /* width: 100%; */
-  margin: 30px auto;
+  margin: 12px auto;
 }
 .btn-secondary {
   color: #b288b9;
@@ -614,10 +624,10 @@ export default {
   border: 0;
 }
 .product-details p {
-  font-size: 10pt;
+  /* font-size: 10pt; */
 }
 .product-details h4 {
-  font-size: 12pt;
+  /* font-size: 12pt; */
   margin: 0px 0px 0px 0px;
 }
 .product-price h3 {

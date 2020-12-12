@@ -45,7 +45,7 @@
           data-reveal-delay="400"
         >
           <div class="center-content bundle-name-div">
-            <h4 class="bundle-name">hangout host</h4>
+            <h4 class="bundle-name">{{ this.getItemTitle(0) }}</h4>
             <div class="bundle-text">
               <p>bundle</p>
             </div>
@@ -134,7 +134,7 @@
           data-reveal-delay="200"
         >
           <div class="center-content bundle-name-div">
-            <h4 class="bundle-name">party pleaser</h4>
+            <h4 class="bundle-name">{{ this.getItemTitle(2) }}</h4>
             <div class="bundle-text">
               <p>bundle</p>
             </div>
@@ -238,7 +238,7 @@
           data-reveal-delay="400"
         >
           <div class="center-content bundle-name-div">
-            <h4 class="bundle-name">chill chauffeur</h4>
+            <h4 class="bundle-name">{{ this.getItemTitle(1) }}</h4>
             <div class="bundle-text">
               <p>bundle</p>
             </div>
@@ -335,7 +335,7 @@
           data-reveal-delay="200"
         >
           <div class="center-content bundle-name-div">
-            <h4 class="bundle-name">rush &amp; rager</h4>
+            <h4 class="bundle-name">{{ this.getItemTitle(3) }}</h4>
             <div class="bundle-text">
               <p>bundle</p>
             </div>
@@ -519,6 +519,9 @@ export default {
         this.pricePlans[plan].price / this.pricePlans[plan].quantity
       ).toFixed(2);
     },
+    getItemTitle(plan) {
+      return this.pricePlans[plan].title;
+    },
     handlePricingSlide(e) {
       this.handleSliderValuePosition(e.target);
     },
@@ -640,7 +643,7 @@ p {
 
 .coaster-name h2 {
   font-family: "MuseoSans500" !important;
-  font-size: 40px;
+  font-size: 36px;
 }
 
 .bundle-name {
@@ -652,9 +655,9 @@ p {
 .bundle-text p {
   padding: 0;
 }
-#five-coasters {
+/* #five-coasters {
   font-size: 36px;
-}
+} */
 .package-benefits li {
   color: rgb(149, 156, 177);
 }

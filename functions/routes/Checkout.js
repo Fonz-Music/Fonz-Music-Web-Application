@@ -55,7 +55,7 @@ router.post("/payment-intent", (req, res) => {
   }
 });
 
-router.update("/payment-intent", (req, res) => {
+router.put("/payment-intent", (req, res) => {
   const {
     paymentIntent,
     amount

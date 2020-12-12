@@ -17,13 +17,13 @@
       <div class="orderReviewTable col-lg-6">
         <div class=" row package-total-and-name">
           <div class="col-8 product-details">
-            <h4 class="">{{ getItemTitle }}</h4>
-            <!-- <p>{{ getItemInfo }}</p> -->
+            <h4 class="bundle-title center-content">{{ getItemTitle }}</h4>
+            <p class="bundle-text center-content">bundle</p>
           </div>
 
           <div class="col-4 product-price">
             <h3 class="text-right">
-              {{ determineCurrencySymbol }}{{ getRetailPrice }}
+              {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
             </h3>
           </div>
         </div>
@@ -31,9 +31,9 @@
           <table class="table table-sm table-borderless">
             <tbody>
               <tr>
-                <th scope="row">Order Number</th>
+                <th scope="row">Order Name</th>
                 <td class="text-right">
-                  1
+                  {{ this.orderName }}
                 </td>
               </tr>
               <tr>
@@ -46,14 +46,14 @@
                   {{ this.address.replace(/['"]+/g, "") }}
                 </td>
               </tr>
-              <tr>
-                <th scope="row">Packaging + Delivery</th>
+              <tr v-if="determineShipping">
+                <th scope="row">Delivery</th>
                 <td class="text-right">{{ determineCurrencySymbol }}3</td>
               </tr>
               <tr class="total-amount">
                 <th scope="row">Total</th>
                 <td class="text-right">
-                  {{ determineCurrencySymbol }}{{ this.packagePrice }}
+                  {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
                 </td>
               </tr>
             </tbody>
@@ -90,7 +90,8 @@ export default {
       address: localStorage.getItem("guestAddress"),
       packagePrice: localStorage.getItem("totalPrice"),
       extraPackaging: localStorage.getItem("addedExtraPackaging"),
-      addedPromo: localStorage.getItem("addedPromoSuccess"),
+      orderName: localStorage.getItem("guestName"),
+      // addedPromo: localStorage.getItem("addedPromoSuccess"),
       promoCode: "",
       totalPrice: 0,
       governmentTheft: 2,
@@ -100,7 +101,8 @@ export default {
         price: 22,
         retailPrice: 60,
         title: "fonz coaster",
-        freeShipping: true
+        freeShipping: true,
+        couponCode: null
       },
       packageId: "",
       showPricing: false,
@@ -110,6 +112,7 @@ export default {
   },
   beforeMount() {
     this.getPricing();
+    this.getCart();
   },
   beforeCreate() {},
   methods: {
@@ -132,11 +135,40 @@ export default {
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then(resp => {
-          this.currentPackage = resp.data;
-          console.log(this.currentPackage);
+          // this.currentPackage = resp.data;
+          this.currentPackage.title = resp.data.title;
+          this.currentPackage.quantity = resp.data.quantity;
+          this.currentPackage.freeShipping = resp.data.freeShipping;
+          // console.log(this.currentPackage);
           this.showPricing = true;
         })
         .catch(error => {
+          console.error(error);
+        });
+    },
+    getCart() {
+      console.log("getting cart");
+      // const packageId = localStorage.getItem("package");
+      var localCartId = localStorage.getItem("cartId");
+      axios
+        .get(`${this.$API_URL}/i/cart/${localCartId}`)
+        .then(resp => {
+          console.log("got cart");
+          var currentCard = resp.data;
+          this.currentPackage.price = resp.data.price;
+          this.currentPackage.retailPrice = resp.data.retailPrice;
+          try {
+            console.log("added coupon " + resp.data.coupon);
+            this.currentPackage.couponCode = resp.data.coupon;
+            console.log("added coupon " + this.currentPackage.couponCode);
+          } catch (e) {
+            console.log("no coupon");
+          }
+          console.log(currentCard);
+          // this.showPricing = true;
+        })
+        .catch(error => {
+          console.log("got cart error");
           console.error(error);
         });
     }
@@ -148,19 +180,21 @@ export default {
   computed: {
     calculateTotalPrice() {
       var addonTotal = 0;
-      if (this.promoValid) {
+      if (this.determineAddDiscount) {
         addonTotal -= 5;
       }
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      if (this.extraPackaging) {
-        addonTotal += 3;
-      }
+      // if (this.extraPackaging) {
+      //   addonTotal += 3;
+      // }
+      this.totalPrice = this.currentPackage.price + addonTotal;
+      localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {
-      if (this.promoValid) return this.currentPackage.price - 5;
+      if (this.determineAddDiscount) return this.currentPackage.price - 5;
       else return this.currentPackage.price;
     },
     getPackageId() {
@@ -169,9 +203,17 @@ export default {
     },
     getImgUrl() {
       // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
-      return require("@/assets/images/CoasterPictures/coaster" +
-        this.currentPackage.quantity +
-        ".png");
+      if (
+        this.currentPackage.quantity == 1 ||
+        this.currentPackage.quantity == 2 ||
+        this.currentPackage.quantity == 3
+      ) {
+        return require("@/assets/images/CoasterPictures/coaster" +
+          this.currentPackage.quantity +
+          ".png");
+      } else {
+        return require("@/assets/images/CoasterPictures/coaster" + 3 + ".png");
+      }
     },
     getItemTitle() {
       return this.currentPackage.title;
@@ -180,13 +222,21 @@ export default {
       return this.currentPackage.price;
     },
     determineShipping() {
-      return this.currentPackage.freeShipping;
+      if (this.currentPackage.quantity == 1) {
+        return true;
+      } else return false;
     },
     determineCurrencySymbol() {
       // console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
+    },
+    determineAddDiscount() {
+      console.log("coupon: " + this.currentPackage.couponCode);
+      if (this.currentPackage.couponCode != null) {
+        return true;
+      } else return false;
     }
   }
 };
@@ -214,6 +264,15 @@ export default {
 .order-placed-heading {
   padding: 50px;
 }
+.bundle-title {
+  color: #b188b9;
+  font-family: "MuseoSans500" !important;
+  font-size: 34px;
+  margin-bottom: 0;
+}
+.bundle-text p {
+  padding: 0;
+}
 .coasterPackageImage {
   /* min-width: 50px;
   max-width: 500px; */
@@ -225,11 +284,8 @@ export default {
   background-color: transparent;
   border: 0;
 }
-.product-details p {
-  font-size: 10pt;
-}
+
 .product-details h4 {
-  font-size: 12pt;
   margin: 0px 0px 0px 0px;
 }
 .product-price h3 {

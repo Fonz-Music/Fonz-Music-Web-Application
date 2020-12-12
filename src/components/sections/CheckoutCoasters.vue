@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-4 product-price">
-            <div v-if="!promoValid">
+            <div v-if="!determineAddDiscount">
               <h3 class="text-right">
                 {{ determineCurrencySymbol }}{{ getRetailPrice }}
               </h3>
@@ -51,7 +51,7 @@
         </div> -->
         <!-- <br /> -->
         <div class="promo-section">
-          <p>Got a promo code from a friend?</p>
+          <p>got a promo code from a friend?</p>
 
           <b-form inline class="row" @submit.stop.prevent="addPromoCode">
             <b-input
@@ -96,7 +96,7 @@
                 </td>
                 <!-- </div> -->
               </tr>
-              <tr v-if="addedPromoSuccess">
+              <tr v-if="determineAddDiscount">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ determineCurrencySymbol }}5
@@ -165,10 +165,12 @@ export default {
         price: 28,
         retailPrice: 60,
         title: "fonz coaster",
-        freeShipping: true
+        freeShipping: true,
+        couponCode: null
       },
       packageId: "",
       freeShipping: false,
+
       addons: { shipping: {}, extraPackaging: {} }
     };
   },
@@ -286,7 +288,7 @@ export default {
     // },
     getTotalPrice() {
       var addonTotal = 0;
-      if (this.promoValid) {
+      if (this.currentPackage.couponCode != null) {
         addonTotal -= 5;
       }
       if (!this.currentPackage.freeShipping) {
@@ -303,8 +305,11 @@ export default {
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then(resp => {
-          this.currentPackage = resp.data;
-          console.log(this.currentPackage);
+          // this.currentPackage = resp.data;
+          this.currentPackage.title = resp.data.title;
+          this.currentPackage.quantity = resp.data.quantity;
+          this.currentPackage.freeShipping = resp.data.freeShipping;
+          // console.log(this.currentPackage);
           this.showPricing = true;
         })
         .catch(error => {
@@ -322,6 +327,13 @@ export default {
           var currentCard = resp.data;
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
+          try {
+            console.log("added coupon " + resp.data.coupon);
+            this.currentPackage.couponCode = resp.data.coupon;
+            console.log("added coupon " + this.currentPackage.couponCode);
+          } catch (e) {
+            console.log("no coupon");
+          }
           console.log(currentCard);
           // this.showPricing = true;
         })
@@ -375,7 +387,7 @@ export default {
   async mounted() {
     this.getPricing();
     this.sendCartIdToServer();
-    // this.getCart();
+    this.getCart();
 
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
@@ -504,7 +516,7 @@ export default {
   computed: {
     calculateTotalPrice() {
       var addonTotal = 0;
-      if (this.promoValid) {
+      if (this.determineAddDiscount) {
         addonTotal -= 5;
       }
       if (!this.currentPackage.freeShipping) {
@@ -518,7 +530,7 @@ export default {
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {
-      if (this.promoValid) return this.currentPackage.price - 5;
+      if (this.determineAddDiscount) return this.currentPackage.price - 5;
       else return this.currentPackage.price;
     },
     getPackageId() {
@@ -558,15 +570,10 @@ export default {
       else return "€";
     },
     determineAddDiscount() {
-      var addPromoFromLocal = localStorage.getItem("addedPromoSuccess");
-      console.log("promo from local" + addPromoFromLocal);
-      if (addPromoFromLocal == true) {
-        console.log("returning true ");
+      console.log("coupon: " + this.currentPackage.couponCode);
+      if (this.addedPromoSuccess || this.currentPackage.couponCode != null) {
         return true;
-      } else {
-        console.log("returning false");
-        return false;
-      }
+      } else return false;
     }
     // determineExtraPacking() {
     //   var extraPackingFromLocal = localStorage.getItem("extraPackaging");

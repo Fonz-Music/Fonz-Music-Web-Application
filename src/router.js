@@ -20,6 +20,7 @@ import PaymentPage from "./views/eCommerce/PaymentPage.vue";
 import PrivacyPolicy from "./views/Misc/PrivacyPolicy.vue";
 import TermsOfService from "./views/Misc/TermsOfService.vue";
 import PageNotFoundPage from "./views/Misc/404notFound.vue";
+import BugFixForm from "./views/Misc/BugFormPage.vue";
 
 // Affiliate
 import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
@@ -98,6 +99,11 @@ export default new Router({
       path: "/tos",
       name: "tos",
       component: TermsOfService
+    },
+    {
+      path: "/bugfix",
+      name: "bugfix",
+      component: BugFixForm
     },
 
     // Affiliate Program

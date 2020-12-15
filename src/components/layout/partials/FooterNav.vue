@@ -5,7 +5,8 @@
                 <router-link to="/contact/">Contact</router-link>
             </li>
             <li>
-                <router-link to="/team/">The Team</router-link>
+              <a href="https://form.jotform.com/Fonz_Music/bugfixform" target="_blank">Report Bug</a>
+                <!-- <router-link to="/team/">The Team</router-link> -->
             </li>
             <li>
                 <router-link to="/about/">About</router-link>

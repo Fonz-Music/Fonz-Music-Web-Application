@@ -125,13 +125,14 @@ export default {
     },
 
     sendCartIdToServer() {
-      var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
+      // var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
+      var addressIntent = localStorage.getItem("guestAddress");
       var emailIntent = localStorage.getItem("guestEmail");
       // var firstNameIntent = localStorage.getItem("firstName");
       // var lastNameIntent = localStorage.getItem("lastName");
       var nameIntent = localStorage.getItem("guestName");
 
-      console.log("adress intent 3" + addressIntent[3]);
+      // console.log("adress intent 3" + addressIntent[3]);
 
       console.log("guestAddress: " + addressIntent);
       var addressLength = addressIntent.length - 1;
@@ -140,11 +141,11 @@ export default {
           cartId: localStorage.getItem("cartId"),
           shipping: {
             address: {
-              line1: addressIntent[0],
-              line2: addressIntent[1],
-              city: addressIntent[2],
-              postal_code: addressIntent[addressLength - 1],
-              country: addressIntent[addressLength - 2]
+              line1: addressIntent,
+              // line2: addressIntent[1],
+              // city: addressIntent[2],
+              // postal_code: addressIntent[addressLength - 1],
+              // country: addressIntent[addressLength - 2]
             },
             name: nameIntent
           },
@@ -190,6 +191,7 @@ export default {
       });
 
       var totalPrice = localStorage.getItem("totalPrice");
+      this.sendCartIdToServer();
 
       // axios.put("/i/checkout/payment-intent", {
       //   paymentIntent: this.clientSecret,
@@ -215,9 +217,9 @@ export default {
             .confirmCardPayment(clientSecretLocal, {
               payment_method: {
                 card: data
-              },
-              shipping: { address: { line1: addressIntent }, name: nameIntent },
-              receipt_email: emailIntent
+              }
+              // shipping: { address: { line1: addressIntent }, name: nameIntent },
+              // receipt_email: emailIntent
             })
             .then(resp => {
               // console.log(resp.error.code);
@@ -248,7 +250,7 @@ export default {
         }
       });
     });
-    this.sendCartIdToServer();
+    
   }
 };
 </script>

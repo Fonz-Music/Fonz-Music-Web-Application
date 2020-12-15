@@ -189,7 +189,7 @@ export default {
         displayError.textContent = "";
       });
 
-      var totalPrice = localStorage.get("totalPrice");
+      var totalPrice = localStorage.getItem("totalPrice");
 
       // axios.put("/i/checkout/payment-intent", {
       //   paymentIntent: this.clientSecret,

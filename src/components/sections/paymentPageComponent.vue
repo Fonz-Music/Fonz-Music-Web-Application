@@ -135,9 +135,11 @@ export default {
       // console.log("adress intent 3" + addressIntent[3]);
 
       console.log("guestAddress: " + addressIntent);
+      var paymentIntentVar = localStorage.getItem("clientSecret");
       var addressLength = addressIntent.length - 1;
       axios
-        .post("/i/checkout/payment-intent", {
+        .put("/i/checkout/payment-intent", {
+          paymentIntent: paymentIntentVar,
           cartId: localStorage.getItem("cartId"),
           shipping: {
             address: {
@@ -155,7 +157,7 @@ export default {
           console.log("beginning on payment intent");
           this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp, null, 4));
-          localStorage.setItem("clientSecret", resp.data.client_secret);
+          
           // this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);

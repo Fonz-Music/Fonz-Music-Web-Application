@@ -221,8 +221,8 @@ export default {
               payment_method: {
                 card: data
               },
-              shipping: { address: { line1: addressIntent }, name: nameIntent },
-              receipt_email: emailIntent
+              // shipping: { address: { line1: addressIntent }, name: nameIntent },
+              // receipt_email: emailIntent
             })
             .then(resp => {
               // console.log(resp.error.code);

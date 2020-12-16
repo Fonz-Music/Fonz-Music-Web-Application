@@ -373,7 +373,7 @@ export default {
         .then(resp => {
           console.log("beginning on payment intent");
           // alert(JSON.stringify(resp, null, 4));
-          localStorage.setItem("clientSecret", resp.data.client_secret);
+          localStorage.setItem("paymentIntent", resp.data.id);
           // this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);

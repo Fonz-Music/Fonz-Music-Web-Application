@@ -135,7 +135,7 @@ export default {
       // console.log("adress intent 3" + addressIntent[3]);
 
       console.log("guestAddress: " + addressIntent);
-      var paymentIntentVar = localStorage.getItem("clientSecret");
+      var paymentIntentVar = localStorage.getItem("paymentIntent");
       var addressLength = addressIntent.length - 1;
       axios
         .put("/i/checkout/payment-intent", {

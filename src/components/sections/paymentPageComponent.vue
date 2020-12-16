@@ -209,19 +209,20 @@ export default {
           };
           // alert(JSON.stringify(data, null, 4));
           // console.log("data: " + data);
-          var clientSecretLocal = localStorage.getItem("clientSecret");
+          // var clientSecretLocal = localStorage.getItem("clientSecret");
           var addressIntent = localStorage.getItem("guestAddress");
           var emailIntent = localStorage.getItem("guestEmail");
           var nameIntent = localStorage.getItem("guestName");
           if (this.amount) data.amount = this.amount;
+          console.log("client sectret " + this.clientSecret);
           // const { token, error } = await this.sendPaymentToStripe(data);
           const { token, error } = await this.stripe
-            .confirmCardPayment(clientSecretLocal, {
+            .confirmCardPayment(this.clientSecret, {
               payment_method: {
                 card: data
               }
-              // shipping: { address: { line1: addressIntent }, name: nameIntent },
-              // receipt_email: emailIntent
+              shipping: { address: { line1: addressIntent }, name: nameIntent },
+              receipt_email: emailIntent
             })
             .then(resp => {
               // console.log(resp.error.code);

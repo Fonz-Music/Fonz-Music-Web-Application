@@ -220,7 +220,7 @@ export default {
             .confirmCardPayment(this.clientSecret, {
               payment_method: {
                 card: data
-              }
+              },
               shipping: { address: { line1: addressIntent }, name: nameIntent },
               receipt_email: emailIntent
             })

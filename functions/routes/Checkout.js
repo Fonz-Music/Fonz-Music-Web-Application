@@ -6,10 +6,10 @@ const _ = require("lodash");
 router.post("/payment-intent", (req, res) => {
   const {
     cartId,
-    shipping,
-    receipt_email
+    // shipping,
+    // receipt_email
   } = req.body;
-  if (!cartId || !shipping || !receipt_email)
+  if (!cartId)
     return res.status(400).json({
       message: "Missing parameters."
     });
@@ -29,10 +29,8 @@ router.post("/payment-intent", (req, res) => {
   if (_.has(req.cookies, "paymentIntent")) {
     // let { paymentIntent } = res.cookies;
     let paymentIntent = req.cookies["paymentIntent"];
-    console.log({
-      paymentIntent
-    });
-    Shop.getPaymentIntent(paymentIntent, shipping, receipt_email)
+
+    Shop.getPaymentIntent(paymentIntent)
       .then(paymentIntent => {
         res.json(paymentIntent);
       })
@@ -41,7 +39,7 @@ router.post("/payment-intent", (req, res) => {
         res.status(error.status || 500).json(error);
       });
   } else {
-    Shop.createPayment(cartId, shipping, receipt_email)
+    Shop.createPayment(cartId)
       .then(paymentIntent => {
         res.cookie("paymentIntent", paymentIntent.id, {
           expire: 3600000 + Date.now()
@@ -58,13 +56,15 @@ router.post("/payment-intent", (req, res) => {
 router.put("/payment-intent", (req, res) => {
   const {
     paymentIntent,
-    amount
+    cartId,
+    shipping,
+    receipt_email
   } = req.body;
-  if (!paymentIntent || !amount) return res.status(400).json({
+  if (!paymentIntent || !cartId || !shipping || !receipt_email) return res.status(400).json({
     message: "Missing parameters."
   });
 
-  Shop.updatePaymentIntent(paymentIntent, amount)
+  Shop.updatePaymentIntent(paymentIntent, cartId, shipping, receipt_email)
     .then(paymentIntent => {
       res.json(paymentIntent);
     })

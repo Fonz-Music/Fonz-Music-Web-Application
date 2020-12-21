@@ -19,7 +19,12 @@
             </c-button>
           </div>
           <div class="play-store col-6 center-content">
-            <c-button class="center-content" tag="a" href="#">
+            <c-button 
+            class="center-content" 
+            tag="a" 
+            href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en_US&gl=US"
+            target="_blank"
+            >
               <font-awesome-icon class="icon" :icon="['fab', 'google-play']" />
               Google Play
             </c-button>

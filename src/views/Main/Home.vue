@@ -3,8 +3,10 @@
     <c-hero-split />
     <c-clients top-divider bottom-divider class="center-content" />
     <WhatDoesFonzDoHome />
+    <br>
+    <DownloadAppHome top-divider/>
     <c-CoasterBuyInfo top-divider />
-    <DownloadAppHome />
+    
     <!-- <DownloadApp /> -->
     <c-roadmap top-divider class="center-content" />
   </fragment>

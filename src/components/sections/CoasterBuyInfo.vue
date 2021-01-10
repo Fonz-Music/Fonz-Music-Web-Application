@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: "What is a fonz Coaster?",
+        title: "what is a fonz coaster?",
         paragraph:
           "Fonz Coasters act as a portable Jukebox. The host links their music provider to the coaster and guests join their session by tapping the coaster."
       }

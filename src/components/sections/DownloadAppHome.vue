@@ -38,16 +38,7 @@
   </div>
        <div class="app-screenshot center-content">
       <carousel :perPageCustom="[[768, 3], [1024, 4]]">
-        <!-- <slide> <img 
-          src="@/assets/images/appScreenshots/appShot1.png" 
-          alt="logo" 
-          class="app-button"
-        /> </slide>
-        <slide> <img 
-          src="@/assets/images/appScreenshots/appShot2.png" 
-          alt="logo" 
-          class="app-button"
-        /> </slide> -->
+        
         <slide> <img 
           src="@/assets/images/appScreenshots/appShot5.png" 
           alt="logo" 
@@ -71,6 +62,16 @@
         
         <slide> <img 
           src="@/assets/images/appScreenshots/appShot7.png" 
+          alt="logo" 
+          class="app-button"
+        /> </slide>
+        <!-- <slide> <img 
+          src="@/assets/images/appScreenshots/appShot1.png" 
+          alt="logo" 
+          class="app-button"
+        /> </slide> -->
+        <slide> <img 
+          src="@/assets/images/appScreenshots/appShot2.png" 
           alt="logo" 
           class="app-button"
         /> </slide>

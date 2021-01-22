@@ -1,9 +1,10 @@
 <template>
   <fragment>
-    <c-hero-split />
-    <c-clients top-divider bottom-divider class="center-content" />
-    <WhatDoesFonzDoHome />
-    <br>
+
+    <c-splash/>
+    
+    <c-splash-blocks/>
+
     <DownloadAppHome top-divider/>
     <c-CoasterBuyInfo top-divider />
     
@@ -17,11 +18,11 @@
 import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
-import CHeroSplit from "@/components/sections/HeroSplit.vue";
+import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
-import CClients from "@/components/sections/Clients.vue";
 import CRoadmap from "@/components/sections/Roadmap.vue";
 import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
+import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
@@ -33,9 +34,9 @@ export default {
   name: "Home",
   components: {
     CImage,
-    CHeroSplit,
+    CSplash,
+    CSplashBlocks,
 
-    CClients,
     CCoasterBuyInfo,
     CRoadmap,
     DownloadApp,

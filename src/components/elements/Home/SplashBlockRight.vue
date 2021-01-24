@@ -1,20 +1,18 @@
 <template>
     <div class="container">
-        <div class="row">
+        <div class="row d-flex flex-row-reverse mobile-align-centre">
+            <div class="col-md-4 col-sm-12">
+                <h3> {{heading}} </h3>
+                <p> {{paragraph}} </p>
+            </div>
 
-            <div class="split-item-content center-content-mobile center-content col-7">
+            <div class="col-md-8 col-sm-12 mobile-align-centre">
                 <c-image
                     :src="require('@/assets/images/' + imageSubPath + '')"
                     alt="Client 05"
                     :width="600"
                     />
             </div>
-
-            <div class="split-item-content col-5">
-                <h3> {{heading}} </h3>
-                <p> {{paragraph}} </p>
-            </div>
-
         </div>
     </div>
 </template>
@@ -43,3 +41,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+    .mobile-align-centre {
+		text-align: center !important;
+        margin: auto !important;
+        
+    }
+}
+</style>

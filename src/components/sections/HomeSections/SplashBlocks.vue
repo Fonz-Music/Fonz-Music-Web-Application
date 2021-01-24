@@ -1,8 +1,7 @@
 <template>
     <section class="section">
         <div class="section-inner container">
-            <div class="col">
-                <div class="row">
+                <div class="row-12 mb-16">
                     <c-splash-block-left
                      :heading="headingOne"
                      :paragraph="paraOne"
@@ -10,7 +9,7 @@
                     />
                 </div>
 
-                <div class="row">
+                <div class="row-12 mb-16">
                     <c-splash-block-right
                      :heading="headingTwo"
                      :paragraph="paraTwo"
@@ -18,7 +17,7 @@
                     />
                 </div>
 
-                <div class="row">
+                <div class="row-12 mb-16">
                     <c-splash-block-left
                      :heading="headingThree"
                      :paragraph="paraThree"
@@ -26,7 +25,6 @@
                     />
                 </div>
             </div>
-        </div>
     </section>
 </template>
 
@@ -52,11 +50,11 @@ export default {
             
             headingTwo: "collaborative playing",
             paraTwo: "To use your Fonz coaster, simply start a session as a host and connect your Spotify. Now guests can simply join your session by tapping your coaster, and start queueing songs immediately.",
-            imgTwo: "SplashImages/splashArtwork-02.png",
+            imgTwo: "SplashImages/splashArtwork-03.png",
 
             headingThree: "wherever, whenever",
             paraThree: "The Fonz coaster is made with high-quality PVC. It requires no power, and as long as your phone has access to cellular or the internet, you're goot to go. It's also spill-proof, so no worries about bringing it to the pregame, tailgate, or after-party.",
-            imgThree: "SplashImages/splashArtwork-03.png",
+            imgThree: "SplashImages/splashArtwork-02.png",
         }
     }
 };

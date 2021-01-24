@@ -1,10 +1,10 @@
 <template>
-    <ul class="list-reset row">
-        <li class="reveal-from-top align-graphics">
+    <ul class="list-reset row ">
+        <li class="reveal-from-top col align-graphics">
             <c-image
                 :src="require('@/assets/images/ClientIcons/clients-01.svg')"
                 alt="Client 01"
-                :width="120"
+                :width="100"
                 />
         </li>
 
@@ -12,7 +12,7 @@
             <c-image
                 :src="require('@/assets/images/ClientIcons/clients-02.svg')"
                 alt="Client 02"
-                :width="120"
+                :width="100"
                 />
         </li>
 
@@ -20,7 +20,7 @@
             <c-image
                 :src="require('@/assets/images/ClientIcons/clients-03.svg')"
                 alt="Client 03"
-                :width="120"
+                :width="100"
                 />
         </li>
 
@@ -28,7 +28,7 @@
             <c-image
                 :src="require('@/assets/images/ClientIcons/clients-04.svg')"
                 alt="Client 04"
-                :width="120"
+                :width="100"
                 />
         </li>
                     
@@ -36,7 +36,7 @@
             <c-image
                 :src="require('@/assets/images/ClientIcons/clients-05.svg')"
                 alt="Client 05"
-                :width="120"
+                :width="100"
                 />
         </li>
     </ul>

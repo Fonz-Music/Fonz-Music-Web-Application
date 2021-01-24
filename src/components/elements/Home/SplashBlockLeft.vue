@@ -1,12 +1,12 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="split-item-content col-5">
+        <div class="row d-flex">
+            <div class="col-md-4 col-sm-12 mobile-align-centre">
                 <h3> {{heading}} </h3>
                 <p> {{paragraph}} </p>
             </div>
 
-            <div class="split-item-content visible-desktop center-content-mobile center-content col-7">
+            <div class="col-md-8 col-sm-12 mobile-align-centre">
                 <c-image
                     :src="require('@/assets/images/' + imageSubPath + '')"
                     alt="Client 05"
@@ -44,18 +44,13 @@ export default {
 
 </script>
 
+
 <style scoped>
-@media (max-width: 767px) {
-    . {
-
-    }
-    .desktop
-}
-
-@media (min-width:992px) {
-    .desktopTitle {
+@media (max-width: 768px) {
+    .mobile-align-centre {
+		text-align: center !important;
+        margin: auto !important;
         
-
     }
 }
 </style>

@@ -1,15 +1,8 @@
 <template>
   <fragment>
-
     <c-splash/>
-    
     <c-splash-blocks/>
-
-    <DownloadAppHome top-divider/>
-    <c-CoasterBuyInfo top-divider />
-    
-    <!-- <DownloadApp /> -->
-    <c-roadmap top-divider class="center-content" />
+    <c-download-app/>
   </fragment>
 </template>
 
@@ -20,15 +13,13 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import sections
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
-import CRoadmap from "@/components/sections/Roadmap.vue";
-import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
+
+import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
-import DownloadApp from "@/components/sections/DownloadApp.vue";
-import DownloadAppHome from "@/components/sections/DownloadAppHome.vue";
-import WhatDoesFonzDoHome from "@/components/sections/WhatDoesFonzDoHome.vue";
+
 
 export default {
   name: "Home",
@@ -36,12 +27,7 @@ export default {
     CImage,
     CSplash,
     CSplashBlocks,
-
-    CCoasterBuyInfo,
-    CRoadmap,
-    DownloadApp,
-    DownloadAppHome,
-    WhatDoesFonzDoHome
+    CDownloadApp
   },
 
   methods: {

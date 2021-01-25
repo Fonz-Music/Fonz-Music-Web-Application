@@ -11,7 +11,6 @@
     ($button--padding-h - $button-form--border-width);
   height: $button-form--height;
   text-decoration: none !important;
-  text-transform: $button--transform;
   color: color(button-light);
   background-color: color-bg(button-light);
   border-width: $button-form--border-width;

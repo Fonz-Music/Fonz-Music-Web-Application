@@ -22,11 +22,11 @@
         </div>
         <div class="cta-action">
           <c-button-group>
-            <c-button tag="a" href="#">
+            <c-button tag="a" href="https://apps.apple.com/us/app/fonz-music/id1537308329">
               <font-awesome-icon class="icon" :icon="['fab', 'app-store']" />
               App Store
             </c-button>
-            <c-button tag="a" href="#">
+            <c-button tag="a" href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en_US&gl=US">
               <font-awesome-icon class="icon" :icon="['fab', 'google-play']" />
               Google Play
             </c-button>

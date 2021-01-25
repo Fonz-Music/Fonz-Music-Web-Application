@@ -1,12 +1,9 @@
 <template>
   <fragment>
-    <c-hero-split />
-    <c-clients top-divider bottom-divider class="center-content" />
-    <WhatDoesFonzDoHome />
-    <c-CoasterBuyInfo top-divider />
-    <DownloadAppHome />
-    <!-- <DownloadApp /> -->
-    <c-roadmap top-divider class="center-content" />
+    <c-splash/>
+    <c-splash-video/>
+    <c-splash-blocks/>
+    <c-download-app/>
   </fragment>
 </template>
 
@@ -15,30 +12,24 @@
 import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
-import CHeroSplit from "@/components/sections/HeroSplit.vue";
+import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
-import CClients from "@/components/sections/Clients.vue";
-import CRoadmap from "@/components/sections/Roadmap.vue";
-import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
+import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
+import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
+import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
-import DownloadApp from "@/components/sections/DownloadApp.vue";
-import DownloadAppHome from "@/components/sections/DownloadAppHome.vue";
-import WhatDoesFonzDoHome from "@/components/sections/WhatDoesFonzDoHome.vue";
+
 
 export default {
   name: "Home",
   components: {
     CImage,
-    CHeroSplit,
-
-    CClients,
-    CCoasterBuyInfo,
-    CRoadmap,
-    DownloadApp,
-    DownloadAppHome,
-    WhatDoesFonzDoHome
+    CSplash,
+    CSplashBlocks,
+    CDownloadApp,
+    CSplashVideo
   },
 
   methods: {

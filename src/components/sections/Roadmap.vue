@@ -22,18 +22,18 @@
             dermo, jay, diarmuid, &amp; benji began Fonz Music to simplify song
             requests at parties, hangouts, &amp; roadtrips
           </c-timeline-item>
-          <c-timeline-item title="1 August 2020">
+          <c-timeline-item title="August 2020">
             We sourced product, began development, and started accepting
             pre-orders (thank you to those who believed in us)
           </c-timeline-item>
-          <c-timeline-item title="20 November 2020">
+          <c-timeline-item title="November 2020">
             Our app beta launched supporting Spotify &amp; distributed coasters
             to our believers
           </c-timeline-item>
           <!-- <c-timeline-item title="15 December 2020">
             Plans to add support for Apple Music
           </c-timeline-item> -->
-          <c-timeline-item title="January 2021">
+          <c-timeline-item title="2021">
             Plans to add Apple Music, play music in app, &amp; allow DJ setting
           </c-timeline-item>
         </c-timeline>
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       sectionHeader: {
-        title: "Our Journey",
+        title: "our journey",
         paragraph:
           "We are on a mission to digitalize and democratize song requesting for our users. Checkout our past accomplishments as well as whats coming next."
       }

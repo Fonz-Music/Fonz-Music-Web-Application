@@ -12,8 +12,8 @@
                         href="https://apps.apple.com/us/app/fonz-music/id1537308329"
                         color='primary'
                         >
-                            App Store
-                            <img src='@/assets/images/DownloadApp/downloadIcons-01.svg'/>
+                        App Store
+                        <img src='@/assets/images/DownloadApp/downloadIcons-01.svg'/>
                         </c-button>
 
                         <c-button 
@@ -21,8 +21,8 @@
                         href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en_US&gl=US"
                         color='primary'
                         >
-                            Google Play
-                            <img src='@/assets/images/DownloadApp/downloadIcons-02.svg'/>
+                        Google Play
+                        <img src='@/assets/images/DownloadApp/downloadIcons-02.svg'/>
                         </c-button>
 
                     </c-button-group>

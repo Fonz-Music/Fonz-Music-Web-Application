@@ -1,7 +1,8 @@
 <template>
     <section class="section">
-        <div class="section-inner container">
-                <div class="row-12 mb-16">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row-12 mb-16 reveal-from-bottom">
                     <c-splash-block-left
                      :heading="headingOne"
                      :paragraph="paraOne"
@@ -9,7 +10,7 @@
                     />
                 </div>
 
-                <div class="row-12 mb-16">
+                <div class="row-12 mb-16 reveal-from-top">
                     <c-splash-block-right
                      :heading="headingTwo"
                      :paragraph="paraTwo"
@@ -17,7 +18,7 @@
                     />
                 </div>
 
-                <div class="row-12 mb-16">
+                <div class="row-12 mb-16 reveal-from-bottom">
                     <c-splash-block-left
                      :heading="headingThree"
                      :paragraph="paraThree"
@@ -25,6 +26,7 @@
                     />
                 </div>
             </div>
+        </div>
     </section>
 </template>
 

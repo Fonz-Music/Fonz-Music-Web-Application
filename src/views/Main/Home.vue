@@ -1,6 +1,7 @@
 <template>
   <fragment>
     <c-splash/>
+    <c-splash-video/>
     <c-splash-blocks/>
     <c-download-app/>
   </fragment>
@@ -14,7 +15,7 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
-
+import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 
 // import some required elements
@@ -27,7 +28,8 @@ export default {
     CImage,
     CSplash,
     CSplashBlocks,
-    CDownloadApp
+    CDownloadApp,
+    CSplashVideo
   },
 
   methods: {

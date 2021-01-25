@@ -38,6 +38,7 @@ const CheckoutRoute = require('./routes/Checkout');
 const RecentBuyerRoute = require('./routes/RecentBuyer');
 const PackageRoute = require('./routes/Package');
 const CartRoute = require('./routes/Cart');
+const AffiliateRoute = require('./routes/Affiliate');
 
 const cors = require('cors')
 app.use(cors())
@@ -65,9 +66,7 @@ app.use(bodyParser.json({
 }));
 app.use('/i/checkout', CheckoutRoute);
 
-app.use('/aff/api', (req, res) => {
-    res.send("SUCCESS");
-})
+app.use('/i/affiliate/', AffiliateRoute);
 
 app.use((req, res) => {
     res.send(req.url)

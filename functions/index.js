@@ -4,6 +4,9 @@ admin.initializeApp({
     credential: admin.credential.applicationDefault()
 });
 const db = admin.firestore();
+const config = functions.config();
+
+global.config = config;
 global.admin = admin;
 global.db = db;
 global.functions = functions;
@@ -54,13 +57,17 @@ app.use('/i/cart', CartRoute);
 
 app.use(bodyParser.json({
     verify: function (req, res, buf) {
-      var url = req.originalUrl;
-      if (url.startsWith('/webhook')) {
-         req.rawBody = buf.toString();
-      }
+        var url = req.originalUrl;
+        if (url.startsWith('/webhook')) {
+            req.rawBody = buf.toString();
+        }
     }
-  }));
+}));
 app.use('/i/checkout', CheckoutRoute);
+
+app.use('/aff/api', (req, res) => {
+    res.send("SUCCESS");
+})
 
 app.use((req, res) => {
     res.send(req.url)

@@ -6,6 +6,9 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const config = functions.config();
+
+global.config = config;
 global.admin = admin;
 global.db = db;
 global.functions = functions;
@@ -37,6 +40,7 @@ const CheckoutRoute = require('./routes/Checkout');
 const RecentBuyerRoute = require('./routes/RecentBuyer');
 const PackageRoute = require('./routes/Package');
 const CartRoute = require('./routes/Cart');
+const AffiliateRoute = require('./routes/Affiliate');
 
 const cors = require('cors')
 app.use(cors())
@@ -56,13 +60,15 @@ app.use('/i/cart', CartRoute);
 
 app.use(bodyParser.json({
     verify: function (req, res, buf) {
-      var url = req.originalUrl;
-      if (url.startsWith('/webhook')) {
-         req.rawBody = buf.toString();
-      }
+        var url = req.originalUrl;
+        if (url.startsWith('/webhook')) {
+            req.rawBody = buf.toString();
+        }
     }
-  }));
+}));
 app.use('/i/checkout', CheckoutRoute);
+
+app.use('/i/affiliate/', AffiliateRoute);
 
 app.use((req, res) => {
     res.send(req.url)

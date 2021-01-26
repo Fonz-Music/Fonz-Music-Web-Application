@@ -47,7 +47,7 @@ export default {
     email,
     customerName,
     // payment,
-    paymentTwo
+    paymentTwo,
     // stripePaymentVue
   },
   mixins: [SectionSplitProps],
@@ -58,15 +58,15 @@ export default {
         placeAddress: null,
         customerName: {
           firstName: null,
-          lastName: null
-        }
+          lastName: null,
+        },
       },
       tabIndex: 0,
       sectionHeader: {
-        title: "Checkout"
+        title: "Checkout",
         // paragraph:
         //   "Fonz acts as a communication device, allowing multiple people to contribute to the same Spotiy session."
-      }
+      },
     };
   },
   methods: {
@@ -100,14 +100,15 @@ export default {
         localStorage.setItem("guestName", customerName);
         localStorage.setItem("guestEmail", this.form.email);
         // localStorage.setItem("guestAddressArray", this.form.placeAddress);
-        localStorage.setItem(
-          "guestAddress",
-          this.form.placeAddress
-        );
+        localStorage.setItem("guestAddress", this.form.placeAddress);
         this.$router.push({ path: "/paymentpage" });
       }
-    }
-  }
+    },
+  },
+  beforeMount() {
+    const packageId = localStorage.getItem("package");
+    if (!packageId) this.$router.push("/buy");
+  },
 };
 </script>
 <style media="screen">

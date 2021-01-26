@@ -1,10 +1,11 @@
-<template>
+<template class="">
   <fragment>
     <div class="background-mountain">
-      <c-header-affiliate nav-position="right" />
-      <main class="site-content">
+      <c-header nav-position="right" class="reveal-from-top" />
+      <main class="site-content entire-site">
         <slot />
       </main>
+      <!-- <recent-orders /> -->
       <c-footer />
     </div>
   </fragment>
@@ -12,16 +13,15 @@
 
 
 <script>
-import CHeaderAffiliate from "@/components/layout/partials/Affiliate/HeaderAffiliate.vue";
-import CFooter from "@/components/layout/Footer02.vue";
+import CHeader from "@/components/layout/partials/Affiliate/HeaderAffiliate.vue";
+import CFooter from "@/components/layout/Footer.vue";
 export default {
   components: {
-    CHeaderAffiliate,
+    CHeader,
     CFooter,
   }
 };
 </script>
-
 
 <style media="screen">
 .background-mountain {

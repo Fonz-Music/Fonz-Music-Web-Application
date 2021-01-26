@@ -42,28 +42,21 @@
                 <router-link to="/affiliate-home/">Dashboard</router-link>
               </li>
             </ul>
-            <ul
-              class="list-reset text-xxs"
-              :class="navPosition && `header-nav-${navPosition}`"
-            >
-              <li>
-                <router-link to="/affiliate-analytics/">Analytics</router-link>
-              </li>
-            </ul>
-            <ul
-              class="list-reset text-xxs"
-              :class="navPosition && `header-nav-${navPosition}`"
-            >
-              <li>
-                <router-link to="/affiliate-financial/">Financial</router-link>
-              </li>
-            </ul>
+
             <ul
               class="list-reset text-xxs"
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
                 <router-link to="/affiliate-profile/">Profile</router-link>
+              </li>
+            </ul>
+            <ul
+              class="list-reset text-xxs"
+              :class="navPosition && `header-nav-${navPosition}`"
+            >
+              <li>
+                <button @click='signOut()'>LOG OUT</button>
               </li>
             </ul>
           </div>
@@ -143,8 +136,19 @@ export default {
       )
         return;
       this.closeMenu();
+    },
+
+    async signOut() {
+            firebase.auth().signOut()
+            .then(() => {
+                console.log('signed out');
+            })
+            .catch(() => {
+                console.log("error");
+      })
     }
   },
+
   mounted() {
     this.active && this.openMenu();
     document.addEventListener("keydown", this.keyPress);

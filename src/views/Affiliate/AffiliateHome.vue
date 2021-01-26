@@ -1,17 +1,11 @@
 <template>
-  <fragment>
-      <c-dashboard-bar/> 
-      <div class="container">
-        <div class="row">
-          <div class="col-8 container-style">
-            <c-line-chart-container/> 
-          </div>
-          <div class="col container-style">
-            <c-referrals-info/>
-          </div>
-        </div>  
-      </div>                            
-  </fragment>
+  <section>
+    <div section-inner>
+      <p> {{name}} </p>
+      <p> {{email}} </p>
+      <p> {{userId}} </p>
+    </div>
+  </section>
 </template>
 
 
@@ -32,26 +26,27 @@ export default {
     CReferralsInfo
   },
 
-  beforeMount() {
-    this.eventPageViewAbout();
+  data() {
+    return {
+      userId: '',
+      name: '',
+      email: '',
+      user: {}
+    }
   },
 
   created() {
     this.$emit("update:layout", CLayout);
-  }
+
+    this.user = firebase.auth().currentUser;
+    if(this.user) {
+      this.name = this.user.displayName;
+      this.email = this.user.email;
+      this.userId = this.user.uid;
+    }
+  },
 };
+
+
+
 </script>
-
-<style>
-  .dashboard-padding {
-    padding-bottom: -5px;
-  }
-
-  .container-style {
-    background-color: rgb(255, 255, 255) !important;
-    border: 1px solid rgb(206, 206, 206) !important;
-    border-radius: 20px;
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-</style>

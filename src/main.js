@@ -6,6 +6,27 @@ Vue.use(Fragment.Plugin);
 import Vue2TouchEvents from "vue2-touch-events";
 Vue.use(Vue2TouchEvents);
 
+
+
+// ***********************************
+// Firebase Authentication
+
+firebase.auth().onAuthStateChanged((user) => {
+	if(user) {
+		console.log("listener: logged in");
+		router.push('/affiliate-home');
+		
+	}
+	else {
+		console.log("listener: logged out");
+		router.push('/affiliate-login');
+	}
+	})
+
+
+// ***********************************
+
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faGooglePlay, faAppStore } from "@fortawesome/free-brands-svg-icons";
@@ -40,7 +61,6 @@ Vue.prototype.cartId = localStorage.getItem("cartId") || "";
 // progress bars
 
 const axios = require("axios");
-
 let setCurrency = "";
 var localCurrency = localStorage.getItem("currency");
 var lastTimeChecked = getWithExpiry("timestamp");

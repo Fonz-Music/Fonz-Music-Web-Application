@@ -23,9 +23,8 @@ import PageNotFoundPage from "./views/Misc/404notFound.vue";
 import BugFixForm from "./views/Misc/BugFormPage.vue";
 
 // Affiliate
+import AffiliateLogin from "./views/Affiliate/AffiliateLogin.vue";
 import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
-import AffiliateAnalytics from "./views/Affiliate/AffiliateAnalytics.vue";
-import AffiliateFinancial from "./views/Affiliate/AffiliateFinancial.vue";
 import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
 
 // Admin
@@ -106,33 +105,29 @@ export default new Router({
       component: BugFixForm
     },
 
+    // ******************************************
     // Affiliate Program
+    
+    {
+      path: "/affiliate-login",
+      name: "affiliatelogin",
+      component: AffiliateLogin
+    },
+
     {
       path: "/affiliate-home",
       name: "affiliateHome",
       component: AffiliateHome
     },
 
-    // Affiliate Analytics
-    {
-      path: "/affiliate-analytics",
-      name: "affiliateanalytics",
-      component: AffiliateAnalytics
-    },
-
-    // Affiliate Financial
-    {
-      path: "/affiliate-financial",
-      name: "affiliatefinancial",
-      component: AffiliateFinancial
-    },
-
-    // Affiliate Profile
     {
       path: "/affiliate-profile",
       name: "affiliateprofile",
       component: AffiliateProfile
     },
+
+
+    // ******************************************
 
     // Admin
     {

@@ -48,8 +48,4 @@ export default {
 };
 
 
-
-// Firebase Listener
-
-
 </script>

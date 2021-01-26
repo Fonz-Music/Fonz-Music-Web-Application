@@ -8,24 +8,6 @@ Vue.use(Vue2TouchEvents);
 
 
 
-// ***********************************
-// Firebase Authentication
-
-firebase.auth().onAuthStateChanged((user) => {
-	if(user) {
-		console.log("listener: logged in");
-		router.push('/affiliate-home');
-		
-	}
-	else {
-		console.log("listener: logged out");
-		router.push('/affiliate-login');
-	}
-	})
-
-
-// ***********************************
-
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";

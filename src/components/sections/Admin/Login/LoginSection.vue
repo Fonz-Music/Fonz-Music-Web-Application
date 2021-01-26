@@ -3,7 +3,7 @@
         <div class="section-inner">
             <div class="container">
                 <div class="row justify-content-center">
-                    <h1> Affiliate Portal </h1>
+                    <h1> Administrators </h1>
                 </div>
 
                 <div class ="row justify-content-center">
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="row justify-content-center">
-                        <c-button @click="signInEmail()"> sign in </c-button>
+                        <c-button @click="signIn()"> sign in </c-button>
                 </div>
             </div>
 
@@ -56,7 +56,6 @@
 import CButton from "@/components/elements/Button.vue";
 import CInput from "@/components/elements/Input.vue";
 
-
 export default {
     name:'LoginSection',
 
@@ -73,7 +72,7 @@ export default {
     },
 
     methods: {
-        async signInEmail() {
+        async signIn() {
             var email = document.getElementById("emailField");
             var password = document.getElementById("passwordField");
 
@@ -82,21 +81,10 @@ export default {
                 user = userCredential.user;
             })
             .catch(() => {
-                console.log("error");
+                console.log("error in login section");
                 this.incorrectLogin = true;
                 this.createdAccountError = false;
             })
-        },
-
-        async signOut() {
-            firebase.auth().signOut()
-            .then(() => {
-                console.log('successfully signed out');
-            })
-            .catch(() => {
-                console.log("error");
-            })
-
         }
     }
 }

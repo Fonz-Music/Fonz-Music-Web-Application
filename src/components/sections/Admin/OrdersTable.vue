@@ -1,141 +1,145 @@
 <template>
-  <fragment>
-    <b-pagination
-      v-model="page"
-      :total-rows="rows"
-      :per-page="limit"
-      aria-controls="my-table"
-    ></b-pagination>
+  <section>
+    <div class="section">
+      <div class="container">
+        <b-pagination
+          v-model="page"
+          :total-rows="rows"
+          :per-page="limit"
+          aria-controls="my-table"
+        ></b-pagination>
 
-    <b-row>
-      <b-dropdown class="m-md-2" :text="assignedTo">
-        <b-dropdown-item @click="(assignedTo = 'All'), getOrders()">
-          All
-        </b-dropdown-item>
-        <b-dropdown-item @click="(assignedTo = 'Benji'), getOrders()">
-          Benji
-        </b-dropdown-item>
-        <b-dropdown-item @click="(assignedTo = 'Dermo'), getOrders()">
-          Dermo
-        </b-dropdown-item>
-        <b-dropdown-item @click="(assignedTo = 'Didi'), getOrders()">
-          Didi
-        </b-dropdown-item>
-        <b-dropdown-item @click="(assignedTo = 'Jay'), getOrders()">
-          Jay
-        </b-dropdown-item>
-      </b-dropdown>
-
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="showFulfilled"
-        @click.prevent="getOrders()"
-        name="checkbox-1"
-        value="true"
-        unchecked-value="false"
-      >
-        Show fulfilled orders
-      </b-form-checkbox>
-
-      <b-col lg="6" class="my-1">
-        <b-form-group
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
-          label-for="filterInput"
-          class="mb-0"
-        >
-          <b-input-group size="sm">
-            <b-form-input
-              v-model="filter"
-              type="search"
-              id="filterInput"
-              placeholder="Type to Search"
-            ></b-form-input>
-            <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''"
-                >Clear</b-button
-              >
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row>
-
-    <span>
-      <p># Orders {{ rows }}</p>
-    </span>
-
-    <div class="table-style">
-      <b-table
-        hover
-        :items="items"
-        :fields="fields"
-        :per-page="limit"
-        :current-page="page"
-        :filter="filter"
-      >
-        <template #cell(order_fufillment)="data">
-          <b-button
-            @click="
-              updateFufillment(
-                data.item.order_index,
-                data.item.order_id,
-                data.item.order_fufillment
-              )
-            "
-          >
-            {{ data.item.order_fufillment }}
-          </b-button>
-        </template>
-
-        <template #cell(order_assigned_to)="data">
-          <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
-            <b-dropdown-item
-              @click="
-                updateAssignee(
-                  data.item.order_index,
-                  data.item.order_id,
-                  'Benji'
-                )
-              "
-            >
+        <b-row>
+          <b-dropdown class="m-md-2" :text="assignedTo">
+            <b-dropdown-item @click="(assignedTo = 'All'), getOrders()">
+              All
+            </b-dropdown-item>
+            <b-dropdown-item @click="(assignedTo = 'Benji'), getOrders()">
               Benji
             </b-dropdown-item>
-            <b-dropdown-item
-              @click="
-                updateAssignee(
-                  data.item.order_index,
-                  data.item.order_id,
-                  'Dermo'
-                )
-              "
-            >
+            <b-dropdown-item @click="(assignedTo = 'Dermo'), getOrders()">
               Dermo
             </b-dropdown-item>
-            <b-dropdown-item
-              @click="
-                updateAssignee(
-                  data.item.order_index,
-                  data.item.order_id,
-                  'Didi'
-                )
-              "
-            >
+            <b-dropdown-item @click="(assignedTo = 'Didi'), getOrders()">
               Didi
             </b-dropdown-item>
-            <b-dropdown-item
-              @click="
-                updateAssignee(data.item.order_index, data.item.order_id, 'Jay')
-              "
-            >
+            <b-dropdown-item @click="(assignedTo = 'Jay'), getOrders()">
               Jay
             </b-dropdown-item>
           </b-dropdown>
-        </template>
-      </b-table>
+
+          <b-form-checkbox
+            id="checkbox-1"
+            v-model="showFulfilled"
+            @click.prevent="getOrders()"
+            name="checkbox-1"
+            value="true"
+            unchecked-value="false"
+          >
+            Show fulfilled orders
+          </b-form-checkbox>
+
+          <b-col lg="6" class="my-1">
+            <b-form-group
+              label-cols-sm="3"
+              label-align-sm="right"
+              label-size="sm"
+              label-for="filterInput"
+              class="mb-0"
+            >
+              <b-input-group size="sm">
+                <b-form-input
+                  v-model="filter"
+                  type="search"
+                  id="filterInput"
+                  placeholder="Type to Search"
+                ></b-form-input>
+                <b-input-group-append>
+                  <b-button :disabled="!filter" @click="filter = ''"
+                    >Clear</b-button
+                  >
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+
+        <span>
+          <p># Orders {{ rows }}</p>
+        </span>
+
+        <div class="table-style">
+          <b-table
+            hover
+            :items="items"
+            :fields="fields"
+            :per-page="limit"
+            :current-page="page"
+            :filter="filter"
+          >
+            <template #cell(order_fufillment)="data">
+              <b-button
+                @click="
+                  updateFufillment(
+                    data.item.order_index,
+                    data.item.order_id,
+                    data.item.order_fufillment
+                  )
+                "
+              >
+                {{ data.item.order_fufillment }}
+              </b-button>
+            </template>
+
+            <template #cell(order_assigned_to)="data">
+              <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
+                <b-dropdown-item
+                  @click="
+                    updateAssignee(
+                      data.item.order_index,
+                      data.item.order_id,
+                      'Benji'
+                    )
+                  "
+                >
+                  Benji
+                </b-dropdown-item>
+                <b-dropdown-item
+                  @click="
+                    updateAssignee(
+                      data.item.order_index,
+                      data.item.order_id,
+                      'Dermo'
+                    )
+                  "
+                >
+                  Dermo
+                </b-dropdown-item>
+                <b-dropdown-item
+                  @click="
+                    updateAssignee(
+                      data.item.order_index,
+                      data.item.order_id,
+                      'Didi'
+                    )
+                  "
+                >
+                  Didi
+                </b-dropdown-item>
+                <b-dropdown-item
+                  @click="
+                    updateAssignee(data.item.order_index, data.item.order_id, 'Jay')
+                  "
+                >
+                  Jay
+                </b-dropdown-item>
+              </b-dropdown>
+            </template>
+          </b-table>
+        </div>
+      </div>
     </div>
-  </fragment>
+  </section>
 </template>
 
 <script>

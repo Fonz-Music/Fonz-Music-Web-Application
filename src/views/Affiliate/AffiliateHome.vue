@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="section">
     <div section-inner>
       <p> {{name}} </p>
       <p> {{email}} </p>
@@ -46,7 +46,6 @@ export default {
     }
   },
 };
-
 
 
 </script>

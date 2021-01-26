@@ -29,6 +29,7 @@ import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
 
 // Admin
 import Admin from "./views/Admin/Admin.vue";
+import AdminLogin from "./views/Admin/AdminLogin.vue";
 
 Vue.use(Router);
 
@@ -128,14 +129,22 @@ export default new Router({
 
 
     // ******************************************
-
     // Admin
+
     {
       path: "/admin",
       name: "Login",
       component: Admin
     },
 
+    {
+      path: "/admin-login",
+      name: "Login",
+      component: AdminLogin
+    },
+
+
+    // ******************************************
     // this must be last
     {
       path: "/*",

@@ -69,6 +69,7 @@
 <script>
 import CLogo from "@/components/layout/partials/Logo.vue";
 import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
+import router from "@/router.js";
 
 export default {
   name: "CHeaderAffiliate",
@@ -154,11 +155,22 @@ export default {
     document.addEventListener("keydown", this.keyPress);
     document.addEventListener("click", this.clickOutside);
   },
+  
   beforeDestroy() {
     document.addEventListener("keydown", this.keyPress);
     document.removeEventListener("click", this.clickOutside);
     this.closeMenu();
-  }
+  },
+
+  created() {
+      // Firebase Listener
+      firebase.auth().onAuthStateChanged(function(user) {
+          if(!user) {
+              console.log("header listener: logged out");
+              router.push('/affiliate-login');
+          }
+      });
+    }
 };
 </script>
 

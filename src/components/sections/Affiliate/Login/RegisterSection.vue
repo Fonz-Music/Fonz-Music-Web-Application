@@ -3,12 +3,19 @@
         <div class="section-inner">
             <div class="container">
                 <div class="row justify-content-center">
-                    <h1> Affiliate Portal </h1>
+                    <h1> Sign Up </h1>
                 </div>
 
                 <div class ="row justify-content-center">
                     <form>
                         <fieldset>
+                            <c-input
+                            id="nameField"
+                            type = "text"
+                            placeholder = "name"
+                            label = "name"
+                            required
+                            />
                             <c-input
                             id="emailField"
                             type="email"
@@ -22,12 +29,18 @@
                             label="password"
                             required
                             />
+                            <c-input
+                            id="confirmPasswordField"
+                            type="password"
+                            label="confirm password"
+                            required
+                            />
                         </fieldset>
                     </form>
                 </div>
 
                 <div class="row justify-content-center">
-                        <c-button @click="signInEmail()"> sign in </c-button>
+                    <c-button @click="registerEmail()"> register </c-button>
                 </div>
             </div>
 
@@ -58,7 +71,7 @@ import CInput from "@/components/elements/Input.vue";
 
 
 export default {
-    name:'LoginSection',
+    name:'RegisterSection',
 
     components: {
         CButton,
@@ -73,32 +86,32 @@ export default {
     },
 
     methods: {
-        async signInEmail() {
-            var email = document.getElementById("emailField");
-            var password = document.getElementById("passwordField");
+        async registerEmail() {
+            var testPassword = document.getElementById("passwordField");
+            var testConfirmPassword = document.getElementById("confirmPasswordField");
 
-            firebase.auth().signInWithEmailAndPassword(email.value, password.value)
-            .then((userCredential) => {
-                user = userCredential.user;
-            })
-            .catch(() => {
-                console.log("error");
-                this.incorrectLogin = true;
-                this.createdAccountError = false;
-            })
-        },
+            if(testPassword.value === testConfirmPassword.value) {
+                var email = document.getElementById("emailField");
+                var password = document.getElementById("passwordField");
 
-        async signOut() {
-            firebase.auth().signOut()
-            .then(() => {
-                console.log('successfully signed out');
-            })
-            .catch(() => {
-                console.log("error");
-            })
+                firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+                .then((userCredential) => {
+                    user = userCredential.user;
+                    console.log("account created");
+                })
 
+                .catch(() => {
+                    console.log("Invalid e-mail or an account already exists with this name.");
+                    this.createdAccountError = true;
+                    this.incorrectLogin = false;
+                })
+            }
+            else {
+                console.log("passwords dont match")
+            }
         }
     }
 }
 
 </script>
+

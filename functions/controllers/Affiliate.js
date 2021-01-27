@@ -95,8 +95,18 @@ exports.createCoupon = (couponCode) => {
                 couponCode = user.name + user.discount;
 
             const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
+
             if (couponCodeOwned)
                 return reject('This coupon code is not currently in use, please try a different one :)');
+
+
+            const {
+                couponCode: couponAlreadyExists
+            } = await this.getCouponByAffiliateId(user.affiliateId);
+            //pulling the couponCode from the couponData
+
+            if (couponAlreadyExists)
+                return reject('You already have a coupon code. Is one not enough for you?????');
 
             // Otherwise coupon code is available!
             // Create new document in database for couponCode

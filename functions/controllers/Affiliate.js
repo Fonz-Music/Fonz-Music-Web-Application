@@ -38,11 +38,11 @@ exports.getReferrals = (referralCode) => {
 
 }
 
-exports.getCouponByAffiliateId = (referralCode) => {
+exports.getCouponByAffiliateId = (affiliateId) => {
     return new Promise(async (resolve, reject) => {
         try {
             // .where => I do not know what the document ID is, I want to filter all documents where the affiliateCode is 'referralCode'
-            const coupon = await global.CouponsDB.where('affiliateId', '==', referralCode).limit(1).get();
+            const coupon = await global.CouponsDB.where('affiliateId', '==', affiliateId).limit(1).get();
             /*
             doc.data() = {
                 active: true,

@@ -32,6 +32,7 @@ var dotenv = require('dotenv');
 dotenv.config();
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const StatusRoute = require('./routes/Status');
@@ -68,6 +69,34 @@ app.use(bodyParser.json({
 }));
 app.use('/i/checkout', CheckoutRoute);
 
+/** Middleware function to verify valid JWT and that the session ID associated with JWT is active and valid **/
+function authChecker(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({
+        status: 401,
+        message: "Authentication token missing"
+    });
+    const token = authHeader.split(' ')[1],
+        payload = jwt.decode(token);
+
+    admin.auth().verifyIdToken(token)
+        .then((user) => {
+            res.locals.user = user;
+            global.userId = user.user_id;
+            console.log(global.userId)
+            global.name = "USER TEMPLATE NAME"
+            global.discount = 5;
+            next()
+        }).catch((error) => {
+            return res.status(403).json({
+                status: 403,
+                message: "Invalid access token has been provided",
+                error
+            })
+        });
+}
+
+app.use(authChecker);
 app.use('/i/affiliate/', AffiliateRoute);
 
 app.use((req, res) => {

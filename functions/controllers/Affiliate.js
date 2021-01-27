@@ -1,25 +1,13 @@
-const user = {
-    name: 'David',
-    discount: 15,
-    affiliateId: 'davidiu319didkaslkss'
-};
-
 exports.getReferrals = (referralCode) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // .where('variable name', 'COMPARE', 'what youre looking for')
-            const data = await global.OrdersDB.where('cart.coupon', '==', referralCode).get();
-            // Destructure affiliateCut from this.getCoupon
-            /* this.getCoupon = {
-                active: true,
-                affiliateId: "David2020",
-                affiliateCut: 0.5
-            }
-            */
-
             const {
+                couponCode: referralCode,
                 affiliateCut
-            } = await this.getCouponByAffiliateId(user.affiliateId);
+            } = await this.getCouponByAffiliateId(global.userId);
+            if (!referralCode) return reject('No coupon code')
+            const data = await global.OrdersDB.where('cart.coupon', '==', referralCode).get();
+            if (data.size == 0) resolve([])
 
             let output = [];
             data.forEach((doc) => {
@@ -51,11 +39,14 @@ exports.getCouponByAffiliateId = (affiliateId) => {
     return new Promise(async (resolve, reject) => {
         try {
             // .where => I do not know what the document ID is, I want to filter all documents where the affiliateCode is 'referralCode'
-            const coupon = await global.CouponsDB.where('affiliateId', '==', affiliateId).limit(1).get();
+            const coupon = await global.CouponsDB.where('affiliateId', '==', global.userId).limit(1).get();
             if (coupon.size == 0) resolve('') // check if user already has a coupon
             coupon.forEach((doc) => { // only 1 array in this loop
                 let couponData = doc.data();
-                resolve(couponData);
+                resolve({
+                    couponCode: doc.id,
+                    ...couponData
+                });
             })
 
 
@@ -84,7 +75,7 @@ exports.createCoupon = (couponCode) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!couponCode) // if specific coupon code NOT set, generate a coupon code
-                couponCode = user.name + user.discount;
+                couponCode = global.name + global.discount;
 
             const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
 
@@ -92,7 +83,7 @@ exports.createCoupon = (couponCode) => {
                 return reject('This coupon code is not currently in use, please try a different one :)');
 
 
-            const couponExists = await this.getCouponByAffiliateId(user.affiliateId);
+            const couponExists = await this.getCouponByAffiliateId(global.userId);
             if (couponExists)
                 return reject('You already have a coupon code. Is one not enough for you?????');
 
@@ -101,9 +92,9 @@ exports.createCoupon = (couponCode) => {
 
             const response = await global.CouponsDB.doc(couponCode).set({
                 affiliateCut: 0.3,
-                affiliateId: user.affiliateId,
-                discount: user.discount,
-                name: user.name,
+                affiliateId: global.userId,
+                discount: global.discount,
+                name: global.name,
                 discountType: "constant"
             })
 
@@ -124,13 +115,15 @@ exports.createCoupon = (couponCode) => {
 exports.getDailyRevenue = (referralCode) => {
     return new Promise(async (resolve, reject) => {
         try {
+            const {
+                couponCode: referralCode
+            } = await this.getCouponByAffiliateId(global.userId);
+            if (!referralCode) return reject('No coupon code')
             const orders = await this.getReferrals(referralCode);
+            if (orders.length == 0) return resolve([])
+            console.log(orders)
             // If 2 orders have same date, sum affiliate earnings
             // Get min date, first object is oldest, last object is newest
-            console.log({
-                oldest: orders[0],
-                newest: orders[orders.length - 1]
-            })
 
             const oldestTimestamp = orders[0].created._seconds;
             const newestTimestamp = orders[orders.length - 1].created._seconds;
@@ -150,11 +143,6 @@ exports.getDailyRevenue = (referralCode) => {
                 chartLabels[i] = infoString;
             }
 
-            // resolve({
-            //     chartLabels,
-            //     days
-            // })
-
             let chartData = new Array(daysInBetween + 1).fill(0); // automatically set each day to €0 earned, until added
             for (let j = 0; j <= orders.length - 1; j++) {
                 // find index from oldestdate ie 0 = 15 Nov and 38 = 23 Dec
@@ -168,29 +156,12 @@ exports.getDailyRevenue = (referralCode) => {
                 chartData[daysInBetweenOldestAndCurrent] += orders[j].affiliateEarning;
             }
 
+            chartData.reverse(); // for some reason, this array is backwards.. cba fixing it, this function does it all :D
 
             resolve({
                 chartLabels,
                 chartData
             })
-
-            console.log({
-                oldestTimestamp,
-                newestTimestamp,
-                oldestDate,
-                newestDate,
-                daysInBetween
-            })
-
-            /*
-            function FilterDate(order) {
-
-            }
-            const sortedSales = orders.map(FilterDate);
-            resolve(sortedSales)
-            */
-
-            resolve(orders)
         } catch (error) {
             console.error(error)
             reject(error);

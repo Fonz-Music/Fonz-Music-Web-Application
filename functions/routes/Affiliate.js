@@ -6,7 +6,7 @@ const Affiliate = require('../controllers/Affiliate');
 // Coupon code: David2020
 // Affiliate percentage: 20%iate/referrals
 router.get('/referrals', (req, res) => {
-    Affiliate.getReferrals('David2020').then((pizza) => {
+    Affiliate.getReferrals().then((pizza) => {
         // Do this if promise is resolved
         res.json(pizza);
     }).catch((error) => {
@@ -57,7 +57,7 @@ router.get('/coupon/:couponCode', (req, res) => {
 // fonzmusic.com/i/affiliate/daily
 /* Returns accumulated daily revenue from referrals (to be graphed) */
 router.get('/daily', (req, res) => {
-    Affiliate.getDailyRevenue('David2020').then((sales) => {
+    Affiliate.getDailyRevenue().then((sales) => {
         res.json(sales)
     }).catch((error) => {
         res.status(500).json({

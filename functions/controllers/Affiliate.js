@@ -1,7 +1,7 @@
 const user = {
     name: 'David',
     discount: 15,
-    affiliateId: 'davidiu319didkaslk'
+    affiliateId: 'davidiu319didkaslkss'
 };
 
 exports.getReferrals = (referralCode) => {
@@ -52,17 +52,7 @@ exports.getCouponByAffiliateId = (affiliateId) => {
         try {
             // .where => I do not know what the document ID is, I want to filter all documents where the affiliateCode is 'referralCode'
             const coupon = await global.CouponsDB.where('affiliateId', '==', affiliateId).limit(1).get();
-            /*
-            doc.data() = {
-                active: true,
-                affiliateId: "David2020",
-                affiliateCut: 0.5,
-                discount: 10,
-            }
-            */
-            //let info = doc.data().info; Data destructurin
-            // let { active } = doc.data() /
-            // let active = doc.data().active
+            if (coupon.size == 0) resolve('') // check if user already has a coupon
             coupon.forEach((doc) => { // only 1 array in this loop
                 let couponData = doc.data();
                 resolve(couponData);
@@ -70,6 +60,7 @@ exports.getCouponByAffiliateId = (affiliateId) => {
 
 
         } catch (error) {
+            console.error(error)
             reject(error);
         }
     })
@@ -83,6 +74,7 @@ exports.getCoupon = (couponCode) => {
             resolve(coupon.data())
 
         } catch (error) {
+            console.log(error)
             reject(error);
         }
     });
@@ -100,12 +92,8 @@ exports.createCoupon = (couponCode) => {
                 return reject('This coupon code is not currently in use, please try a different one :)');
 
 
-            const {
-                couponCode: couponAlreadyExists
-            } = await this.getCouponByAffiliateId(user.affiliateId);
-            //pulling the couponCode from the couponData
-
-            if (couponAlreadyExists)
+            const couponExists = await this.getCouponByAffiliateId(user.affiliateId);
+            if (couponExists)
                 return reject('You already have a coupon code. Is one not enough for you?????');
 
             // Otherwise coupon code is available!
@@ -127,6 +115,7 @@ exports.createCoupon = (couponCode) => {
 
 
         } catch (error) {
+            console.error(error)
             reject(error);
         }
     });

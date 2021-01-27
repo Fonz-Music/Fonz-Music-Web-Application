@@ -1,3 +1,9 @@
+const user = {
+    name: 'David',
+    discount: 15,
+    affiliateId: 'davidiu319didkaslk'
+};
+
 exports.getReferrals = (referralCode) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -10,16 +16,17 @@ exports.getReferrals = (referralCode) => {
                 affiliateCut: 0.5
             }
             */
+
             const {
                 affiliateCut
-            } = await this.getCouponByAffiliateId(referralCode);
-            //pulls affiliateCut from db
-
+            } = await this.getCouponByAffiliateId(user.affiliateId);
 
             let output = [];
             data.forEach((doc) => {
+
                 let {
-                    cart
+                    cart,
+                    created
                 } = doc.data();
                 let {
                     price
@@ -27,11 +34,13 @@ exports.getReferrals = (referralCode) => {
                 output.push({
                     transactionId: doc.id,
                     ...cart,
+                    created,
                     affiliateEarning: price * affiliateCut
                 });
                 resolve(output); //finish promise, send back data
             });
         } catch (error) {
+            console.log(error)
             reject(error);
         }
     })
@@ -79,11 +88,6 @@ exports.getCoupon = (couponCode) => {
     });
 }
 
-const user = {
-    name: 'David',
-    discount: 15,
-    affiliateId: 'davidiu319didkaslk'
-};
 exports.createCoupon = (couponCode) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -116,5 +120,81 @@ exports.createCoupon = (couponCode) => {
             reject(error);
         }
     });
+}
 
+exports.getDailyRevenue = (referralCode) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const orders = await this.getReferrals(referralCode);
+            // If 2 orders have same date, sum affiliate earnings
+            // Get min date, first object is oldest, last object is newest
+            console.log({
+                oldest: orders[0],
+                newest: orders[orders.length - 1]
+            })
+
+            const oldestTimestamp = orders[0].created._seconds;
+            const newestTimestamp = orders[orders.length - 1].created._seconds;
+
+            const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+            const oldestDate = new Date(oldestTimestamp * 1000)
+            const newestDate = new Date(newestTimestamp * 1000);
+
+            const daysInBetween = Math.round(Math.abs((oldestDate - newestDate) / oneDay));
+
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            let currentDate = oldestDate;
+            let chartLabels = []
+            for (i = 0; i <= daysInBetween; i++) {
+                let nextDate = new Date(currentDate.setDate(currentDate.getDate() + 1)); // increment from oldest date to newest
+                let infoString = `${nextDate.getDate()} ${months[nextDate.getMonth()]}`; // make a readable date (eg 15 Nov)
+                chartLabels[i] = infoString;
+            }
+
+            // resolve({
+            //     chartLabels,
+            //     days
+            // })
+
+            let chartData = new Array(daysInBetween + 1).fill(0); // automatically set each day to €0 earned, until added
+            for (let j = 0; j <= orders.length - 1; j++) {
+                // find index from oldestdate ie 0 = 15 Nov and 38 = 23 Dec
+                let currentOrderTimestamp = orders[j].created._seconds
+                let currentOrderDate = new Date(currentOrderTimestamp * 1000);
+                const daysInBetweenOldestAndCurrent = Math.round(Math.abs((oldestDate - currentOrderDate) / oneDay)) - 1;
+                console.log({
+                    daysInBetween,
+                    daysInBetweenOldestAndCurrent
+                })
+                chartData[daysInBetweenOldestAndCurrent] += orders[j].affiliateEarning;
+            }
+
+
+            resolve({
+                chartLabels,
+                chartData
+            })
+
+            console.log({
+                oldestTimestamp,
+                newestTimestamp,
+                oldestDate,
+                newestDate,
+                daysInBetween
+            })
+
+            /*
+            function FilterDate(order) {
+
+            }
+            const sortedSales = orders.map(FilterDate);
+            resolve(sortedSales)
+            */
+
+            resolve(orders)
+        } catch (error) {
+            console.error(error)
+            reject(error);
+        }
+    })
 }

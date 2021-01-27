@@ -54,6 +54,17 @@ router.get('/coupon/:couponCode', (req, res) => {
     })
 })
 
+// fonzmusic.com/i/affiliate/daily
+/* Returns accumulated daily revenue from referrals (to be graphed) */
+router.get('/daily', (req, res) => {
+    Affiliate.getDailyRevenue('David2020').then((sales) => {
+        res.json(sales)
+    }).catch((error) => {
+        res.status(500).json({
+            error
+        })
+    })
+})
 
 
 

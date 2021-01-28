@@ -1,0 +1,84 @@
+<template>
+    <section>
+        <div class="container">
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> AMOUNT </th>
+                            <th scope="col"> CURR </th>
+                            <th scope="col"> QTY </th>
+                            <th scope="col"> COUPON </th>
+                            <th scope="col"> TID </th>
+                            <th scope="col"> PID </th>
+                            <th scope="col"> EMAIL </th>
+                            <th scope="col"> RETAIL </th>
+                            <th scope="col"> DISCOUNT </th>
+                            <th scope="col"> EARNINGS </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <c-affiliate-table-row
+                            amount="$25.00"
+                            currency="USD"
+                            quantity="1"
+                            coupon="David2020"
+                            transactionid="jkegfiyYVGFUyt123"
+                            packageid="KJG21ijbUbk1221das"
+                            email="didi@fonzmusic.com"
+                            retail="$25.00"
+                            discount="$1.25"
+                            earnings="$7.50"
+                        />
+
+                        <c-affiliate-table-row
+                            amount="$25.00"
+                            currency="USD"
+                            quantity="1"
+                            coupon="David2020"
+                            transactionid="jkegfiyYVGFUyt123"
+                            packageid="KJG21ijbUbk1221das"
+                            email="didi@fonzmusic.com"
+                            retail="$25.00"
+                            discount="$1.25"
+                            earnings="$7.50"
+                        />
+
+                        <c-affiliate-table-row
+                            amount="$25.00"
+                            currency="USD"
+                            quantity="1"
+                            coupon="David2020"
+                            transactionid="jkegfiyYVGFUyt123"
+                            packageid="KJG21ijbUbk1221das"
+                            email="didi@fonzmusic.com"
+                            retail="$25.00"
+                            discount="$1.25"
+                            earnings="$7.50"
+                        />
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </section>
+</template>
+
+
+<script>
+import CAffiliateTableRow from "@/components/elements/Tables/AffiliateTableRow.vue"
+
+export default {
+    name:'AffiliateTable',
+    components: {
+        CAffiliateTableRow
+    },
+}
+</script>
+
+
+<style scoped>
+
+</style>

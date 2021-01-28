@@ -1,11 +1,20 @@
 <template>
-  <section class="section">
+  <fragment>
+
     <div section-inner>
       <p> {{name}} </p>
       <p> {{email}} </p>
       <p> {{userId}} </p>
     </div>
-  </section>
+
+    <h1> Test </h1>
+    <h1> Test </h1>
+    <h1> Test </h1>
+
+
+    <c-affiliate-table/>
+
+  </fragment>
 </template>
 
 
@@ -16,14 +25,16 @@ import CLayout from "@/layouts/LayoutAffiliate.vue";
 // components
 import CDashboardBar from "@/components/sections/Affiliate/DashboardBar.vue";
 import CLineChartContainer from "@/components/sections/Affiliate/LineChartContainer.vue";
-import CReferralsInfo from "@/components/sections/Affiliate/ReferralsInfo.vue"
+import CReferralsInfo from "@/components/sections/Affiliate/ReferralsInfo.vue";
+import CAffiliateTable from "@/components/sections/Affiliate/DataTable/AffiliateTable.vue";
 
 export default {
   name: "AffiliateHome",
   components: {
     CDashboardBar,
     CLineChartContainer,
-    CReferralsInfo
+    CReferralsInfo,
+    CAffiliateTable
   },
 
   data() {

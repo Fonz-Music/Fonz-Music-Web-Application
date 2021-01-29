@@ -39,13 +39,13 @@ router.post('/coupon', (req, res) => {
 
 /* Generates a profile for the affiliate user */
 
-router.post('/affiliate', (req, res) => {
-     Affiliate.createAffilateProfile().then((response) => {
+router.post('/profile', (req, res) => {
+    Affiliate.createAffiliateProfile().then((response) => {
         res.json(response)
     }).catch((error) => {
         res.status(500).json({
             error
-        })  
+        })
     })
 })
 

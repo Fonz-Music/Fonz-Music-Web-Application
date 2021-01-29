@@ -19,12 +19,14 @@ const AddonsDB = db.collection('addons');
 const CartDB = db.collection('cart');
 const CouponsDB = db.collection('coupons');
 const OrdersDB = db.collection('orders');
+const AffiliateDB = db.collection('affiliate');
 
 global.PricingDB = PricingDB;
 global.AddonsDB = AddonsDB;
 global.CartDB = CartDB;
 global.CouponsDB = CouponsDB;
 global.OrdersDB = OrdersDB;
+global.AffiliateDB = AffiliateDB;
 
 var express = require('express');
 var path = require('path');

@@ -11,7 +11,6 @@ exports.getReferrals = (referralCode) => {
 
             let output = [];
             data.forEach((doc) => {
-
                 let {
                     cart,
                     created
@@ -162,6 +161,48 @@ exports.getDailyRevenue = (referralCode) => {
                 chartLabels,
                 chartData
             })
+        } catch (error) {
+            console.error(error)
+            reject(error);
+        }
+    })
+}
+
+
+/* Creates an affiliate profile
+{
+  balance: 0,
+  level: 0,
+  payouts: [
+    {
+      amount: 300,
+      createdAt: 16303920,
+      currency: "Yen"
+    }
+  ],
+  percentageCut: 15
+}
+*/
+exports.createAffiliateProfile = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await global.AffiliateDB.doc(global.userId).set({
+                balance: 0.00,
+                level: 1,
+                percentageCut: 15,
+            })
+        
+            
+            resolve({
+                message: 'Well done! You are officially a Fonzilliate',
+                level: 1,
+                percentageCut: 15                
+            })
+
+        
+        
+        
+        
         } catch (error) {
             console.error(error)
             reject(error);

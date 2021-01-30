@@ -40,12 +40,12 @@ router.post('/coupon', (req, res) => {
 /* Generates a profile for the affiliate user */
 
 router.post('/profile', (req, res) => {
-     Affiliate.createAffilateProfile().then((response) => {
+    Affiliate.createAffilateProfile().then((response) => {
         res.json(response)
     }).catch((error) => {
         res.status(500).json({
             error
-        })  
+        })
     })
 })
 
@@ -54,15 +54,15 @@ router.post('/profile', (req, res) => {
 router.get('/profile', (req, res) => {
 
     Affiliate.getAffiliateProfileInfo().then((profile) => {
-    //if (!profile) res.status(404).json({
-    //    message: 'You do not have an affiliate profile'
-    //});
-    res.json(profile);
-}).catch((error) => {
-    res.status(500).json({
-        error
+        //if (!profile) res.status(404).json({
+        //    message: 'You do not have an affiliate profile'
+        //});
+        res.json(profile);
+    }).catch((error) => {
+        res.status(500).json({
+            error
+        })
     })
-})
 })
 
 /* Get current coupon */

@@ -191,18 +191,18 @@ exports.createAffiliateProfile = () => {
                 level: 1,
                 percentageCut: 15,
             })
-        
-            
+
+
             resolve({
                 message: 'Well done! You are officially a Fonzilliate',
                 level: 1,
-                percentageCut: 15                
+                percentageCut: 15
             })
 
-        
-        
-        
-        
+
+
+
+
         } catch (error) {
             console.error(error)
             reject(error);
@@ -215,6 +215,9 @@ exports.getAffiliateProfileInfo = () => {
         try {
 
             const profile = await global.AffiliateDB.doc(global.userId).get();
+            if (!profile.data()) return reject({
+                message: 'Affiliate profile not created for this user.'
+            })
             resolve(profile.data())
 
         } catch (error) {

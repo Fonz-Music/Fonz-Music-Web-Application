@@ -21,10 +21,6 @@ export default {
     CFeaturesSplit
   },
 
-  beforeMount() {
-    this.eventPageViewAbout();
-  },
-
   created() {
     this.$emit("update:layout", CLayout);
   }

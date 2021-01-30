@@ -1,19 +1,6 @@
 <template>
   <fragment>
-
-    <div section-inner>
-      <p> {{name}} </p>
-      <p> {{email}} </p>
-      <p> {{userId}} </p>
-    </div>
-
-    <h1> Test </h1>
-    <h1> Test </h1>
-    <h1> Test </h1>
-
-
     <c-affiliate-table/>
-
   </fragment>
 </template>
 
@@ -42,7 +29,9 @@ export default {
       userId: '',
       name: '',
       email: '',
-      user: {}
+      token: '',
+      user: {},
+      idToken: ''
     }
   },
 
@@ -50,12 +39,20 @@ export default {
     this.$emit("update:layout", CLayout);
 
     this.user = firebase.auth().currentUser;
+
     if(this.user) {
       this.name = this.user.displayName;
       this.email = this.user.email;
       this.userId = this.user.uid;
     }
+
+
+
   },
+
+  methods: {
+
+  }
 };
 
 

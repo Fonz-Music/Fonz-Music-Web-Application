@@ -187,9 +187,6 @@ exports.createAffiliateProfile = () => {
     return new Promise(async (resolve, reject) => {
         try {
             await global.AffiliateDB.doc(global.userId).set({
-            console.log(global.userId + ' affiliate')
-
-            const resposne = await global.AffiliateDB.doc(global.userId).set({
                 balance: 0.00,
                 level: 1,
                 percentageCut: 15,
@@ -211,4 +208,21 @@ exports.createAffiliateProfile = () => {
             reject(error);
         }
     })
+}
+
+exports.getAffiliateProfileInfo = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            const profile = await global.AffiliateDB.doc(global.userId).get();
+            if (!profile.data()) return reject({
+                message: 'Affiliate profile not created for this user.'
+            })
+            resolve(profile.data())
+
+        } catch (error) {
+            console.log(error)
+            reject(error);
+        }
+    });
 }

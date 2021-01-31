@@ -24,8 +24,9 @@ import BugFixForm from "./views/Misc/BugFormPage.vue";
 
 // Affiliate
 import AffiliateLogin from "./views/Affiliate/AffiliateLogin.vue";
-import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
-import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
+import AffiliateDashboard from "./views/Affiliate/AffiliateDashboard.vue";
+import AffiliateTransactions from "./views/Affiliate/AffiliateTransactions.vue";
+import AffiliateAccount from "./views/Affiliate/AffiliateAccount.vue";
 
 // Admin
 import Admin from "./views/Admin/Admin.vue";
@@ -116,15 +117,21 @@ export default new Router({
     },
 
     {
-      path: "/affiliate-home",
-      name: "affiliateHome",
-      component: AffiliateHome
+      path: "/affiliate",
+      name: "affiliateDashboard",
+      component: AffiliateDashboard
     },
 
     {
-      path: "/affiliate-profile",
-      name: "affiliateprofile",
-      component: AffiliateProfile
+      path: "/affiliate-transactions",
+      name: "affiliateTransactions",
+      component: AffiliateTransactions
+    },
+
+    {
+      path: "/affiliate-account",
+      name: "affiliateAccount",
+      component: AffiliateAccount
     },
 
 

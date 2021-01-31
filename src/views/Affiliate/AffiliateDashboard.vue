@@ -1,6 +1,7 @@
 <template>
   <fragment>
-    <c-affiliate-table/>
+    <c-dashboard-bar/>
+    <c-affiliate-graph/>
   </fragment>
 </template>
 
@@ -10,19 +11,15 @@
 import CLayout from "@/layouts/LayoutAffiliate.vue";
 
 // components
-import CDashboardBar from "@/components/sections/Affiliate/DashboardBar.vue";
-import CLineChartContainer from "@/components/sections/Affiliate/LineChartContainer.vue";
-import CReferralsInfo from "@/components/sections/Affiliate/ReferralsInfo.vue";
-import CAffiliateTable from "@/components/sections/Affiliate/DataTable/AffiliateTable.vue";
+import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
+import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue"
 
 export default {
-  name: "AffiliateHome",
+  name: "AffiliateDashboard",
   components: {
     CDashboardBar,
-    CLineChartContainer,
-    CReferralsInfo,
-    CAffiliateTable
-  },
+    CAffiliateGraph
+},
 
   data() {
     return {

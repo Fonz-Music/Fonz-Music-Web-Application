@@ -3,14 +3,13 @@
         <div class='section-inner'>
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="table-responsive-md">
+                    <div v-if="tableLoaded" class="table-responsive-md">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col"> AMOUNT </th>
                                     <th scope="col"> CURR </th>
                                     <th scope="col"> QTY </th>
-                                    <th scope="col"> COUPON </th>
                                     <th scope="col"> EMAIL </th>
                                     <th scope="col"> RETAIL </th>
                                     <th scope="col"> DISCOUNT </th>
@@ -20,15 +19,14 @@
                             </thead>
 
                             <tbody>
-                                <tr v-for="referral in referrals" :key="referral.transactionId">
-                                    <td> {{ referral.price }} </td>
+                                <tr class="table-row-style" v-for="referral in referrals" :key="referral.transactionId">
+                                    <td> ${{ referral.price }} </td>
                                     <td> {{ referral.currency }} </td>
                                     <td> {{ referral.quantity }} </td>
-                                    <td> {{ referral.coupon }} </td>
                                     <td> {{ referral.email }} </td>
-                                    <td> {{ referral.retailPrice }} </td>
-                                    <td> {{ referral.discount }} </td>
-                                    <td> {{ referral.affiliateEarning }} </td>
+                                    <td> ${{ referral.retailPrice }} </td>
+                                    <td> ${{ referral.discount }} </td>
+                                    <td> ${{ referral.affiliateEarning }} </td>
                                     <td> 
                                         <button @click='openDetails(); currentReferral = referral'> 
                                             <c-image 
@@ -44,20 +42,32 @@
                         </table>
                     </div>
 
+                    <div v-if="!tableLoaded">
+                        <p> Loading... </p>
+                    </div>
+
                     <c-modal :active.sync="showDetails">
-                        <h2 class="mt-0"> Transaction Details </h2>
+                        <h3 class="mt-0"> Transaction Details </h3>
                         <div class="container">
-                            <div class="row">
-                                <div class="col"> <p> Transaction ID: </p> </div>
-                                <div class="col"> <p> {{ currentReferral.transactionId }} </p> </div>
-                            </div>
-                            <div class="row mt-0">
-                                <div class="col"> <p> Package ID: </p> </div>
-                                <div class="col"> <p> {{ currentReferral.packageId }} </p> </div>
-                            </div>
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td> Coupon: </td>
+                                        <td> {{ currentReferral.coupon }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Transaction ID: </td>
+                                        <td> {{ currentReferral.transactionId }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Package ID: </td>
+                                        <td> {{ currentReferral.packageId }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </c-modal>
-
                 </div>
             </div>
         </div>
@@ -83,7 +93,8 @@ export default {
         return {
             referrals: [],
             showDetails: false,
-            currentReferral: {}
+            currentReferral: {},
+            tableLoaded: false
         }
     },
     
@@ -98,6 +109,7 @@ export default {
                         }
                     }).then((resp) => {
                         self.referrals = resp.data;
+                        self.tableLoaded = true;
 
                     }).catch((error) => {
                         console.error(error)
@@ -125,6 +137,10 @@ export default {
 <style>
     .button-style {
         margin: auto;
+    }
+
+    .table-row-style {
+        line-height: 10px !important;
     }
 
 </style>

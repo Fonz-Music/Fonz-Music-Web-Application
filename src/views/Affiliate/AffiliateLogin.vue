@@ -57,7 +57,7 @@ export default {
         firebase.auth().onAuthStateChanged(function(user) {
             if(user) {
                 console.log("login listener: logged in");
-                router.push('/affiliate-home');
+                router.push('/affiliate');
                                 
             }
             else {

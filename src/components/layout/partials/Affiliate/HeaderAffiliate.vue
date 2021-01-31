@@ -34,12 +34,13 @@
           :class="{ 'is-active': isActive }"
         >
           <div class="header-nav-inner">
+
             <ul
               class="list-reset text-xxs"
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/affiliate-home/">Dashboard</router-link>
+                <router-link to="/affiliate/">Dashboard</router-link>
               </li>
             </ul>
 
@@ -48,15 +49,29 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/affiliate-profile/">Profile</router-link>
+                <router-link to="/affiliate-transactions/">Transactions</router-link>
               </li>
             </ul>
+
             <ul
               class="list-reset text-xxs"
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <button @click='signOut()'>LOG OUT</button>
+                <router-link to="/affiliate-account/">Account</router-link>
+              </li>
+            </ul>
+
+            <ul
+              class="list-reset text-xxs"
+              :class="navPosition && `header-nav-${navPosition}`"
+            >
+              <li>
+                <router-link 
+                to="/affiliate-login/"
+                @click='signOut()'>
+                LOG OUT
+                </router-link>
               </li>
             </ul>
           </div>

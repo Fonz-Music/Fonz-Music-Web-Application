@@ -33,7 +33,7 @@
           <!-- <c-timeline-item title="15 December 2020">
             Plans to add support for Apple Music
           </c-timeline-item> -->
-          <c-timeline-item title="2021">
+          <c-timeline-item title="yeah2021">
             Plans to add Apple Music, play music in app, &amp; allow DJ setting
           </c-timeline-item>
         </c-timeline>

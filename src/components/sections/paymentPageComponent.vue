@@ -1,4 +1,4 @@
-<template>
+rrent <template>
   <div class="stripe-payment-tab center-content">
     <div class="payment-content center-content">
       <h3 class="">please enter your card details</h3>
@@ -163,6 +163,7 @@ export default {
           // console.log("resp data " + resp.data);
         })
         .catch(error => {
+          console.error();
           console.log("fail making payment intent");
         });
     }

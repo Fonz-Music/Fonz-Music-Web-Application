@@ -1,22 +1,10 @@
 <template>
   <fragment>
-<<<<<<< HEAD
-    <c-hero-split />
-    <c-clients top-divider bottom-divider class="center-content" />
-    <WhatDoesFonzDoHome />
-    <br>
-    <DownloadAppHome top-divider/>
-    <c-CoasterBuyInfo top-divider />
-    
-    <!-- <DownloadApp /> -->
-    <c-roadmap top-divider class="center-content" />
-    
-=======
     <c-splash/>
     <c-splash-video/>
     <c-splash-blocks/>
     <c-download-app/>
->>>>>>> 9605ac0130f41d30039df8e1c98e82861b8435dd
+    <EmailSignup/>
   </fragment>
 </template>
 
@@ -27,16 +15,10 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import sections
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
-<<<<<<< HEAD
-import CClients from "@/components/sections/Clients.vue";
-import CRoadmap from "@/components/sections/Roadmap.vue";
-import CCoasterBuyInfo from "@/components/sections/CoasterBuyInfo.vue";
-import EmailSignup from "@/components/sections/EmailSignupComp.vue";
-=======
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
->>>>>>> 9605ac0130f41d30039df8e1c98e82861b8435dd
+import EmailSignup from "@/components/sections/EmailSignupComp.vue";
 
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
@@ -49,7 +31,8 @@ export default {
     CSplash,
     CSplashBlocks,
     CDownloadApp,
-    CSplashVideo
+    CSplashVideo,
+    EmailSignup
   },
 
   methods: {

@@ -1,5 +1,8 @@
 <template lang="html">
-  <EmailSignup />
+  <div class="emailSign">
+    <EmailSignup/>
+  </div>
+  
 </template>
 
 <script>
@@ -16,4 +19,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.emailSign {
+  margin-top: 100px;
+}
 </style>

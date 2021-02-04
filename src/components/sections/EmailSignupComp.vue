@@ -29,7 +29,7 @@ export default {
 	clear:left; 
 	font:18px "MuseoSans500",Arial,sans-serif; 
 	width:90%;
-	padding-top: 200px;
+	padding-top: 50px;
   margin: auto;
   /* padding-left: 20px;
   padding-right: 20px */
@@ -49,7 +49,10 @@ export default {
   height:32px; padding: 0px 0.4em; display: inline-block; margin: 0; width:350px; vertical-align:top;}
 /* #mc_embed_signup label {display:block; font-size:16px; padding-bottom:10px; font-weight:bold;} */
 #mc_embed_signup .clear {display: inline-block;} /* positions button horizontally in line with input */
-#mc_embed_signup .button {font-size: 13px; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; letter-spacing: .03em; color: #fff; background-color: #b188b9; box-sizing:border-box; height:32px; line-height:32px; padding:0 18px; display: inline-block; margin: 0; transition: all 0.23s ease-in-out 0s;}
+#mc_embed_signup .button {font-size: 13px; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; letter-spacing: .03em; color: #fff;
+   /* change this to change background color */
+  background-color: #b188b9; 
+  box-sizing:border-box; height:32px; line-height:32px; padding:0 18px; display: inline-block; margin: 0; transition: all 0.23s ease-in-out 0s;}
 #mc_embed_signup .button:hover {background-color:#777; cursor:pointer;}
 #mc_embed_signup div#mce-responses {float:left; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%;margin: 0 5%; clear: both;}
 #mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}

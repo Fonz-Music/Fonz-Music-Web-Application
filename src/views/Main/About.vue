@@ -5,6 +5,7 @@
     </div>
     <c-host-instructions top-divider class="center-content" />
     <c-guest-instructions top-divider class="center-content" />
+    <EmailSignup/>
   </fragment>
 </template>
 
@@ -16,6 +17,8 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 import CGuestInstructions from "@/components/sections/GuestInstructions.vue";
 import CHostInstructions from "@/components/sections/HostInstructions.vue";
 import CFeaturesSplit from "@/components/sections/FeaturesSplit.vue";
+import EmailSignup from "@/components/sections/EmailSignupComp.vue";
+
 // import some required elements
 
 export default {
@@ -23,7 +26,8 @@ export default {
   components: {
     CGuestInstructions,
     CHostInstructions,
-    CFeaturesSplit
+    CFeaturesSplit,
+    EmailSignup
   },
   data() {
     return {

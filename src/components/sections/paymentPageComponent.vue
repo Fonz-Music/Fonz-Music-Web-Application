@@ -162,12 +162,7 @@ export default {
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);
         })
-<<<<<<< HEAD
-        .catch(error => {
-          console.error();
-=======
         .catch((error) => {
->>>>>>> 9605ac0130f41d30039df8e1c98e82861b8435dd
           console.log("fail making payment intent");
         });
     },

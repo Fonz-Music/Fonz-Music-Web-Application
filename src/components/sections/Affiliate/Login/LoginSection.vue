@@ -82,7 +82,6 @@ export default {
                 user = userCredential.user;
             })
             .catch(() => {
-                console.log("error");
                 this.incorrectLogin = true;
                 this.createdAccountError = false;
             })
@@ -93,9 +92,7 @@ export default {
             .then(() => {
                 console.log('successfully signed out');
             })
-            .catch(() => {
-                console.log("error");
-            })
+            .catch(() => {})
 
         }
     }

@@ -53,18 +53,11 @@ export default {
 
     created() {
         this.$emit("update:layout", CLayout);
+
         // Firebase Listener
         firebase.auth().onAuthStateChanged(function(user) {
             if(user) {
-                console.log("login listener: logged in");
-                router.push('/affiliate');
-                                
-            }
-            else {
-                if (router.history.current.path != '/affiliate-login' ) {
-                    console.log("login listener: logged out");
-                    router.push('/affiliate-login');
-                }
+                router.push('/affiliate').catch(() => {});
             }
         });
     }

@@ -67,11 +67,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link 
-                to="/affiliate-login/"
-                @click='signOut()'>
-                LOG OUT
-                </router-link>
+                <c-button @click="signOut()"> LOG OUT </c-button>
               </li>
             </ul>
           </div>
@@ -85,12 +81,14 @@
 import CLogo from "@/components/layout/partials/Logo.vue";
 import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
 import router from "@/router.js";
+import CButton from "@/components/elements/Button.vue";
 
 export default {
   name: "CHeaderAffiliate",
   components: {
     CLogo,
-    CLogoHeader
+    CLogoHeader,
+    CButton
   },
   props: {
     active: Boolean,
@@ -181,8 +179,7 @@ export default {
       // Firebase Listener
       firebase.auth().onAuthStateChanged(function(user) {
           if(!user) {
-              console.log("header listener: logged out");
-              router.push('/affiliate-login');
+              router.push('/affiliate-login').catch(() => {});
           }
       });
     }

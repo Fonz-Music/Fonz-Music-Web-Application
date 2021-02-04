@@ -3,49 +3,72 @@
         <div class="section-inner">
             <div class="container">
                 <div class="row justify-content-center">
-
                     <div class="col tile-spacing tile-background">
-                        <div class="container tile-padding">
-                            <div class="row">
-                                <p> total income </p> 
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <p> Total Income </p>
+                                    <p> $248.93 </p>
+                                </div>
+                                <div class="col-4">
+                                    <c-image
+                                        :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                                        alt="Feature tile icon 01"
+                                        :width="72"
+                                        :height="72" 
+                                    />
+                                </div>
                             </div>
-                            <div class="row">
-                                <p> $234.00 </p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col tile-spacing tile-background">
-                        <div class="container tile-padding">
-                            <div class="row">
-                                <p> total withdrawn </p> 
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <p> Total Income </p>
+                                    <p> $248.93 </p>
+                                </div>
+                                <div class="col-4">
+                                    <c-image
+                                        :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                                        alt="Feature tile icon 01"
+                                        :width="72"
+                                        :height="72" 
+                                    />
+                                </div>
                             </div>
-                            <div class="row">
-                                <p> $234.00 </p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col tile-spacing tile-background">
-                        <div class="container tile-padding">
-                            <div class="row">
-                                <p> available withdrawals </p> 
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <p> Total Income </p>
+                                    <p> $248.93 </p>
+                                </div>
+                                <div class="col-4">
+                                    <c-image
+                                        :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                                        alt="Feature tile icon 01"
+                                        :width="72"
+                                        :height="72" 
+                                    />
+                                </div>
                             </div>
-                            <div class="row">
-                                <p> $234.00 </p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col tile-spacing tile-background">
-                        <div class="container tile-padding">
-                            <div class="row">
-                                <p> pending withdrawals </p> 
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <p> Total Income </p>
+                                    <p> $248.93 </p>
+                                </div>
+                                <div class="col-4">
+                                    <c-image
+                                        :src="require('@/assets/images/feature-tile-icon-01-black.svg')"
+                                        alt="Feature tile icon 01"
+                                        :width="72"
+                                        :height="72" 
+                                    />
+                                </div>
                             </div>
-                            <div class="row">
-                                <p> $234.00 </p>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -56,8 +79,13 @@
 
 
 <script>
+import CImage from "@/components/elements/Image.vue"
+
 export default {
-    name:"DashboardBar"
+    name:"DashboardBar",
+    components: {
+        CImage
+    }
 }
 </script>
 
@@ -74,10 +102,13 @@ export default {
     }
 
     .tile-padding {
-        padding: 5px 10px 2px 10px;
     }
 
     .tile-row-spacing {
         margin: 0px;
+    }
+
+    .tile-inner {
+        margin: 10px;
     }
 </style>

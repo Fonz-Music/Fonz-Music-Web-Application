@@ -24,13 +24,14 @@ import BugFixForm from "./views/Misc/BugFormPage.vue";
 import EmailSignup from "./views/Misc/EmailSignup.vue";
 
 // Affiliate
-import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
-import AffiliateAnalytics from "./views/Affiliate/AffiliateAnalytics.vue";
-import AffiliateFinancial from "./views/Affiliate/AffiliateFinancial.vue";
-import AffiliateProfile from "./views/Affiliate/AffiliateProfile.vue";
+import AffiliateLogin from "./views/Affiliate/AffiliateLogin.vue";
+import AffiliateDashboard from "./views/Affiliate/AffiliateDashboard.vue";
+import AffiliateTransactions from "./views/Affiliate/AffiliateTransactions.vue";
+import AffiliateAccount from "./views/Affiliate/AffiliateAccount.vue";
 
 // Admin
 import Admin from "./views/Admin/Admin.vue";
+import AdminLogin from "./views/Admin/AdminLogin.vue";
 
 Vue.use(Router);
 
@@ -112,41 +113,51 @@ export default new Router({
       component: EmailSignup
     },
 
+    // ******************************************
     // Affiliate Program
+    
     {
-      path: "/affiliate-home",
-      name: "affiliateHome",
-      component: AffiliateHome
+      path: "/affiliate-login",
+      name: "affiliatelogin",
+      component: AffiliateLogin
     },
 
-    // Affiliate Analytics
     {
-      path: "/affiliate-analytics",
-      name: "affiliateanalytics",
-      component: AffiliateAnalytics
+      path: "/affiliate",
+      name: "affiliateDashboard",
+      component: AffiliateDashboard
     },
 
-    // Affiliate Financial
     {
-      path: "/affiliate-financial",
-      name: "affiliatefinancial",
-      component: AffiliateFinancial
+      path: "/affiliate-transactions",
+      name: "affiliateTransactions",
+      component: AffiliateTransactions
     },
 
-    // Affiliate Profile
     {
-      path: "/affiliate-profile",
-      name: "affiliateprofile",
-      component: AffiliateProfile
+      path: "/affiliate-account",
+      name: "affiliateAccount",
+      component: AffiliateAccount
     },
 
+
+    // ******************************************
     // Admin
+
     {
       path: "/admin",
       name: "Login",
       component: Admin
     },
 
+    {
+      path: "/admin-login",
+      name: "Login",
+      component: AdminLogin
+    },
+
+
+    // ******************************************
     // this must be last
     {
       path: "/*",

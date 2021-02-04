@@ -45,7 +45,7 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     getOrder() {
-      return axios.get("/i/orders/recent").then(resp => {
+      return axios.get("https://www.fonzmusic.com/i/orders/recent").then(resp => {
         const data = resp.data;
         this.state = data.state;
         this.country = data.country;

@@ -40,24 +40,24 @@ export default {
       "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
     amount: 1000,
     stripeAccount: {
-      type: String
+      type: String,
     },
     apiVersion: "v3",
     locale: {
       type: String,
-      default: "auto"
+      default: "auto",
     },
     styleObject: {
-      type: Object
+      type: Object,
     },
-    clientSecret: ""
+    clientSecret: "",
   },
   data() {
     return {
       loading: false,
       stripe: null,
       elements: null,
-      card: null
+      card: null,
     };
   },
   computed: {
@@ -69,18 +69,18 @@ export default {
           fontSmoothing: "antialiased",
           fontSize: "16px",
           "::placeholder": {
-            color: "#aab7c4"
-          }
+            color: "#aab7c4",
+          },
         },
         invalid: {
           color: "#fa755a",
-          iconColor: "#fa755a"
-        }
+          iconColor: "#fa755a",
+        },
       };
     },
     form() {
       return document.getElementById("payment-form");
-    }
+    },
   },
   methods: {
     submit() {
@@ -90,9 +90,9 @@ export default {
       axios
         .post("/i/checkout/pay", {
           paymentIntent: this.clientSecret,
-          paymentMethod: card
+          paymentMethod: card,
         })
-        .then(resp => {
+        .then((resp) => {
           console.log("success order");
           // this.token = resp.data.clientSecret;
           //resp.data has a ton of info
@@ -100,7 +100,7 @@ export default {
           // this.$router.to('/')
           this.$router.push({ path: "/ordersuccess" });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("fail order");
 
           // this.confirmCardPayment(error.client_secret);
@@ -149,31 +149,35 @@ export default {
               // postal_code: addressIntent[addressLength - 1],
               // country: addressIntent[addressLength - 2]
             },
-            name: nameIntent
+            name: nameIntent,
           },
-          receipt_email: emailIntent
+          receipt_email: emailIntent,
         })
-        .then(resp => {
+        .then((resp) => {
           console.log("beginning on payment intent");
           this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp, null, 4));
-          
+
           // this.clientSecret = resp.data.client_secret;
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);
         })
+<<<<<<< HEAD
         .catch(error => {
           console.error();
+=======
+        .catch((error) => {
+>>>>>>> 9605ac0130f41d30039df8e1c98e82861b8435dd
           console.log("fail making payment intent");
         });
-    }
+    },
   },
   mounted() {
     this.loadStripeSdk(this.pk, "v3", () => {
       const options = {
         stripeAccount: this.stripeAccount,
         apiVersion: this.apiVersion,
-        locale: this.locale
+        locale: this.locale,
       };
       this.stripe = window.Stripe(
         "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
@@ -181,7 +185,7 @@ export default {
       );
       this.elements = this.stripe.elements();
       this.card = this.elements.create("card", {
-        style: this.styleObject || this.style
+        style: this.styleObject || this.style,
       });
       this.card.mount("#card-element");
       this.card.addEventListener("change", ({ error }) => {
@@ -201,12 +205,12 @@ export default {
       //   amount: totalPrice
       // });
 
-      this.form.addEventListener("submit", async event => {
+      this.form.addEventListener("submit", async (event) => {
         try {
           this.$emit("loading", true);
           event.preventDefault();
           const data = {
-            ...this.card
+            ...this.card,
           };
           // alert(JSON.stringify(data, null, 4));
           // console.log("data: " + data);
@@ -220,12 +224,12 @@ export default {
           const { token, error } = await this.stripe
             .confirmCardPayment(this.clientSecret, {
               payment_method: {
-                card: data
+                card: data,
               },
               // shipping: { address: { line1: addressIntent }, name: nameIntent },
               // receipt_email: emailIntent
             })
-            .then(resp => {
+            .then((resp) => {
               // console.log(resp.error.code);
 
               if (resp.error) {
@@ -239,7 +243,7 @@ export default {
                 this.$router.push({ path: "/ordersuccess" });
               }
             })
-            .catch(error => {
+            .catch((error) => {
               const errorElement = document.getElementById("card-errors");
               errorElement.textContent = error.message;
               console.error(error);
@@ -254,8 +258,11 @@ export default {
         }
       });
     });
-    
-  }
+  },
+  beforeMount() {
+    const packageId = localStorage.getItem("package");
+    if (!packageId) this.$router.push("/buy");
+  },
 };
 </script>
 

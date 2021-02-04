@@ -99,7 +99,8 @@
               <tr v-if="determineAddDiscount">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
-                  {{ determineCurrencySymbol }}5
+                  {{ determineCurrencySymbol }}
+                  {{ currentPackage.couponAmount }}
                 </td>
               </tr>
               <!-- <tr v-if="extraPackaging">
@@ -143,7 +144,7 @@ console.log({ Checkout });
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage
+    CImage,
   },
   data() {
     return {
@@ -166,12 +167,13 @@ export default {
         retailPrice: 60,
         title: "fonz coaster",
         freeShipping: true,
-        couponCode: null
+        couponCode: null,
+        couponAmount: 0,
       },
       packageId: "",
       freeShipping: false,
 
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
     };
   },
   beforeMount() {
@@ -181,15 +183,16 @@ export default {
   methods: {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
+      this.getCoupon();
 
       // communicate with API to add promo code to cart
       // GET /i/coupons/{couponId}
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
-          cartId: cartIdFromUser
+          cartId: cartIdFromUser,
         })
-        .then(resp => {
+        .then((resp) => {
           response = resp.data;
           console.log(response);
           this.addedPromoSuccess = true;
@@ -198,7 +201,7 @@ export default {
           this.promoValid = true;
           this.enteredpromo = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           this.promoValid = false;
           this.enteredpromo = true;
@@ -248,20 +251,34 @@ export default {
     //       console.error(error);
     //     });
     // },
+
+    getCoupon() {
+      axios
+        .get(`${this.$API_URL}/i/cart/coupon/${this.currentPackage.couponCode}`)
+        .then((resp) => {
+          const data = resp.data;
+          // data = {"active":true,"discount":"10","affiliateId":"David2020","discountType":"constant","affiliateCut":0.2}
+          this.currentPackage.couponAmount = data.discount;
+        })
+        .catch((error) => {
+          console.error("invalid coupon code: " + error);
+        });
+    },
+
     addShippingCost() {
       // PUT /i/cart/coupon/{couponId}
       const cartIdFromUser = localStorage.getItem("cartId");
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/addons/shipping`, {
-          cartId: cartIdFromUser
+          cartId: cartIdFromUser,
         })
         // add cartID to body
-        .then(resp => {
+        .then((resp) => {
           response = resp.data;
           console.log("shipping cost: " + response);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("shipping error: " + error);
         });
     },
@@ -286,6 +303,7 @@ export default {
     //     this.removeExtraPackaging();
     //   }
     // },
+
     getTotalPrice() {
       var addonTotal = 0;
       if (this.currentPackage.couponCode != null) {
@@ -302,9 +320,10 @@ export default {
     },
     getPricing() {
       const packageId = localStorage.getItem("package");
+      if(!packageId) this.$router.push('/buy')
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
-        .then(resp => {
+        .then((resp) => {
           // this.currentPackage = resp.data;
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
@@ -312,7 +331,7 @@ export default {
           // console.log(this.currentPackage);
           this.showPricing = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
@@ -322,7 +341,7 @@ export default {
       var localCartId = localStorage.getItem("cartId");
       axios
         .get(`${this.$API_URL}/i/cart/${localCartId}`)
-        .then(resp => {
+        .then((resp) => {
           console.log("got cart");
           var currentCard = resp.data;
           this.currentPackage.price = resp.data.price;
@@ -334,10 +353,11 @@ export default {
           } catch (e) {
             console.log("no coupon");
           }
+          this.getCoupon(); // Check for coupon code and adjust subtotal if present
           console.log(currentCard);
           // this.showPricing = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("got cart error");
           console.error(error);
         });
@@ -366,11 +386,11 @@ export default {
       // console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
-          cartId: localCartId
+          cartId: localCartId,
           // shipping: { address: { line1: addressIntent }, name: nameIntent },
           // receipt_email: emailIntent
         })
-        .then(resp => {
+        .then((resp) => {
           console.log("beginning on payment intent");
           // alert(JSON.stringify(resp, null, 4));
           localStorage.setItem("paymentIntent", resp.data.id);
@@ -378,10 +398,10 @@ export default {
           // alert(JSON.stringify(resp.data, null, 4));
           // console.log("resp data " + resp.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("fail making payment intent");
         });
-    }
+    },
   },
 
   async mounted() {
@@ -394,7 +414,7 @@ export default {
       const options = {
         stripeAccount: this.stripeAccount,
         apiVersion: "2020-08-27",
-        locale: this.locale
+        locale: this.locale,
       };
       var country = localStorage.getItem("country");
       this.stripe = window.Stripe(
@@ -407,16 +427,16 @@ export default {
         country: country,
         total: {
           label: "Fonz Coaster",
-          amount: this.totalPrice * 100
+          amount: this.totalPrice * 100,
         },
         requestPayerName: true,
-        requestPayerEmail: true
+        requestPayerEmail: true,
       });
       // console.log(localPaymentReq);
 
       this.elements = this.stripe.elements();
       var prButton = this.elements.create("paymentRequestButton", {
-        paymentRequest: localPaymentReq
+        paymentRequest: localPaymentReq,
       });
 
       localPaymentReq.canMakePayment().then(function(result) {
@@ -440,8 +460,8 @@ export default {
         localPaymentReq.update({
           total: {
             label: "Fonz Coaster",
-            amount: passInPrice * 100
-          }
+            amount: passInPrice * 100,
+          },
         });
       });
       var orderSuccess;
@@ -517,7 +537,7 @@ export default {
     calculateTotalPrice() {
       var addonTotal = 0;
       if (this.determineAddDiscount) {
-        addonTotal -= 5;
+        addonTotal -= this.currentPackage.couponAmount;
       }
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
@@ -530,7 +550,8 @@ export default {
       return this.currentPackage.price + addonTotal;
     },
     calculateSubtotalPrice() {
-      if (this.determineAddDiscount) return this.currentPackage.price - 5;
+      if (this.determineAddDiscount)
+        return this.currentPackage.price - this.currentPackage.couponAmount;
       else return this.currentPackage.price;
     },
     getPackageId() {
@@ -574,7 +595,7 @@ export default {
       if (this.addedPromoSuccess || this.currentPackage.couponCode != null) {
         return true;
       } else return false;
-    }
+    },
     // determineExtraPacking() {
     //   var extraPackingFromLocal = localStorage.getItem("extraPackaging");
     //   console.log("packing from local " + extraPackingFromLocal);
@@ -587,7 +608,7 @@ export default {
     //     return false;
     //   }
     // }
-  }
+  },
 };
 </script>
 

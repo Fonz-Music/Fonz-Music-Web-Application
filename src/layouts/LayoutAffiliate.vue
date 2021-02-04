@@ -5,7 +5,6 @@
       <main class="site-content">
         <slot />
       </main>
-      <recent-orders />
       <c-footer />
     </div>
   </fragment>
@@ -13,7 +12,7 @@
 
 
 <script>
-import CHeaderAffiliate from "@/components/layout/HeaderAffiliate.vue";
+import CHeaderAffiliate from "@/components/layout/partials/Affiliate/HeaderAffiliate.vue";
 import CFooter from "@/components/layout/Footer02.vue";
 export default {
   components: {

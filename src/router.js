@@ -21,6 +21,7 @@ import PrivacyPolicy from "./views/Misc/PrivacyPolicy.vue";
 import TermsOfService from "./views/Misc/TermsOfService.vue";
 import PageNotFoundPage from "./views/Misc/404notFound.vue";
 import BugFixForm from "./views/Misc/BugFormPage.vue";
+import EmailSignup from "./views/Misc/EmailSignup.vue";
 
 // Affiliate
 import AffiliateHome from "./views/Affiliate/AffiliateHome.vue";
@@ -104,6 +105,11 @@ export default new Router({
       path: "/bugfix",
       name: "bugfix",
       component: BugFixForm
+    },
+    {
+      path: "/email",
+      name: "email",
+      component: EmailSignup
     },
 
     // Affiliate Program

@@ -43,6 +43,7 @@
         </c-accordion>
       </div>
     </c-generic-section>
+    <EmailSignup/>
   </fragment>
 </template>
 
@@ -54,6 +55,7 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 import CAccordion from "@/components/elements/Accordion.vue";
 import CAccordionItem from "@/components/elements/AccordionItem.vue";
 import CContactHead from "@/components/sections/ContactHead.vue";
+import EmailSignup from "@/components/sections/EmailSignupComp.vue";
 // import some required elements
 
 export default {
@@ -61,7 +63,8 @@ export default {
   components: {
     CAccordion,
     CAccordionItem,
-    CContactHead
+    CContactHead,
+    EmailSignup
   },
   data() {
     return {

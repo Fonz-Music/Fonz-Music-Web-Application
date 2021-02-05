@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
+    "deployWebsite": "echo Building Vue App && npm run build && echo Deploying to Live Servers && firebase deploy --only hosting",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

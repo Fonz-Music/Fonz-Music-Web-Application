@@ -7,6 +7,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th scope="col"> DATE </th>
                                     <th scope="col"> AMOUNT </th>
                                     <th scope="col"> CURR </th>
                                     <th scope="col"> QTY </th>
@@ -20,6 +21,7 @@
 
                             <tbody>
                                 <tr class="table-row-style" v-for="referral in referrals" :key="referral.transactionId">
+                                    <td> {{ convertDate(referral.created) }} </td>
                                     <td> ${{ referral.price }} </td>
                                     <td> {{ referral.currency }} </td>
                                     <td> {{ referral.quantity }} </td>
@@ -77,6 +79,7 @@
 
 <script>
 const axios = require("axios");
+
 import CModal from  '@/components/elements/Modal.vue'
 import CButton from '@/components/elements/Button.vue'
 import CImage from '@/components/elements/Image.vue'
@@ -89,47 +92,32 @@ export default {
         CImage
     },
 
+    props: [
+        'referrals'
+    ],
+
     data() {
         return {
-            referrals: [],
             showDetails: false,
             currentReferral: {},
-            tableLoaded: false
+            tableLoaded: true
         }
     },
     
     methods: {
-        getReferrals() {
-            let self = this
-            if(firebase.auth().currentUser) {
-                firebase.auth().currentUser.getIdToken().then(function(idToken) {
-                    axios.get('https://fonzmusic.com/i/affiliate/referrals', {
-                        headers: {
-                        Authorization: `Bearer ${ idToken }`
-                        }
-                    }).then((resp) => {
-                        self.referrals = resp.data;
-                        self.tableLoaded = true;
-
-                    }).catch((error) => {
-                        console.error(error)
-                    });
-                })
-            }
-            else {
-                console.log("No user signed in.")
-            }
+        openDetails() {
+            this.showDetails = true;
         },
 
-        openDetails() {
-            console.log("clicked");
-            this.showDetails = true;
+        convertDate(createdTime) {
+            var date = new Date(createdTime._seconds * 1000);
+            var year = date.getFullYear();
+            var month = 1 + date.getMonth();
+            var day = date.getDate();
+            var formattedTime = day + '/' + month + '/' + year;
+            return formattedTime;
         }
     },
-
-    beforeMount() {
-        this.getReferrals();
-    }
 }
 </script>
 

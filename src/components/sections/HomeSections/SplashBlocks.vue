@@ -55,7 +55,7 @@ export default {
             imgTwo: "SplashImages/splashArtwork-03.png",
 
             headingThree: "wherever, whenever",
-            paraThree: "The Fonz coaster is made with high-quality PVC. It requires no power, and as long as your phone has access to cellular or the internet, you're goot to go. It's also spill-proof, so no worries about bringing it to the pregame, tailgate, or after-party.",
+            paraThree: "The Fonz coaster is made with high-quality PVC. It requires no power, and as long as your phone has access to cellular or the internet, you're good to go. It's also spill-proof, so no worries about bringing it to the pregame, tailgate, or after-party.",
             imgThree: "SplashImages/splashArtwork-02.png",
         }
     }

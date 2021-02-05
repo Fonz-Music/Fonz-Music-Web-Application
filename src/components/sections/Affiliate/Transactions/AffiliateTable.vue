@@ -79,6 +79,7 @@
 
 <script>
 const axios = require("axios");
+
 import CModal from  '@/components/elements/Modal.vue'
 import CButton from '@/components/elements/Button.vue'
 import CImage from '@/components/elements/Image.vue'
@@ -91,34 +92,19 @@ export default {
         CImage
     },
 
+    props: [
+        'referrals'
+    ],
+
     data() {
         return {
-            referrals: [],
             showDetails: false,
             currentReferral: {},
-            tableLoaded: false
+            tableLoaded: true
         }
     },
     
     methods: {
-        getReferrals() {
-            let self = this
-            if(firebase.auth().currentUser) {
-                firebase.auth().currentUser.getIdToken().then(function(idToken) {
-                    axios.get('https://fonzmusic.com/i/affiliate/referrals', {
-                        headers: {
-                        Authorization: `Bearer ${ idToken }`
-                        }
-                    }).then((resp) => {
-                        self.referrals = resp.data;
-                        self.tableLoaded = true;
-                    }).catch((error) => {
-                        console.error(error)
-                    });
-                })
-            }
-        },
-
         openDetails() {
             this.showDetails = true;
         },
@@ -132,12 +118,6 @@ export default {
             return formattedTime;
         }
     },
-
-    beforeMount() {
-        this.getReferrals();
-    },
-
-
 }
 </script>
 

@@ -1,16 +1,14 @@
 <template>
   <fragment>
     <c-dashboard-bar/>
-    <c-affiliate-graph/>
+    <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
   </fragment>
 </template>
 
 
 <script>
-// layout
+const axios = require("axios");
 import CLayout from "@/layouts/LayoutAffiliate.vue";
-
-// components
 import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
 import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue"
 
@@ -19,36 +17,41 @@ export default {
   components: {
     CDashboardBar,
     CAffiliateGraph
-},
+  },
 
   data() {
     return {
-      userId: '',
-      name: '',
-      email: '',
-      token: '',
-      user: {},
-      idToken: ''
+      referrals: [],
+      referralsLoaded: false
     }
   },
 
   created() {
     this.$emit("update:layout", CLayout);
+    this.getReferrals();
+  },
 
-    this.user = firebase.auth().currentUser;
-
-    if(this.user) {
-      this.name = this.user.displayName;
-      this.email = this.user.email;
-      this.userId = this.user.uid;
-    }
-
-
-
+  beforeMount() {
   },
 
   methods: {
-
+    async getReferrals() {
+      let self = this
+        if(firebase.auth().currentUser) {
+          firebase.auth().currentUser.getIdToken().then(function(idToken) {
+            axios.get('https://fonzmusic.com/i/affiliate/referrals', {
+            headers: {
+              Authorization: `Bearer ${ idToken }`
+            }
+          }).then((resp) => {
+            self.referrals = resp.data;
+            self.referralsLoaded = true;
+          }).catch((error) => {
+            console.error(error)
+          });
+          })
+        }
+    }  
   }
 };
 

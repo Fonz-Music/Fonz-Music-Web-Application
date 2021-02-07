@@ -47,14 +47,27 @@ export default {
           // November 1st 2020
           startDate: new Date('1 November, 2020'),
           endDate: new Date(Date.now()),
-
           showFilter: false, 
+
           chartOptions: {
+            tooltips: {
+              mode: 'x',
+              intersect: false
+            },
+
             elements: {
               line: {
-                tension: 0.2
-              }
+                tension: 0,
+                fill: false,
+                borderColor: '#ffc27d',
+              },
+              point: {
+                radius: 3,
+                backgroundColor: '#ff9425',
+                borderColor: '#ff9425'
+              },
             },
+            
             scales: {
                 xAxes: [{
                   type: 'time',
@@ -85,45 +98,46 @@ export default {
       this.salesData = [
         {
           x: this.startDate,
-          y: null
+          y: 0
         },
         {
           x: this.endDate,
-          y: null
+          y: 0
         }
       ]
-      
-        this.referrals.forEach((referral) => {
-            var point = { x: '', y: 0,};
-            var pushed = false;
-            var timestamp = referral.created._seconds * 1000;                        
-            if(timestamp >= this.startDate && timestamp <= this.endDate) {
-              var formattedTimestamp = new Date(timestamp)
-              point.x = formattedTimestamp;
-              point.y = referral.affiliateEarning;
+      this.referrals.forEach((referral) => {
+        var point = { x: '', y: 0,};
+        var pushed = false;
+        var timestamp = referral.created._seconds * 1000;                        
+        if(timestamp >= this.startDate && timestamp <= this.endDate) {
+          var formattedTimestamp = new Date(timestamp)
+          point.x = formattedTimestamp;
+          point.y = referral.affiliateEarning;
 
-              if(this.salesData.length != 0) {
-                this.salesData.forEach((saleData) => {
-                  if(point.x.getDate() == saleData.x.getDate()) {
-                    saleData.y += point.y;
-                    pushed = true;
-                  }
-                })
-              }
-              if(!pushed) {
-                this.salesData.push(point);
-              }
+          if(this.salesData.length != 0) {
+            this.salesData.forEach((saleData) => {
+            if(point.x.getDate() == saleData.x.getDate()) 
+            {
+              saleData.y += point.y;
+              pushed = true;
             }
-        })
-        var temp = this.salesData.sort((a, b) => a.x - b.x);
-        this.salesData = temp;
-        this.graphData = {
-          datasets: [
-              {   
-                label: 'Earnings',
-                data: this.salesData
-              }
-            ]
+            })
+          }
+          if(!pushed) {
+            this.salesData.push(point);
+          }
+        }
+      })
+
+      var temp = this.salesData.sort((a, b) => a.x - b.x);
+      this.salesData = temp;
+      this.graphData = {
+        datasets: [
+            {   
+              label: 'Earnings',
+              data: this.salesData
+            }
+          ]
         }
       this.showFilter = false;
     },

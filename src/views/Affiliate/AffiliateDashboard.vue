@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <c-dashboard-bar/>
+    <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
     <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
   </fragment>
 </template>

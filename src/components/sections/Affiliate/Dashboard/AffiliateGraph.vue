@@ -2,7 +2,14 @@
   <section>
     <div class="container">
       <div class="row">
-        <c-button @click="openFilter()"> Filter </c-button>
+          <div>
+            <b-dropdown id="dropdown-1" text="Filter" class="m-md-2">
+              <b-dropdown-item @click="filterWeek()"> Last 7 Days </b-dropdown-item>
+              <b-dropdown-item @click="filterMonth()"> Last 4 Weeks </b-dropdown-item>
+              <b-dropdown-item @click="filterBiYear()"> Last 6 Months</b-dropdown-item>
+              <b-dropdown-item @click="filterYear()"> Last Year </b-dropdown-item>
+            </b-dropdown>
+          </div>
       </div>
 
       <div class="row justify-content-center">
@@ -12,34 +19,6 @@
       </div>
     </div>
 
-    <c-modal :active.sync="showFilter">
-      <div class="container">
-        <div class="row">
-          <div class="col-4">
-            <p> Start Date: </p>
-          </div>
-          <div class="col-8">
-            <input id="startDate" class="form-control" type="date" value="2020-11-13"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-4">
-            <p> End Date: </p>
-          </div>
-
-          <div class="col-8">
-            <input id="endDate" class="form-control" type="date" value="2020-12-23"/>
-          </div>
-        </div>
-
-        <div class="row justify-content-center">
-          <button class="form-control"
-            @click="updateData()"> Refresh 
-          </button>
-        </div>
-      </div>
-    </c-modal>
   </section>
 </template>
 
@@ -64,45 +43,84 @@ export default {
       return {
           graphData: {},
           salesData: [],
-          startDate: 1577836800000,
-          endDate: 1640908800000,
-          showFilter: false, 
 
+          // November 1st 2020
+          startDate: new Date('1 November, 2020'),
+          endDate: new Date(Date.now()),
+
+          showFilter: false, 
           chartOptions: {
-              scales: {
-                  xAxes: [{
-                      gridLines: {
-                          drawBorder: false,
-                          display: false
-                      }
-                  }],
-                  yAxes: [{
-                      gridLines: {
-                          drawBorder: false,
-                      }
-                  }]
-              },
-              responsive: true,
-              maintainAspectRatio: false,
+            elements: {
+              line: {
+                tension: 0.2
+              }
+            },
+            scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'week'
+                  },
+                  gridLines: {
+                      drawBorder: false,
+                      display: false
+                  }
+                }],
+                yAxes: [{
+                  gridLines: {
+                      drawBorder: false,
+                  },
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+            },
+            responsive: true,
+            maintainAspectRatio: false,
           }
       }
   },
-
   methods: {
     displayData() {
-        this.salesData = [];
+      this.salesData = [
+        {
+          x: this.startDate,
+          y: null
+        },
+        {
+          x: this.endDate,
+          y: null
+        }
+      ]
+      
         this.referrals.forEach((referral) => {
-            var timestamp = referral.created._seconds * 1000;            
+            var point = { x: '', y: 0,};
+            var pushed = false;
+            var timestamp = referral.created._seconds * 1000;                        
             if(timestamp >= this.startDate && timestamp <= this.endDate) {
-                this.salesData.push(referral.affiliateEarning);
-            }            
-        })
+              var formattedTimestamp = new Date(timestamp)
+              point.x = formattedTimestamp;
+              point.y = referral.affiliateEarning;
 
+              if(this.salesData.length != 0) {
+                this.salesData.forEach((saleData) => {
+                  if(point.x.getDate() == saleData.x.getDate()) {
+                    saleData.y += point.y;
+                    pushed = true;
+                  }
+                })
+              }
+              if(!pushed) {
+                this.salesData.push(point);
+              }
+            }
+        })
+        var temp = this.salesData.sort((a, b) => a.x - b.x);
+        this.salesData = temp;
         this.graphData = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
           datasets: [
               {   
-                label: 'Sales',
+                label: 'Earnings',
                 data: this.salesData
               }
             ]
@@ -110,14 +128,32 @@ export default {
       this.showFilter = false;
     },
 
-    updateData() {
-      this.startDate = document.getElementById("startDate").valueAsNumber;
-      this.endDate = document.getElementById("endDate").valueAsNumber;
+    openFilter() {
+      // this.showFilter = true;
+    },
+
+    filterWeek() { 
+      this.startDate.setTime(Date.now() - 604800000);
+      this.chartOptions.scales.xAxes[0].time.unit = 'day'
       this.displayData();
     },
 
-    openFilter() {
-      this.showFilter = true;
+    filterMonth() { 
+      this.startDate.setTime(Date.now() - 2629800000);
+      this.chartOptions.scales.xAxes[0].time.unit = 'week'
+      this.displayData();
+    },
+
+    filterBiYear() { 
+      this.startDate.setTime(Date.now() - 15778800000);
+      this.chartOptions.scales.xAxes[0].time.unit = 'month'
+      this.displayData();
+    },
+
+    filterYear() { 
+      this.startDate.setTime(Date.now() - 31557600000);
+      this.chartOptions.scales.xAxes[0].time.unit = 'year'
+      this.displayData();
     }
   },
 
@@ -138,4 +174,6 @@ export default {
     .tile-spacing {
         margin: 0px 0px 0px 0px;
     }
+
+
 </style>

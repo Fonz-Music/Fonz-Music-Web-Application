@@ -6,8 +6,8 @@
                     <div class="col tile-spacing tile-background">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <p> Total Income </p>
-                                    <p> $248.93 </p>
+                                    <p> total affiliate income </p>
+                                    <p> €{{ sumIncome().toFixed(2) }} </p>
                                 </div>
                                 <div class="col-4">
                                     <c-image
@@ -23,8 +23,8 @@
                     <div class="col tile-spacing tile-background">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <p> Total Income </p>
-                                    <p> $248.93 </p>
+                                    <p> total withdrawn </p>
+                                    <p> €0.00 </p>
                                 </div>
                                 <div class="col-4">
                                     <c-image
@@ -40,8 +40,8 @@
                     <div class="col tile-spacing tile-background">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <p> Total Income </p>
-                                    <p> $248.93 </p>
+                                    <p> available withdrawals </p>
+                                    <p> €0.00 </p>
                                 </div>
                                 <div class="col-4">
                                     <c-image
@@ -57,8 +57,8 @@
                     <div class="col tile-spacing tile-background">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <p> Total Income </p>
-                                    <p> $248.93 </p>
+                                    <p> pending withdrawals </p>
+                                    <p> €{{ sumIncome().toFixed(2) }} </p>
                                 </div>
                                 <div class="col-4">
                                     <c-image
@@ -85,6 +85,22 @@ export default {
     name:"DashboardBar",
     components: {
         CImage
+    },
+
+    props: [
+        'referrals'
+    ],
+
+    methods: {
+      sumIncome() {
+        var total = 0;
+
+        this.referrals.forEach((referral) => {
+          total += referral.affiliateEarning 
+        })
+
+        return total;
+      }
     }
 }
 </script>

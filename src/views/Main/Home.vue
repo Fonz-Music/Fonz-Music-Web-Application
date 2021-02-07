@@ -4,6 +4,7 @@
     <landingpage-video />
     <!-- <c-splash-video/> -->
     <LandingPageVideo />
+    <c-splash-blocks />
     <c-download-app />
     <EmailSignup />
   </fragment>

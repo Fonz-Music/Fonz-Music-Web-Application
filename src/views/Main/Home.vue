@@ -1,10 +1,11 @@
 <template>
   <fragment>
-    <c-splash/>
-    <c-splash-video/>
-    <c-splash-blocks/>
-    <c-download-app/>
-    <EmailSignup/>
+    <c-splash />
+    <landingpage-video />
+    <!-- <c-splash-video/> -->
+    <LandingPageVideo />
+    <c-download-app />
+    <EmailSignup />
   </fragment>
 </template>
 
@@ -17,12 +18,12 @@ import CSplash from "@/components/sections/HomeSections/Splash.vue";
 
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
+import LandingPageVideo from "@/components/sections/HomeSections/LandingPageVideo.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 import EmailSignup from "@/components/sections/EmailSignupComp.vue";
 
 // import some required elements
 import CImage from "@/components/elements/Image.vue";
-
 
 export default {
   name: "Home",
@@ -30,9 +31,10 @@ export default {
     CImage,
     CSplash,
     CSplashBlocks,
+    LandingPageVideo,
     CDownloadApp,
     CSplashVideo,
-    EmailSignup
+    EmailSignup,
   },
 
   methods: {
@@ -40,10 +42,10 @@ export default {
       firebase.analytics().logEvent("page_view", {
         page_location: "http://web.fonzmusic.com",
         page_path: "/",
-        page_title: "Home"
+        page_title: "Home",
       });
       console.log("home event logged");
-    }
+    },
   },
 
   beforeMount() {
@@ -55,13 +57,13 @@ export default {
       genericSection01Header: {
         title: "making music a more collaborative experience",
         paragraph:
-          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui."
+          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint — occaecat cupidatat non proident, sunt in culpa qui.",
       },
-      videoModalActive: false
+      videoModalActive: false,
     };
   },
   created() {
     this.$emit("update:layout", CLayout);
-  }
+  },
 };
 </script>

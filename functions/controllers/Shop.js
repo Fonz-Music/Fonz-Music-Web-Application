@@ -116,7 +116,24 @@ exports.getCart = cartId => {
           status: 404,
           message: `Cart ${cartId} does not exist`
         });
-      resolve(cartRef.data());
+      const {
+        packageId,
+        price,
+        addons,
+        retailPrice,
+        quantity,
+        discount,
+        currency
+      } = cartRef.data();
+      resolve({
+        packageId,
+        price,
+        addons,
+        retailPrice,
+        quantity,
+        discount,
+        currency
+      });
     } catch (error) {
       reject(error);
     }

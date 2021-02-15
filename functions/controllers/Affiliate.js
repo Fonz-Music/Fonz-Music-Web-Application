@@ -5,7 +5,9 @@ exports.getReferrals = (referralCode) => {
                 couponCode: referralCode,
                 affiliateCut
             } = await this.getCouponByAffiliateId(global.userId);
-            if (!referralCode) return reject('No coupon code')
+            if (!referralCode) return reject({
+                message: 'No coupon code'
+            })
             const data = await global.OrdersDB.where('cart.coupon', '==', referralCode).get();
             if (data.size == 0) resolve([])
 
@@ -117,7 +119,9 @@ exports.getDailyRevenue = (referralCode) => {
             const {
                 couponCode: referralCode
             } = await this.getCouponByAffiliateId(global.userId);
-            if (!referralCode) return reject('No coupon code')
+            if (!referralCode) return reject({
+                message: 'No coupon code'
+            })
             const orders = await this.getReferrals(referralCode);
             if (orders.length == 0) return resolve([])
             console.log(orders)

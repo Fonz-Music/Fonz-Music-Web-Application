@@ -213,7 +213,13 @@ exports.getAffiliateProfileInfo = () => {
             if (!profile.data()) return reject({
                 message: 'Affiliate profile not created for this user.'
             })
-            resolve(profile.data())
+            const {
+                couponCode
+            } = await this.getCouponByAffiliateId(global.userId);
+            resolve({
+                ...(profile.data()),
+                couponCode
+            })
 
         } catch (error) {
             console.log(error)

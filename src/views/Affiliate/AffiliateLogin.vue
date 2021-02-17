@@ -1,7 +1,30 @@
 <template>
     <fragment>
+      <section class="section">
+        <div class="container">
+          <div id="wrapper">
+            <div class="row justify-content-center">
+              <div id="image">
+                <c-image :src="require('@/assets/images/affiliateProgram/splashArt-01.png')" :width="980"/>
+              </div>
+              <div id="overlay">
+                <div class="heading">
+                  <span> share the party </span>
+                </div>
+                <div class="button">
+                  <span> log in / register </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>    
+      </section>
 
-        <div v-if='!isRegistering' class="container mt-16">
+      <c-affiliate-info/>
+
+
+
+        <!-- <div v-if='!isRegistering' class="container mt-16">
             <div class="row justify-content-center">
                 <c-login-section/>
             </div>
@@ -17,23 +40,34 @@
             <div class="row justify-content-center">
                 <c-button @click='closeRegistration()'> back </c-button>
             </div>
-        </div>
+        </div> -->
+
+
     </fragment>
 </template>
 
 <script>
+// Layout
 import CLayout from "@/layouts/LayoutDefault.vue";
+import router from "@/router.js";
+
+// Required Components
+import CButton from "@/components/elements/Button.vue";
+import CImage from "@/components/elements/Image.vue";
+
+// Sections
 import CLoginSection from "@/components/sections/Affiliate/Login/LoginSection.vue";
 import CRegisterSection from "@/components/sections/Affiliate/Login/RegisterSection.vue";
-import router from "@/router.js";
-import CButton from "@/components/elements/Button.vue";
+import CAffiliateInfo from "@/components/sections/Affiliate/Splash/AffiliateInfo.vue";
 
 export default {
     name:'AffiliateLogin',
     components: {
         CLoginSection,
         CRegisterSection,
-        CButton
+        CButton,
+        CImage,
+        CAffiliateInfo
     },
 
     data() {
@@ -63,3 +97,25 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+  #wrapper {
+    position: relative !important;
+  }
+
+  #image {
+    width: 980px;
+    height: 300px;
+  }
+
+  #overlay {
+    position: absolute;
+    padding-top: 50px;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    width: 980px;
+    font-weight: bold;
+    height: 300px;
+  }
+</style>

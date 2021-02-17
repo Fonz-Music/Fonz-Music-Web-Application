@@ -24,7 +24,7 @@ import BugFixForm from "./views/Misc/BugFormPage.vue";
 import EmailSignup from "./views/Misc/EmailSignup.vue";
 
 // Affiliate
-import AffiliateLogin from "./views/Affiliate/AffiliateLogin.vue";
+import AffiliateLogin from "./views/Affiliate/AffiliateSplash.vue";
 import AffiliateDashboard from "./views/Affiliate/AffiliateDashboard.vue";
 import AffiliateTransactions from "./views/Affiliate/AffiliateTransactions.vue";
 import AffiliateAccount from "./views/Affiliate/AffiliateAccount.vue";

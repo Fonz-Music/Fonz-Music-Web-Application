@@ -93,7 +93,6 @@ export default {
                 console.log('successfully signed out');
             })
             .catch(() => {})
-
         }
     }
 }

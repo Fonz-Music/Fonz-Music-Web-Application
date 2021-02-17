@@ -108,7 +108,6 @@ export default {
                     this.incorrectLogin = false;
                 })
             }
-
         },
 
         async registerAffiliate() {

@@ -66,6 +66,14 @@
                 <router-link to="/team/">The team</router-link>
               </li>
             </ul>
+            <ul
+              class="list-reset text-xxs"
+              :class="navPosition && `header-nav-${navPosition}`"
+            >
+              <li>
+                <router-link to="/affiliate-login/">Affiliate</router-link>
+              </li>
+            </ul>
           </div>
         </nav>
       </div>

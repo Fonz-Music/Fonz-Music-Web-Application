@@ -66,6 +66,8 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 import CButton from "@/components/elements/Button.vue";
 import CInput from "@/components/elements/Input.vue";
 
@@ -91,24 +93,34 @@ export default {
             var testConfirmPassword = document.getElementById("confirmPasswordField");
 
             if(testPassword.value === testConfirmPassword.value) {
-                var email = document.getElementById("emailField");
-                var password = document.getElementById("passwordField");
 
-                firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-                .then((userCredential) => {
-                    user = userCredential.user;
-                    console.log("account created");
+                var email = document.getElementById("emailField").value;
+                var password = document.getElementById("passwordField").value;
+
+                await firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    this.registerAffiliate();
                 })
 
-                .catch(() => {
-                    console.log("Invalid e-mail or an account already exists with this name.");
+                .catch((error) => {
+                    console.log(error);
                     this.createdAccountError = true;
                     this.incorrectLogin = false;
                 })
             }
-            else {
-                console.log("passwords dont match")
-            }
+
+        },
+
+        async registerAffiliate() {
+          if(firebase.auth().currentUser) {
+            firebase.auth().currentUser.getIdToken().then(function(idToken) {
+              axios.post("https://www.fonzmusic.com/i/affiliate/profile", {
+                headers: {
+                  Authorization: `Bearer ${ idToken }`
+                }
+              }).then(console.log("Affiliate Account Created"))
+            })
+          }
         }
     }
 }

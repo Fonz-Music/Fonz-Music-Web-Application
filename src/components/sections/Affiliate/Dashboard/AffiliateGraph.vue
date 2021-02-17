@@ -48,11 +48,6 @@ export default {
           showFilter: false, 
 
           chartOptions: {
-            tooltips: {
-              mode: 'x',
-              intersect: false
-            },
-
             elements: {
               line: {
                 tension: 0,

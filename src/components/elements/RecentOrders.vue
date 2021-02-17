@@ -56,7 +56,6 @@ export default {
     showRecentOrder() {
       setInterval(() => {
         if (Math.random(0, 1) > 0.5 && this.dismissCountDown == 0) {
-          console.log("New order", this.dismissCountDown);
           this.getOrder().then(() => {
             this.dismissCountDown = 5;
           });

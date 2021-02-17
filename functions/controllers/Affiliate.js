@@ -124,7 +124,6 @@ exports.getDailyRevenue = (referralCode) => {
             })
             const orders = await this.getReferrals(referralCode);
             if (orders.length == 0) return resolve([])
-            console.log(orders)
             // If 2 orders have same date, sum affiliate earnings
             // Get min date, first object is oldest, last object is newest
 

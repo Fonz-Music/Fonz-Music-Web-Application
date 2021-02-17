@@ -85,7 +85,6 @@ function authChecker(req, res, next) {
         .then((user) => {
             res.locals.user = user;
             global.userId = user.user_id;
-            console.log(global.userId)
             global.name = "USER TEMPLATE NAME"
             global.discount = 5;
             next()

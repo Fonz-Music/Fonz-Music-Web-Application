@@ -163,11 +163,8 @@ export default {
 
         async signOut() {
           firebase.auth().signOut()
-          .then(() => {
-            console.log('signed out');
-          })
-          .catch(() => {
-            console.log("error");
+          .catch((error) => {
+            console.log(error);
           })
         },
     },

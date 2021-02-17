@@ -3,16 +3,18 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-4 tile-padding">
-          <div class="tile-style">
-            <span> test </span>
+        <div class="col-4">
+          <div class="tile-style tile-padding">
+            <span> your account </span>
           </div>
         </div>
+
         <div class="col-8">
-          <div class="tile-style">
-            <span> test </span>
+          <div class="tile-style tile-padding">
+            <span> financials </span>
           </div>
         </div>
+        
       </div>
     </div>
   </section>
@@ -20,7 +22,10 @@
 
 <script>
 export default {
-  
+  name: 'AccountDashboard',
+  components: {
+
+  }
 }
 </script>
 

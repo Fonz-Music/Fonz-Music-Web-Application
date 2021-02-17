@@ -1,10 +1,12 @@
 <template>
   <fragment>
-    <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
-    <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
-    <div class="container" v-if="!referralsLoaded">
-      <div class="row">
-        <h3> Loading... </h3>
+    <div class="section-inner">
+      <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+      <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+      <div class="container" v-if="!referralsLoaded">
+        <div class="row">
+          <h3> Loading... </h3>
+        </div>
       </div>
     </div>
   </fragment>

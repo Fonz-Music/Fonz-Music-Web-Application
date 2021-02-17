@@ -1,8 +1,9 @@
 <template>
-  <section>
+  <section class="section">
     <div class="container">
-      <div class="row">
-          <div>
+      <div class="row tile-background">
+        <div class="col">
+          <div class="row-12">
             <b-dropdown id="dropdown-1" text="Filter" class="m-md-2">
               <b-dropdown-item @click="filterWeek()"> Last 7 Days </b-dropdown-item>
               <b-dropdown-item @click="filterMonth()"> Last 4 Weeks </b-dropdown-item>
@@ -10,15 +11,13 @@
               <b-dropdown-item @click="filterYear()"> Last Year </b-dropdown-item>
             </b-dropdown>
           </div>
-      </div>
 
-      <div class="row justify-content-center">
-        <div class="col-12 tile-background tile-spacing">
-          <c-line-chart :chart-data="graphData" :options="chartOptions"/>
+          <div class="row-12">
+            <c-line-chart :chart-data="graphData" :options="chartOptions"/>
+          </div>
         </div>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -44,7 +43,6 @@ export default {
           graphData: {},
           salesData: [],
 
-          // November 1st 2020
           startDate: new Date('1 November, 2020'),
           endDate: new Date(Date.now()),
           showFilter: false, 
@@ -180,7 +178,6 @@ export default {
 <style scoped>
     .tile-background {
         border: solid 1px;
-        border-radius: 5px;
         border-color: lightgrey !important;
         background-color: white;
     }

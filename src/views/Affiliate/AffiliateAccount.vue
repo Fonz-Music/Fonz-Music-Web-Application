@@ -1,17 +1,19 @@
 <template>
-    <fragment>
-    </fragment>
+  <fragment>
+    <div class="section-inner">
+      <c-account-dashboard/>
+    </div>
+  </fragment>
 </template>
 
 <script>
-// import layout
 import CLayout from "@/layouts/LayoutAffiliate.vue";
-// import section header
+import CAccountDashboard from "@/components/sections/Affiliate/Account/AccountDashboard.vue";
 
 export default {
   name: "AffiliateAccount",
   components: {
-
+    CAccountDashboard
   },
 
   created() {

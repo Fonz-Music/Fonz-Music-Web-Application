@@ -5,14 +5,14 @@
           <div id="wrapper">
             <div class="row justify-content-center">
               <div id="image">
-                <c-image :src="require('@/assets/images/affiliateProgram/splashArt-01.png')" :width="980"/>
+                <c-image :src="require('@/assets/images/affiliateProgram/splashArt-01.png')"/>
               </div>
               <div id="overlay">
                 <div class="heading">
                   <span> share the party </span>
                 </div>
                 <div class="button">
-                  <span> log in / register </span>
+                  <button @click="openRegistration()"> log in / register </button>
                 </div>
               </div>
             </div>
@@ -21,8 +21,8 @@
       </section>
 
       <c-affiliate-info/>
-
-
+      <c-affiliate-tiles/>      
+      <c-affiliate-register v-if="showRegistration"/>
 
         <!-- <div v-if='!isRegistering' class="container mt-16">
             <div class="row justify-content-center">
@@ -54,11 +54,14 @@ import router from "@/router.js";
 // Required Components
 import CButton from "@/components/elements/Button.vue";
 import CImage from "@/components/elements/Image.vue";
+import CModal from "@/components/elements/Modal.vue"
 
 // Sections
 import CLoginSection from "@/components/sections/Affiliate/Login/LoginSection.vue";
 import CRegisterSection from "@/components/sections/Affiliate/Login/RegisterSection.vue";
 import CAffiliateInfo from "@/components/sections/Affiliate/Splash/AffiliateInfo.vue";
+import CAffiliateTiles from "@/components/sections/Affiliate/Splash/AffiliateTiles.vue";
+import CAffiliateRegister from "@/components/sections/Affiliate/Splash/AffiliateRegister.vue";
 
 export default {
     name:'AffiliateLogin',
@@ -67,27 +70,30 @@ export default {
         CRegisterSection,
         CButton,
         CImage,
-        CAffiliateInfo
+        CAffiliateInfo,
+        CAffiliateTiles,
+        CModal,
+        CAffiliateRegister
     },
 
     data() {
         return {
-            isRegistering: false
+            showRegistration: false
         }
     },
 
     methods: {
         openRegistration() {
-            this.isRegistering = true;
+            this.showRegistration = true;
+            console.log(this.showRegistration)
         },
         closeRegistration() {
-            this.isRegistering = false;
+            this.showRegistration = false;
         }
     },
 
     created() {
         this.$emit("update:layout", CLayout);
-
         // Firebase Listener
         firebase.auth().onAuthStateChanged(function(user) {
             if(user) {
@@ -104,7 +110,7 @@ export default {
   }
 
   #image {
-    width: 980px;
+    width: 1080px;
     height: 300px;
   }
 
@@ -114,8 +120,9 @@ export default {
     text-align: center;
     font-size: 40px;
     color: white;
-    width: 980px;
+    width: 1080px;
     font-weight: bold;
     height: 300px;
   }
+
 </style>

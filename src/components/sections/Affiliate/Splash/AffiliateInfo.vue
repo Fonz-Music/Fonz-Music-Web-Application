@@ -8,9 +8,11 @@
               <span style="font-weight:bold; font-size: 30px; color:grey;"> Fonz Affiliate </span>
             </div>
             <div class="row justify-content-center">
-              <span style="text-align:center; padding-top:10px;"> Introducing the Fonz Affiliate Program: get paid to share the party. 
-              By signing up as an affiliate, you will be granted a unique coupon code in 
-              which you can earn a commission on every Fonz Coaster you refer. </span>
+              <div class="col-8" id="paragraph-style">
+                <span> Introducing the Fonz Affiliate Program: get paid to share the party. 
+                By signing up as an affiliate, you will be granted a unique coupon code in 
+                which you can earn a commission on every Fonz Coaster you refer. </span>
+              </div>
             </div>
           </div>
         </div>
@@ -29,5 +31,10 @@ export default {
 </script>
 
 <style scoped>
-
+  #paragraph-style {
+    text-align: center;
+    padding-top: 10px;
+    color: grey;
+    font-size: 18px;
+  }
 </style>

@@ -48,7 +48,6 @@ const AffiliateRoute = require('./routes/Affiliate');
 const cors = require('cors')
 app.use(cors())
 app.options('*', cors())
-app.options('Access-Control-Allow-Origin', '*');
 app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());

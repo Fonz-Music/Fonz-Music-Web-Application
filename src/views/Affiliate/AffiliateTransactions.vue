@@ -6,6 +6,7 @@
 
 <script>
 const axios = require("axios");
+
 import CLayout from "@/layouts/LayoutAffiliate.vue";
 import CAffiliateTable from "@/components/sections/Affiliate/Transactions/AffiliateTable.vue";
 

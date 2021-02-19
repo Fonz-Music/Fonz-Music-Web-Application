@@ -197,11 +197,9 @@ export default {
     methods: {
       sumIncome() {
         var total = 0;
-
         this.referrals.forEach((referral) => {
           total += referral.affiliateEarning 
-        })
-
+        });
         return total;
       }
     }

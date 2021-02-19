@@ -1,6 +1,6 @@
 <template>
   <div class="banner-style">
-    <span> It looks like you haven't registered a coupon code yet. Register now! </span>
+    <span class="banner-text"> It looks like you haven't registered a coupon code yet. Register now under 'Account'! </span>
   </div>
 </template>
 
@@ -12,12 +12,22 @@ export default {
 
 <style scoped>
   .banner-style {
-    position: absolute !important;
+    position: fixed !important;
     top: 0;
     right: 0;
     left: 0;
+    width: 100%;
+    height: 4%;
     z-index: 12 !important;
-    background-color: orange;
+    background-color: grey;
+    text-align: center;
   }
 
+  .banner-text {
+    font-size: 15px;
+    vertical-align: middle;
+    padding: auto;
+    color: white;
+    font-style: bold;
+  }
 </style>

@@ -206,33 +206,20 @@ export default {
             })
           }
         },
-
-        // async registerCoupon() {
-        //   var couponCode = document.getElementById("registerCouponCode").value;
-        //   var payload = {
-        //     coupon: couponCode
-        //   }
-
-        //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        //     axios.post("/i/affiliate/coupon", payload, {
-        //       headers: {
-        //         Authorization: `Bearer ${ idToken }`
-        //       }
-        //     }).then(function(resp) {
-        //       if(resp == 'This coupon code is not currently in use, please try a different one :)') {
-        //         console.log("Coupon code already in use.")
-        //       }
-        //       else if (resp == 'You already have a coupon code. Is one not enough for you?????') {
-        //         console.log("User already has a coupon code")
-        //       }
-        //       else {
-        //         console.log("Coupon code successfully registered.")
-        //       }
-        //     }).catch(function(resp) {
-        //       console.log(resp);
-        //     })
-        //   })
-        // },
+    // async checkCoupon() {
+    //   let self = this;
+    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
+    //     axios.get("/i/affiliate/coupon", {
+    //       headers: {
+    //         Authorization: `Bearer ${ idToken }`
+    //       }
+    //     })
+    //     .then(function(resp) {
+    //         self.couponRegistered = true;
+    //     })
+    //     .catch({})
+    //   })
+    // },
     },
 
 

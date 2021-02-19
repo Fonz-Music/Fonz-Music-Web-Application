@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <c-affiliate-banner/>
+    <!-- <c-affiliate-banner v-if="!couponRegistered"/> -->
 
     <div class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
@@ -33,7 +33,8 @@ export default {
   data() {
     return {
       referrals: [],
-      referralsLoaded: false
+      referralsLoaded: false,
+      couponRegistered: false
     }
   },
 
@@ -55,7 +56,6 @@ export default {
               Authorization: `Bearer ${ idToken }`
             }
           }).then((resp) => {
-            console.log(resp.data);
             self.referrals = resp.data;
             self.referralsLoaded = true;
           }).catch((error) => {
@@ -63,8 +63,8 @@ export default {
           });
         })
       }
-    }  
-  }
+    },
+  },
 };
 
 

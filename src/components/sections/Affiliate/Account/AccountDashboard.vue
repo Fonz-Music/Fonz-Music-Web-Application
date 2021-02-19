@@ -135,7 +135,9 @@ export default {
             self.coupon = resp.data.couponCode;
             self.isLoaded = true;
         })
-        .catch({})
+        .catch(function() {
+          self.isLoaded = true;
+        })
       })
     },
 

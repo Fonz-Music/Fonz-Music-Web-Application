@@ -7,6 +7,18 @@
     <c-splash-blocks />
     <c-download-app />
     <EmailSignup />
+    <div class="buy-now-bottom-button" data-reveal-delay="450">
+      <div class="buttonBuyNow">
+        
+      
+            <c-button
+            tag="a"
+            color="primary"
+            href="/buy"
+            
+            >get your coaster here</c-button>
+            </div>
+    </div>
   </fragment>
 </template>
 
@@ -16,6 +28,7 @@ import CLayout from "@/layouts/LayoutDefault.vue";
 // import section header
 // import sections
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
+import CButton from "@/components/elements/Button.vue";
 
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
@@ -30,6 +43,7 @@ export default {
   name: "Home",
   components: {
     CImage,
+    CButton,
     CSplash,
     CSplashBlocks,
     LandingPageVideo,
@@ -68,3 +82,21 @@ export default {
   },
 };
 </script>
+<style media="screen">
+  .buy-now-bottom-button {
+    margin: auto !important;
+    max-width: 400px;
+    padding-top: 50px;
+  }
+  .buttonBuyNow {
+    text-align: center !important;
+        
+  }
+  .buttonBuyNow a{
+    text-align: center !important;
+    /* background-color: #b188b9; */
+    font-size: 18px;
+
+  }
+  
+</style>

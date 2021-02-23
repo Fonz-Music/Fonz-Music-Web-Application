@@ -186,14 +186,13 @@ exports.getDailyRevenue = (referralCode) => {
   percentageCut: 15
 }
 */
-exports.createAffiliateProfile = (name) => {
+exports.createAffiliateProfile = () => {
     return new Promise(async (resolve, reject) => {
         try {
             await global.AffiliateDB.doc(global.userId).set({
                 balance: 0.00,
                 level: 1,
                 percentageCut: 15,
-                displayName: name,
             })
             resolve({
                 message: 'Well done! You are officially a Fonzilliate',

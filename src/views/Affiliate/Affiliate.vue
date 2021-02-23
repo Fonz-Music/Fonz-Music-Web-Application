@@ -1,29 +1,29 @@
 <template>
     <fragment>
-      <section class="section">
+      <section class="section reveal-from-bottom">
         <div class="section-inner">
-        <div class="container">
-          <div id="wrapper">
-            <div class="row justify-content-center">
-              <div id="image">
-                <c-image :src="require('@/assets/images/affiliateProgram/splashArt-01.png')"/>
-              </div>
-              <div id="overlay">
-                <div class="heading">
-                  <span> share the party </span>
+          <div class="container">
+            <div id="wrapper">
+              <div class="row justify-content-center">
+                <div id="image">
+                  <c-image :src="require('@/assets/images/affiliateProgram/splashArt-01.png')"/>
                 </div>
-                <div>
-                  <c-button @click="openModal()"> log in / register </c-button>
+                <div id="overlay">
+                  <div class="heading">
+                    <span> share the party </span>
+                  </div>
+                  <div>
+                    <c-button @click="openModal()"> log in / register </c-button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
       </section>
 
-      <c-affiliate-info/>
-      <c-affiliate-tiles/>
+      <c-affiliate-info class="reveal-from-top"/>
+      <c-affiliate-tiles class="reveal-from-bottom"/>
 
       <section id="modal" v-show="showModal">
         <div class="modal-background">
@@ -38,7 +38,7 @@
                       <c-input
                       id="loginEmail"
                       type="email"
-                      placeholder="e-mail"
+                      placeholder="didi@fonz.com"
                       label="e-mail"
                       required
                       />
@@ -46,13 +46,17 @@
                       id="loginPassword"
                       type="password"
                       label="password"
-                      placeholder = "password"
+                      placeholder = "*****"
                       required
                       />
                     </fieldset>
                   </form>
-                  <c-button @click="signInEmail()"> Log In </c-button>
-                  <c-button @click="toRegister()"> Sign Up </c-button>
+                  <div class="button-padding">
+                    <c-button class="button-style" @click="signInEmail()"> 
+                      <span style="color:white;"> Log In </span>
+                    </c-button>
+                    <c-button @click="toRegister()"> Sign Up </c-button>
+                  </div>
                 </div>
 
                 <div v-show="showRegistration">
@@ -88,8 +92,10 @@
                       />
                     </fieldset>
                   </form>
-                  <c-button @click="registerEmail()"> Register </c-button>
-                  <c-button @click="toLogin()"> Go Back </c-button>
+                  <div class="button-padding">
+                    <c-button @click="registerEmail()"> Register </c-button>
+                    <c-button @click="toLogin()"> Go Back </c-button>
+                  </div>
                 </div>
 
               </div> 
@@ -101,6 +107,8 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 // Layout
 import CLayout from "@/layouts/LayoutDefault.vue";
 import router from "@/router.js";
@@ -108,7 +116,6 @@ import router from "@/router.js";
 // Required Components
 import CButton from "@/components/elements/Button.vue";
 import CImage from "@/components/elements/Image.vue";
-import CModal from "@/components/elements/Modal.vue"
 import CInput from "@/components/elements/Input.vue";
 
 // Sections
@@ -126,7 +133,6 @@ export default {
         CImage,
         CAffiliateInfo,
         CAffiliateTiles,
-        CModal,
         CInput
     },
 
@@ -167,36 +173,55 @@ export default {
 
       // Registration Functionality
         async registerEmail() {
-          var testPassword = document.getElementById("registerPassword");
-          var testConfirmPassword = document.getElementById("registerConfirmPassword");
+          let self = this
+
+          var testPassword = document.getElementById("registerPassword").value;
+          var testConfirmPassword = document.getElementById("registerConfirmPassword").value;
 
           if(testPassword.value === testConfirmPassword.value) {
             var email = document.getElementById("registerEmail").value;
-            var password = document.getElementById("registerPassword").value;
+            var password = testPassword;
+
             await firebase.auth().createUserWithEmailAndPassword(email, password)
               .then(() => {
-                  this.registerAffiliate();
+                  self.registerAffiliate();
               })
               .catch((error) => {
                   console.log(error);
-                  this.createdAccountError = true;
-                  this.incorrectLogin = false;
               })
-          }
+            }
         },
 
         async registerAffiliate() {
           if(firebase.auth().currentUser) {
             firebase.auth().currentUser.getIdToken().then(function(idToken) {
-              axios.post("https://www.fonzmusic.com/i/affiliate/profile", {
+              axios.post("/i/affiliate/profile", null, {
                 headers: {
                   Authorization: `Bearer ${ idToken }`
                 }
-              }).then(console.log("Affiliate Account Created"))
+              })
+              .catch(function(error) {
+                console.log(error);
+              })
             })
           }
-        }
+        },
+    // async checkCoupon() {
+    //   let self = this;
+    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
+    //     axios.get("/i/affiliate/coupon", {
+    //       headers: {
+    //         Authorization: `Bearer ${ idToken }`
+    //       }
+    //     })
+    //     .then(function(resp) {
+    //         self.couponRegistered = true;
+    //     })
+    //     .catch({})
+    //   })
+    // },
     },
+
 
     created() {
         this.$emit("update:layout", CLayout);
@@ -255,5 +280,13 @@ export default {
     color: #aaa;
     float: right;
     font-size: 24px;
+  }
+
+  .button-padding {
+    padding-top: 20px;
+  }
+  
+  .button-style {
+    background-color: orange;
   }
 </style>

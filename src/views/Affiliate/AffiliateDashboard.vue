@@ -1,5 +1,7 @@
 <template>
   <fragment>
+    <!-- <c-affiliate-banner v-if="!couponRegistered"/> -->
+
     <div class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
@@ -17,19 +19,22 @@
 const axios = require("axios");
 import CLayout from "@/layouts/LayoutAffiliate.vue";
 import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
-import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue"
+import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue";
+import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
 
 export default {
   name: "AffiliateDashboard",
   components: {
     CDashboardBar,
-    CAffiliateGraph
+    CAffiliateGraph,
+    CAffiliateBanner
   },
 
   data() {
     return {
       referrals: [],
-      referralsLoaded: false
+      referralsLoaded: false,
+      couponRegistered: false
     }
   },
 
@@ -46,7 +51,7 @@ export default {
       let self = this
         if(firebase.auth().currentUser) {
           firebase.auth().currentUser.getIdToken().then(function(idToken) {
-            axios.get('https://fonzmusic.com/i/affiliate/referrals', {
+            axios.get('/i/affiliate/referrals', {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }
@@ -56,10 +61,10 @@ export default {
           }).catch((error) => {
             console.error(error)
           });
-          })
-        }
-    }  
-  }
+        })
+      }
+    },
+  },
 };
 
 

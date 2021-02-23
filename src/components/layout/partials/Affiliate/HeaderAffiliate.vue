@@ -1,19 +1,19 @@
 <template>
     <header
-        class="site-header"
-        :class="bottomOuterDivider && 'has-bottom-divider'"
+      class="site-header"
+      :class="bottomOuterDivider && 'has-bottom-divider'"
     >
-        <div class="container">
-            <div
-                class="site-header-inner"
-                :class="bottomDivider && 'has-bottom-divider'"
-            >
-                <router-link class="header-logo" to="/"
-                    ><img src="@/assets/images/logo.svg" class="header-logo" alt="logo"
-                /></router-link>
 
-                <!-- <c-logo />
-                <c-logoHeader /> -->
+    <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/>
+      <div class="container">
+          <div
+            class="site-header-inner"
+            :class="bottomDivider && 'has-bottom-divider'"
+          >
+            <router-link class="header-logo" to="/"
+              ><img src="@/assets/images/logo.svg" class="header-logo" alt="logo"
+            /></router-link>
+
                 <button
                     v-if="!hideNav"
                     ref="hamburger"
@@ -84,13 +84,15 @@ import CLogo from "@/components/layout/partials/Logo.vue";
 import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
 import router from "@/router.js";
 import CButton from "@/components/elements/Button.vue";
+import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
 
 export default {
         name: "CHeaderAffiliate",
         components: {
         CLogo,
         CLogoHeader,
-        CButton
+        CButton,
+        CAffiliateBanner,
     },
 
     props: {
@@ -120,6 +122,8 @@ export default {
     data() {
         return {
             isActive: this.active || false,
+            couponRegistered: false,
+            bannerLoaded: false
         };
     },
 
@@ -167,12 +171,31 @@ export default {
             console.log(error);
           })
         },
+
+      async checkCoupon() {
+        let self = this;
+        firebase.auth().currentUser.getIdToken().then(function(idToken) {
+          axios.get("/i/affiliate/coupon", {
+            headers: {
+              Authorization: `Bearer ${ idToken }`
+            }
+          })
+          .then(function(resp) {
+              self.couponRegistered = true;
+              self.bannerLoaded = true;
+          })
+          .catch(function() {
+            self.bannerLoaded = true;
+          })
+        })
+      },
     },
 
     mounted() {
         this.active && this.openMenu();
         document.addEventListener("keydown", this.keyPress);
         document.addEventListener("click", this.clickOutside);
+        this.checkCoupon();
     },
     
     beforeDestroy() {

@@ -1,8 +1,9 @@
 <template>
   <fragment>
-    <!-- <c-affiliate-banner v-if="!couponRegistered"/> -->
+    
+    <c-registration-modal/>
 
-    <div class="section-inner">
+    <!-- <div class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <div class="container" v-if="!referralsLoaded">
@@ -10,7 +11,7 @@
           <h3> Loading... </h3>
         </div>
       </div>
-    </div>
+    </div> -->
   </fragment>
 </template>
 
@@ -21,13 +22,15 @@ import CLayout from "@/layouts/LayoutAffiliate.vue";
 import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
 import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue";
 import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
+import CRegistrationModal from '@/components/sections/Affiliate/Dashboard/RegistrationModal.vue';
 
 export default {
   name: "AffiliateDashboard",
   components: {
     CDashboardBar,
     CAffiliateGraph,
-    CAffiliateBanner
+    CAffiliateBanner,
+    CRegistrationModal
   },
 
   data() {

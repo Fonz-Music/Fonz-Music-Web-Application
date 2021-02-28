@@ -1,0 +1,323 @@
+<template>
+  <section id="modal-background">
+    <div id="modal-content">
+      <div class="container">
+
+
+        <!-- Registration Title -->
+        <div class="row">
+          <div class="registration-title">
+            <div class="registration-title-text">
+              <span style="font-size: 24px; font-weight: bold; color: grey;"> Welcome to Fonz Affiliate </span>
+            </div>
+            <div id="registration-title-text">
+              <span style="font-size: 16px;"> 
+                Thank you for registering, we look forward to working with you!
+                Just a few things left before we're ready to go...
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Coupon Code -->
+        <div class="row">
+          <div class="registration-section">
+            <div class="registration-section-header">
+              <span style="font-size: 16px; font-weight: bold; color: grey;"> Coupon Code </span>
+            </div>
+            <div class="registration-section-body">
+              <span style="font-size: 14px;"> 
+                What would you like your coupon code to be?
+                Note that this can't be changed, so choose wisely!
+                Make it short, and somewhat related to your name.
+              </span>
+            </div>
+            <div class="registration-section-body">
+              <input 
+              class="registration-section-input"
+              type="text"
+              placeholder="Coupon Code"
+              required
+              />
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Referral Source -->
+        <div class="row">
+          <div class="registration-section">
+            <div class="registration-section-header">
+              <span style="font-size: 16px; font-weight: bold; color: grey;"> Referral Source </span>
+            </div>
+            <div class="registration-section-body">
+              <span style="font-size: 14px;"> 
+                How did you find out about the Fonz Affiliate Program?
+              </span>
+            </div>
+            <div class="registration-section-body">
+              <select class="registration-section-source">
+                <option value="0"> Select </option>
+                <option value="1"> Word of Mouth </option>
+                <option value="2"> Instagram </option>
+                <option value="3"> Facebook </option>
+                <option value="4"> TikTok </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Social Media -->
+        <div class="row">
+          <div class="registration-section">
+
+            <div class="registration-section-header">
+              <span style="font-size: 16px; font-weight: bold; color: grey;"> Social Media </span>
+            </div>
+
+
+            <div class="registration-section-body">
+              <span style="font-size: 14px;"> 
+                What type of social media do you plan on using, and what's your following?
+              </span>
+            </div>
+
+
+            <div class="registration-section-body">
+              <div class="social-media-inputs">
+                <div class="social-media-inputs-one">
+                  <input
+                    class="social-media-input-checkbox"
+                    id="tiktok-checkbox"
+                    type="checkbox"
+                  />
+                  <span style="font-size: 14px;"> Instagram </span>
+                </div>
+                <div class="social-media-inputs-two">
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="usefonz"
+                      id="tiktok-handle"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="201"
+                      id="tiktok-following"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="social-media-inputs">
+                <div class="social-media-inputs-one">
+                  <input
+                    class="social-media-input-checkbox"
+                    id="tiktok-checkbox"
+                    type="checkbox"
+                  />
+                  <span style="font-size: 14px;"> TikTok </span>
+                </div>
+                <div class="social-media-inputs-two">
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="usefonz"
+                      id="tiktok-handle"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="201"
+                      id="tiktok-following"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="social-media-inputs">
+                <div class="social-media-inputs-one">
+                  <input
+                    class="social-media-input-checkbox"
+                    id="tiktok-checkbox"
+                    type="checkbox"
+                  />
+                  <span style="font-size: 14px;"> Twitter </span>
+                </div>
+                <div class="social-media-inputs-two">
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="usefonz"
+                      id="tiktok-handle"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="social-media-inputs-inner">
+                    <div class="social-media-input">
+                      <input
+                      class="social-media-input-text"
+                      placeholder="201"
+                      id="tiktok-following"
+                      type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="registration-section-body">
+              <div class="align-button">
+                <c-button class="registration-button"> Continue </c-button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import CButton from "@/components/elements/Button.vue";
+
+export default {
+    name: 'LoginModal',
+    components: {
+      CButton
+    }
+}
+</script>
+
+
+<style scoped>
+/* General Modal */
+  #modal-background {
+    position: fixed; 
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4) !important; 
+  }
+
+  #modal-content {
+    background-color: #fefefe;
+    border-radius: 3px;
+    margin: 2% auto; 
+    padding: 30px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+
+/* Surface Section Styling */
+  .registration-title {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .registration-section {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 90%;
+  }
+
+  .registration-section-input {
+    color: grey;
+    padding-left: 5px;
+    font-size: 14px;
+    height: 30px;
+    width: 33%;
+    border: solid 1px;
+    border-color: lightgrey;
+    border-radius: 4px;
+  }
+
+  .registration-section-source {
+    width: 33%;
+    border: solid 1px;
+    border-radius: 4px;
+    border-color: lightgrey;
+    font-size: 14px;
+    color: grey;
+    height: 30px;
+  }
+
+  .registration-section-body {
+    padding-top: 3px;
+    width: 100%;
+  }
+
+/* Social Media Selector Styling */
+
+  .social-media-inputs {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  .social-media-inputs-one {
+    width: 25%;
+  }
+
+  .social-media-inputs-two {
+    display: flex;
+    width: 75%;
+  }
+
+  .social-media-inputs-inner {
+    width: 50%;
+    padding-right: 10px;
+  }
+
+  .social-media-input-text {
+    width: 100%;
+    border: solid 1px;
+    border-radius: 4px;
+    border-color: lightgrey;
+    font-size: 14px;
+    color: grey;
+    height: 30px;
+    padding-left: 5px;
+  }
+
+/* Registration Button */
+  .registration-button {
+    background-color: orange;
+    color: white;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .align-button {
+    display: flex;
+  }
+  
+</style>

@@ -87,6 +87,7 @@
 
             <div class="registration-section-body">
               <div class="social-media-inputs">
+
                 <div class="social-media-inputs-one">
                   <input
                     class="social-media-input-checkbox"
@@ -95,31 +96,31 @@
                   />
                   <span style="font-size: 14px;"> Instagram </span>
                 </div>
+
                 <div class="social-media-inputs-two">
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="usefonz"
-                      id="tiktok-handle"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="usefonz"
+                    id="tiktok-handle"
+                    type="text"
+                    />
                   </div>
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="201"
-                      id="tiktok-following"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="201"
+                    id="tiktok-following"
+                    type="text"
+                    />
                   </div>
                 </div>
+
               </div>
 
+
               <div class="social-media-inputs">
+
                 <div class="social-media-inputs-one">
                   <input
                     class="social-media-input-checkbox"
@@ -128,32 +129,31 @@
                   />
                   <span style="font-size: 14px;"> TikTok </span>
                 </div>
+
                 <div class="social-media-inputs-two">
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="usefonz"
-                      id="tiktok-handle"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="usefonz"
+                    id="tiktok-handle"
+                    type="text"
+                    />
                   </div>
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="201"
-                      id="tiktok-following"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="201"
+                    id="tiktok-following"
+                    type="text"
+                    />
                   </div>
                 </div>
+
               </div>
 
 
               <div class="social-media-inputs">
+
                 <div class="social-media-inputs-one">
                   <input
                     class="social-media-input-checkbox"
@@ -162,26 +162,23 @@
                   />
                   <span style="font-size: 14px;"> Twitter </span>
                 </div>
+
                 <div class="social-media-inputs-two">
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="usefonz"
-                      id="tiktok-handle"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="usefonz"
+                    id="tiktok-handle"
+                    type="text"
+                    />
                   </div>
                   <div class="social-media-inputs-inner">
-                    <div class="social-media-input">
-                      <input
-                      class="social-media-input-text"
-                      placeholder="201"
-                      id="tiktok-following"
-                      type="text"
-                      />
-                    </div>
+                    <input
+                    class="social-media-input-text"
+                    placeholder="201"
+                    id="tiktok-following"
+                    type="text"
+                    />
                   </div>
                 </div>
               </div>
@@ -294,6 +291,8 @@ export default {
   .social-media-inputs-inner {
     width: 50%;
     padding-right: 10px;
+    top: 50%;
+    bottom: 50%;
   }
 
   .social-media-input-text {

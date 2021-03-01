@@ -1,9 +1,9 @@
 <template>
   <fragment>
     
-    <c-registration-modal/>
+    <c-registration-modal v-if="!registered"/>
 
-    <!-- <div class="section-inner">
+    <div v-else class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <div class="container" v-if="!referralsLoaded">
@@ -11,7 +11,9 @@
           <h3> Loading... </h3>
         </div>
       </div>
-    </div> -->
+    </div>
+
+
   </fragment>
 </template>
 
@@ -37,7 +39,7 @@ export default {
     return {
       referrals: [],
       referralsLoaded: false,
-      couponRegistered: false
+      registered: false
     }
   },
 

@@ -35,6 +35,7 @@
             </div>
             <div class="registration-section-body">
               <input 
+              id="couponCode"
               class="registration-section-input"
               type="text"
               placeholder="Coupon Code"
@@ -57,12 +58,12 @@
               </span>
             </div>
             <div class="registration-section-body">
-              <select class="registration-section-source">
-                <option value="0"> Select </option>
-                <option value="1"> Word of Mouth </option>
-                <option value="2"> Instagram </option>
-                <option value="3"> Facebook </option>
-                <option value="4"> TikTok </option>
+              <select class="registration-section-source" id="source">
+                <option value="none"> Select </option>
+                <option value="wordofmouth"> Word of Mouth </option>
+                <option value="instagram"> Instagram </option>
+                <option value="facebook"> Facebook </option>
+                <option value="tiktok"> TikTok </option>
               </select>
             </div>
           </div>
@@ -91,7 +92,7 @@
                 <div class="social-media-inputs-one">
                   <input
                     class="social-media-input-checkbox"
-                    id="tiktok-checkbox"
+                    id="instagram-checkbox"
                     type="checkbox"
                   />
                   <span style="font-size: 14px;"> Instagram </span>
@@ -102,7 +103,7 @@
                     <input
                     class="social-media-input-text"
                     placeholder="usefonz"
-                    id="tiktok-handle"
+                    id="instagram-handle"
                     type="text"
                     />
                   </div>
@@ -110,7 +111,7 @@
                     <input
                     class="social-media-input-text"
                     placeholder="201"
-                    id="tiktok-following"
+                    id="instagram-following"
                     type="text"
                     />
                   </div>
@@ -157,7 +158,7 @@
                 <div class="social-media-inputs-one">
                   <input
                     class="social-media-input-checkbox"
-                    id="tiktok-checkbox"
+                    id="twitter-checkbox"
                     type="checkbox"
                   />
                   <span style="font-size: 14px;"> Twitter </span>
@@ -168,7 +169,7 @@
                     <input
                     class="social-media-input-text"
                     placeholder="usefonz"
-                    id="tiktok-handle"
+                    id="twitter-handle"
                     type="text"
                     />
                   </div>
@@ -176,7 +177,7 @@
                     <input
                     class="social-media-input-text"
                     placeholder="201"
-                    id="tiktok-following"
+                    id="twitter-following"
                     type="text"
                     />
                   </div>
@@ -186,7 +187,7 @@
 
             <div class="registration-section-body">
               <div class="align-button">
-                <c-button class="registration-button"> Continue </c-button>
+                <c-button @click="registerAffiliate()" class="registration-button"> Continue </c-button>
               </div>
             </div>
 
@@ -204,6 +205,76 @@ export default {
     name: 'LoginModal',
     components: {
       CButton
+    },
+
+    data() {
+      return {
+
+      }
+    },
+
+    methods: {
+      async registerAffiliate() {
+
+        var payload = {
+          source: document.getElementById("source").value,
+
+          platforms: {
+            instagram: {
+              handle: document.getElementById("instagram-handle").value,
+              following: document.getElementById("instagram-following").value
+            },
+
+            tiktok: {
+              handle: document.getElementById("tiktok-handle").value,
+              following: document.getElementById("tiktok-following").value
+            },
+
+            twitter: {
+              handle: document.getElementById("twitter-handle").value,
+              following: document.getElementById("twitter-following").value
+            }
+          }
+        }
+
+        console.log(payload);
+
+      },
+
+    // async checkCoupon() {
+    //   let self = this;
+    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
+    //     axios.get("/i/affiliate/coupon", {
+    //       headers: {
+    //         Authorization: `Bearer ${ idToken }`
+    //       }
+    //     })
+    //     .then(function(resp) {
+    //         self.couponRegistered = true;
+    //     })
+    //     .catch({})
+    //   })
+    // },
+
+      async createCoupon() {
+        var coupon = document.getElementById("couponCode").value;
+
+        firebase.auth().currentUser.getIdToken().then(function(idToken) {
+          var path = "/i/coupon/" + coupon;
+          axios.post(path, { coupon },
+            {
+              headers: {
+                Authorization: `Bearer ${ idToken }`
+              }
+            }
+          ).then(function(resp) {
+            console.log("coupon created successfuly")
+            // TODO: emit success 
+          }).catch(function(error) {
+            console.log(error);
+          })
+        })
+      }
     }
 }
 </script>

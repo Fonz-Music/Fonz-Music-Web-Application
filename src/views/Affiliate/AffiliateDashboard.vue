@@ -1,9 +1,6 @@
 <template>
   <fragment>
-    
-    <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!registered"/>
-
-    <div v-else class="section-inner">
+    <div class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <div class="container" v-if="!referralsLoaded">
@@ -21,32 +18,27 @@ const axios = require("axios");
 import CLayout from "@/layouts/LayoutAffiliate.vue";
 import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
 import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue";
-import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
-import CRegistrationModal from '@/components/sections/Affiliate/Dashboard/RegistrationModal.vue';
 
 export default {
   name: "AffiliateDashboard",
   components: {
     CDashboardBar,
     CAffiliateGraph,
-    CAffiliateBanner,
-    CRegistrationModal
   },
 
   data() {
     return {
       referrals: [],
       referralsLoaded: false,
-      registered: false
     }
   },
 
   created() {
     this.$emit("update:layout", CLayout);
-    this.getReferrals();
   },
 
   beforeMount() {
+    this.getReferrals();
   },
 
   methods: {
@@ -54,23 +46,21 @@ export default {
       let self = this
         if(firebase.auth().currentUser) {
           firebase.auth().currentUser.getIdToken().then(function(idToken) {
-            axios.get('/i/affiliate/referrals', {
+            axios.get('https://www.fonzmusic.com/i/affiliate/referrals', {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }
           }).then((resp) => {
             self.referrals = resp.data;
             self.referralsLoaded = true;
+    console.log(self.referrals);
+
           }).catch((error) => {
             console.error(error)
           });
         })
       }
     },
-
-    updateModal(m) {
-      this.registered = m;
-    }
   },
 };
 

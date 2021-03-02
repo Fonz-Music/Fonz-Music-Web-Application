@@ -5,6 +5,8 @@
     >
 
     <!-- <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/> -->
+    <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!isRegistered"/>
+
       <div class="container">
           <div
             class="site-header-inner"
@@ -84,7 +86,7 @@ import CLogo from "@/components/layout/partials/Logo.vue";
 import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
 import router from "@/router.js";
 import CButton from "@/components/elements/Button.vue";
-import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
+import CRegistrationModal from '@/components/sections/Affiliate/Dashboard/RegistrationModal.vue';
 
 export default {
         name: "CHeaderAffiliate",
@@ -92,7 +94,7 @@ export default {
         CLogo,
         CLogoHeader,
         CButton,
-        CAffiliateBanner,
+        CRegistrationModal
     },
 
     props: {
@@ -123,7 +125,7 @@ export default {
         return {
             isActive: this.active || false,
             // couponRegistered: false,
-            isRegistered: false
+            isRegistered: true
         };
     },
 
@@ -205,6 +207,10 @@ export default {
             self.isRegistered = false;
           })
         })
+      },
+
+      updateModal(m) {
+        this.isRegistered = m;
       }
     },
 
@@ -212,6 +218,9 @@ export default {
         this.active && this.openMenu();
         document.addEventListener("keydown", this.keyPress);
         document.addEventListener("click", this.clickOutside);
+    },
+
+    beforeMount() {
         this.checkIfRegistered();
     },
     
@@ -228,7 +237,7 @@ export default {
           router.push('/affiliate-login').catch(() => {});
         }
       });
-    }
+    },
 };
 </script>
 

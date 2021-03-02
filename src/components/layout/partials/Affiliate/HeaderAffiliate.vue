@@ -4,7 +4,7 @@
       :class="bottomOuterDivider && 'has-bottom-divider'"
     >
 
-    <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/>
+    <!-- <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/> -->
       <div class="container">
           <div
             class="site-header-inner"

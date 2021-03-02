@@ -20,6 +20,40 @@
         </div>
 
 
+        <!-- Display Name -->
+        <div class="row">
+          <div class="registration-section">
+            <div class="registration-section-header">
+              <span style="font-size: 16px; font-weight: bold; color: grey;"> Name </span>
+            </div>
+            <div class="registration-section-body">
+              <span style="font-size: 14px;"> 
+                What's your name? We'll use this purely for your user experience and if we need to contact you.
+                This will not be distrubted to any third parties.
+              </span>
+            </div>
+            <div class="registration-section-body">
+              <input 
+              id="firstName"
+              class="registration-section-input"
+              type="text"
+              placeholder="First Name"
+              required
+              />
+            </div>
+            <div class="registration-section-body">
+              <input 
+              id="surname"
+              class="registration-section-input"
+              type="text"
+              placeholder="Surname"
+              required
+              />
+            </div>
+          </div>
+        </div>
+
+
         <!-- Coupon Code -->
         <div class="row">
           <div class="registration-section">
@@ -187,7 +221,7 @@
 
             <div class="registration-section-body">
               <div class="align-button">
-                <c-button @click="registerAffiliate()" class="registration-button"> Continue </c-button>
+                <c-button @click="registerAffiliate()" class="button-sm registration-button"> Sign Up </c-button>
               </div>
             </div>
 
@@ -199,6 +233,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import CButton from "@/components/elements/Button.vue";
 
 export default {
@@ -213,12 +248,19 @@ export default {
       }
     },
 
+    created() {
+      console.log(firebase.auth().currentUser)
+    },
+
     methods: {
       async registerAffiliate() {
+        this.createCoupon();
+        console.log("got here")
 
         var payload = {
           source: document.getElementById("source").value,
-
+          displayName: document.getElementById("firstName").value + " " + document.getElementById("surname").value,
+          following: 0,
           platforms: {
             instagram: {
               handle: document.getElementById("instagram-handle").value,
@@ -237,7 +279,22 @@ export default {
           }
         }
 
-        console.log(payload);
+        console.table(payload);
+
+        firebase.auth().currentUser.getIdToken().then(function(idToken) {
+          axios.post("/i/profile/", payload,
+          {
+            headers: {
+              Authorization: `Bearer ${idToken}`
+            }
+          }
+          ).then(function(resp) {
+            console.log("Account created successfully")
+            console.log(resp);
+          }).catch((error) => {
+            console.log(error);
+          })
+        })
 
       },
 
@@ -258,7 +315,6 @@ export default {
 
       async createCoupon() {
         var coupon = document.getElementById("couponCode").value;
-
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
           var path = "/i/coupon/" + coupon;
           axios.post(path, { coupon },
@@ -268,6 +324,7 @@ export default {
               }
             }
           ).then(function(resp) {
+            console.log(resp);
             console.log("coupon created successfuly")
             // TODO: emit success 
           }).catch(function(error) {
@@ -291,6 +348,7 @@ export default {
     height: 100%; 
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4) !important; 
+    overflow-y: scroll;
   }
 
   #modal-content {

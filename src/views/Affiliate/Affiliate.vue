@@ -184,7 +184,8 @@ export default {
 
             await firebase.auth().createUserWithEmailAndPassword(email, password)
               .then(() => {
-                  self.registerAffiliate();
+                  // self.registerAffiliate();
+                  console.log("GAuth Account Created")
               })
               .catch((error) => {
                   console.log(error);
@@ -192,20 +193,20 @@ export default {
             }
         },
 
-        async registerAffiliate() {
-          if(firebase.auth().currentUser) {
-            firebase.auth().currentUser.getIdToken().then(function(idToken) {
-              axios.post("/i/affiliate/profile", null, {
-                headers: {
-                  Authorization: `Bearer ${ idToken }`
-                }
-              })
-              .catch(function(error) {
-                console.log(error);
-              })
-            })
-          }
-        },
+        // async registerAffiliate() {
+        //   if(firebase.auth().currentUser) {
+        //     firebase.auth().currentUser.getIdToken().then(function(idToken) {
+        //       axios.post("/i/affiliate/profile", null, {
+        //         headers: {
+        //           Authorization: `Bearer ${ idToken }`
+        //         }
+        //       })
+        //       .catch(function(error) {
+        //         console.log(error);
+        //       })
+        //     })
+        //   }
+        // },
 
     },
 

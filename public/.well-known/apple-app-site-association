@@ -2,14 +2,14 @@
   "applinks": {
       "details": [
            {
-             "appIDs": [ "VW76JQGB68.com.fonzmusic", "VW76JQGB68.com.fonzmusic.Clip" ],
+             "appIDs": [ "VW76JQGB68.com.fonzmusic.app" ],
            }
        ]
    },
    "webcredentials": {
-      "apps": [ "VW76JQGB68.com.fonzmusic" ]
+      "apps": [ "VW76JQGB68.com.fonzmusic.app" ]
    },
     "appclips": {
-        "apps": ["VW76JQGB68.com.fonzmusic.Clip"]
+        "apps": ["VW76JQGB68.com.fonzmusic.MyApp.Clip"]
     }
 }

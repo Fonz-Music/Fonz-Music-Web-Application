@@ -3,8 +3,6 @@
       class="site-header"
       :class="bottomOuterDivider && 'has-bottom-divider'"
     >
-
-    <!-- <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/> -->
     <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!isRegistered"/>
 
       <div class="container">
@@ -124,7 +122,6 @@ export default {
     data() {
         return {
             isActive: this.active || false,
-            // couponRegistered: false,
             isRegistered: true
         };
     },
@@ -174,28 +171,10 @@ export default {
           })
         },
 
-      // async checkCoupon() {
-      //   let self = this;
-      //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
-      //     axios.get("/i/affiliate/coupon", {
-      //       headers: {
-      //         Authorization: `Bearer ${ idToken }`
-      //       }
-      //     })
-      //     .then(function(resp) {
-      //         self.couponRegistered = true;
-      //         self.bannerLoaded = true;
-      //     })
-      //     .catch(function() {
-      //       self.bannerLoaded = true;
-      //     })
-      //   })
-      // },
-
       async checkIfRegistered() {
         let self = this;
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.get("https://fonzmusic.com/i/affiliate/profile", {
+          axios.get("/i/affiliate/profile", {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }

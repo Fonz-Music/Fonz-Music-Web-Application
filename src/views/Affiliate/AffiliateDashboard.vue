@@ -46,7 +46,7 @@ export default {
       let self = this
         if(firebase.auth().currentUser) {
           firebase.auth().currentUser.getIdToken().then(function(idToken) {
-            axios.get('https://www.fonzmusic.com/i/affiliate/referrals', {
+            axios.get('/i/affiliate/referrals', {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }

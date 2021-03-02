@@ -27,11 +27,6 @@
                   </tbody>
                 </table>
               </div>
-
-              <!-- <div v-if="!couponRegistered" class="register-coupon row justify-content-center">
-                <c-button @click="openCouponModal()" class="coupon-button"> Register Coupon </c-button>
-              </div> -->
-
             </div>
           </div>
 
@@ -51,36 +46,6 @@
       </div>
     </div>
 
-    <!-- <div id="coupon-modal" v-show="showCouponModal">
-      <div class="modal-background">
-        <div class="modal-content">
-          <div class="container">
-            <c-button @click="closeCouponModal()" class="close"> x </c-button>
-
-            <div class="container">
-              <div class="row justify-content-center">
-                <span> Register your Coupon Code </span>
-              </div>
-              <div class="row justify-content-center input-padding">
-                <c-input
-                id="registerCoupon"
-                type="text"
-                placeholder = "Your Coupon"
-                required
-                />
-              </div>
-              <div class="row justify-content-center">
-                <c-button @click="registerCoupon()">
-                  Register
-                </c-button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div> -->
-    
     <div v-if="!isLoaded">
       <div class="container">
         <div class="row justify-content-center">
@@ -93,7 +58,6 @@
 </template>
 
 <script>
-const axios = require("axios");
 import CButton from "@/components/elements/Button.vue";
 import CInput from "@/components/elements/Input.vue";
 
@@ -122,64 +86,11 @@ export default {
         this.uid = user.uid;
       }
     },
-
-    // async checkCoupon() {
-    //   let self = this;
-    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
-    //     axios.get("https://fonzmusic.com/i/affiliate/coupon", {
-    //       headers: {
-    //         Authorization: `Bearer ${ idToken }`
-    //       }
-    //     })
-    //     .then(function(resp) {
-    //         self.couponRegistered = true;
-    //         self.coupon = resp.data.couponCode;
-    //         self.isLoaded = true;
-    //     })
-    //     .catch(function() {
-    //       self.isLoaded = true;
-    //     })
-    //   })
-    // },
-
-    // openCouponModal() {
-    //   this.showCouponModal = true;
-    // },
-
-    // closeCouponModal() {
-    //   this.showCouponModal = false;
-    // },
-
-    // async registerCoupon() {
-    //   let self = this;
-    //   var coupon = document.getElementById("registerCoupon").value;
-    //   var payload = {
-    //     couponCode: coupon
-    //   }
-
-    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
-    //     axios.post("/i/affiliate/coupon", payload, {
-    //       headers: {
-    //         Authorization: `Bearer ${ idToken }`
-    //       }
-    //     }).then(function() {
-    //       self.showCouponModal = false;
-    //       self.couponRegistered = true;
-    //       self.checkCoupon();
-    //     })
-    //     .catch({})
-    //   })
-    // }
   },
 
   beforeMount() {
     this.getUserCredentials();
-    // this.checkCoupon();
   },
-
-  mounted() {
-    
-  }
 }
 </script>
 

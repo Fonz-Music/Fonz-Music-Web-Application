@@ -289,7 +289,7 @@ export default {
         }
 
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.post("https://fonzmusic.com/i/affiliate/profile", payload, {
+          axios.post("/i/affiliate/profile", payload, {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }
@@ -307,7 +307,7 @@ export default {
       async createCoupon() {
         var coupon = document.getElementById("couponCode").value;
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          var path = "https://fonzmusic.com/i/affiliate/coupon"
+          var path = "/i/affiliate/coupon"
           axios.post(path, { coupon },
             {
               headers: {

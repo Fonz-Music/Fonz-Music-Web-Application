@@ -125,7 +125,7 @@ export default {
     async checkCoupon() {
       let self = this;
       firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        axios.get("/i/affiliate/coupon", {
+        axios.get("https://fonzmusic.com/i/affiliate/coupon", {
           headers: {
             Authorization: `Bearer ${ idToken }`
           }

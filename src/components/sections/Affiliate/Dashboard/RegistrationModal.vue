@@ -221,7 +221,7 @@
 
             <div class="registration-section-body">
               <div class="align-button">
-                <c-button @click="registerAffiliate()" class="button-sm registration-button"> Sign Up </c-button>
+                <c-button @click="registerUser()" class="button-sm registration-button"> Sign Up </c-button>
               </div>
             </div>
 
@@ -244,21 +244,29 @@ export default {
 
     data() {
       return {
-
+        couponError: true,
+        payload: {}
       }
     },
 
     created() {
-      console.log(firebase.auth().currentUser)
+      console.log(firebase.auth().currentUser.uid);
     },
 
     methods: {
-      async registerAffiliate() {
-        this.createCoupon();
-        console.log("got here")
+      async registerUser() {
+        let self = this;
+        this.createCoupon().then(function() {
+          self.registerAffiliate();
+          self.$emit("accountRegisteredEvent", true);
+        }).catch((error) => {
+          console.log("sumthin wrong");
+          console.log(error);
+        })
+      },
 
+      async registerAffiliate() {
         var payload = {
-          source: document.getElementById("source").value,
           displayName: document.getElementById("firstName").value + " " + document.getElementById("surname").value,
           following: 0,
           platforms: {
@@ -276,27 +284,61 @@ export default {
               handle: document.getElementById("twitter-handle").value,
               following: document.getElementById("twitter-following").value
             }
-          }
+          },
+          source: document.getElementById("source").value,
         }
 
-        console.table(payload);
-
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.post("/i/profile/", payload,
-          {
+          axios.post("https://fonzmusic.com/i/affiliate/profile", payload, {
             headers: {
-              Authorization: `Bearer ${idToken}`
+              Authorization: `Bearer ${ idToken }`
             }
-          }
-          ).then(function(resp) {
-            console.log("Account created successfully")
-            console.log(resp);
-          }).catch((error) => {
+          })
+          .then(function(resp) {
+            console.log("Account created successfully");
+            console.log("event emitted");
+            console.log(resp);})
+            .catch((error) => {
             console.log(error);
           })
         })
-
       },
+
+      async createCoupon() {
+        var coupon = document.getElementById("couponCode").value;
+        firebase.auth().currentUser.getIdToken().then(function(idToken) {
+          var path = "https://fonzmusic.com/i/affiliate/coupon"
+          axios.post(path, { coupon },
+            {
+              headers: {
+                Authorization: `Bearer ${ idToken }`
+              }
+            }
+          ).then(function(resp) {
+            console.log(resp);
+            console.log("coupon created successfuly")
+          }).catch(function(error) {
+            console.log(error);
+          })
+        })
+      }
+    }
+}
+
+        // async registerAffiliate() {
+        //   if(firebase.auth().currentUser) {
+        //     firebase.auth().currentUser.getIdToken().then(function(idToken) {
+        //       axios.post("/i/affiliate/profile", null, {
+        //         headers: {
+        //           Authorization: `Bearer ${ idToken }`
+        //         }
+        //       })
+        //       .catch(function(error) {
+        //         console.log(error);
+        //       })
+        //     })
+        //   }
+        // },
 
     // async checkCoupon() {
     //   let self = this;
@@ -313,27 +355,6 @@ export default {
     //   })
     // },
 
-      async createCoupon() {
-        var coupon = document.getElementById("couponCode").value;
-        firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          var path = "/i/coupon/" + coupon;
-          axios.post(path, { coupon },
-            {
-              headers: {
-                Authorization: `Bearer ${ idToken }`
-              }
-            }
-          ).then(function(resp) {
-            console.log(resp);
-            console.log("coupon created successfuly")
-            // TODO: emit success 
-          }).catch(function(error) {
-            console.log(error);
-          })
-        })
-      }
-    }
-}
 </script>
 
 

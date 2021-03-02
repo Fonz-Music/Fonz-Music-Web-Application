@@ -122,8 +122,8 @@ export default {
     data() {
         return {
             isActive: this.active || false,
-            couponRegistered: false,
-            bannerLoaded: false
+            // couponRegistered: false,
+            isRegistered: false
         };
     },
 
@@ -172,30 +172,47 @@ export default {
           })
         },
 
-      async checkCoupon() {
+      // async checkCoupon() {
+      //   let self = this;
+      //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
+      //     axios.get("/i/affiliate/coupon", {
+      //       headers: {
+      //         Authorization: `Bearer ${ idToken }`
+      //       }
+      //     })
+      //     .then(function(resp) {
+      //         self.couponRegistered = true;
+      //         self.bannerLoaded = true;
+      //     })
+      //     .catch(function() {
+      //       self.bannerLoaded = true;
+      //     })
+      //   })
+      // },
+
+      async checkIfRegistered() {
         let self = this;
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.get("/i/affiliate/coupon", {
+          axios.get("https://fonzmusic.com/i/affiliate/profile", {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }
-          })
-          .then(function(resp) {
-              self.couponRegistered = true;
-              self.bannerLoaded = true;
-          })
-          .catch(function() {
-            self.bannerLoaded = true;
+          }).then(function(resp) {
+            console.log(resp);
+            self.isRegistered = true;
+          }).catch((e) => {
+            console.log(e);
+            self.isRegistered = false;
           })
         })
-      },
+      }
     },
 
     mounted() {
         this.active && this.openMenu();
         document.addEventListener("keydown", this.keyPress);
         document.addEventListener("click", this.clickOutside);
-        this.checkCoupon();
+        this.checkIfRegistered();
     },
     
     beforeDestroy() {
@@ -205,13 +222,13 @@ export default {
     },
 
     created() {
-            // Firebase Listener
-            firebase.auth().onAuthStateChanged(function(user) {
-                    if(!user) {
-                            router.push('/affiliate-login').catch(() => {});
-                    }
-            });
+    // Firebase Listener
+      firebase.auth().onAuthStateChanged(function(user) {
+        if(!user) {
+          router.push('/affiliate-login').catch(() => {});
         }
+      });
+    }
 };
 </script>
 

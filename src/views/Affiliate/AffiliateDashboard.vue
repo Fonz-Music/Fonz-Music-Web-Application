@@ -1,7 +1,7 @@
 <template>
   <fragment>
     
-    <c-registration-modal v-if="!registered"/>
+    <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!registered"/>
 
     <div v-else class="section-inner">
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
@@ -12,8 +12,6 @@
         </div>
       </div>
     </div>
-
-
   </fragment>
 </template>
 
@@ -69,6 +67,10 @@ export default {
         })
       }
     },
+
+    updateModal(m) {
+      this.registered = m;
+    }
   },
 };
 

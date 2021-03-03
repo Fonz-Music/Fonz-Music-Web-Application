@@ -16,10 +16,10 @@
                       <td> E-mail: </td> <td> {{ this.email }} </td> 
                     </tr>
                     <tr>
-                      <td> Level: </td> <td> 1 </td> 
+                      <td> Level: </td> <td> {{ this.profileData.level }} </td> 
                     </tr>
                     <tr>
-                      <td> % Cut: </td> <td> 15.00% </td> 
+                      <td> % Cut: </td> <td> {{ this.profileData.percentageCut }} </td> 
                     </tr>
                     <tr>
                       <td> Coupon: </td> <td> {{ coupon }} </td>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import CButton from "@/components/elements/Button.vue";
 import CInput from "@/components/elements/Input.vue";
 
@@ -71,25 +72,37 @@ export default {
     return {
       email: "",
       uid: "",
-      couponRegistered: false,
-      coupon: "Unregistered",
-      showCouponModal: false,
-      isLoaded: false
+      coupon: "",
+      isLoaded: false,
+      profileData: {}
     }
   },
 
   methods: {
-    async getUserCredentials() {
+    async getUserInfo() {
+      let self = this;
+
       var user = await firebase.auth().currentUser;
       if(user) {
-        this.email = user.email;
-        this.uid = user.uid;
+        self.email = user.email;
+        self.uid = user.uid;
       }
+
+      user.getIdToken().then(function(idToken) {
+        axios.get('/i/affiliate/profile', {
+          headers: {
+            Authorization: `Bearer ${ idToken }`
+          }
+        }).then(function(resp) {
+          self.profileData = resp.data;
+          self.isLoaded = true;
+        })
+      })
     },
   },
 
   beforeMount() {
-    this.getUserCredentials();
+    this.getUserInfo();
   },
 }
 </script>

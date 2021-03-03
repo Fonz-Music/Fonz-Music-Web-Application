@@ -249,10 +249,6 @@ export default {
       }
     },
 
-    created() {
-      console.log(firebase.auth().currentUser.uid);
-    },
-
     methods: {
       async registerUser() {
         let self = this;
@@ -324,36 +320,6 @@ export default {
       }
     }
 }
-
-        // async registerAffiliate() {
-        //   if(firebase.auth().currentUser) {
-        //     firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        //       axios.post("/i/affiliate/profile", null, {
-        //         headers: {
-        //           Authorization: `Bearer ${ idToken }`
-        //         }
-        //       })
-        //       .catch(function(error) {
-        //         console.log(error);
-        //       })
-        //     })
-        //   }
-        // },
-
-    // async checkCoupon() {
-    //   let self = this;
-    //   firebase.auth().currentUser.getIdToken().then(function(idToken) {
-    //     axios.get("/i/affiliate/coupon", {
-    //       headers: {
-    //         Authorization: `Bearer ${ idToken }`
-    //       }
-    //     })
-    //     .then(function(resp) {
-    //         self.couponRegistered = true;
-    //     })
-    //     .catch({})
-    //   })
-    // },
 
 </script>
 

@@ -1,13 +1,16 @@
 <template>
   <fragment>
     <div class="section-inner">
+
       <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
       <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+
       <div class="container" v-if="!referralsLoaded">
         <div class="row">
           <h3> Loading... </h3>
         </div>
       </div>
+
     </div>
   </fragment>
 </template>
@@ -53,8 +56,6 @@ export default {
           }).then((resp) => {
             self.referrals = resp.data;
             self.referralsLoaded = true;
-    console.log(self.referrals);
-
           }).catch((error) => {
             console.error(error)
           });

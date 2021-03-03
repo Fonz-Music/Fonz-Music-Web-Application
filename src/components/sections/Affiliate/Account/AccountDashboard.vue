@@ -13,16 +13,19 @@
                 <table>
                   <tbody>
                     <tr>
-                      <td> E-mail: </td> <td> {{ this.email }} </td> 
+                      <td class="table-weight"> Name: </td> <td> {{ this.profileData.displayName }} </td>
                     </tr>
                     <tr>
-                      <td> Level: </td> <td> {{ this.profileData.level }} </td> 
+                      <td class="table-weight"> E-mail: </td> <td> {{ this.email }} </td> 
                     </tr>
                     <tr>
-                      <td> % Cut: </td> <td> {{ this.profileData.percentageCut }} </td> 
+                      <td class="table-weight"> Level: </td> <td> {{ this.profileData.level }} </td> 
                     </tr>
                     <tr>
-                      <td> Coupon: </td> <td> {{ coupon }} </td>
+                      <td class="table-weight"> Cut: </td> <td> {{ this.profileData.percentageCut }}% </td> 
+                    </tr>
+                    <tr>
+                      <td class="table-weight"> Coupon: </td> <td> {{ coupon }} </td>
                     </tr>
                   </tbody>
                 </table>
@@ -49,7 +52,7 @@
     <div v-if="!isLoaded">
       <div class="container">
         <div class="row justify-content-center">
-          <h1> Loading... </h1>
+          <h3> Loading... </h3>
         </div>
       </div>
     </div>
@@ -159,5 +162,10 @@ export default {
 
   .input-padding {
     padding: 25px;
+  }
+
+  .table-weight {
+    color: grey;
+    font-weight: bold;
   }
 </style>

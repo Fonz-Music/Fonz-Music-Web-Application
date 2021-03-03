@@ -179,7 +179,6 @@ export default {
               Authorization: `Bearer ${ idToken }`
             }
           }).then(function(resp) {
-            console.log(resp);
             self.isRegistered = true;
           }).catch((e) => {
             console.log(e);

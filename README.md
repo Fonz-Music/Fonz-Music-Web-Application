@@ -12,12 +12,12 @@ This repository is property of Fonz Music LLC. This websites frontend is built u
 
 ## Project setup
 ```
-npm install
+npm install && cd /functions && npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve && cd /functions && npm run serve
 ```
 
 ### Compiles and minifies for production

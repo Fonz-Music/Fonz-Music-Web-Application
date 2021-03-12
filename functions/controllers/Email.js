@@ -2,47 +2,52 @@
 const nodemailer = require('nodemailer');
 // const Shop = require('./Shop');
 
-const userEmail = 'contact@fonzmusic.com';
-const userPassword = 'BlackBird20$';
-// const transporter = nodemailer.createTransport(`smtps://${userEmail}:${userPassword}@smtp.zoho.eu`);
+const userEmail = process.env.MAIL_NAME;
+const userPassword = process.env.MAIL_PASSWORD;
 const transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.com',
-    port: 465,
-    secure: true, // use SSL
-    auth: {
-        user: userEmail,
-        pass: userPassword
-    }
+	host: process.env.MAIL_SERVER,
+	port: 465,
+	secure: true, // use SSL
+	auth: {
+		user: userEmail,
+		pass: userPassword
+	}
 });
 
 exports.sendEmail = (emailTo, orderCosts, quantity, currency, orderId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const emailHTML = await this.generateEmailSuccessfulOrder(orderCosts, quantity, currency, orderId);
-            var mailOptions = {
-                from: `"Fonz Music" <${userEmail}>`,    // sender address
-                to: emailTo, // list of receivers
-                subject: 'Thank you for your order', // Subject line
-                text: `You have ordered ${quantity} Fonz Coaster. Total cost ${orderCosts.totalAmount}. View this email in a browser that supports HTML to get full information. `,       // plaintext body
-                html: emailHTML // html body
-            };
-            transporter.sendMail(mailOptions, function(error, info){
-                if(error) return reject(error);
-                return resolve(info.response);
-            });
-        } catch(error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-            reject(error);
-        }
-    });
+	return new Promise(async (resolve, reject) => {
+		try {
+			const emailHTML = await this.generateEmailSuccessfulOrder(orderCosts, quantity, currency, orderId);
+			var mailOptions = {
+				from: `"Fonz Music" <${userEmail}>`, // sender address
+				to: emailTo, // list of receivers
+				subject: 'Thank you for your order', // Subject line
+				text: `You have ordered ${quantity} Fonz Coaster. Total cost ${orderCosts.totalAmount}. View this email in a browser that supports HTML to get full information. `, // plaintext body
+				html: emailHTML // html body
+			};
+			transporter.sendMail(mailOptions, function (error, info) {
+				if (error) return reject(error);
+				return resolve(info.response);
+			});
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error(error);
+			reject(error);
+		}
+	});
 }
 
 exports.generateEmailSuccessfulOrder = (orderCosts, quantity, currency, orderId) => {
-    return new Promise((resolve, reject) => {
-        try {
-            const { totalAmount, shippingCost, totalDiscount, totalAddons, coasterCost } = orderCosts;
-            const email = `
+	return new Promise((resolve, reject) => {
+		try {
+			const {
+				totalAmount,
+				shippingCost,
+				totalDiscount,
+				totalAddons,
+				coasterCost
+			} = orderCosts;
+			const email = `
             <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
@@ -974,9 +979,9 @@ United States of America</span>
 
             `;
 
-            resolve(email);
-        } catch(error) {
-            reject(error);
-        }
-    })
+			resolve(email);
+		} catch (error) {
+			reject(error);
+		}
+	})
 }

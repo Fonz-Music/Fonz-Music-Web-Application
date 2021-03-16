@@ -33,23 +33,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="checkbox-for-packaging">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              v-model="extraPackaging"
-              value=""
-              id="defaultCheck1"
-              @click="updateExtraPackaging"
-            />
-            <label class="form-check-label" for="defaultCheck1">
-              I want my coasters packaged separately
-              {{ determineCurrencySymbol }}3
-            </label>
-          </div>
-        </div> -->
-        <!-- <br /> -->
         <div class="promo-section">
           <p>got a promo code from a friend?</p>
 
@@ -183,7 +166,9 @@ export default {
   methods: {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
-      this.getCoupon();
+      this.getCoupon(promoCode);
+      
+      // console.log("the promo is " + promoCode);
 
       console.log("adding promo, code was " + promoCode);
       // communicate with API to add promo code to cart
@@ -194,72 +179,33 @@ export default {
           cartId: cartIdFromUser,
         })
         .then((resp) => {
+          console.log(" added promo to cart ");
           response = resp.data;
           console.log(response);
           this.addedPromoSuccess = true;
           localStorage.setItem("addedPromoSuccess", true);
-
+          this.currentPackage.couponCode = promoCode
           this.promoValid = true;
           this.enteredpromo = true;
         })
         .catch((error) => {
+          console.log("did not add promo to cart");
           console.error(error);
           this.promoValid = false;
           this.enteredpromo = true;
         });
     },
-    // addExtraPackaging() {
-    //   // PUT /i/cart/coupon/{couponId}
-    //
-    //   const cartIdFromUser = localStorage.getItem("cartId");
-    //   var response;
-    //   axios
-    //     .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-    //       cartId: cartIdFromUser
-    //     })
-    //     // add cartID to body
-    //     .then(resp => {
-    //       response = resp.data;
-    //       console.log(response);
-    //       localStorage.setItem("extraPackaging", true);
-    //       this.extraPackaging = true;
-    //     })
-    //     .catch(error => {
-    //       if (error.response.status == 403) {
-    //         console.log("resp.status " + error.response.status);
-    //         this.extraPackaging = true;
-    //       }
-    //       console.error(error);
-    //     });
-    // },
-    // removeExtraPackaging() {
-    //   // PUT /i/cart/coupon/{couponId}
-    //   const cartIdFromUser = localStorage.getItem("cartId");
-    //   console.log("inside remove cartid" + cartIdFromUser);
-    //   var response;
-    //   axios
-    //     .delete(
-    //       `${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`
-    //     )
-    //     .then(resp => {
-    //       // add cartID to body
-    //       response = resp.data;
-    //       console.log(response);
-    //       this.extraPackaging = false;
-    //       localStorage.setItem("extraPackaging", false);
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // },
-
-    getCoupon() {
+    getCoupon(promoCode) {
       axios
-        .get(`${this.$API_URL}/i/cart/coupon/${this.currentPackage.couponCode}`)
+        // .get(`${this.$API_URL}/i/cart/coupon/${this.currentPackage.couponCode}`)
+        .get(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
         .then((resp) => {
           const data = resp.data;
           // data = {"active":true,"discount":"10","affiliateId":"David2020","discountType":"constant","affiliateCut":0.2}
           this.currentPackage.couponAmount = data.discount;
+          // set the promo code 
+          this.currentPackage.couponCode = promoCode
+          localStorage.setItem("promoCode", promoCode);
         })
         .catch((error) => {
           console.error("invalid coupon code: " + error);
@@ -288,23 +234,6 @@ export default {
       evt.preventDefault();
       this.promoValid = !this.promoValid;
     },
-    // updateExtraPackaging() {
-    //   console.log("pressed update extra packaging");
-    //   // tell api that you must add packaging fee
-    //   console.log({ ep: this.extraPackaging.length });
-    //   if (!this.extraPackaging) {
-    //     console.log("adding extra package cost");
-    //     console.log("extra packaging var " + this.extraPackaging);
-    //     localStorage.setItem("addedExtraPackaging", true);
-    //     this.addExtraPackaging();
-    //   } else {
-    //     console.log("removing extra package cost");
-    //     console.log("extra packaging var " + this.extraPackaging);
-    //     localStorage.setItem("addedExtraPackaging", false);
-    //     this.removeExtraPackaging();
-    //   }
-    // },
-
     getTotalPrice() {
       var addonTotal = 0;
       if (this.currentPackage.couponCode != null) {
@@ -346,6 +275,7 @@ export default {
         .then((resp) => {
           console.log("got cart");
           var currentCard = resp.data;
+          // console.log("cart: " + currentCard);
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
           try {
@@ -355,7 +285,7 @@ export default {
           } catch (e) {
             console.log("no coupon");
           }
-          this.getCoupon(); // Check for coupon code and adjust subtotal if present
+          this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
           console.log(currentCard);
           // this.showPricing = true;
         })
@@ -598,18 +528,6 @@ export default {
         return true;
       } else return false;
     },
-    // determineExtraPacking() {
-    //   var extraPackingFromLocal = localStorage.getItem("extraPackaging");
-    //   console.log("packing from local " + extraPackingFromLocal);
-    //   console.log(typeof extraPackingFromLocal);
-    //   if (extraPackingFromLocal == "true") {
-    //     console.log("returning true ");
-    //     return true;
-    //   } else {
-    //     console.log("returning false");
-    //     return false;
-    //   }
-    // }
   },
 };
 </script>

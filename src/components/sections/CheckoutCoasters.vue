@@ -185,6 +185,7 @@ export default {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.getCoupon();
 
+      console.log("adding promo, code was " + promoCode);
       // communicate with API to add promo code to cart
       // GET /i/coupons/{couponId}
       var response;
@@ -325,6 +326,7 @@ export default {
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then((resp) => {
           // this.currentPackage = resp.data;
+          
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
           this.currentPackage.freeShipping = resp.data.freeShipping;

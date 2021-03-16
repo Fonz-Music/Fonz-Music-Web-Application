@@ -21,6 +21,10 @@ exports.createCart = (packageId, currency) => {
             discount
           } = packageInfo;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
           const newCartRef = await global.CartDB.add({
             packageId,
             currency,
@@ -123,7 +127,8 @@ exports.getCart = cartId => {
         retailPrice,
         quantity,
         discount,
-        currency
+        currency,
+        coupon
       } = cartRef.data();
       resolve({
         packageId,
@@ -132,7 +137,8 @@ exports.getCart = cartId => {
         retailPrice,
         quantity,
         discount,
-        currency
+        currency,
+        coupon
       });
     } catch (error) {
       reject(error);

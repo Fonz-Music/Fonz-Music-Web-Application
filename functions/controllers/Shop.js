@@ -21,10 +21,6 @@ exports.createCart = (packageId, currency) => {
             discount
           } = packageInfo;
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
           const newCartRef = await global.CartDB.add({
             packageId,
             currency,

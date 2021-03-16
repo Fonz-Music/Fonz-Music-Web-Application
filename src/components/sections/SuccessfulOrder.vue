@@ -113,6 +113,8 @@ export default {
   beforeMount() {
     this.getPricing();
     this.getCart();
+
+
   },
   beforeCreate() {},
   methods: {
@@ -149,6 +151,9 @@ export default {
     getCart() {
       console.log("getting cart");
       // const packageId = localStorage.getItem("package");
+      fbq('track', 'Purchase', { value: this.currentPackage.price, currency: this.currency });
+
+
       var localCartId = localStorage.getItem("cartId");
       axios
         .get(`${this.$API_URL}/i/cart/${localCartId}`)

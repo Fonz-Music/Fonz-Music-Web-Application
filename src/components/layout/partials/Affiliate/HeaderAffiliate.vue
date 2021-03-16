@@ -3,8 +3,8 @@
       class="site-header"
       :class="bottomOuterDivider && 'has-bottom-divider'"
     >
+    <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!isRegistered"/>
 
-    <!-- <c-affiliate-banner v-if="!couponRegistered && bannerLoaded"/> -->
       <div class="container">
           <div
             class="site-header-inner"
@@ -84,7 +84,7 @@ import CLogo from "@/components/layout/partials/Logo.vue";
 import CLogoHeader from "@/components/layout/partials/LogoHeader.vue";
 import router from "@/router.js";
 import CButton from "@/components/elements/Button.vue";
-import CAffiliateBanner from "@/components/sections/Affiliate/Dashboard/AffiliateBanner.vue";
+import CRegistrationModal from '@/components/sections/Affiliate/Dashboard/RegistrationModal.vue';
 
 export default {
         name: "CHeaderAffiliate",
@@ -92,7 +92,7 @@ export default {
         CLogo,
         CLogoHeader,
         CButton,
-        CAffiliateBanner,
+        CRegistrationModal
     },
 
     props: {
@@ -122,8 +122,7 @@ export default {
     data() {
         return {
             isActive: this.active || false,
-            couponRegistered: false,
-            bannerLoaded: false
+            isRegistered: true
         };
     },
 
@@ -172,30 +171,35 @@ export default {
           })
         },
 
-      async checkCoupon() {
+      async checkIfRegistered() {
         let self = this;
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.get("/i/affiliate/coupon", {
+          axios.get("/i/affiliate/profile", {
             headers: {
               Authorization: `Bearer ${ idToken }`
             }
-          })
-          .then(function(resp) {
-              self.couponRegistered = true;
-              self.bannerLoaded = true;
-          })
-          .catch(function() {
-            self.bannerLoaded = true;
+          }).then(function(resp) {
+            self.isRegistered = true;
+          }).catch((e) => {
+            console.log(e);
+            self.isRegistered = false;
           })
         })
       },
+
+      updateModal(m) {
+        this.isRegistered = m;
+      }
     },
 
     mounted() {
         this.active && this.openMenu();
         document.addEventListener("keydown", this.keyPress);
         document.addEventListener("click", this.clickOutside);
-        this.checkCoupon();
+    },
+
+    beforeMount() {
+        this.checkIfRegistered();
     },
     
     beforeDestroy() {
@@ -205,13 +209,13 @@ export default {
     },
 
     created() {
-            // Firebase Listener
-            firebase.auth().onAuthStateChanged(function(user) {
-                    if(!user) {
-                            router.push('/affiliate-login').catch(() => {});
-                    }
-            });
+    // Firebase Listener
+      firebase.auth().onAuthStateChanged(function(user) {
+        if(!user) {
+          router.push('/affiliate-login').catch(() => {});
         }
+      });
+    },
 };
 </script>
 

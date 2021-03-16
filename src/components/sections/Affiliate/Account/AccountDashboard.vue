@@ -1,89 +1,58 @@
 <template>
   <section class="section">
     <div v-if="isLoaded">
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <div class="tile-style tile-padding">
-            <div class="row-12">
-              <span style="font-weight: bold;"> Your Account </span>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <div class="tile-style tile-padding">
+              <div class="row-12">
+                <span style="font-weight: bold;"> Your Account </span>
+              </div>
 
-            <div class="row-12 font-padding">
-              <table>
-                <tbody>
-                  <tr>
-                    <td> E-mail: </td> <td> {{ this.email }} </td> 
-                  </tr>
-                  <tr>
-                    <td> Level: </td> <td> 1 </td> 
-                  </tr>
-                  <tr>
-                    <td> % Cut: </td> <td> 15.00% </td> 
-                  </tr>
-                  <tr>
-                    <td> Coupon: </td> <td> {{ coupon }} </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div v-if="!couponRegistered" class="register-coupon row justify-content-center">
-              <c-button @click="openCouponModal()" class="coupon-button"> Register Coupon </c-button>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-8">
-          <div class="tile-style tile-padding">
-            <div class="row-12">
-              <span style="font-weight: bold;"> Financials </span>
-            </div>
-            <div class="font-padding row-12">
-              <span style="font-size: 15px;"> Our withdrawal system is currently under development. 
-                If you've any queries, please don't hesitate to reach out to contact@fonzmusic.com.
-              </span>
+              <div class="row-12 font-padding">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td class="table-weight"> Name: </td> <td> {{ this.profileData.displayName }} </td>
+                    </tr>
+                    <tr>
+                      <td class="table-weight"> E-mail: </td> <td> {{ this.email }} </td> 
+                    </tr>
+                    <tr>
+                      <td class="table-weight"> Level: </td> <td> {{ this.profileData.level }} </td> 
+                    </tr>
+                    <tr>
+                      <td class="table-weight"> Cut: </td> <td> {{ this.profileData.percentageCut }}% </td> 
+                    </tr>
+                    <tr>
+                      <td class="table-weight"> Coupon: </td> <td> {{ coupon }} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div id="coupon-modal" v-show="showCouponModal">
-      <div class="modal-background">
-        <div class="modal-content">
-          <div class="container">
-            <c-button @click="closeCouponModal()" class="close"> x </c-button>
-
-            <div class="container">
-              <div class="row justify-content-center">
-                <span> Register your Coupon Code </span>
+          <div class="col-8">
+            <div class="tile-style tile-padding">
+              <div class="row-12">
+                <span style="font-weight: bold;"> Financials </span>
               </div>
-              <div class="row justify-content-center input-padding">
-                <c-input
-                id="registerCoupon"
-                type="text"
-                placeholder = "Your Coupon"
-                required
-                />
-              </div>
-              <div class="row justify-content-center">
-                <c-button @click="registerCoupon()">
-                  Register
-                </c-button>
+              <div class="font-padding row-12">
+                <span style="font-size: 15px;"> Our withdrawal system is currently under development. 
+                  If you've any queries, please don't hesitate to reach out to contact@fonzmusic.com.
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    
+
     <div v-if="!isLoaded">
       <div class="container">
         <div class="row justify-content-center">
-          <h1> Loading... </h1>
+          <h3> Loading... </h3>
         </div>
       </div>
     </div>
@@ -106,75 +75,37 @@ export default {
     return {
       email: "",
       uid: "",
-      couponRegistered: false,
-      coupon: "Unregistered",
-      showCouponModal: false,
-      isLoaded: false
+      coupon: "",
+      isLoaded: false,
+      profileData: {}
     }
   },
 
   methods: {
-    async getUserCredentials() {
+    async getUserInfo() {
+      let self = this;
+
       var user = await firebase.auth().currentUser;
       if(user) {
-        this.email = user.email;
-        this.uid = user.uid;
+        self.email = user.email;
+        self.uid = user.uid;
       }
-    },
 
-    async checkCoupon() {
-      let self = this;
-      firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        axios.get("/i/affiliate/coupon", {
+      user.getIdToken().then(function(idToken) {
+        axios.get('/i/affiliate/profile', {
           headers: {
             Authorization: `Bearer ${ idToken }`
           }
-        })
-        .then(function(resp) {
-            self.couponRegistered = true;
-            self.coupon = resp.data.couponCode;
-            self.isLoaded = true;
-        })
-        .catch(function() {
+        }).then(function(resp) {
+          self.profileData = resp.data;
           self.isLoaded = true;
         })
       })
     },
-
-    openCouponModal() {
-      this.showCouponModal = true;
-    },
-
-    closeCouponModal() {
-      this.showCouponModal = false;
-    },
-
-    async registerCoupon() {
-      let self = this;
-
-      var coupon = document.getElementById("registerCoupon").value;
-      var payload = {
-        couponCode: coupon
-      }
-
-      firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        axios.post("/i/affiliate/coupon", payload, {
-          headers: {
-            Authorization: `Bearer ${ idToken }`
-          }
-        }).then(function() {
-          self.showCouponModal = false;
-          self.couponRegistered = true;
-          self.checkCoupon();
-        })
-        .catch({})
-      })
-    }
   },
 
   beforeMount() {
-    this.getUserCredentials();
-    this.checkCoupon();
+    this.getUserInfo();
   },
 }
 </script>
@@ -231,5 +162,10 @@ export default {
 
   .input-padding {
     padding: 25px;
+  }
+
+  .table-weight {
+    color: grey;
+    font-weight: bold;
   }
 </style>

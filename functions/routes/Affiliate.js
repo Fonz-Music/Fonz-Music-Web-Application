@@ -40,18 +40,18 @@ router.post('/coupon', (req, res) => {
 /* Generates a profile for the affiliate user */
 
 router.post('/profile', (req, res) => {
-    let{
+    let {
         displayName,
         platforms,
         following,
         source
     } = req.body;
 
-    Affiliate.createAffilateProfile(displayName, following, platforms, source).then((response) => {
+    Affiliate.createAffiliateProfile(displayName, following, platforms, source).then((response) => {
         res.json(response)
     }).catch((error) => {
         res.status(500).json({
-          error
+            error
         })
     })
 })

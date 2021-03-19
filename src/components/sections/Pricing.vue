@@ -481,7 +481,7 @@ export default {
         paragraph: "",
       },
       priceChangerValue: "1",
-      currentAnalyticsPackage: {
+      currentAnalyticsCart: {
         // For Google Analytics
         currency: "EUR",
         value: 0.0,
@@ -540,11 +540,11 @@ export default {
           .analytics()
           .logEvent(
             firebase.analytics.EventName.REMOVE_FROM_CART,
-            this.currentAnalyticsPackage
+            this.currentAnalyticsCart
           );
 
         // Update Analytics data payload
-        this.currentAnalyticsPackage = {
+        this.currentAnalyticsCart = {
           currency: this.currency,
           value: this.pricePlans[plan].price,
           items: [this.pricePlans[plan]],
@@ -555,7 +555,7 @@ export default {
           .analytics()
           .logEvent(
             firebase.analytics.EventName.ADD_TO_CART,
-            this.currentAnalyticsPackage
+            this.currentAnalyticsCart
           );
 
         axios
@@ -573,7 +573,7 @@ export default {
         /* If no cart currently exists, create cart */
 
         // Update Analytics data payload
-        this.currentAnalyticsPackage = {
+        this.currentAnalyticsCart = {
           currency: this.currency,
           value: this.pricePlans[plan].price,
           items: [this.pricePlans[plan]],
@@ -584,19 +584,13 @@ export default {
           .analytics()
           .logEvent(
             firebase.analytics.EventName.ADD_TO_CART,
-            this.currentAnalyticsPackage
+            this.currentAnalyticsCart
           );
 
         axios
           .post(`/i/cart/${packageId}/${this.currency}`)
           .then((resp) => {
             const cartId = resp.data.cartId;
-            firebase.analytics().logEvent("new_cart", {
-              content_type: "coaster",
-              packageId,
-              currency: this.currency,
-              items: [{ cartId, ...this.pricePlans[plan] }],
-            });
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
@@ -632,21 +626,14 @@ export default {
     // this.getPricing();
   },
   mounted() {
-    // this.getPricing();
-    // if (this.pricingSlider) {
-    //   this.$refs.slider.setAttribute("min", 0);
-    //   this.$refs.slider.setAttribute(
-    //     "max",
-    //     Object.keys(this.priceInput).length - 1
-    //   );
-    //   this.thumbSize = parseInt(
-    //     window
-    //       .getComputedStyle(this.$refs.sliderValue)
-    //       .getPropertyValue("--thumb-size"),
-    //     10
-    //   );
-    //   this.handleSliderValuePosition(this.$refs.slider);
-    // }
+    // Google Analytics 👀
+    // Log view cart
+    firebase
+      .analytics()
+      .logEvent(
+        firebase.analytics.EventName.VIEW_CART,
+        this.currentAnalyticsCart
+      );
   },
 };
 </script>

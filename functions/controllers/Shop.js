@@ -6,8 +6,14 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // "sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7"
 // );
 // const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S"; // TEST MODE
-const webhookSecret = "whsec_ihgH4WTmZgRxWJBvsqUWVz5gkE1Q2vbS";
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const Email = require('./Email.js');
+
+exports.createCartLog = () => {
+  axios.post(`https://graph.facebook.com/{API_VERSION}/1068728986952539/events?access_token=${process.env.FACEBOOK_PIXEL}`, {
+
+  });
+}
 
 exports.createCart = (packageId, currency) => {
   return new Promise(async (resolve, reject) => {
@@ -20,6 +26,9 @@ exports.createCart = (packageId, currency) => {
             retailPrice,
             discount
           } = packageInfo;
+
+          // axios.post('https://graph.facebook.com/{API_VERSION}/1068728986952539/events?access_token=EAADoZAbUENVIBAGXYJZC9x1KYdpCDTI4HQ835yJ1wUFTQAbH98yDXTkhdqkx6C9Hw56QqV5qBOGEhxnc3ZCPoNZAJeZBr6yGAFgCyN2NPZCGMQKctotmDJn4Ly4t1Nln2CbcDTrbG0BZBIrQElvaALAQ2ux7HTnpdz4ZCD5FfFI7FVK2ucoxzTW1');
+
 
           const newCartRef = await global.CartDB.add({
             packageId,

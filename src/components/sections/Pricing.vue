@@ -589,8 +589,19 @@ export default {
 
         axios
           .post(`/i/cart/${packageId}/${this.currency}`)
-          .then((resp) => {
-            const cartId = resp.data.cartId;
+          .then(resp => {
+            let { cartId, price } = resp.data;
+
+            firebase.analytics().logEvent("new_cart", {
+              content_type: "coaster",
+              packageId,
+              currency: this.currency,
+              items: [{ cartId, ...this.pricePlans[plan] }]
+            });
+
+            fbq('track', 'AddToCart', { value: price });
+
+            console.log("not naving to checkout");
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");

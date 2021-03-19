@@ -5,7 +5,7 @@
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
       hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color'
+      invertColor && 'invert-color',
     ]"
   >
     <div class="container" id="pricingSection">
@@ -13,7 +13,7 @@
         class="pricing-inner section-inner"
         :class="[
           topDivider && 'has-top-divider',
-          bottomDivider && 'has-bottom-divider'
+          bottomDivider && 'has-bottom-divider',
         ]"
       >
         <h2
@@ -459,7 +459,7 @@ export default {
     CSectionHeader,
     CButton,
     CImage,
-    FingerprintSpinner
+    FingerprintSpinner,
 
     // VueProgress
   },
@@ -467,34 +467,30 @@ export default {
   props: {
     pricingSwitcher: {
       type: Boolean,
-      default: false
+      default: false,
     },
     pricingSlider: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       sectionHeader: {
         title: "Queue the party now!",
-        paragraph: ""
+        paragraph: "",
       },
       priceChangerValue: "1",
-      // priceInput: {
-      //   // 0: "1,000",
-      //   // 1: "1,250"
-      // },
-      // priceOutput: {
-      //   plan1: ["$", "34"],
-      //   plan2: ["$", "54"],
-      //   plan3: ["$", "74"],
-      // },
+      currentAnalyticsCart: {
+        // For Google Analytics
+        currency: "EUR",
+        value: 0.0,
+        items: [],
+      },
       showPricing: false,
-      // currencySymbol: "€",
       pricePlans: [{}, {}, {}, {}, {}],
       addons: { shipping: {}, extraPackaging: {} },
-      loading: true
+      loading: true,
     };
   },
   computed: {
@@ -506,7 +502,7 @@ export default {
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
-    }
+    },
   },
   methods: {
     getRetailPrice(plan) {
@@ -537,45 +533,69 @@ export default {
       console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
-        console.log("running analytics");
-        // update CART
-        firebase.analytics().logEvent("change_cart", {
-          content_type: "coaster",
-          packageId,
+        /* if cart exists, update cart */
+
+        // Remove old package to cart for Google Analytics
+        firebase
+          .analytics()
+          .logEvent(
+            firebase.analytics.EventName.REMOVE_FROM_CART,
+            this.currentAnalyticsCart
+          );
+
+        // Update Analytics data payload
+        this.currentAnalyticsCart = {
           currency: this.currency,
-          items: [{ cartId: this.cardId, ...this.pricePlans[plan] }]
-        });
-        console.log("pack id " + packageId);
+          value: this.pricePlans[plan].price,
+          items: [this.pricePlans[plan]],
+        };
+
+        // Add new package to cart for Google Analytics
+        firebase
+          .analytics()
+          .logEvent(
+            firebase.analytics.EventName.ADD_TO_CART,
+            this.currentAnalyticsCart
+          );
+
         axios
           .put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency })
-          .then(resp => {
+          .then((resp) => {
             console.log("naving to checkout");
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("error naving to checkout");
             console.error(error);
           });
       } else {
-        console.log("not running analytics");
-        // create CART
+        /* If no cart currently exists, create cart */
+
+        // Update Analytics data payload
+        this.currentAnalyticsCart = {
+          currency: this.currency,
+          value: this.pricePlans[plan].price,
+          items: [this.pricePlans[plan]],
+        };
+
+        // Add new package to cart for Google Analytics
+        firebase
+          .analytics()
+          .logEvent(
+            firebase.analytics.EventName.ADD_TO_CART,
+            this.currentAnalyticsCart
+          );
+
         axios
           .post(`/i/cart/${packageId}/${this.currency}`)
-          .then(resp => {
+          .then((resp) => {
             const cartId = resp.data.cartId;
-            firebase.analytics().logEvent("new_cart", {
-              content_type: "coaster",
-              packageId,
-              currency: this.currency,
-              items: [{ cartId, ...this.pricePlans[plan] }]
-            });
-            console.log("not naving to checkout");
             localStorage.setItem("cartId", cartId);
             localStorage.setItem("package", packageId);
             this.$router.push("/checkout");
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("big error naving to checkout");
             console.error(error);
           });
@@ -585,7 +605,7 @@ export default {
       this.currency = localStorage.getItem("currency");
       axios
         .get(`${this.$API_URL}/i/prices/${this.currency}`)
-        .then(resp => {
+        .then((resp) => {
           const coasterPricing = resp.data.coasters;
           coasterPricing.forEach((price, key) => {
             this.pricePlans[key] = { ...price, key };
@@ -594,10 +614,10 @@ export default {
           this.showPricing = true;
           this.loading = false;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
-    }
+    },
   },
   beforeMount() {
     this.getPricing();
@@ -606,22 +626,15 @@ export default {
     // this.getPricing();
   },
   mounted() {
-    // this.getPricing();
-    // if (this.pricingSlider) {
-    //   this.$refs.slider.setAttribute("min", 0);
-    //   this.$refs.slider.setAttribute(
-    //     "max",
-    //     Object.keys(this.priceInput).length - 1
-    //   );
-    //   this.thumbSize = parseInt(
-    //     window
-    //       .getComputedStyle(this.$refs.sliderValue)
-    //       .getPropertyValue("--thumb-size"),
-    //     10
-    //   );
-    //   this.handleSliderValuePosition(this.$refs.slider);
-    // }
-  }
+    // Google Analytics 👀
+    // Log view cart
+    firebase
+      .analytics()
+      .logEvent(
+        firebase.analytics.EventName.VIEW_CART,
+        this.currentAnalyticsCart
+      );
+  },
 };
 </script>
 

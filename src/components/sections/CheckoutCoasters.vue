@@ -174,20 +174,14 @@ export default {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.getCoupon(promoCode);
 
-      // console.log("the promo is " + promoCode);
-
-      console.log("adding promo, code was " + promoCode);
-      // communicate with API to add promo code to cart
-      // GET /i/coupons/{couponId}
+      // communicate with API to add promo code to cart: GET /i/coupons/{couponId}
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
           cartId: cartIdFromUser,
         })
         .then((resp) => {
-          console.log(" added promo to cart ");
           response = resp.data;
-          console.log(response);
           this.addedPromoSuccess = true;
           localStorage.setItem("addedPromoSuccess", true);
           this.currentPackage.couponCode = promoCode;
@@ -203,12 +197,11 @@ export default {
     },
     getCoupon(promoCode) {
       axios
-        // .get(`${this.$API_URL}/i/cart/coupon/${this.currentPackage.couponCode}`)
         .get(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
         .then((resp) => {
           const data = resp.data;
-          // data = {"active":true,"discount":"10","affiliateId":"David2020","discountType":"constant","affiliateCut":0.2}
           this.currentPackage.couponAmount = data.discount;
+
           // set the promo code
           this.currentPackage.couponCode = promoCode;
           localStorage.setItem("promoCode", promoCode);
@@ -248,10 +241,6 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      // if (this.extraPackaging) {
-      //   addonTotal += 3;
-      // }
-      // this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
     getPricing() {
@@ -260,12 +249,9 @@ export default {
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then((resp) => {
-          // this.currentPackage = resp.data;
-
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
           this.currentPackage.freeShipping = resp.data.freeShipping;
-          // console.log(this.currentPackage);
           this.showPricing = true;
         })
         .catch((error) => {
@@ -274,26 +260,20 @@ export default {
     },
     getCart() {
       console.log("getting cart");
-      // const packageId = localStorage.getItem("package");
       var localCartId = localStorage.getItem("cartId");
       axios
         .get(`${this.$API_URL}/i/cart/${localCartId}`)
         .then((resp) => {
-          console.log("got cart");
           var currentCard = resp.data;
-          // console.log("cart: " + currentCard);
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
           try {
-            console.log("added coupon " + resp.data.coupon);
             this.currentPackage.couponCode = resp.data.coupon;
-            console.log("added coupon " + this.currentPackage.couponCode);
           } catch (e) {
             console.log("no coupon");
           }
           this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
           console.log(currentCard);
-          // this.showPricing = true;
         })
         .catch((error) => {
           console.log("got cart error");
@@ -315,26 +295,15 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
-      // const addressIntent = localStorage.getItem("guestAddress");
-      // const emailIntent = localStorage.getItem("guestEmail");
-      // const nameIntent = localStorage.getItem("guestName");
       var localCartId = localStorage.getItem("cartId");
-      // console.log("getting card ");
       console.log("local cart" + localCartId);
-      // console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
           cartId: localCartId,
-          // shipping: { address: { line1: addressIntent }, name: nameIntent },
-          // receipt_email: emailIntent
         })
         .then((resp) => {
           console.log("beginning on payment intent");
-          // alert(JSON.stringify(resp, null, 4));
           localStorage.setItem("paymentIntent", resp.data.id);
-          // this.clientSecret = resp.data.client_secret;
-          // alert(JSON.stringify(resp.data, null, 4));
-          // console.log("resp data " + resp.data);
         })
         .catch((error) => {
           console.log("fail making payment intent");
@@ -370,7 +339,6 @@ export default {
         requestPayerName: true,
         requestPayerEmail: true,
       });
-      // console.log(localPaymentReq);
 
       this.elements = this.stripe.elements();
       var prButton = this.elements.create("paymentRequestButton", {
@@ -381,7 +349,6 @@ export default {
         console.log("result is " + JSON.stringify(result));
         if (result) {
           console.log("mounting the button ");
-          // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
         } else {
           console.log("NOT mounting the button ");
@@ -391,7 +358,6 @@ export default {
       });
 
       prButton.on("click", function(ev) {
-        // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
         var passInPrice = localStorage.getItem("totalPrice");
         console.log("passed in price " + passInPrice);
@@ -405,12 +371,6 @@ export default {
       var orderSuccess;
       localPaymentReq.on("paymentmethod", function(ev) {
         console.log("running paymentMethod");
-        // this.stripe.paymentIntents.update(clientSecretLocal);
-        // const options = {
-        //   stripeAccount: this.stripeAccount,
-        //   apiVersion: "2020-08-27",
-        //   locale: this.locale
-        // };
         var strope = window.Stripe(
           "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap"
         );
@@ -480,9 +440,6 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      // if (this.extraPackaging) {
-      //   addonTotal += 3;
-      // }
       this.totalPrice = this.currentPackage.price + addonTotal;
       localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
@@ -494,10 +451,8 @@ export default {
     },
     getPackageId() {
       return localStorage.getItem("package");
-      // console.log("packageID " + this.packageID);
     },
     getImgUrl() {
-      // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
       if (
         this.currentPackage.quantity == 1 ||
         this.currentPackage.quantity == 2 ||
@@ -523,7 +478,6 @@ export default {
       return this.currentPackage.freeShipping;
     },
     determineCurrencySymbol() {
-      // console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";

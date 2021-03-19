@@ -161,13 +161,19 @@ export default {
   },
   beforeMount() {
     this.getPricing();
+
+    firebase.analytics().logEvent(firebase.analytics.EventName.VIEW_CART, {
+      currency: this.currency,
+      value: this.currentPackage.price,
+      items: [this.currentPackage],
+    });
   },
   beforeCreate() {},
   methods: {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.getCoupon(promoCode);
-      
+
       // console.log("the promo is " + promoCode);
 
       console.log("adding promo, code was " + promoCode);
@@ -184,7 +190,7 @@ export default {
           console.log(response);
           this.addedPromoSuccess = true;
           localStorage.setItem("addedPromoSuccess", true);
-          this.currentPackage.couponCode = promoCode
+          this.currentPackage.couponCode = promoCode;
           this.promoValid = true;
           this.enteredpromo = true;
         })
@@ -203,8 +209,8 @@ export default {
           const data = resp.data;
           // data = {"active":true,"discount":"10","affiliateId":"David2020","discountType":"constant","affiliateCut":0.2}
           this.currentPackage.couponAmount = data.discount;
-          // set the promo code 
-          this.currentPackage.couponCode = promoCode
+          // set the promo code
+          this.currentPackage.couponCode = promoCode;
           localStorage.setItem("promoCode", promoCode);
         })
         .catch((error) => {
@@ -250,12 +256,12 @@ export default {
     },
     getPricing() {
       const packageId = localStorage.getItem("package");
-      if(!packageId) this.$router.push('/buy')
+      if (!packageId) this.$router.push("/buy");
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then((resp) => {
           // this.currentPackage = resp.data;
-          
+
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
           this.currentPackage.freeShipping = resp.data.freeShipping;

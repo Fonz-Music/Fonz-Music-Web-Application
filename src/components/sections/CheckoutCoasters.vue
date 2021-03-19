@@ -155,18 +155,27 @@ export default {
       },
       packageId: "",
       freeShipping: false,
-
       addons: { shipping: {}, extraPackaging: {} },
+      currentAnalyticsCart: {
+        // For Google Analytics
+        currency: "EUR",
+        value: 0.0,
+        items: [],
+      },
+      cart: {
+        addons: [],
+        coupon: "",
+        currency: "eur",
+        discount: 0,
+        packageId: "",
+        price: 0,
+        quantity: 0,
+        retailPrice: 0,
+      },
     };
   },
   beforeMount() {
     this.getPricing();
-
-    firebase.analytics().logEvent(firebase.analytics.EventName.VIEW_CART, {
-      currency: this.currency,
-      value: this.currentPackage.price,
-      items: [this.currentPackage],
-    });
   },
   beforeCreate() {},
   methods: {
@@ -269,10 +278,20 @@ export default {
           this.currentPackage.retailPrice = resp.data.retailPrice;
           try {
             this.currentPackage.couponCode = resp.data.coupon;
+            this.cart.coupon = resp.data.coupon;
           } catch (e) {
             console.log("no coupon");
           }
           this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
+
+          // Update Analytics data payload
+          this.currentAnalyticsCart = {
+            currency: this.currency,
+            value: currentCard.total,
+            items: [this.cart],
+          };
+
+          this.cart = currentCard;
           console.log(currentCard);
         })
         .catch((error) => {
@@ -315,6 +334,16 @@ export default {
     this.getPricing();
     this.sendCartIdToServer();
     this.getCart();
+
+    /* Google Analytics 👀 */
+
+    // Begin Checkout Log 🤑
+    firebase
+      .analytics()
+      .logEvent(
+        firebase.analytics.EventName.BEGIN_CHECKOUT,
+        this.currentAnalyticsCart
+      );
 
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {

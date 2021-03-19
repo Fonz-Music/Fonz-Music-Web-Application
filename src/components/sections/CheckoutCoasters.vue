@@ -33,23 +33,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="checkbox-for-packaging">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              v-model="extraPackaging"
-              value=""
-              id="defaultCheck1"
-              @click="updateExtraPackaging"
-            />
-            <label class="form-check-label" for="defaultCheck1">
-              I want my coasters packaged separately
-              {{ determineCurrencySymbol }}3
-            </label>
-          </div>
-        </div> -->
-        <!-- <br /> -->
         <div class="promo-section">
           <p>got a promo code from a friend?</p>
 
@@ -172,8 +155,23 @@ export default {
       },
       packageId: "",
       freeShipping: false,
-
       addons: { shipping: {}, extraPackaging: {} },
+      currentAnalyticsCart: {
+        // For Google Analytics
+        currency: "EUR",
+        value: 0.0,
+        items: [],
+      },
+      cart: {
+        addons: [],
+        coupon: "",
+        currency: "eur",
+        discount: 0,
+        packageId: "",
+        price: 0,
+        quantity: 0,
+        retailPrice: 0,
+      },
     };
   },
   beforeMount() {
@@ -183,10 +181,9 @@ export default {
   methods: {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
-      this.getCoupon();
+      this.getCoupon(promoCode);
 
-      // communicate with API to add promo code to cart
-      // GET /i/coupons/{couponId}
+      // communicate with API to add promo code to cart: GET /i/coupons/{couponId}
       var response;
       axios
         .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
@@ -194,71 +191,29 @@ export default {
         })
         .then((resp) => {
           response = resp.data;
-          console.log(response);
           this.addedPromoSuccess = true;
           localStorage.setItem("addedPromoSuccess", true);
-
+          this.currentPackage.couponCode = promoCode;
           this.promoValid = true;
           this.enteredpromo = true;
         })
         .catch((error) => {
+          console.log("did not add promo to cart");
           console.error(error);
           this.promoValid = false;
           this.enteredpromo = true;
         });
     },
-    // addExtraPackaging() {
-    //   // PUT /i/cart/coupon/{couponId}
-    //
-    //   const cartIdFromUser = localStorage.getItem("cartId");
-    //   var response;
-    //   axios
-    //     .put(`${this.$API_URL}/i/cart/addons/extraPackaging`, {
-    //       cartId: cartIdFromUser
-    //     })
-    //     // add cartID to body
-    //     .then(resp => {
-    //       response = resp.data;
-    //       console.log(response);
-    //       localStorage.setItem("extraPackaging", true);
-    //       this.extraPackaging = true;
-    //     })
-    //     .catch(error => {
-    //       if (error.response.status == 403) {
-    //         console.log("resp.status " + error.response.status);
-    //         this.extraPackaging = true;
-    //       }
-    //       console.error(error);
-    //     });
-    // },
-    // removeExtraPackaging() {
-    //   // PUT /i/cart/coupon/{couponId}
-    //   const cartIdFromUser = localStorage.getItem("cartId");
-    //   console.log("inside remove cartid" + cartIdFromUser);
-    //   var response;
-    //   axios
-    //     .delete(
-    //       `${this.$API_URL}/i/cart/addons/extraPackaging/${cartIdFromUser}`
-    //     )
-    //     .then(resp => {
-    //       // add cartID to body
-    //       response = resp.data;
-    //       console.log(response);
-    //       this.extraPackaging = false;
-    //       localStorage.setItem("extraPackaging", false);
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // },
-
-    getCoupon() {
+    getCoupon(promoCode) {
       axios
-        .get(`${this.$API_URL}/i/cart/coupon/${this.currentPackage.couponCode}`)
+        .get(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
         .then((resp) => {
           const data = resp.data;
-          // data = {"active":true,"discount":"10","affiliateId":"David2020","discountType":"constant","affiliateCut":0.2}
           this.currentPackage.couponAmount = data.discount;
+
+          // set the promo code
+          this.currentPackage.couponCode = promoCode;
+          localStorage.setItem("promoCode", promoCode);
         })
         .catch((error) => {
           console.error("invalid coupon code: " + error);
@@ -287,23 +242,6 @@ export default {
       evt.preventDefault();
       this.promoValid = !this.promoValid;
     },
-    // updateExtraPackaging() {
-    //   console.log("pressed update extra packaging");
-    //   // tell api that you must add packaging fee
-    //   console.log({ ep: this.extraPackaging.length });
-    //   if (!this.extraPackaging) {
-    //     console.log("adding extra package cost");
-    //     console.log("extra packaging var " + this.extraPackaging);
-    //     localStorage.setItem("addedExtraPackaging", true);
-    //     this.addExtraPackaging();
-    //   } else {
-    //     console.log("removing extra package cost");
-    //     console.log("extra packaging var " + this.extraPackaging);
-    //     localStorage.setItem("addedExtraPackaging", false);
-    //     this.removeExtraPackaging();
-    //   }
-    // },
-
     getTotalPrice() {
       var addonTotal = 0;
       if (this.currentPackage.couponCode != null) {
@@ -312,23 +250,17 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      // if (this.extraPackaging) {
-      //   addonTotal += 3;
-      // }
-      // this.totalPrice = this.currentPackage.price + addonTotal;
       return this.currentPackage.price + addonTotal;
     },
     getPricing() {
       const packageId = localStorage.getItem("package");
-      if(!packageId) this.$router.push('/buy')
+      if (!packageId) this.$router.push("/buy");
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
         .then((resp) => {
-          // this.currentPackage = resp.data;
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
           this.currentPackage.freeShipping = resp.data.freeShipping;
-          // console.log(this.currentPackage);
           this.showPricing = true;
         })
         .catch((error) => {
@@ -337,25 +269,28 @@ export default {
     },
     getCart() {
       console.log("getting cart");
-      // const packageId = localStorage.getItem("package");
       var localCartId = localStorage.getItem("cartId");
       axios
         .get(`${this.$API_URL}/i/cart/${localCartId}`)
         .then((resp) => {
-          console.log("got cart");
           var currentCard = resp.data;
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
+          this.cart = currentCard;
           try {
-            console.log("added coupon " + resp.data.coupon);
             this.currentPackage.couponCode = resp.data.coupon;
-            console.log("added coupon " + this.currentPackage.couponCode);
+            this.cart.coupon = resp.data.coupon;
           } catch (e) {
             console.log("no coupon");
           }
-          this.getCoupon(); // Check for coupon code and adjust subtotal if present
-          console.log(currentCard);
-          // this.showPricing = true;
+          this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
+
+          // Update Analytics data payload
+          this.currentAnalyticsCart = {
+            currency: this.currency,
+            value: currentCard.total,
+            items: [this.cart],
+          };
         })
         .catch((error) => {
           console.log("got cart error");
@@ -377,26 +312,15 @@ export default {
       console.log("finished loadSDK");
     },
     sendCartIdToServer() {
-      // const addressIntent = localStorage.getItem("guestAddress");
-      // const emailIntent = localStorage.getItem("guestEmail");
-      // const nameIntent = localStorage.getItem("guestName");
       var localCartId = localStorage.getItem("cartId");
-      // console.log("getting card ");
       console.log("local cart" + localCartId);
-      // console.log("guestAddress: " + addressIntent);
       axios
         .post("/i/checkout/payment-intent", {
           cartId: localCartId,
-          // shipping: { address: { line1: addressIntent }, name: nameIntent },
-          // receipt_email: emailIntent
         })
         .then((resp) => {
           console.log("beginning on payment intent");
-          // alert(JSON.stringify(resp, null, 4));
           localStorage.setItem("paymentIntent", resp.data.id);
-          // this.clientSecret = resp.data.client_secret;
-          // alert(JSON.stringify(resp.data, null, 4));
-          // console.log("resp data " + resp.data);
         })
         .catch((error) => {
           console.log("fail making payment intent");
@@ -408,6 +332,16 @@ export default {
     this.getPricing();
     this.sendCartIdToServer();
     this.getCart();
+
+    /* Google Analytics 👀 */
+
+    // Begin Checkout Log 🤑
+    firebase
+      .analytics()
+      .logEvent(
+        firebase.analytics.EventName.BEGIN_CHECKOUT,
+        this.currentAnalyticsCart
+      );
 
     localStorage.setItem("totalPrice", this.totalPrice);
     this.loadStripeSdk(this.pk, "v3", () => {
@@ -432,7 +366,6 @@ export default {
         requestPayerName: true,
         requestPayerEmail: true,
       });
-      // console.log(localPaymentReq);
 
       this.elements = this.stripe.elements();
       var prButton = this.elements.create("paymentRequestButton", {
@@ -443,7 +376,6 @@ export default {
         console.log("result is " + JSON.stringify(result));
         if (result) {
           console.log("mounting the button ");
-          // this.card.mount("#payment-request-button");
           prButton.mount("#payment-request-button");
         } else {
           console.log("NOT mounting the button ");
@@ -453,7 +385,6 @@ export default {
       });
 
       prButton.on("click", function(ev) {
-        // this.stripe.paymentIntents.update(clientSecretLocal);
         console.log("updating payment");
         var passInPrice = localStorage.getItem("totalPrice");
         console.log("passed in price " + passInPrice);
@@ -467,12 +398,6 @@ export default {
       var orderSuccess;
       localPaymentReq.on("paymentmethod", function(ev) {
         console.log("running paymentMethod");
-        // this.stripe.paymentIntents.update(clientSecretLocal);
-        // const options = {
-        //   stripeAccount: this.stripeAccount,
-        //   apiVersion: "2020-08-27",
-        //   locale: this.locale
-        // };
         var strope = window.Stripe(
           "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap"
         );
@@ -542,9 +467,6 @@ export default {
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
       }
-      // if (this.extraPackaging) {
-      //   addonTotal += 3;
-      // }
       this.totalPrice = this.currentPackage.price + addonTotal;
       localStorage.setItem("totalPrice", this.totalPrice);
       return this.currentPackage.price + addonTotal;
@@ -556,10 +478,8 @@ export default {
     },
     getPackageId() {
       return localStorage.getItem("package");
-      // console.log("packageID " + this.packageID);
     },
     getImgUrl() {
-      // console.log({ pricePlans: this.pricePlans, other: "idk", plan })
       if (
         this.currentPackage.quantity == 1 ||
         this.currentPackage.quantity == 2 ||
@@ -585,7 +505,6 @@ export default {
       return this.currentPackage.freeShipping;
     },
     determineCurrencySymbol() {
-      // console.log("this cur " + this.currency);
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
@@ -596,18 +515,6 @@ export default {
         return true;
       } else return false;
     },
-    // determineExtraPacking() {
-    //   var extraPackingFromLocal = localStorage.getItem("extraPackaging");
-    //   console.log("packing from local " + extraPackingFromLocal);
-    //   console.log(typeof extraPackingFromLocal);
-    //   if (extraPackingFromLocal == "true") {
-    //     console.log("returning true ");
-    //     return true;
-    //   } else {
-    //     console.log("returning false");
-    //     return false;
-    //   }
-    // }
   },
 };
 </script>

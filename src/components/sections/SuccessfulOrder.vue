@@ -81,7 +81,7 @@ console.log({ Checkout });
 export default {
   name: "CCheckoutCoasters",
   components: {
-    CImage
+    CImage,
   },
   data() {
     return {
@@ -102,12 +102,12 @@ export default {
         retailPrice: 60,
         title: "fonz coaster",
         freeShipping: true,
-        couponCode: null
+        couponCode: null,
       },
       packageId: "",
       showPricing: false,
       currencySymbol: "€",
-      addons: { shipping: {}, extraPackaging: {} }
+      addons: { shipping: {}, extraPackaging: {} },
     };
   },
   beforeMount() {
@@ -136,7 +136,7 @@ export default {
       const packageId = localStorage.getItem("package");
       axios
         .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
-        .then(resp => {
+        .then((resp) => {
           // this.currentPackage = resp.data;
           this.currentPackage.title = resp.data.title;
           this.currentPackage.quantity = resp.data.quantity;
@@ -144,7 +144,7 @@ export default {
           // console.log(this.currentPackage);
           this.showPricing = true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
@@ -157,26 +157,40 @@ export default {
       var localCartId = localStorage.getItem("cartId");
       axios
         .get(`${this.$API_URL}/i/cart/${localCartId}`)
-        .then(resp => {
+        .then((resp) => {
           console.log("got cart");
           var currentCard = resp.data;
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
+          this.cart = currentCard;
           try {
-            console.log("added coupon " + resp.data.coupon);
             this.currentPackage.couponCode = resp.data.coupon;
-            console.log("added coupon " + this.currentPackage.couponCode);
+            this.cart.coupon = resp.data.coupon;
           } catch (e) {
             console.log("no coupon");
           }
-          console.log(currentCard);
-          // this.showPricing = true;
+
+          // Update Analytics data payload
+          this.currentAnalyticsCart = {
+            currency: this.currency,
+            value: currentCard.total,
+            items: [this.cart],
+          };
+
+          // Google Analytics
+          // The money has been secured 🍾
+          firebase
+            .analytics()
+            .logEvent(
+              firebase.analytics.EventName.PURCHASE,
+              this.currentAnalyticsCart
+            );
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("got cart error");
           console.error(error);
         });
-    }
+    },
   },
 
   mounted() {
@@ -242,8 +256,8 @@ export default {
       if (this.currentPackage.couponCode != null) {
         return true;
       } else return false;
-    }
-  }
+    },
+  },
 };
 </script>
 

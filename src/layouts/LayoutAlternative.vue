@@ -5,7 +5,7 @@
       <main class="site-content">
         <slot />
       </main>
-      <recent-orders />
+      <!-- <recent-orders /> -->
       <c-footer />
     </div>
   </fragment>
@@ -14,12 +14,12 @@
 <script>
 import CHeader from "@/components/layout/Header.vue";
 import CFooter from "@/components/layout/Footer02.vue";
-import RecentOrders from "@/components/elements/RecentOrders.vue";
+// import RecentOrders from "@/components/elements/RecentOrders.vue";
 export default {
   components: {
     CHeader,
     CFooter,
-    RecentOrders
+    // RecentOrders
   }
 };
 </script>

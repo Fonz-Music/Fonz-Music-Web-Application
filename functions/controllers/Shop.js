@@ -132,7 +132,8 @@ exports.getCart = cartId => {
         retailPrice,
         quantity,
         discount,
-        currency
+        currency,
+        coupon
       } = cartRef.data();
       resolve({
         packageId,
@@ -141,7 +142,8 @@ exports.getCart = cartId => {
         retailPrice,
         quantity,
         discount,
-        currency
+        currency,
+        coupon
       });
     } catch (error) {
       reject(error);
@@ -471,12 +473,15 @@ exports.confirmOrder = (requestBody, signature) => {
       if (event.type == "payment_intent.succeeded") {
         const cartId = intent.metadata.cartId;
         const cart = await this.getCart(cartId);
-        const {
+        let {
           currency,
           coupon,
           packageId,
           addons
         } = cart;
+
+        if (!addons) addons = []; // ensure addons is object if undefined
+
         let {
           totalAmount,
           shippingCost,

@@ -276,6 +276,7 @@ export default {
           var currentCard = resp.data;
           this.currentPackage.price = resp.data.price;
           this.currentPackage.retailPrice = resp.data.retailPrice;
+          this.cart = currentCard;
           try {
             this.currentPackage.couponCode = resp.data.coupon;
             this.cart.coupon = resp.data.coupon;
@@ -290,9 +291,6 @@ export default {
             value: currentCard.total,
             items: [this.cart],
           };
-
-          this.cart = currentCard;
-          console.log(currentCard);
         })
         .catch((error) => {
           console.log("got cart error");

@@ -464,12 +464,15 @@ exports.confirmOrder = (requestBody, signature) => {
       if (event.type == "payment_intent.succeeded") {
         const cartId = intent.metadata.cartId;
         const cart = await this.getCart(cartId);
-        const {
+        let {
           currency,
           coupon,
           packageId,
           addons
         } = cart;
+
+        if (!addons) addons = []; // ensure addons is object if undefined
+
         let {
           totalAmount,
           shippingCost,

@@ -51,6 +51,22 @@
                       />
                     </fieldset>
                   </form>
+                  <div v-if='createdAccountError' class="container"> 
+                      <div class="row justify-content-center">
+                          <p>
+                          Invalid e-mail or an account already exists with this name.                    
+                          </p>
+                      </div>
+                  </div>
+
+                  <div v-if='incorrectLogin' class="container mt-16"> 
+                      <div class="row justify-content-center">
+                          <p>
+                              Your e-mail or password is incorrect.
+                          </p>
+                      </div>
+                  </div>
+                  
                   <div class="button-padding">
                     <c-button class="button-style" @click="signInEmail()"> 
                       <span style="color:white;"> Log In </span>
@@ -92,6 +108,31 @@
                       />
                     </fieldset>
                   </form>
+                  <div v-if='passwordsDoNotMatch' class="container"> 
+                      <div class="row justify-content-center">
+                          <p>
+                          your passwords do not match.                    
+                          </p>
+                      </div>
+                  </div>
+
+                  <div v-if='emailNotFormatted' class="container mt-16"> 
+                      <div class="row justify-content-center">
+                          <p>
+                              your e-mail is not formatted properly.
+                          </p>
+                      </div>
+                  </div>
+                  <div v-if='createdAccountError' class="container"> 
+                      <div class="row justify-content-center">
+                          <!-- <p>
+                          Invalid e-mail or an account already exists with this name.                    
+                          </p> -->
+                          <p>{{reasonFailed}}</p>
+                      </div>
+                  </div>
+
+                  
                   <div class="button-padding">
                     <c-button @click="registerEmail()"> Register </c-button>
                     <c-button @click="toLogin()"> Go Back </c-button>
@@ -140,6 +181,11 @@ export default {
         return {
             showModal: false,
             showRegistration: false,
+            createdAccountError: false,
+            incorrectLogin: false,
+            passwordsDoNotMatch: false,
+            emailNotFormatted: false,
+            reasonFailed: ""
         }
     },
 
@@ -159,6 +205,10 @@ export default {
         toRegister() {
           this.showRegistration = true;
         },
+        // checks to see if email is valid 
+        emailIsValid: function(email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        },
 
       // Sign In / out Functionality
         async signInEmail() {
@@ -168,6 +218,8 @@ export default {
             firebase.auth().signInWithEmailAndPassword(email.value, password.value)
             .catch((error) => {
               console.log(error);
+              this.incorrectLogin = true;
+              this.createdAccountError = false;
             })
         },
 
@@ -177,20 +229,37 @@ export default {
 
           var testPassword = document.getElementById("registerPassword").value;
           var testConfirmPassword = document.getElementById("registerConfirmPassword").value;
-
-          if(testPassword.value === testConfirmPassword.value) {
+          
+          // ensure passwords are the same 
+          if(testPassword === testConfirmPassword) {
+            this.passwordsDoNotMatch = false
             var email = document.getElementById("registerEmail").value;
             var password = testPassword;
-
-            await firebase.auth().createUserWithEmailAndPassword(email, password)
-              .then(() => {
-                  // self.registerAffiliate();
-                  console.log("GAuth Account Created")
-              })
-              .catch((error) => {
-                  console.log(error);
-              })
+            
+            // ensure proper email format 
+            if (this.emailIsValid(email)) {
+              this.emailNotFormatted = false
+              await firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    // self.registerAffiliate();
+                    console.log("GAuth Account Created")
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.reasonFailed = error.message
+                    console.log(this.reasonFailed);
+                    this.createdAccountError = true;
+                })
             }
+            else {
+              this.emailNotFormatted = true
+              console.log("email not formatted ");
+            }
+          }
+            else {
+              this.passwordsDoNotMatch = true
+              console.log("passwords dont match");
+            } 
         },
 
         // async registerAffiliate() {

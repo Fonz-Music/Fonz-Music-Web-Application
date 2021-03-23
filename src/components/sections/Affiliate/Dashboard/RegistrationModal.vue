@@ -302,6 +302,7 @@ export default {
 
       async createCoupon() {
         var coupon = document.getElementById("couponCode").value;
+        console.log("coupon code is " + coupon);
         firebase.auth().currentUser.getIdToken().then(function(idToken) {
           var path = "/i/affiliate/coupon"
           axios.post(path, { coupon },
@@ -314,6 +315,7 @@ export default {
             console.log(resp);
             console.log("coupon created successfuly")
           }).catch(function(error) {
+            console.log("error uh oh");
             console.log(error);
           })
         })

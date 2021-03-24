@@ -88,7 +88,7 @@ function authChecker(req, res, next) {
         .then((user) => {
             res.locals.user = user;
             global.userId = user.user_id;
-            global.name = "USER TEMPLATE NAME"
+            global.identifier = payload.email.split('@')[0];
             global.discount = 5;
             next()
         }).catch((error) => {

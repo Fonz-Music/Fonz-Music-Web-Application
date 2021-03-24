@@ -1,15 +1,27 @@
 <template>
   <fragment>
     <div class="section-inner">
-
-      <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
-      <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
-
-      <div class="container" v-if="!referralsLoaded">
-        <div class="row">
-          <h3> Loading... </h3>
+      
+      <div class="container" v-if="checkIfReferrals">
+        <div class="container" v-if="!referralsLoaded">
+          <div class="row">
+            <h3> Loading... </h3>
+          </div>
+        </div>
+        <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+        <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+      </div>
+      <div class="container no-sales center-content" v-if="!checkIfReferrals">
+        <div class="no-sales-text">
+          <h3> you don't have any sales yet :/ </h3>
+          <p> you'll see a graph of your sales when you make your first sale </p>
         </div>
       </div>
+
+      <!-- <c-dashboard-bar v-if="referralsLoaded" v-bind:referrals="this.referrals"/>
+      <c-affiliate-graph v-if="referralsLoaded" v-bind:referrals="this.referrals"/> -->
+
+      
 
     </div>
   </fragment>
@@ -63,7 +75,22 @@ export default {
       }
     },
   },
+  computed: {
+    checkIfReferrals() {
+      console.log("referrals " + self.referralsLoaded);
+      if (self.referrals == null || self.referrals.length == 0 ) return false
+      else return true
+    }
+  }
 };
 
 
 </script>
+<style media="screen">
+/* .affiliate-page-content {
+  min-height: 700px
+} */
+  .no-sales .no-sales-text{
+    margin: 250px auto 100px auto;
+  }
+</style>

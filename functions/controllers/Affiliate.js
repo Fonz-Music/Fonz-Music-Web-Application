@@ -1,3 +1,5 @@
+const { random } = require("lodash");
+
 exports.getReferrals = (referralCode) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -76,7 +78,7 @@ exports.createCoupon = (couponCode) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!couponCode) // if specific coupon code NOT set, generate a coupon code
-                couponCode = global.name + global.discount;
+                couponCode = (global.identifier + random(new Date())).substring(0, 12);
 
             const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
 

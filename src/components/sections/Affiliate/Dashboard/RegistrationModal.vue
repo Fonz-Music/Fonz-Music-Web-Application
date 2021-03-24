@@ -219,9 +219,15 @@
               </div>
             </div>
 
+            <div v-if='errorSigningUp' class="container mt-16"> 
+                <div class="row justify-content-center">
+                    <p>{{errorMessage}}</p>
+                </div>
+            </div>
             <div class="registration-section-body">
               <div class="align-button">
-                <c-button @click="registerUser()" class="button-sm registration-button"> Sign Up </c-button>
+                <!-- <c-button @click="registerUser()" class="button-sm registration-button"> Sign Up </c-button> -->
+                <c-button @click="registerNewUser()" class="button-sm registration-button"> Sign Up </c-button>
               </div>
             </div>
 
@@ -245,20 +251,131 @@ export default {
     data() {
       return {
         couponError: true,
+        errorSigningUp: false,
+        errorMessage: "",
         payload: {}
       }
     },
 
     methods: {
+      
+      registerNewUser(){
+        var errorMessageFrom
+        var errorReported
+        var coupon = document.getElementById("couponCode").value;
+        console.log("coupon code is " + coupon);
+        if (coupon == "") {
+          this.errorMessage = "coupon code is empty"
+          this.errorSigningUp = true
+        }
+        else {
+          return firebase.auth().currentUser.getIdToken().then(function(idToken) {
+            var path = "/i/affiliate/coupon"
+            axios.post(path, { coupon },
+              {
+                headers: {
+                  Authorization: `Bearer ${ idToken }`
+                }
+              }
+            ).then(resp => {
+              console.log(resp);
+              console.log("coupon created successfuly")
+              var payload = {
+                displayName: document.getElementById("firstName").value + " " + document.getElementById("surname").value,
+                following: 0,
+                platforms: {
+                  instagram: {
+                    handle: document.getElementById("instagram-handle").value,
+                    following: document.getElementById("instagram-following").value
+                  },
+
+                  tiktok: {
+                    handle: document.getElementById("tiktok-handle").value,
+                    following: document.getElementById("tiktok-following").value
+                  },
+
+                  twitter: {
+                    handle: document.getElementById("twitter-handle").value,
+                    following: document.getElementById("twitter-following").value
+                  }
+                },
+                source: document.getElementById("source").value,
+              }
+              console.log("diaplyname is " + payload.displayName);
+              // make sure name is completed
+              if (payload.displayName == "") {
+                errorMessageFrom += "\nyour name cannot be blank"
+                errorReported = true
+                return false 
+              }
+              
+              else {
+
+                firebase.auth().currentUser.getIdToken().then(function(idToken) {
+                  axios.post("/i/affiliate/profile", payload, {
+                    headers: {
+                      Authorization: `Bearer ${ idToken }`
+                    }
+                  })
+                  .then((resp) => {
+                    console.log("Account created successfully");
+                    console.log("event emitted");
+                    this.$emit("accountRegisteredEvent", true);
+                    console.log(resp);})
+                    
+                  .catch((error) => {
+                    errorMessageFrom = error.message
+                    errorReported = true
+                    console.log(error);
+  
+                  })
+                })
+              }
+            }).catch((error) => {
+              // this.couponError = true
+              errorMessageFrom = "error.message"
+              errorReported = true
+              
+              console.log("error uh oh");
+              console.log(error);
+            })
+          })
+        }
+        this.errorMessage = errorMessageFrom
+        this.errorSigningUp = errorSigningUp
+      },
+      
       async registerUser() {
-        let self = this;
-        this.createCoupon().then(function() {
-          self.registerAffiliate();
-          self.$emit("accountRegisteredEvent", true);
+        
+        this.createCoupon().then((resp) => {
+          console.log("im gonna run all of this anyways ");
+          console.log("and this ");
+          console.log("coupon bool " + resp);
+          if (resp) {
+            let successReg = this.registerAffiliate();
+            console.log("coupon Reg " + successReg);
+            if (successReg) {
+              this.$emit("accountRegisteredEvent", true);
+            }
+          }
+        // })
+        
+        // .then(function() {
+        
+          // if (this.errorSigningUp == false) {
+          //   this.registerAffiliate();
+          //   if (this.errorSigningUp == false) {
+          //     this.$emit("accountRegisteredEvent", true);
+          //   }
+          // }
         }).catch((error) => {
-          console.log("sumthin wrong");
-          console.log(error);
-        })
+            
+            console.log("sumthin wrong");
+            console.log(error);
+            this.errorMessage = error.message
+            this.errorSigningUp = true
+          })
+          
       },
 
       async registerAffiliate() {
@@ -283,42 +400,68 @@ export default {
           },
           source: document.getElementById("source").value,
         }
+        console.log("diaplyname is " + payload.displayName);
+        // make sure name is completed
+        if (payload.displayName == "") {
+          this.errorMessage += "\nyour name cannot be blank"
+          this.errorSigningUp = true
+          return false 
+        }
+        
+        else {
 
-        firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          axios.post("/i/affiliate/profile", payload, {
-            headers: {
-              Authorization: `Bearer ${ idToken }`
-            }
-          })
-          .then(function(resp) {
-            console.log("Account created successfully");
-            console.log("event emitted");
-            console.log(resp);})
-            .catch((error) => {
-            console.log(error);
-          })
-        })
-      },
-
-      async createCoupon() {
-        var coupon = document.getElementById("couponCode").value;
-        console.log("coupon code is " + coupon);
-        firebase.auth().currentUser.getIdToken().then(function(idToken) {
-          var path = "/i/affiliate/coupon"
-          axios.post(path, { coupon },
-            {
+          firebase.auth().currentUser.getIdToken().then(function(idToken) {
+            axios.post("/i/affiliate/profile", payload, {
               headers: {
                 Authorization: `Bearer ${ idToken }`
               }
-            }
-          ).then(function(resp) {
-            console.log(resp);
-            console.log("coupon created successfuly")
-          }).catch(function(error) {
-            console.log("error uh oh");
-            console.log(error);
+            })
+            .then(resp => {
+              console.log("Account created successfully");
+              console.log("event emitted");
+              console.log(resp);})
+              return true
+            .catch(error => {
+              this.errorMessage = error.message
+              this.errorSigningUp = true
+              console.log(error);
+              return false 
+            })
           })
-        })
+        }
+      },
+
+      async createCoupon(){
+        var coupon = document.getElementById("couponCode").value;
+        console.log("coupon code is " + coupon);
+        if (coupon == "") {
+          this.errorMessage = "coupon code is empty"
+          this.errorSigningUp = true
+        }
+        else {
+          return firebase.auth().currentUser.getIdToken().then(function(idToken) {
+            var path = "/i/affiliate/coupon"
+            axios.post(path, { coupon },
+              {
+                headers: {
+                  Authorization: `Bearer ${ idToken }`
+                }
+              }
+            ).then(resp => {
+              console.log(resp);
+              console.log("coupon created successfuly")
+              return true
+            }).catch(error => {
+              // this.couponError = true
+              // this.errorMessage = "error.message"
+              // this.errorSigningUp = true
+              
+              console.log("error uh oh");
+              console.log(error);
+              return false 
+            })
+          })
+        }
       }
     }
 }

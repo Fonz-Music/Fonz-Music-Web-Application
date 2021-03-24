@@ -51,19 +51,11 @@
                       />
                     </fieldset>
                   </form>
-                  <div v-if='createdAccountError' class="container"> 
-                      <div class="row justify-content-center">
-                          <p>
-                          Invalid e-mail or an account already exists with this name.                    
-                          </p>
-                      </div>
-                  </div>
+                  
 
                   <div v-if='incorrectLogin' class="container mt-16"> 
                       <div class="row justify-content-center">
-                          <p>
-                              Your e-mail or password is incorrect.
-                          </p>
+                          <p>{{reasonFailed}}</p>
                       </div>
                   </div>
                   
@@ -218,8 +210,8 @@ export default {
             firebase.auth().signInWithEmailAndPassword(email.value, password.value)
             .catch((error) => {
               console.log(error);
+              this.reasonFailed = error.message
               this.incorrectLogin = true;
-              this.createdAccountError = false;
             })
         },
 

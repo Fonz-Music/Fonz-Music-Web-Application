@@ -80,7 +80,7 @@ exports.createCoupon = (couponCode) => {
             if (!couponCode) // if specific coupon code NOT set, generate a coupon code
                 couponCode = (global.identifier + random(new Date())).substring(0, 12);
 
-            const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
+                const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
 
             if (couponCodeOwned)
                 return reject('This coupon code is not currently in use, please try a different one :)');

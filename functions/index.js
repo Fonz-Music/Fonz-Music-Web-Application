@@ -54,9 +54,7 @@ app.options('*', cors())
 app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(express.urlencoded({extended: true}));
 
 app.use('/i', StatusRoute);
 app.use('/i/orders', RecentBuyerRoute);

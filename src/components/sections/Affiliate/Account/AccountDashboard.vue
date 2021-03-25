@@ -25,7 +25,7 @@
                       <td class="table-weight"> Cut: </td> <td> {{ this.profileData.percentageCut }}% </td> 
                     </tr>
                     <tr>
-                      <td class="table-weight"> Coupon: </td> <td> {{ coupon }} </td>
+                      <td class="table-weight"> Coupon: </td> <td> {{ this.profileData.couponCode }} </td>
                     </tr>
                   </tbody>
                 </table>

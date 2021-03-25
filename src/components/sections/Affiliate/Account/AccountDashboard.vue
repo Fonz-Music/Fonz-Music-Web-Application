@@ -98,6 +98,7 @@ export default {
           }
         }).then(function(resp) {
           self.profileData = resp.data;
+          console.log(JSON.stringify(resp.data));
           self.isLoaded = true;
         })
       })

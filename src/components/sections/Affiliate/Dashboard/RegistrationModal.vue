@@ -38,6 +38,7 @@
               class="registration-section-input"
               type="text"
               placeholder="First Name"
+              v-model="firstName"
               required
               />
             </div>
@@ -47,6 +48,7 @@
               class="registration-section-input"
               type="text"
               placeholder="Surname"
+              v-model="lastName"
               required
               />
             </div>
@@ -73,6 +75,7 @@
               class="registration-section-input"
               type="text"
               placeholder="Coupon Code"
+              v-model="couponCode"
               required
               />
             </div>
@@ -92,7 +95,7 @@
               </span>
             </div>
             <div class="registration-section-body">
-              <select class="registration-section-source" id="source">
+              <select v-model="source" class="registration-section-source" id="source">
                 <option value="none"> Select </option>
                 <option value="wordofmouth"> Word of Mouth </option>
                 <option value="instagram"> Instagram </option>
@@ -139,6 +142,7 @@
                     placeholder="usefonz"
                     id="instagram-handle"
                     type="text"
+                    v-model="instagram.accountName"
                     />
                   </div>
                   <div class="social-media-inputs-inner">
@@ -147,6 +151,7 @@
                     placeholder="201"
                     id="instagram-following"
                     type="text"
+                    v-model="instagram.followers"
                     />
                   </div>
                 </div>
@@ -171,6 +176,7 @@
                     class="social-media-input-text"
                     placeholder="usefonz"
                     id="tiktok-handle"
+                    v-model="tiktok.accountName"
                     type="text"
                     />
                   </div>
@@ -180,6 +186,7 @@
                     placeholder="201"
                     id="tiktok-following"
                     type="text"
+                    v-model="tiktok.followers"
                     />
                   </div>
                 </div>
@@ -205,6 +212,7 @@
                     placeholder="usefonz"
                     id="twitter-handle"
                     type="text"
+                    v-model="twitter.accountName"
                     />
                   </div>
                   <div class="social-media-inputs-inner">
@@ -213,6 +221,7 @@
                     placeholder="201"
                     id="twitter-following"
                     type="text"
+                    v-model="twitter.followers"
                     />
                   </div>
                 </div>
@@ -253,22 +262,82 @@ export default {
         couponError: true,
         errorSigningUp: false,
         errorMessage: "",
-        payload: {}
+        payload: {},
+        firstName: "",
+        lastName: "",
+        couponCode: "",
+        source: "",
+        instagram: {
+          accountName: "",
+          followers: 0
+        },
+        tiktok: {
+          accountName: "",
+          followers: 0
+        },
+        twitter: {
+          accountName: "",
+          followers: 0
+        },
       }
     },
 
     methods: {
       
       registerNewUser(){
+        let self = this;
         var errorMessageFrom
         var errorReported
-        var coupon = document.getElementById("couponCode").value;
+        // var coupon = document.getElementById("couponCode").value;
+        var coupon = this.couponCode;
         console.log("coupon code is " + coupon);
-        if (coupon == "") {
-          this.errorMessage = "coupon code is empty"
-          this.errorSigningUp = true
+        
+        var payload = {
+          displayName: self.firstName + " " + self.lastName,
+          following: 0,
+          platforms: {
+            instagram: {
+              handle: self.instagram.accountName,
+              following: self.instagram.followers
+            },
+
+            tiktok: {
+              handle: self.tiktok.accountName,
+              following: self.tiktok.followers
+            },
+
+            twitter: {
+              handle: self.twitter.accountName,
+              following: self.twitter.followers
+            }
+          },
+          source: self.source,
         }
+        console.log("payload " + payload);
+        console.log("payload is " + JSON.stringify(payload));
+        console.log("diaplyname is " + payload.displayName);
+        
+        if (self.firstName == "") {
+          self.errorMessage += "your name cannot be blank, "
+          self.errorSigningUp = true
+          
+        }
+        if (payload.source == "") {
+          self.errorMessage += "your Referral Source cannot be blank, "
+          self.errorSigningUp = true
+        }
+        if (coupon == "") {
+          self.errorMessage += "coupon code is empty"
+          self.errorSigningUp = true
+          // return null;
+        }
+        
+        if (self.errorSigningUp) {
+          return null;
+        }
+        
         else {
+          
           return firebase.auth().currentUser.getIdToken().then(function(idToken) {
             var path = "/i/affiliate/coupon"
             axios.post(path, { coupon },
@@ -280,69 +349,36 @@ export default {
             ).then(resp => {
               console.log(resp);
               console.log("coupon created successfuly")
-              var payload = {
-                displayName: document.getElementById("firstName").value + " " + document.getElementById("surname").value,
-                following: 0,
-                platforms: {
-                  instagram: {
-                    handle: document.getElementById("instagram-handle").value,
-                    following: document.getElementById("instagram-following").value
-                  },
-
-                  tiktok: {
-                    handle: document.getElementById("tiktok-handle").value,
-                    following: document.getElementById("tiktok-following").value
-                  },
-
-                  twitter: {
-                    handle: document.getElementById("twitter-handle").value,
-                    following: document.getElementById("twitter-following").value
+console.log("payload after running coupon " + JSON.stringify(payload));
+              firebase.auth().currentUser.getIdToken().then(function(idToken) {
+                axios.post("/i/affiliate/profile", payload, {
+                  headers: {
+                    Authorization: `Bearer ${ idToken }`
                   }
-                },
-                source: document.getElementById("source").value,
-              }
-              console.log("diaplyname is " + payload.displayName);
-              // make sure name is completed
-              if (payload.displayName == "") {
-                errorMessageFrom += "\nyour name cannot be blank"
-                errorReported = true
-                return false 
-              }
-              
-              else {
-
-                firebase.auth().currentUser.getIdToken().then(function(idToken) {
-                  axios.post("/i/affiliate/profile", payload, {
-                    headers: {
-                      Authorization: `Bearer ${ idToken }`
-                    }
-                  })
-                  .then((resp) => {
-                    console.log("Account created successfully");
-                    console.log("event emitted");
-                    this.$emit("accountRegisteredEvent", true);
-                    console.log(resp);})
-                    
-                  .catch((error) => {
-                    errorMessageFrom = error.message
-                    errorReported = true
-                    console.log(error);
-  
-                  })
                 })
-              }
+                .then((resp) => {
+                  console.log("Account created successfully");
+                  console.log("event emitted");
+                  self.$emit("accountRegisteredEvent", true);
+                  console.log(resp);})
+                  
+                .catch((error) => {
+                  self.errorMessage = error.message
+                  self.errorSigningUp = true
+                  console.log(error);
+                  return null;
+                })
+              })  
             }).catch((error) => {
               // this.couponError = true
-              errorMessageFrom = "error.message"
-              errorReported = true
-              
+              self.errorMessage = error.message
+              self.errorSigningUp = true
               console.log("error uh oh");
               console.log(error);
+              return null;
             })
           })
         }
-        this.errorMessage = errorMessageFrom
-        this.errorSigningUp = errorSigningUp
       },
       
       async registerUser() {

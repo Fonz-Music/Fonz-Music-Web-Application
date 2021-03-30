@@ -83,7 +83,7 @@ exports.createCoupon = (couponCode) => {
                 const couponCodeOwned = await this.getCoupon(couponCode); // check if coupon code is available
 
             if (couponCodeOwned)
-                return reject('This coupon code is not currently in use, please try a different one :)');
+                return reject('This coupon code is currently in use, please try a different one :)');
 
 
             const couponExists = await this.getCouponByAffiliateId(global.userId);
@@ -97,7 +97,6 @@ exports.createCoupon = (couponCode) => {
                 affiliateCut: 0.3,
                 affiliateId: global.userId,
                 discount: global.discount,
-                name: global.name,
                 discountType: "constant"
             })
 

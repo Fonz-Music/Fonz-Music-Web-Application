@@ -54,6 +54,9 @@ export default {
 
   methods: {
     eventPageViewHome() {
+      
+    
+      
       firebase.analytics().logEvent("page_view", {
         page_location: "http://web.fonzmusic.com",
         page_path: "/",

@@ -22,6 +22,7 @@ import TermsOfService from "./views/Misc/TermsOfService.vue";
 import PageNotFoundPage from "./views/Misc/404notFound.vue";
 import BugFixForm from "./views/Misc/BugFormPage.vue";
 import EmailSignup from "./views/Misc/EmailSignup.vue";
+import PromoPage from "./views/Misc/promo.vue";
 
 // Affiliate
 import AffiliateLogin from "./views/Affiliate/Affiliate.vue";
@@ -111,6 +112,20 @@ export default new Router({
       path: "/email",
       name: "email",
       component: EmailSignup
+    },
+    
+    // ******************************************
+    // Promo Redirect
+    
+    {
+      path: "/promo",
+      name: "PromoPage",
+      component: PromoPage
+    },
+    {
+      path: "/promo/*",
+      name: "PromoPage",
+      component: PromoPage
     },
 
     // ******************************************

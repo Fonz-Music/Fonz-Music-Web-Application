@@ -82,8 +82,8 @@
               <tr v-if="determineAddDiscount">
                 <th scope="row">Discount</th>
                 <td class="text-right discount-text">
-                  {{ determineCurrencySymbol }}
-                  {{ currentPackage.couponAmount }}
+                  {{ currentPackage.couponCode }} 
+                  {{ determineCurrencySymbol }}{{ currentPackage.couponAmount }}
                 </td>
               </tr>
               <!-- <tr v-if="extraPackaging">
@@ -115,6 +115,7 @@
         >
       </b-button>
     </div>
+    
   </div>
 </template>
 
@@ -283,6 +284,7 @@ export default {
           } catch (e) {
             console.log("no coupon");
           }
+          this.currentPackage.couponCode = localStorage.getItem("promoFromUrl");
           this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
 
           // Update Analytics data payload
@@ -333,42 +335,47 @@ export default {
     this.sendCartIdToServer();
     this.getCart();
 
+
     /* Google Analytics 👀 */
 
     // Begin Checkout Log 🤑
+    
+    
     firebase
       .analytics()
       .logEvent(
         firebase.analytics.EventName.BEGIN_CHECKOUT,
         this.currentAnalyticsCart
       );
+      
+    var self = this;
 
-    localStorage.setItem("totalPrice", this.totalPrice);
-    this.loadStripeSdk(this.pk, "v3", () => {
+    localStorage.setItem("totalPrice", self.totalPrice);
+    self.loadStripeSdk(this.pk, "v3", () => {
       const options = {
         stripeAccount: this.stripeAccount,
         apiVersion: "2020-08-27",
         locale: this.locale,
       };
       var country = localStorage.getItem("country");
-      this.stripe = window.Stripe(
+      self.stripe = window.Stripe(
         "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
         options
       );
       // this creates payment req
-      var localPaymentReq = this.stripe.paymentRequest({
-        currency: this.currency,
+      var localPaymentReq = self.stripe.paymentRequest({
+        currency: self.currency,
         country: country,
         total: {
           label: "Fonz Coaster",
-          amount: this.totalPrice * 100,
+          amount: self.totalPrice * 100,
         },
         requestPayerName: true,
         requestPayerEmail: true,
       });
 
-      this.elements = this.stripe.elements();
-      var prButton = this.elements.create("paymentRequestButton", {
+      self.elements = self.stripe.elements();
+      var prButton = self.elements.create("paymentRequestButton", {
         paymentRequest: localPaymentReq,
       });
 
@@ -435,18 +442,18 @@ export default {
                 stripe.confirmCardPayment(clientSecret).then(function(result) {
                   if (result.error) {
                     orderSuccess = false;
-                    this.$router.push({ path: "/orderfailure" });
+                    self.$router.push({ path: "/orderfailure" });
                     // The payment failed -- ask your customer for a new payment method.
                   } else {
                     orderSuccess = true;
-                    this.$router.push({ path: "/ordersuccess" });
+                    self.$router.push({ path: "/ordersuccess" });
                     // The payment has succeeded.
                   }
                 });
               } else {
                 console.log("great success");
                 orderSuccess = true;
-                this.$router.push({ path: "/ordersuccess" });
+                self.$router.push({ path: "/ordersuccess" });
                 // The payment has succeeded.
               }
             }
@@ -454,7 +461,7 @@ export default {
       });
       console.log("orderSuccess var " + orderSuccess);
       if (orderSuccess) {
-        this.$router.push({ path: "/ordersuccess" });
+        self.$router.push({ path: "/ordersuccess" });
       }
     });
   },
@@ -584,6 +591,7 @@ export default {
 }
 table {
   color: grey;
+  margin-top: 10px;
   /* border-collapse: collapse; */
 }
 th {

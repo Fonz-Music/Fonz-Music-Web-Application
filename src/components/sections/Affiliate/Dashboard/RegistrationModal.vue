@@ -286,8 +286,8 @@ export default {
       
       registerNewUser(){
         let self = this;
-        var errorMessageFrom
-        var errorReported
+        self.errorMessage = ""
+        self.errorSigningUp = false
         // var coupon = document.getElementById("couponCode").value;
         var coupon = this.couponCode;
         console.log("coupon code is " + coupon);
@@ -333,6 +333,7 @@ export default {
         }
         
         if (self.errorSigningUp) {
+          
           return null;
         }
         
@@ -340,7 +341,7 @@ export default {
           
           return firebase.auth().currentUser.getIdToken().then(function(idToken) {
             var path = "/i/affiliate/coupon"
-            axios.post(path, { coupon },
+            axios.post(path, { couponCode: coupon },
               {
                 headers: {
                   Authorization: `Bearer ${ idToken }`
@@ -363,7 +364,7 @@ console.log("payload after running coupon " + JSON.stringify(payload));
                   console.log(resp);})
                   
                 .catch((error) => {
-                  self.errorMessage = error.message
+                  self.errorMessage = error.response.data.error
                   self.errorSigningUp = true
                   console.log(error);
                   return null;
@@ -371,7 +372,7 @@ console.log("payload after running coupon " + JSON.stringify(payload));
               })  
             }).catch((error) => {
               // this.couponError = true
-              self.errorMessage = error.message
+              self.errorMessage = error.response.data.error
               self.errorSigningUp = true
               console.log("error uh oh");
               console.log(error);

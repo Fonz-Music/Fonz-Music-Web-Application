@@ -284,7 +284,12 @@ export default {
           } catch (e) {
             console.log("no coupon");
           }
-          this.currentPackage.couponCode = localStorage.getItem("promoFromUrl");
+          
+          if (localStorage.getItem("promoFromUrl") !== null) {
+            console.log("inside here");
+            this.currentPackage.couponCode = localStorage.getItem("promoFromUrl");
+          } 
+          console.log("outisde here");
           this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
 
           // Update Analytics data payload

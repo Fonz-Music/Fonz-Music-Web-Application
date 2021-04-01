@@ -11,8 +11,8 @@
 @include media( '>medium' ) {
 
     .section-inner {
-        padding-top: $section--padding__desktop;
-        padding-bottom: $section--padding__desktop;
+        padding-top: $section--padding--top__desktop;
+        padding-bottom: $section--padding--bottom__desktop;
     }
 
 	.section-header {

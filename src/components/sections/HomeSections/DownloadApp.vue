@@ -10,8 +10,8 @@
             <span class="text-styling-b"> Download Now </span>
           </div>
           <div class="button-container">
-            <c-button class="app-button-style"> <span style="color: #FF9425"> App Store </span> &nbsp; <img src="@/assets/images/Icons/appStoreOrange.svg"/> </c-button>
-            <c-button class="app-button-style"> <span style="color: #FF9425"> Google Play </span> &nbsp; <img src="@/assets/images/Icons/googlePlayOrange.svg"/> </c-button>
+            <c-button class="app-button-style"> <span style="color: #FF9425"> App Store </span> &nbsp; <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> </c-button>
+            <c-button class="app-button-style"> <span style="color: #FF9425"> Google Play </span> &nbsp; <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> </c-button>
           </div>
         </div>
 
@@ -51,6 +51,10 @@ export default {
   margin-top: 20px;
 }
 
+.button-align {
+  vertical-align: 100%;
+}
+
 .app-button-style {
   margin-right: 20px;
 }
@@ -64,6 +68,10 @@ export default {
 
 .container-text-padding {
   padding-top: 40px;
+}
+
+.image-sizing {
+  max-height: 30px;
 }
 
 .text-styling-a {

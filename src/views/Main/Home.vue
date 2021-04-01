@@ -2,7 +2,7 @@
   <fragment>
     <c-splash />
     <c-splash-blocks />
-    <c-download-app/>
+    <c-download-app />
   </fragment>
 </template>
 

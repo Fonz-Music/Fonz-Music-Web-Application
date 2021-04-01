@@ -55,7 +55,7 @@ $button--padding-h: 			32px;		// button, left and right padding
 $button-sm--padding-h:			24px;		// button (small), left and right padding
 $button-w-form--padding-h:		24px;		// button, left and right padding in a form group (.form-group) - Overrides button default padding
 $button-sm-w-form--padding-h:	null;		// button (small), left and right padding in a form group (.form-group) - Overrides button default padding
-$button--radius: 				2px;		// button radius (never use null)
+$button--radius: 				0px;		// button radius (never use null)
 $button--transform: 			uppercase;	// button text-transform property (null is allowed)
 $button--max-size-mobile: 		280px;		// button max width on mobile (.button-wide-mobile)
 $button-group-padding: 			16px;		// padding between sibling buttons (nested into .button-group)

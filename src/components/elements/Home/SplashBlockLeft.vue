@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row d-flex">
+  <div class="container container-padding">
+    <div class="row row-style d-flex">
       
       <div class="col-md-5 col-sm-12 mobile-align-centre">
         <div class="row">
@@ -16,7 +16,7 @@
           class="image-styling"
           :src="require('@/assets/images/' + imageSubPath + '')"
           alt="Client 05"
-          :width="600"
+          :width="500"
         />
       </div>
     </div>
@@ -46,10 +46,7 @@ export default {
     }
   },
 };
-
-
 </script>
-
 
 <style scoped>
 @media (max-width: 768px) {
@@ -61,7 +58,7 @@ export default {
 }
 
 .image-styling {
-  margin-right: 0px;
+  float: right;
 }
 
 .header-style {
@@ -72,5 +69,9 @@ export default {
 
 .subtext-style {
   font-size: 18px;
+}
+
+.container-padding {
+    margin-bottom: 50px;
 }
 </style>

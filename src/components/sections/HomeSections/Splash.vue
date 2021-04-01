@@ -10,6 +10,7 @@
               </h1>
               <div class="row-12 mt-0 mb-24" data-reveal-delay="450">
                   <c-button
+                  class="button-radius"
                   tag="a"
                   color="primary"
                   href="/buy"
@@ -32,6 +33,17 @@
             </div>
           </div>
         </div>
+
+        <div class="row justify-content-center">
+            <div style="padding-top: 50px;">
+            <c-image
+            :src="require('@/assets/images/Icons/orangeArrowDown.svg')"
+            :height="50"
+            :width="50"
+            />
+            </div>
+        </div>
+
       </div>
   </section>
 </template>
@@ -59,6 +71,18 @@ export default {
 		text-align: center !important;
     margin: auto !important;
     
+  }
+
+  .padding-arrow {
+      padding-top: 30px;
+  }
+
+  .button-radius {
+      border-radius: 0;
+  }
+
+  .arrow-margin {
+      margin-bottom: 100px;
   }
 }
 

@@ -1,20 +1,26 @@
 <template>
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-4 col-sm-12 mobile-align-centre">
-                <h3> {{heading}} </h3>
-                <p> {{paragraph}} </p>
-            </div>
-
-            <div class="col-md-8 col-sm-12 mobile-align-centre">
-                <c-image
-                    :src="require('@/assets/images/' + imageSubPath + '')"
-                    alt="Client 05"
-                    :width="600"
-                />
-            </div>
+  <div class="container">
+    <div class="row d-flex">
+      
+      <div class="col-md-5 col-sm-12 mobile-align-centre">
+        <div class="row">
+          <span class="header-style"> {{ heading }} </span>
         </div>
+        <div class="row">
+          <span class="subtext-style"> {{ paragraph }} </span>
+        </div>
+      </div>
+
+      <div class="col-md-7 col-sm-12 mobile-align-centre">
+        <c-image
+          class="image-styling"
+          :src="require('@/assets/images/' + imageSubPath + '')"
+          alt="Client 05"
+          :width="600"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -23,21 +29,21 @@ import CImage from '@/components/elements/Image.vue'
 export default {
   name: 'CSplashBlockLeft',
   components: {
-    CImage
+  CImage
   },
   props: {
-      heading: {
-          type: String,
-          default: 'heading'
-      },
-      paragraph: {
-          type: String,
-          default: 'paragraph'
-      },
-      imageSubPath: {
-          type: String,
-          default: 'TeamMembers/team-member-02.png'
-      }
+    heading: {
+      type: String,
+      default: 'heading'
+    },
+    paragraph: {
+      type: String,
+      default: 'paragraph'
+    },
+    imageSubPath: {
+      type: String,
+      default: 'TeamMembers/team-member-02.png'
+    }
   },
 };
 
@@ -47,10 +53,24 @@ export default {
 
 <style scoped>
 @media (max-width: 768px) {
-    .mobile-align-centre {
+  .mobile-align-centre {
 		text-align: center !important;
-        margin: auto !important;
-        
-    }
+    margin: auto !important;
+    
+  }
+}
+
+.image-styling {
+  margin-right: 0px;
+}
+
+.header-style {
+  font-weight: 900;
+  font-size: 28px;
+  color: grey;
+}
+
+.subtext-style {
+  font-size: 18px;
 }
 </style>

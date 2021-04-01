@@ -10,8 +10,14 @@
             <span class="text-styling-b"> Download Now </span>
           </div>
           <div class="button-container">
-            <c-button class="app-button-style"> <span style="color: #FF9425"> App Store </span> &nbsp; <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> </c-button>
-            <c-button class="app-button-style"> <span style="color: #FF9425"> Google Play </span> &nbsp; <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> </c-button>
+            <c-button href="https://apps.apple.com/ie/app/fonz-music/id1537308329" class="app-button-style"> 
+              <span style="color: #FF9425"> App Store </span> &nbsp; 
+              <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> 
+            </c-button>
+            <c-button class="app-button-style"> 
+              <span style="color: #FF9425"> Google Play </span> &nbsp; 
+              <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> 
+            </c-button>
           </div>
         </div>
 
@@ -39,11 +45,11 @@ export default {
 <style scoped>
 .download-background {
   background-color: #FF9425;
-  height: 350px;
+  height: 300px;
 }
 
 .img-style {
-  height: 350px;
+  height: 300px;
   float: right;
 }
 
@@ -82,7 +88,7 @@ export default {
 
 .text-styling-b {
   color: white;
-  font-weight: 300;
+  font-weight: 700;
   font-size: 40px;
 }
 </style>

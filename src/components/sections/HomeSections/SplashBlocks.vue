@@ -46,8 +46,8 @@ export default {
 
     data() {
         return {
-            headingOne: "make the party for everyone",
-            paraOne: "Tap the coaster, queue the party. Fonz offers you a new way to play music at parties, events and gatherings. Instead of relying on one phone to host the music, now we all can.",
+            headingOne: "queue music effortlessly",
+            paraOne: "We've all been there. Your friend comes up to you for the twentieth time that night asking to play a song. You grit your teeth and say 'sure!', full well knowing between unlocking your phone, opening your music app and praying to god they don't exit your playlist, 5 minutes of your night has been wasted. The Fonz Coaster solves all that.",
             imgOne: "SplashImages/splashArtwork-01.png",
             
             headingTwo: "collaborative playing",

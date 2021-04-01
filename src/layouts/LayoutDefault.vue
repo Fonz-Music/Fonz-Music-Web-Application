@@ -5,7 +5,6 @@
       <main class="site-content entire-site">
         <slot />
       </main>
-      <!-- <recent-orders /> -->
       <c-footer />
     </div>
   </fragment>
@@ -14,12 +13,11 @@
 <script>
 import CHeader from "@/components/layout/Header.vue";
 import CFooter from "@/components/layout/Footer.vue";
-// import RecentOrders from "@/components/elements/RecentOrders.vue";
+
 export default {
   components: {
     CHeader,
     CFooter,
-    // RecentOrders
   }
 };
 </script>
@@ -29,7 +27,7 @@ export default {
   background: url(../assets/images/backgroundMountain.svg);
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 80%;
+  background-position: bottom left;
+  background-size: 100%;
 }
 </style>

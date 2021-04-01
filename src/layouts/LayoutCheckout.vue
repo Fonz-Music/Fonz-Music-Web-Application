@@ -23,7 +23,7 @@ export default {
   background: url(../assets/images/backgroundMountain.svg);
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: bottom right;
+  background-position: bottom left;
   background-size: 80%;
 }
 </style>

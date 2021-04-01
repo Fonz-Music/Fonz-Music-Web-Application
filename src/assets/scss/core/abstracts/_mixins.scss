@@ -207,10 +207,10 @@
 		} @else {
 			bottom: 0;
 		}
-		background-position: center bottom;
+		background-position: left bottom;
 		transform: translate(-50%);
 	} @else {
-		background-position: center;
+		background-position: left;
 		@if ( $voffset ) {
 			top: calc(50% + #{$voffset});
 		} @else {

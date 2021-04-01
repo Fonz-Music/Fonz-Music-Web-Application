@@ -1,35 +1,26 @@
 <template>
-    <section>
-        <div class="container">
-            <div class="row d-flex justify-content-center mobile-align-centre">
-                <h2> download the Fonz Music app </h2>
-            </div>
-            <div class="row">
-                <div class="col d-flex justify-content-center">
-                    <c-button-group>
-                        <c-button 
-                        tag="a" 
-                        href="https://apps.apple.com/us/app/fonz-music/id1537308329"
-                        color='primary'
-                        >
-                        App Store
-                        <img src='@/assets/images/DownloadApp/downloadIcons-01.svg'/>
-                        </c-button>
-
-                        <c-button 
-                        tag="a" 
-                        href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en_US&gl=US"
-                        color='primary'
-                        >
-                        Google Play
-                        <img src='@/assets/images/DownloadApp/downloadIcons-02.svg'/>
-                        </c-button>
-
-                    </c-button-group>
-                </div>
-            </div>
+  <div class="download-background">
+    <div class="container container-height container-padding">
+      <div class="row row-styling">
+        <div class="col-4 container-text-padding">
+          <div>
+            <span class="text-styling-a"> Fonz Music </span>
+          </div>
+          <div>
+            <span class="text-styling-b"> Download Now </span>
+          </div>
+          <div class="button-container">
+            <c-button class="app-button-style"> App Store </c-button>
+            <c-button> Google Play </c-button>
+          </div>
         </div>
-    </section>
+
+        <div class="col-8 container-image-padding">
+          <img class="img-style" src="@/assets/images/iPhoneMockup.png">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -46,13 +37,44 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 768px) {
-
-    .mobile-align-centre {
-		text-align: center !important;
-        margin: auto !important;
-        
-    }
+.download-background {
+  background-color: #FF9425;
+  height: 350px;
 }
 
+.img-style {
+  height: 350px;
+  float: right;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.app-button-style {
+  margin-right: 20px;
+}
+
+
+.container-image-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 100%;
+}
+
+.container-text-padding {
+  padding-top: 40px;
+}
+
+.text-styling-a {
+  color: white;
+  font-weight: 300;
+  font-size: 30px;
+}
+
+.text-styling-b {
+  color: white;
+  font-weight: 300;
+  font-size: 40px;
+}
 </style>

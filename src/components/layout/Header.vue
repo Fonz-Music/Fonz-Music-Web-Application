@@ -1,19 +1,12 @@
 <template>
-  <header
-    class="site-header"
-    :class="bottomOuterDivider && 'has-bottom-divider'"
-  >
+  <header class="site-header">
     <div class="container">
-      <div
-        class="site-header-inner"
-        :class="bottomDivider && 'has-bottom-divider'"
-      >
-        <router-link class="header-logo" to="/"
-          ><img src="@/assets/images/logo.svg" alt="logo"
-        /></router-link>
+      <div class="site-header-inner">
 
-        <!-- <c-logo />
-        <c-logoHeader /> -->
+        <router-link class="header-logo" to="/">
+          <img src="@/assets/images/logo.svg" alt="logo"/>
+        </router-link>
+
         <button
           v-if="!hideNav"
           ref="hamburger"
@@ -39,7 +32,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/buy/">Buy</router-link>
+                <router-link to="/buy/"> buy </router-link>
               </li>
             </ul>
             <ul
@@ -47,7 +40,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/about/">About</router-link>
+                <router-link to="/about/"> about  </router-link>
               </li>
             </ul>
             <ul
@@ -55,23 +48,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/contact/">Contact</router-link>
-              </li>
-            </ul>
-            <ul
-              class="list-reset text-xxs"
-              :class="navPosition && `header-nav-${navPosition}`"
-            >
-              <li>
-                <router-link to="/team/">The team</router-link>
-              </li>
-            </ul>
-            <ul
-              class="list-reset text-xxs"
-              :class="navPosition && `header-nav-${navPosition}`"
-            >
-              <li>
-                <router-link to="/affiliate-login/">Affiliate</router-link>
+                <router-link to="/contact/"> affiliate </router-link>
               </li>
             </ul>
           </div>
@@ -170,10 +147,7 @@ export default {
 .header-logo img {
   margin: 0px auto !important;
   width: 10vw;
-
-  /* height: 10vw; */
-  max-width: 80px;
-  min-width: 70px;
+  max-height: 60px;
 }
 
 </style>

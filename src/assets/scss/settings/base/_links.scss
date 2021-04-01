@@ -4,8 +4,8 @@
 $link--color: (
 	link: 								inherit,
 	link-hover: 						get-color(primary, 1),
-	header-link: 						null,
-	header-link-hover: 					null,
+	header-link: 						#434343,
+	header-link-hover: 					#FF9425,
 	header-link-mobile: 				null,
 	header-link-mobile-hover: 			null,
 	footer-link: 						get-color(light, 3),
@@ -55,7 +55,7 @@ $link-func--decoration: 				null;
 $link-func--decoration-hover: 			null;
 
 // Text transform
-$link-header--transform: 		uppercase;
+$link-header--transform: 		null;
 $link-footer--transform: 		null;
 $link-footer-block--transform: 	null;
 $link-button--transform: 		null;

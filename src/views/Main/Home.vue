@@ -1,42 +1,21 @@
 <template>
   <fragment>
     <c-splash />
-    <landingpage-video />
-    <!-- <c-splash-video/> -->
-    <LandingPageVideo />
     <c-splash-blocks />
     <c-download-app />
-    <EmailSignup />
-    <div class="buy-now-bottom-button" data-reveal-delay="450">
-      <div class="buttonBuyNow">
-        
-      
-            <c-button
-            tag="a"
-            color="primary"
-            href="/buy"
-            
-            >get your coaster here</c-button>
-            </div>
-    </div>
   </fragment>
 </template>
 
 <script>
-// import layout
 import CLayout from "@/layouts/LayoutDefault.vue";
-// import section header
-// import sections
+
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
 import CButton from "@/components/elements/Button.vue";
 
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
-import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
-import LandingPageVideo from "@/components/sections/HomeSections/LandingPageVideo.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 import EmailSignup from "@/components/sections/EmailSignupComp.vue";
 
-// import some required elements
 import CImage from "@/components/elements/Image.vue";
 
 export default {
@@ -46,17 +25,12 @@ export default {
     CButton,
     CSplash,
     CSplashBlocks,
-    LandingPageVideo,
     CDownloadApp,
-    CSplashVideo,
     EmailSignup,
   },
 
   methods: {
     eventPageViewHome() {
-      
-    
-      
       firebase.analytics().logEvent("page_view", {
         page_location: "http://web.fonzmusic.com",
         page_path: "/",

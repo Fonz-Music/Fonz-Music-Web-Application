@@ -10,8 +10,8 @@
             <span class="text-styling-b"> Download Now </span>
           </div>
           <div class="button-container">
-            <c-button class="app-button-style"> App Store </c-button>
-            <c-button> Google Play </c-button>
+            <c-button class="app-button-style"> <span style="color: #FF9425"> App Store </span> &nbsp; <img src="@/assets/images/Icons/appStoreOrange.svg"/> </c-button>
+            <c-button class="app-button-style"> <span style="color: #FF9425"> Google Play </span> &nbsp; <img src="@/assets/images/Icons/googlePlayOrange.svg"/> </c-button>
           </div>
         </div>
 

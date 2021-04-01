@@ -2,11 +2,11 @@
   <section class="section">
     <div class="section-inner">
     <div class="container">
-          <div class="row mobile-align-centre">
-            <!-- Copy -->
-            <div class="col-md-8 col-sm-12">
-              <h1 class="row-12 mt-0 mb-4 reveal-from-bottom" data-reveal-delay="150">
-                <span>make a good party <br/> a <span style="color: #FF9425"> great </span> one </span>
+      <div class="row mobile-align-centre">
+        <!-- Copy -->
+        <div class="col-md-8 col-sm-12">
+          <h1 class="row-12 mt-0 mb-4 reveal-from-bottom" data-reveal-delay="150">
+                <span style="color: white;">make a good party <br/> a <span style="color: #FF9425"> great </span> one </span>
               </h1>
               <div class="row-12 mt-0 mb-24" data-reveal-delay="450">
                   <c-button
@@ -35,7 +35,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div style="padding-top: 50px;">
+            <div style="padding-top: 70px;">
             <c-image
             :src="require('@/assets/images/Icons/orangeArrowDown.svg')"
             :height="50"
@@ -66,16 +66,13 @@ export default {
 
 <style scoped>
 @media (max-width: 768px) {
-
   .mobile-align-centre {
 		text-align: center !important;
-    margin: auto !important;
-    
+    margin: auto !important; 
   }
+}
 
-  .padding-arrow {
-      padding-top: 30px;
-  }
+
 
   .button-radius {
       border-radius: 0;
@@ -84,6 +81,11 @@ export default {
   .arrow-margin {
       margin-bottom: 100px;
   }
-}
+
+  #video-style {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
 </style>

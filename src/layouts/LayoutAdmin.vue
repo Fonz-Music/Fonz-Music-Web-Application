@@ -30,6 +30,6 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: bottom left;
-  background-size: 80%;
+  background-size: 100%;
 }
 </style>

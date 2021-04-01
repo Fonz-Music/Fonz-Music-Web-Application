@@ -1,5 +1,10 @@
 <template>
   <fragment>
+
+    <div class="gradient-background">
+      <img src="@/assets/images/homeGradient.svg"/>
+    </div>
+
     <c-splash />
     <c-splash-blocks />
     <c-download-app />
@@ -8,10 +13,9 @@
 
 <script>
 import CLayout from "@/layouts/LayoutDefault.vue";
-
 import CSplash from "@/components/sections/HomeSections/Splash.vue";
+import CSplashVideo from "@/components/sections/HomeSections/SplashVideo.vue";
 import CButton from "@/components/elements/Button.vue";
-
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 import EmailSignup from "@/components/sections/EmailSignupComp.vue";
@@ -25,6 +29,7 @@ export default {
     CButton,
     CSplash,
     CSplashBlocks,
+    CSplashVideo,
     CDownloadApp,
     EmailSignup,
   },
@@ -59,6 +64,7 @@ export default {
   },
 };
 </script>
+
 <style media="screen">
   .buy-now-bottom-button {
     margin: auto !important;
@@ -74,6 +80,11 @@ export default {
     /* background-color: #b188b9; */
     font-size: 18px;
 
-  }
+}
+
+.gradient-background {
+  position: absolute;
+  width: 100%;
+}
   
 </style>

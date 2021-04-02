@@ -86,7 +86,7 @@ export default {
   top: 0px;
   width: 100%;
   min-width: 1200px;
-  max-height: 700px;
+  min-height: 1000px;
   overflow: hidden;
 }
 

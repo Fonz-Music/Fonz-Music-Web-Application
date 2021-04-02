@@ -4,7 +4,7 @@
       <div class="site-header-inner">
 
         <router-link class="header-logo" to="/">
-          <img src="@/assets/images/logo.svg" alt="logo" style="padding: 5px;"/>
+          <img src="@/assets/images/logo.svg" alt="logo" style="padding: 5px 0px 5px 0px;"/>
         </router-link>
 
         <button

@@ -1,9 +1,7 @@
 <template>
   <fragment>
 
-    <div class="gradient-background">
-      <img src="@/assets/images/homeGradient.svg"/>
-    </div>
+
 
     <c-splash />
     <c-splash-blocks />
@@ -82,9 +80,6 @@ export default {
 
 }
 
-.gradient-background {
-  position: absolute;
-  width: 100%;
-}
+
   
 </style>

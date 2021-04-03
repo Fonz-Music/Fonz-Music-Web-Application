@@ -4,10 +4,10 @@
       
       <div class="col-md-5 col-sm-12 mobile-align-centre">
         <div class="row">
-          <span class="header-style"> {{ heading }} </span>
+          <span class="header-style mobile-align-centre mobile-heading"> {{ heading }} </span>
         </div>
         <div class="row">
-          <span class="subtext-style"> {{ paragraph }} </span>
+          <span class="subtext-style mobile-align-centre mobile-para"> {{ paragraph }} </span>
         </div>
       </div>
 
@@ -53,7 +53,16 @@ export default {
   .mobile-align-centre {
 		text-align: center !important;
     margin: auto !important;
-    
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .mobile-heading {
+    font-size: 18px !important;
+  }
+
+  .mobile-para {
+    font-size: 14px !important;
   }
 }
 

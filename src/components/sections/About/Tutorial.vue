@@ -4,8 +4,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-sm-12">
-            <div style="height: 950px; border:solid 1px; margin: 2px; padding: 5px 70px 5px 70px; border-color: lightgrey; border-radius: 5px;">
-              <div class="container">
+            <div style="border:solid 1px; margin: 2px; padding: 5px 70px 5px 70px; border-color: lightgrey; border-radius: 5px;">
+              <div class="container mobile-adapt">
 
                 <div class="row-12 d-flex justify-content-center"  style="margin-bottom: 20px;">
                   <span style="font-weight: 900; font-size: 24px; color: grey;"> i'm a host </span>
@@ -91,7 +91,7 @@
 
           
           <div class="col-md-6 col-sm-12">
-            <div style="height: 950px; border:solid 1px; margin: 2px; padding: 5px 70px 5px 70px; border-color: lightgrey; border-radius: 5px;">
+            <div style="border:solid 1px; margin: 2px; padding: 5px 70px 5px 70px; border-color: lightgrey; border-radius: 5px;">
               <div class="container">
 
                 <div class="row-12 d-flex justify-content-center"  style="margin-bottom: 20px;">
@@ -188,5 +188,10 @@ export default {
 </script>
 
 <style scoped>
-
+@media (max-width: 768px) {
+  .mobile-adapt {
+		text-align: center !important;
+    margin: auto !important; 
+  }
+}
 </style>

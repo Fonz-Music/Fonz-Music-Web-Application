@@ -1,10 +1,5 @@
 <template>
-  <section class="section">
-
-    <div class="gradient-background">
-      <img src="@/assets/images/homeGradient.svg"/>
-    </div>
-
+  <section class="section" style="max-height: 1200px;"> 
     <div class="section-inner">
     <div class="container">
       <div class="row mobile-align-centre">
@@ -20,16 +15,11 @@
 
           <div class="row-12 mt-4 mb-24" data-reveal-delay="450">
                   <c-button
-                  class="button-radius"
+                  class="button-style"
                   tag="a"
                   color="primary"
                   href="/buy"
                   >buy now</c-button>
-              </div>
-              <div class="row-sm-12 mobile-align-centre">
-                <div class="col-md-12 col-sm-12">
-                  <c-clients/>
-                </div>
               </div>
             </div>
             <!-- Image -->
@@ -43,8 +33,14 @@
           </div>
         </div>
 
+        <div class="row d-flex justify-content-center" style="padding-top: 20px; padding-right: 20px; padding-left: 20px;">
+          <div style="col-md-12 col-sm-6">
+            <c-clients/>
+          </div>
+        </div>
+
         <div class="row justify-content-center">
-            <div style="padding-top: 70px;">
+            <div style="padding-top: 20px;">
             <c-image
             :src="require('@/assets/images/Icons/orangeArrowDown.svg')"
             :height="50"
@@ -81,13 +77,12 @@ export default {
   }
 }
 
-.gradient-background {
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  min-width: 1200px;
-  min-height: 1000px;
-  overflow: hidden;
+.button-style {
+  border-radius: 2px;
+}
+
+.button-style:hover {
+  color: grey;
 }
 
 </style>

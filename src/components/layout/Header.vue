@@ -48,7 +48,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/contact/"> affiliate </router-link>
+                <router-link to="/affiliate/"> affiliate </router-link>
               </li>
             </ul>
           </div>

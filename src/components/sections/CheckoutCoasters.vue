@@ -183,7 +183,7 @@ export default {
     addPromoCode(promoCode) {
       const cartIdFromUser = localStorage.getItem("cartId");
       this.getCoupon(promoCode);
-
+      promoCode = promoCode.toLowerCase()
       // communicate with API to add promo code to cart: GET /i/coupons/{couponId}
       var response;
       axios
@@ -206,6 +206,7 @@ export default {
         });
     },
     getCoupon(promoCode) {
+      promoCode = promoCode.toLowerCase()
       axios
         .get(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
         .then((resp) => {
@@ -290,6 +291,8 @@ export default {
             this.currentPackage.couponCode = localStorage.getItem("promoFromUrl");
           } 
           console.log("outisde here");
+          this.currentPackage.couponCode = this.currentPackage.couponCode.toLowerCase();
+          console.log("coupon is " + this.currentPackage.couponCode);
           this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
 
           // Update Analytics data payload

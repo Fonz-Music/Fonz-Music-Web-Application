@@ -289,7 +289,7 @@ export default {
         self.errorMessage = ""
         self.errorSigningUp = false
         // var coupon = document.getElementById("couponCode").value;
-        var coupon = this.couponCode;
+        var coupon = this.couponCode.toLowerCase();
         console.log("coupon code is " + coupon);
         
         var payload = {

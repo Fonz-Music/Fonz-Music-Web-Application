@@ -3,6 +3,7 @@
     <c-gradient/>
     <c-splash/>
     <c-splash-blocks/>
+    <c-map/>
     <c-download-app/>
   </fragment>
 </template>
@@ -13,6 +14,7 @@ import CSplash from "@/components/sections/HomeSections/Splash.vue";
 import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
 import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
 import CGradient from "@/components/sections/HomeSections/Gradient.vue";
+import CMap from "@/components/sections/HomeSections/Map.vue";
 
 export default {
   name: "Home",
@@ -20,7 +22,8 @@ export default {
     CSplash,
     CSplashBlocks,
     CDownloadApp,
-    CGradient
+    CGradient,
+    CMap
   },
 
   beforeMount() {

@@ -1,5 +1,6 @@
 <template>
   <fragment>
+    <!-- <c-store /> -->
     <c-pricing pricing-switcher class="" />
   </fragment>
 </template>

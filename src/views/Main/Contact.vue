@@ -22,9 +22,6 @@
             time. If you’d be interested in queuing more than one song at a
             time, let us know at contact@fonzmusic.com.
           </c-accordion-item>
-          <c-accordion-item title="When will you ship out product?">
-            We’re currently aiming to ship by mid October.
-          </c-accordion-item>
           <c-accordion-item title="Can I use multiple coasters at once?">
             Yes! You should be able to connect your music provider to multiple
             coasters at once to leave in different rooms or keep one in the car.
@@ -32,8 +29,8 @@
           <c-accordion-item title="What phones do Fonz work with?">
             Fonz currently works with any phone with NFC capabilities. For
             iPhones, that is iPhone 7 and above. Almost all Android phones after
-            2012 support NFC. For a better understanding, refer to this graphic
-            from Blue Bite on which Androids are supported.
+            2012 support NFC. For a better understanding, <a href="https://www.bluebite.com/nfc/android-nfc-compatibility" target="_blank"> refer to this graphic
+            from Blue Bite</a> on which Androids are supported.
           </c-accordion-item>
           <c-accordion-item title="Will Fonz work with iPads?">
             Unfortunately, Fonz will not integrate with Apple iPads right now.

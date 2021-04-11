@@ -14,7 +14,7 @@
               <span style="color: #FF9425"> App Store </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> 
             </c-button>
-            <c-button class="app-button-style"> 
+            <c-button href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz" class="app-button-style"> 
               <span style="color: #FF9425"> Google Play </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> 
             </c-button>

@@ -104,7 +104,7 @@ export default {
       sectionHeader: {
         title: "How does Fonz work?",
         paragraph:
-          "Fonz acts as a communication device, allowing multiple people to contribute to the same Spotiy session."
+          "Fonz acts as a communication device, allowing multiple people to contribute to the same Spotify session."
       }
     };
   }

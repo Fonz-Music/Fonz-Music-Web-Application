@@ -2,7 +2,7 @@
   <div class="download-background">
     <div class="container container-height container-padding">
       <div class="row row-styling">
-        <div class="col-4 container-text-padding">
+        <div class="col-md-4 col-sm-12 container-text-padding mobile-adapt">
           <div>
             <span class="text-styling-a"> Fonz Music </span>
           </div>
@@ -21,7 +21,7 @@
           </div>
         </div>
 
-        <div class="col-8 container-image-padding">
+        <div class="col-md-8 col-sm-12 container-image-padding mobile-image-adapt">
           <img class="img-style" src="@/assets/images/iPhoneMockup.png">
         </div>
       </div>
@@ -43,10 +43,24 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 768px) {
+  .mobile-adapt {
+		text-align: center !important;
+    margin: auto !important; 
+  }
+
+  .mobile-image-adapt {
+    display:none;
+  }
+}
+
+
 .download-background {
   background-color: #FF9425;
-  height: 300px;
+  height: 20%;
 }
+
+
 
 .img-style {
   height: 300px;
@@ -64,7 +78,6 @@ export default {
 .app-button-style {
   margin-right: 20px;
 }
-
 
 .container-image-padding {
   padding-top: 0px;

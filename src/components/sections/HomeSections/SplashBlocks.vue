@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="row-12 mb-16 reveal-from-top">
-                    <c-splash-block-right
+                    <c-splash-block-left
                      :heading="headingTwo"
                      :paragraph="paraTwo"
                      :imageSubPath="imgTwo"

@@ -10,11 +10,11 @@
             <span class="text-styling-b"> Download Now </span>
           </div>
           <div class="button-container">
-            <c-button href="https://apps.apple.com/ie/app/fonz-music/id1537308329" class="app-button-style"> 
+            <c-button tag="a" href="https://apps.apple.com/ie/app/fonz-music/id1537308329" target="_blank" class="app-button-style"> 
               <span style="color: #FF9425"> App Store </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> 
             </c-button>
-            <c-button class="app-button-style"> 
+            <c-button tag="a" href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz" target="_blank" class="app-button-style"> 
               <span style="color: #FF9425"> Google Play </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> 
             </c-button>

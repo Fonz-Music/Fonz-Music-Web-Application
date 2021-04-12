@@ -16,10 +16,10 @@
           <div class="row-12 mt-4 mb-24" data-reveal-delay="450">
                   <c-button
                   class="button-style"
-                  tag="a"
                   color="primary"
-                  href="/buy"
-                  >buy now</c-button>
+                  >
+                    <router-link to="/buy/"> buy now </router-link>
+                  </c-button>
               </div>
             </div>
             <!-- Image -->

@@ -354,7 +354,7 @@
                     class="pricing-item-price-amount h3"
                     style="color: #B288B9"
                   >
-                    {{ this.pricePlans[3].price }}
+                    {{ this.pricePlans[3].price9m }}
                   </span>
                 </div>
               </div>

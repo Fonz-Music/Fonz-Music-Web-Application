@@ -26,3 +26,6 @@ firebase-debug.log
 /.firebase/*
 *.log
 functions/package-lock.json
+.firebase
+package-lock.json
+.firebase/hosting.ZGlzdA.cache

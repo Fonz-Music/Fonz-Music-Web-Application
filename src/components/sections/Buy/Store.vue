@@ -1,9 +1,18 @@
 <template>
-  <section class="section" style="background-color: #F7F7F7">
-    <div class="section-inner">
+  <section class="section" style="background-color: rgba(232, 232, 232, .5); min-height: 700px;">
+    <div class="section-inner" style="padding-top: 60px;">
     <div class="container">
+
+      <div v-if="loading" class="spinner center-content">
+        <FingerprintSpinner
+          class="the-spinner"
+          :animation-duration="2000"
+          :size="100"
+          :color="'#ff9425'"
+        />
+      </div>
       
-      <div class="row" style="align-items: center;">
+      <div v-if="!this.loading" class="row" style="align-items: center;">
 
         <div class="col-md-5 col-sm-12">
           <img src="@/assets/images/Icons/coasterMockupPng.png"/>
@@ -11,21 +20,25 @@
 
         <div class="col-md-7 col-sm-12">
 
-          <div class="row-12">
+          <div class="row-12 mobile-adapt">
             <span style="font-weight: 700; color: black; font-size: 34px;"> fonz coaster </span>
           </div>
 
+          <div class="row-12 mobile-adapt">
+            <span style="font-weight: 500; color: grey; font-size: 18px;"> make a good party a <span style="color: #B288B9;"> great </span> one </span>
+          </div>
+
           <div class="row" style="padding-top: 20px;">
-            <div class="col-4" style="padding-right: 0px;">
-              <div class="price-selector-active">
+            <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
+              <div class="price-selector-inactive mobile-adapt">
                 <div>
-                  <span style="color: black; font-size: 16px;"> Hangout Host </span>
+                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(0) }} </span>
                 </div>
                 <div>
                   <span style="color: grey; font-size: 14px;"> 1 Coaster </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> €21.95 </span>
+                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(0) }} each </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -40,21 +53,31 @@
                   </span>
                 </div>
               </div>
-               <div class="select-button-active">
-                  <img src="@/assets/images/selectedOrange.svg" style="width: 20px; display: block; margin: auto;"/>
+              <div class="price-area">
+                <div class="discount-section">
+                  <span> {{ this.pricePlans[0].discount }}% off </span>
                 </div>
+                <div class="price-section">
+                  <span> {{ determineCurrencySymbol }}{{ this.pricePlans[0].price }}.00 </span>
+                </div>
+              </div>
+              <div class="select-button-active">
+                <button @click="updatePackage(0)">
+                  <span style="font-weight: 700;"> Purchase </span>
+                </button>
+              </div>
             </div>
 
-            <div class="col-4" style="padding-right: 0px;">
-              <div class="price-selector-inactive">
+            <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
+              <div class="price-selector-inactive mobile-adapt">
                 <div>
-                  <span style="color: black; font-size: 16px;"> Party Pleaser </span>
+                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(1) }} </span>
                 </div>
                 <div>
-                  <span style="color: grey; font-size: 14px;"> 3 Coasters </span>
+                  <span style="color: grey; font-size: 14px;"> 2 Coasters </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> €54.95 </span>
+                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -70,21 +93,31 @@
                   </span>
                 </div>
               </div>
-                <div class="select-button-inactive">
-                  <img src="@/assets/images/selectGrey.svg" style="width: 20px; display: block; margin: auto;"/>
+              <div class="price-area">
+                <div class="discount-section">
+                  <span> {{ this.pricePlans[1].discount }}% off </span>
                 </div>
+                <div class="price-section">
+                  <span> {{ determineCurrencySymbol }}{{ this.pricePlans[1].price }}.00 </span>
+                </div>
+              </div>
+              <div class="select-button-active">
+                <button @click="updatePackage(1)">
+                  <span style="font-weight: 700;"> Purchase </span>
+                </button>
+              </div>
             </div>
 
-            <div class="col-4" style="padding-right: 0px;">
-              <div class="price-selector-inactive">
+            <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
+              <div class="price-selector-inactive mobile-adapt">
                 <div>
-                  <span style="color: black; font-size: 16px;"> Rush and Rager </span>
+                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(3) }} </span>
                 </div>
                 <div>
                   <span style="color: grey; font-size: 14px;"> 5 Coasters </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> €84.95 </span>
+                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(3) }} each </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -99,12 +132,20 @@
                   </span>
                 </div>
               </div>
-               <div class="select-button-inactive">
-                  <img src="@/assets/images/selectGrey.svg" style="width: 20px; display: block; margin: auto;"/>
+              <div class="price-area">
+                <div class="discount-section">
+                  <span> {{ this.pricePlans[3].discount }}% off </span>
                 </div>
+                <div class="price-section">
+                  <span> {{ determineCurrencySymbol }}{{ this.pricePlans[3].price }}.00 </span>
+                </div>
+              </div>
+              <div class="select-button-active">
+                <button @click="updatePackage(3)">
+                  <span style="font-weight: 700;"> Purchase </span>
+                </button>
+              </div>
             </div>
-
-
           </div>
 
         </div>
@@ -116,48 +157,192 @@
 
 <script>
 import CButton from "@/components/elements/Button.vue";
+const axios = require("axios");
+import { Checkout } from "@/plugins/checkout.js";
+import { FingerprintSpinner } from "epic-spinners";
 
 export default {
   name:"Store",
+  mixins: [Checkout],
   components: {
-    CButton
+    CButton,
+    FingerprintSpinner
+  },
+
+  data() {
+    return {
+      pricePlans: [{}, {}, {}, {}, {}],
+      addons: { shipping: {}, extraPackaging: {} },
+      currentAnalyticsCart: {
+        currency: "EUR",
+        value: 0.0,
+        items: [],
+      },
+      loading: true
+    }
+  },
+
+  computed: {
+    determineCurrencySymbol() {
+      if (this.currency == null) {
+        console.log("grabbing currency");
+      }
+      console.log("this cur " + this.currency);
+      if (this.currency == "usd") return "$";
+      else if (this.currency == "gbp") return "£";
+      else return "€";
+    }
+  },
+
+  methods: {
+    getPricing() {
+      this.currency = localStorage.getItem("currency");
+      axios.get(`${this.$API_URL}/i/prices/${this.currency}`).then((resp) => {
+        const coasterPricing = resp.data.coasters;
+        coasterPricing.forEach((price, key) => {
+          this.pricePlans[key] = { ...price, key };
+        });
+        this.addons = resp.data.addons;
+        this.loading = false;
+      }).catch((error) => {
+        console.error(error);
+      }); 
+    },
+
+    updatePackage(plan) {
+      console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
+      let packageId = this.pricePlans[plan].package;
+      if (this.cartId) {
+        /* if cart exists, update cart */
+        // Remove old package to cart for Google Analytics
+        firebase.analytics().logEvent(
+          firebase.analytics.EventName.REMOVE_FROM_CART,
+          this.currentAnalyticsCart
+        );
+
+        // Update Analytics data payload
+        this.currentAnalyticsCart = {
+          currency: this.currency,
+          value: this.pricePlans[plan].price,
+          items: [this.pricePlans[plan]],
+        };
+
+        // Add new package to cart for Google Analytics
+        firebase.analytics().logEvent(
+          firebase.analytics.EventName.ADD_TO_CART,
+          this.currentAnalyticsCart
+        );
+
+        axios.put(`/i/cart/${this.cartId}`, { packageId, currency: this.currency }).then((resp) => {
+          console.log("naving to checkout");
+          localStorage.setItem("package", packageId);
+          this.$router.push("/checkout");
+        }).catch((error) => {
+          console.log("error naving to checkout");
+          console.error(error);
+        });
+      } 
+      
+      else {
+        /* If no cart currently exists, create cart */
+        // Update Analytics data payload
+        this.currentAnalyticsCart = {
+          currency: this.currency,
+          value: this.pricePlans[plan].price,
+          items: [this.pricePlans[plan]],
+        };
+
+        // Add new package to cart for Google Analytics
+        firebase.analytics().logEvent(
+          firebase.analytics.EventName.ADD_TO_CART,
+          this.currentAnalyticsCart
+        );
+
+        axios
+          .post(`/i/cart/${packageId}/${this.currency}`)
+          .then(resp => {
+            let { cartId, price } = resp.data;
+
+            firebase.analytics().logEvent("new_cart", {
+              content_type: "coaster",
+              packageId,
+              currency: this.currency,
+              items: [{ cartId, ...this.pricePlans[plan] }]
+            });
+
+            fbq('track', 'AddToCart', { value: price });
+
+            console.log("not naving to checkout");
+            localStorage.setItem("cartId", cartId);
+            localStorage.setItem("package", packageId);
+            this.$router.push("/checkout");
+          })
+          .catch((error) => {
+            console.log("big error naving to checkout");
+            console.error(error);
+          });
+      }
+    },
+
+    getRetailPrice(plan) {
+      return (
+        this.pricePlans[plan].retailPrice / this.pricePlans[plan].quantity
+      ).toFixed(2);
+    },
+
+    perItemPrice(plan) {
+      return (
+        this.pricePlans[plan].price / this.pricePlans[plan].quantity
+      ).toFixed(2);
+    },
+
+    getItemTitle(plan) {
+      return this.pricePlans[plan].title;
+    },
+  },
+
+  beforeMount() {
+    this.getPricing();
+  },
+
+  mounted() {
+    firebase.analytics().logEvent(
+      firebase.analytics.EventName.VIEW_CART,
+      this.currentAnalyticsCart
+    );
   }
 }
+
 
 </script>
 
 <style scoped>
+@media (max-width: 768px) {
+  .mobile-adapt {
+		text-align: center !important;
+    margin: auto !important;
+  }
+
+  .mobile-padding {
+    padding: 30px 5px 30px 5px;
+  }
+
+  .mobile-title {
+    font-size: 24px;
+  }
+}
+
+/*  Price Selector Columns */
 .price-selector-inactive {
-  border: .5px solid lightgrey;
+  border-top: .5px solid lightgrey;
+  border-right: .5px solid lightgrey;
+  border-left: .5px solid lightgrey;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-color: white;
   padding: 15px 10px 5px 10px;
   font-size: 14px;
-  min-height: 400px;
-}
-
-.price-selector-active {
-  border: .5px solid #FF9425;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: white;
-  padding: 15px 10px 5px 10px;
-  font-size: 14px;
-  min-height: 400px;
-}
-
-
-.select-button-active {
-  background-color: #FF9425;
-  bottom: 0% !important;
-  text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  color: white;
-  padding: 5px;
-  font-size: 14px;
-  height: 30px;
+  min-height: 80%;
 }
 
 .select-button-inactive {
@@ -172,4 +357,47 @@ export default {
   height: 30px;
 }
 
+.price-selector-active {
+  border-top: .5px solid #FF9425;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: white;
+  padding: 15px 10px 5px 10px;
+  font-size: 14px;
+  min-height: 450px;
+}
+
+.select-button-active {
+  background-color: #FF9425;
+  bottom: 0% !important;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+  height: 30px;
+}
+
+.price-section {
+  text-align: center;
+  padding: 5px 0px 10px 0px;
+  font-size: 24px;
+  color: #B288B9;
+  bottom: 0px;
+}
+
+.discount-section {
+  text-align: center;
+  padding: 15px 0px 0px 0px;
+  font-size: 16px;
+  color: #B288B9;
+}
+
+.price-area {
+  background: white;
+  border: lightgrey;
+  border-right: .5px solid lightgrey;
+  border-left: .5px solid lightgrey;
+}
 </style>

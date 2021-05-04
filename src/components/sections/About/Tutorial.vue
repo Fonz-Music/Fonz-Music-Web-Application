@@ -11,7 +11,7 @@
                   <span style="font-weight: 900; font-size: 24px; color: grey;"> i'm a host </span>
                 </div>
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialAppStore.svg"/>
@@ -26,7 +26,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialSpotify.svg"/>
@@ -41,7 +41,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialCoaster.svg"/>
@@ -56,7 +56,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialQueue.svg"/>
@@ -71,7 +71,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialRockOn.svg"/>
@@ -98,7 +98,7 @@
                   <span style="font-weight: 900; font-size: 24px; color: grey;"> i'm a guest </span>
                 </div>
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialAppStore.svg"/>
@@ -113,7 +113,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialSignUp.svg"/>
@@ -128,7 +128,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialCoaster.svg"/>
@@ -143,7 +143,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialQueue.svg"/>
@@ -158,7 +158,7 @@
                 </div>
 
 
-                <div class="row-12">
+                <div class="row-12 reveal-from-bottom">
                   <div class="col">
                     <div class="row-12 d-flex justify-content-center" style="padding-bottom: 18px;">
                       <img width="50px" src="@/assets/images/Icons/tutorialRockOn.svg"/>

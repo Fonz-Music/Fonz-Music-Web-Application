@@ -1,8 +1,9 @@
 <template>
-  <section class="section" style="background-color: rgba(232, 232, 232, .5); min-height: 700px;">
+  <section class="section" style="background-color: rgba(232, 232, 232, .5); padding-bottom: 20px;">
     <div class="section-inner" style="padding-top: 60px;">
-    <div class="container">
 
+
+    <div class="container">
       <div v-if="loading" class="spinner center-content">
         <FingerprintSpinner
           class="the-spinner"
@@ -11,24 +12,19 @@
           :color="'#ff9425'"
         />
       </div>
-      
       <div v-if="!this.loading" class="row" style="align-items: center;">
-
         <div class="col-md-5 col-sm-12">
           <img src="@/assets/images/Icons/coasterMockupPng.png"/>
         </div>
-
         <div class="col-md-7 col-sm-12">
-
           <div class="row-12 mobile-adapt">
             <span style="font-weight: 700; color: black; font-size: 34px;"> fonz coaster </span>
           </div>
-
           <div class="row-12 mobile-adapt">
             <span style="font-weight: 500; color: grey; font-size: 18px;"> make a good party a <span style="color: #B288B9;"> great </span> one </span>
           </div>
 
-          <div class="row" style="padding-top: 20px;">
+          <div class="b-row" style="padding-top: 20px; display: flex; flex-wrap: wrap;">
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
               <div class="price-selector-inactive mobile-adapt">
                 <div>
@@ -55,17 +51,15 @@
               </div>
               <div class="price-area">
                 <div class="discount-section">
-                  <span> {{ this.pricePlans[0].discount }}% off </span>
+                  <span> only </span>
                 </div>
                 <div class="price-section">
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[0].price }}.00 </span>
                 </div>
               </div>
-              <div class="select-button-active">
-                <button @click="updatePackage(0)">
-                  <span style="font-weight: 700;"> Purchase </span>
-                </button>
-              </div>
+              <button class="select-button-active" @click="updatePackage(0)">
+                <span style="font-weight: 700;"> Purchase </span>
+              </button>
             </div>
 
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
@@ -101,11 +95,9 @@
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[1].price }}.00 </span>
                 </div>
               </div>
-              <div class="select-button-active">
-                <button @click="updatePackage(1)">
-                  <span style="font-weight: 700;"> Purchase </span>
-                </button>
-              </div>
+              <button class="select-button-active" @click="updatePackage(1)">
+                <span style="font-weight: 700;"> Purchase </span>
+              </button>
             </div>
 
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
@@ -140,14 +132,11 @@
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[3].price }}.00 </span>
                 </div>
               </div>
-              <div class="select-button-active">
-                <button @click="updatePackage(3)">
-                  <span style="font-weight: 700;"> Purchase </span>
-                </button>
-              </div>
+              <button class="select-button-active" @click="updatePackage(3)">
+                <span style="font-weight: 700;"> Purchase </span>
+              </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -156,8 +145,9 @@
 </template>
 
 <script>
-import CButton from "@/components/elements/Button.vue";
 const axios = require("axios");
+
+import CButton from "@/components/elements/Button.vue";
 import { Checkout } from "@/plugins/checkout.js";
 import { FingerprintSpinner } from "epic-spinners";
 
@@ -166,7 +156,7 @@ export default {
   mixins: [Checkout],
   components: {
     CButton,
-    FingerprintSpinner
+    FingerprintSpinner,
   },
 
   data() {
@@ -324,7 +314,7 @@ export default {
   }
 
   .mobile-padding {
-    padding: 30px 5px 30px 5px;
+    padding: 0px 5px 60px 5px;
   }
 
   .mobile-title {
@@ -345,38 +335,17 @@ export default {
   min-height: 80%;
 }
 
-.select-button-inactive {
-  background-color: lightgrey;
-  bottom: 0% !important;
-  text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  color: white;
-  padding: 5px;
-  font-size: 14px;
-  height: 30px;
-}
-
-.price-selector-active {
-  border-top: .5px solid #FF9425;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: white;
-  padding: 15px 10px 5px 10px;
-  font-size: 14px;
-  min-height: 450px;
-}
-
 .select-button-active {
   background-color: #FF9425;
   bottom: 0% !important;
   text-align: center;
+  vertical-align: middle;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   color: white;
-  padding: 5px;
+  width: 100%;
   font-size: 14px;
-  height: 30px;
+  height: 35px;
 }
 
 .price-section {

@@ -1,5 +1,6 @@
 <template>
   <fragment>
+    <!-- <c-team /> -->
     <div class="center-content">
       <c-features-split invert-mobile top-divider image-fill class="" />
     </div>
@@ -8,17 +9,13 @@
 </template>
 
 <script>
-// import layout
 import CLayout from "@/layouts/LayoutDefault.vue";
-// import section header
-// import sections
 import CGuestInstructions from "@/components/sections/GuestInstructions.vue";
 import CHostInstructions from "@/components/sections/HostInstructions.vue";
+// import CTeam from "@/components/sections/Team.vue"
 import CFeaturesSplit from "@/components/sections/FeaturesSplit.vue";
 import EmailSignup from "@/components/sections/EmailSignupComp.vue";
 import CTutorial from "@/components/sections/About/Tutorial.vue";
-
-// import some required elements
 
 export default {
   name: "Secondary",
@@ -27,7 +24,8 @@ export default {
     CHostInstructions,
     CFeaturesSplit,
     EmailSignup,
-    CTutorial
+    CTutorial,
+    // CTeam
   },
   data() {
     return {

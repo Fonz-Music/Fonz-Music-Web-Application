@@ -15,10 +15,11 @@
 
           <div class="row-12 mt-4 mb-24" data-reveal-delay="450">
                   <c-button
+                  @click="pushToStore()"
                   class="button-style"
                   color="primary"
                   >
-                    <router-link to="/buy/"> buy now </router-link>
+                    <span> buy now </span>
                   </c-button>
               </div>
             </div>
@@ -66,6 +67,12 @@ export default {
   CImage,
   CClients,
   },
+
+  methods: {
+    pushToStore() {
+      this.$router.push("buy");
+    }
+  }
 };
 </script>
 

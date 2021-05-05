@@ -2,12 +2,12 @@
   <section>
     <div class="container" style="padding-top: 80px;">
       <div class="row">
-        <div class="col-12 mobile-adapt">
-          <span style="font-size: 32px; color: grey; font-weight: 700;"> someone queue a song! </span>
+        <div class="col-12 mobile-adapt reveal-from-bottom">
+          <span style="font-size: 32px; color: black; font-weight: 700;"> someone queue a song! </span>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-7 col-sm-12 mobile-adapt">
+        <div class="col-md-7 col-sm-12 mobile-adapt reveal-from-top">
         <span style="font-size: 18px;"> 
           We've all been there. <br>
           You're a people pleaser. Although your music taste is elite, some people aren't as fortunate to be blessed with such an immaculate choice of songs. <br>
@@ -16,7 +16,7 @@
           Those days are over - the party now belongs to everyone. Join the host's session and get tapping - turn a good party into a great one.
         </span>
         </div>
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-5 col-sm-12 reveal-from-bottom">
           <c-image :src="require('@/assets/images/SplashImages/splashArtwork-01.png')" />
         </div>
       </div>

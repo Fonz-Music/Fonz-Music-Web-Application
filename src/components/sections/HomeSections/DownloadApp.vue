@@ -9,7 +9,7 @@
           <div>
             <span class="text-styling-b"> Download Now </span>
           </div>
-          <div class="button-container">
+          <div class="button-container justify-content-center">
             <c-button tag="a" href="https://apps.apple.com/ie/app/fonz-music/id1537308329" target="_blank" class="app-button-style"> 
               <span style="color: #FF9425"> App Store </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> 
@@ -21,8 +21,8 @@
           </div>
         </div>
 
-        <div class="col-md-8 col-sm-12 container-image-padding mobile-image-adapt">
-          <img class="img-style" src="@/assets/images/iPhoneMockup.png">
+        <div class="col-md-8 col-sm-12 container-image-padding justify-content-center mobile-adapt" style="display: flex;">
+          <img class="img-style mobile-image-adapt" src="@/assets/images/iPhoneMockup.png">
         </div>
       </div>
     </div>
@@ -50,17 +50,14 @@ export default {
   }
 
   .mobile-image-adapt {
-    display:none;
+    max-height: 150px;
   }
 }
-
 
 .download-background {
   background-color: #FF9425;
   height: 20%;
 }
-
-
 
 .img-style {
   height: 300px;
@@ -76,7 +73,9 @@ export default {
 }
 
 .app-button-style {
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
 }
 
 .container-image-padding {

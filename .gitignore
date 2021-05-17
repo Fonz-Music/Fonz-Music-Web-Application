@@ -29,3 +29,5 @@ functions/package-lock.json
 .firebase
 package-lock.json
 .firebase/hosting.ZGlzdA.cache
+.firebase/*
+.firebase/hosting.ZGlzdA.cache

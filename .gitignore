@@ -20,14 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-.firebase/hosting.ZGlzdA.cache
-firebase-debug.log
-.firebase*
-/.firebase/*
 *.log
 functions/package-lock.json
-.firebase
+.firebase/
 package-lock.json
-.firebase/hosting.ZGlzdA.cache
-.firebase/*
-.firebase/hosting.ZGlzdA.cache

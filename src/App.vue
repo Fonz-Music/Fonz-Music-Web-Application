@@ -1,4 +1,5 @@
 <template>
+  
     <component :is="layout">
         <router-view :layout.sync="layout" />
     </component>
@@ -15,6 +16,7 @@ export default {
       layout: 'div'
     }
   },
+
   mounted() {
     document.body.classList.add('is-loaded')
   }

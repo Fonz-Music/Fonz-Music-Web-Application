@@ -1,5 +1,6 @@
 <template>
   <fragment>
+    <meta name="apple-itunes-app" content="app-id=1537308329, app-clip-bundle-id=com.fonzmusic.Clip">
     <c-gradient/>
     <c-splash/>
     <c-splash-blocks/>

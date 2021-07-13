@@ -6,12 +6,9 @@
 </template>
 
 <script>
-// import layout
-import CLayout from "@/layouts/LayoutDefault.vue";
-
-import OrderFailureComponent from "@/components/sections/OrderFailure.vue";
-import OrderSuccess from "@/components/sections/SuccessfulOrder.vue";
-// import CHeroFull02 from "@/components/sections/HeroFull02.vue";
+import CLayout from "@/layouts/layoutMain.vue";
+import OrderFailureComponent from "@/components/sections/ecommerce/OrderFailure.vue";
+import OrderSuccess from "@/components/sections/ecommerce/SuccessfulOrder.vue";
 
 export default {
   name: "OrderFailurePage",

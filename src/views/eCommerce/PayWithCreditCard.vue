@@ -31,16 +31,10 @@
   min-height: 900px;
 }
 </style>
-<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script> -->
-<script>
-// import layout
-import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
-import CLayoutCheck from "@/layouts/LayoutCheckout.vue";
-// import section header
-// import sections
 
-import CPayCreditCard from "@/components/sections/PayCreditCard.vue";
-// import CHeroFull02 from "@/components/sections/HeroFull02.vue";
+<script>
+import CLayoutCheck from "@/layouts/layoutECommerce.vue";
+import CPayCreditCard from "@/components/sections/ecommerce/PayCreditCard.vue";
 
 export default {
   name: "Secondary",

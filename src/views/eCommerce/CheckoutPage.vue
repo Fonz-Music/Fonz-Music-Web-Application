@@ -5,13 +5,8 @@
 </template>
 
 <script>
-// import layout
-import CLayoutCheck from "@/layouts/LayoutCheckout.vue";
-// import section header
-// import sections
-import CLayout from "@/layouts/LayoutDefault.vue";
-import CCheckoutCoaster from "@/components/sections/CheckoutCoasters.vue";
-// import CHeroFull02 from "@/components/sections/HeroFull02.vue";
+import CLayout from "@/layouts/layoutMain.vue";
+import CCheckoutCoaster from "@/components/sections/ecommerce/CheckoutCoasters.vue";
 
 export default {
   name: "Secondary",
@@ -23,9 +18,6 @@ export default {
       demoModalActive: false
     };
   },
-  // created() {
-  //   this.$emit("update:layout", CLayoutCheck);
-  // }
   created() {
     this.$emit("update:layout", CLayout);
     /* Include PolyFill CDN (Credit Card Verification) */

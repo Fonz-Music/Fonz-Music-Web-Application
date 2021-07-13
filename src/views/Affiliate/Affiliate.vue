@@ -143,7 +143,7 @@
 const axios = require("axios");
 
 // Layout
-import CLayout from "@/layouts/LayoutDefault.vue";
+import CLayout from "@/layouts/layoutMain.vue";
 import router from "@/router.js";
 
 // Required Components
@@ -152,10 +152,10 @@ import CImage from "@/components/elements/Image.vue";
 import CInput from "@/components/elements/Input.vue";
 
 // Sections
-import CLoginSection from "@/components/sections/Affiliate/Login/LoginSection.vue";
-import CRegisterSection from "@/components/sections/Affiliate/Login/RegisterSection.vue";
-import CAffiliateInfo from "@/components/sections/Affiliate/Splash/AffiliateInfo.vue";
-import CAffiliateTiles from "@/components/sections/Affiliate/Splash/AffiliateTiles.vue";
+import CLoginSection from "@/components/sections/affiliate/login/LoginSection.vue";
+import CRegisterSection from "@/components/sections/affiliate/login/RegisterSection.vue";
+import CAffiliateInfo from "@/components/sections/affiliate/splash/AffiliateInfo.vue";
+import CAffiliateTiles from "@/components/sections/affiliate/splash/AffiliateTiles.vue";
 
 export default {
     name:'AffiliateLogin',

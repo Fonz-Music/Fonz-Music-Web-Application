@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/LayoutDefault.vue";
-import CSplash from "@/components/sections/HomeSections/Splash.vue";
-import CSplashBlocks from "@/components/sections/HomeSections/SplashBlocks.vue";
-import CDownloadApp from "@/components/sections/HomeSections/DownloadApp.vue";
-import CGradient from "@/components/sections/HomeSections/Gradient.vue";
-import CMap from "@/components/sections/HomeSections/Map.vue";
+import CLayout from "@/layouts/layoutMain.vue";
+import CSplash from "@/components/sections/main/home/Splash.vue";
+import CSplashBlocks from "@/components/sections/main/home/SplashBlocks.vue";
+import CDownloadApp from "@/components/sections/main/home/DownloadApp.vue";
+import CGradient from "@/components/sections/main/home/Gradient.vue";
+import CMap from "@/components/sections/main/home/Map.vue";
 
 export default {
   name: "Home",

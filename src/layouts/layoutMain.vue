@@ -1,8 +1,8 @@
-<template>
+<template class="">
   <fragment>
     <div class="background-mountain">
-      <c-header-affiliate nav-position="right" />
-      <main class="site-content">
+      <c-header nav-position="right" class="reveal-from-top" />
+      <main class="site-content entire-site">
         <slot />
       </main>
       <c-footer />
@@ -10,18 +10,17 @@
   </fragment>
 </template>
 
-
 <script>
-import CHeaderAffiliate from "@/layouts/headers/HeaderAffiliate.vue";
-import CFooter from "@/layouts/footers/Footer02.vue";
+import CHeader from "@/layouts/headers/Header.vue";
+import CFooter from "@/layouts/footers/Footer.vue";
+
 export default {
   components: {
-    CHeaderAffiliate,
+    CHeader,
     CFooter,
   }
 };
 </script>
-
 
 <style media="screen">
 .background-mountain {
@@ -29,6 +28,6 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: bottom right;
-  background-size: 80%;
+  background-size: 100%;
 }
 </style>

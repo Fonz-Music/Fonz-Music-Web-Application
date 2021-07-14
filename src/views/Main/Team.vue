@@ -1,19 +1,19 @@
 <template>
   <fragment>
-    <c-team top-divider/>
+    <c-members top-divider/>
   </fragment>
 </template>
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutDefault.vue";
+import CLayout from "@/layouts/layoutMain.vue";
 // import sections
-import CTeam from "@/components/sections/Team.vue";
+import CMembers from "@/components/sections/main/team/Members.vue";
 
 export default {
   name: "Team",
   components: {
-    CTeam
+    CMembers
   },
   created() {
     this.$emit("update:layout", CLayout);

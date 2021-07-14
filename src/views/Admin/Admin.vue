@@ -7,9 +7,10 @@
 
 
 <script>
-import CLayout from "@/layouts/LayoutDefault.vue";
 import router from "@/router.js";
-import COrdersTable from "@/components/sections/Admin/OrdersTable.vue";
+
+import CLayout from "@/layouts/layoutMain.vue";
+import COrdersTable from "@/components/sections/admin/orders/OrdersTable.vue";
 
 export default {
     name: "Admin",
@@ -53,89 +54,6 @@ export default {
 }
 </script>
 
-
-
-// // import layout
-// import CLayout from "@/layouts/LayoutDefault.vue";
-
-// // import components
-// import CButton from "@/components/elements/Button.vue";
-// import CInput from "@/components/elements/Input.vue";
-// import COrdersTable from '@/components/sections/Admin/OrdersTable.vue';
-// import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
-
-// // firebase auth
-
-// firebase.auth().onAuthStateChanged(user => {
-//     if(user) {
-//         console.log('is auth');
-//         this.input.loggedIn = true;
-//     }
-//     else {
-//         console.log('isnt auth');
-//         this.input.loggedIn = false;
-//     }
-// }) 
-
-// export default {
-//     name: "Admin",
-//     components: {
-//         CButton,
-//         COrdersTable,
-//         CInput,
-//         CSectionHeader,
-//         COrdersTable
-//     },
-
-//     data() {
-//         return {
-//             input: {
-//                 username:"",
-//                 password:"",
-//                 loggedIn: false
-//             },
-//             sectionHeader: {
-//                 title: 'Welcome to your dashboard!',
-//                 paragraph: 'Here are our orders.'
-//             },
-//         }
-//     },
-
-//     methods: {
-//         userLogin() {
-//             if(this.input.username != "" && this.input.password != "") {
-//                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
-//                 .then((user) => {
-//                     console.log('signed in');
-//                     this.input.loggedIn = true;
-//                     this.input.username = "";
-//                     this.input.password = "";
-//                 })
-//                 .catch((error) => {
-//                     alert("Incorrect Details");
-//                     this.input.loggedIn = false;
-//                 })
-//             }
-//         },
-
-//         userLogout() {
-//             firebase.auth().signOut().then(() => {
-//                 console.log("Just logged out");
-//                 this.input.loggedIn = false;
-//             });
-//         },
-
-//         loggedIn() {
-//             return this.input.loggedIn;
-//         }
-//     },
-
-//     created() {
-//         this.$emit("update:layout", CLayout);
-//     }
-// };
-
-// </script>
 
 <style>
   .container-style {

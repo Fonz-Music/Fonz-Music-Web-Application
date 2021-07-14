@@ -1,31 +1,17 @@
 <template>
   <fragment>
-    <!-- <c-team /> -->
-    <div class="center-content">
-      <c-features-split invert-mobile top-divider image-fill class="" />
-    </div>
     <c-tutorial/>
   </fragment>
 </template>
 
 <script>
-import CLayout from "@/layouts/LayoutDefault.vue";
-import CGuestInstructions from "@/components/sections/GuestInstructions.vue";
-import CHostInstructions from "@/components/sections/HostInstructions.vue";
-// import CTeam from "@/components/sections/Team.vue"
-import CFeaturesSplit from "@/components/sections/FeaturesSplit.vue";
-import EmailSignup from "@/components/sections/EmailSignupComp.vue";
-import CTutorial from "@/components/sections/About/Tutorial.vue";
+import CLayout from "@/layouts/layoutMain.vue";
+import CTutorial from "@/components/sections/main/about/Tutorial.vue";
 
 export default {
   name: "Secondary",
   components: {
-    CGuestInstructions,
-    CHostInstructions,
-    CFeaturesSplit,
-    EmailSignup,
     CTutorial,
-    // CTeam
   },
   data() {
     return {

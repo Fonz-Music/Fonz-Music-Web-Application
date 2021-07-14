@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/LayoutDefault.vue";
-import SuccessfulOrder from "@/components/sections/SuccessfulOrder.vue";
+import CLayout from "@/layouts/layoutMain.vue";
+import SuccessfulOrder from "@/components/sections/ecommerce/SuccessfulOrder.vue";
 
 export default {
   name: "OrderSuccess",

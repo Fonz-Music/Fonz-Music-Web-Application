@@ -28,16 +28,10 @@
   min-height: 900px;
 }
 </style>
-<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script> -->
-<script>
-// import layout
-import CSectionHeader from "@/components/sections/partials/SectionHeader.vue";
-import CLayoutCheck from "@/layouts/LayoutCheckout.vue";
-// import section header
-// import sections
 
-import PaymentPageComp from "@/components/sections/paymentPageComponent.vue";
-// import CHeroFull02 from "@/components/sections/HeroFull02.vue";
+<script>
+import CLayoutCheck from "@/layouts/layoutECommerce.vue";
+import PaymentPageComp from "@/components/sections/ecommerce/paymentPageComponent.vue";
 
 export default {
   name: "Secondary",
@@ -53,12 +47,6 @@ export default {
     this.$emit("update:layout", CLayoutCheck);
   },
   mounted() {
-    // let polyfillScript = document.createElement("script");
-    // polyfillScript.setAttribute(
-    //   "src",
-    //   "https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"
-    // );
-    // document.head.appendChild(polyfillScript);
   }
 };
 </script>

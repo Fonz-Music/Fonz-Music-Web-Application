@@ -7,11 +7,8 @@
 </template>
 
 <script>
-// import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
-
-import PageNotFound from "@/components/sections/PageNotFound.vue";
-// import CHeroFull02 from "@/components/sections/HeroFull02.vue";
+import CLayout from "@/layouts/layoutAlternative.vue";
+import PageNotFound from "@/components/sections/misc/PageNotFound.vue";
 
 export default {
   name: "PageNotFoundPage",

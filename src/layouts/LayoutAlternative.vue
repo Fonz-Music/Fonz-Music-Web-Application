@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import CHeader from "@/components/layout/Header.vue";
-import CFooter from "@/components/layout/Footer02.vue";
+import CHeader from "@/layouts/headers/Header.vue";
+import CFooter from "@/layouts/footers/Footer02.vue";
 // import RecentOrders from "@/components/elements/RecentOrders.vue";
 export default {
   components: {

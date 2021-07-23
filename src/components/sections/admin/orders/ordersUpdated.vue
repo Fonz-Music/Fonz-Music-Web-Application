@@ -69,7 +69,7 @@
         </span>
 
         <div class="table-style">
-          <b-table class="cell-style"
+          <b-table
             hover
             :items="items"
             :fields="fields"
@@ -77,9 +77,8 @@
             :current-page="page"
             :filter="filter"
           >
-
             <template #cell(order_fufillment)="data">
-              <b-button class="fulfillment-button"
+              <b-button
                 @click="
                   updateFufillment(
                     data.item.order_index,
@@ -91,7 +90,7 @@
                 {{ data.item.order_fufillment }}
               </b-button>
             </template>
-<!-- 
+
             <template #cell(order_assigned_to)="data">
               <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
                 <b-dropdown-item
@@ -135,7 +134,7 @@
                   Jay
                 </b-dropdown-item>
               </b-dropdown>
-            </template> -->
+            </template>
           </b-table>
         </div>
       </div>
@@ -186,10 +185,10 @@ export default {
           key: "order_fufillment",
           sortable: true,
         },
-        // {
-        //   key: "order_assigned_to",
-        //   sortable: true,
-        // },
+        {
+          key: "order_assigned_to",
+          sortable: true,
+        },
       ],
 
       items: [],
@@ -230,8 +229,9 @@ export default {
 
       console.log(ordersRef);
       ordersRef = ordersRef.orderBy("created");
+      // if(this.showFulfilled === "true" || this.showFulfilled == false) {
       if (!this.isFulfilled) {
-        console.log("showing unfulfilled");
+        console.log("showing unfulfille");
         ordersRef = ordersRef.where("fulfilled", "==", false);
       }
 
@@ -381,16 +381,8 @@ export default {
 
 <style>
 .table-style {
+  font-size: 5px;
   padding: 5px 20px 5px 20px;
-}
-
-.cell-style {
-  font-size: 14px;
-  vertical-align: middle;
-}
-
-.fulfillment-button {
-  font-size: 14px;
 }
 
 .idbackg {

@@ -18,14 +18,14 @@ $container--padding__desktop: 24px; // container, left and right padding (deskto
 // Global spacing
 $spacing--shared-v: 24px; // used on many different elements (e.g. hr, ul, ol and more)
 $spacing--shared-h: 24px;
-$spacing--h1-t: 48px;
-$spacing--h1-b: 32px;
-$spacing--h2-t: 48px;
-$spacing--h2-b: 32px;
-$spacing--h3-t: 36px;
-$spacing--h3-b: 24px;
-$spacing--hx-t: 24px;
-$spacing--hx-b: 24px;
+$spacing--h1-t: 0px;
+$spacing--h1-b: 24px;
+$spacing--h2-t: 0px;
+$spacing--h2-b: 18px;
+$spacing--h3-t: 0px;
+$spacing--h3-b: 16px;
+$spacing--hx-t: 18px;
+$spacing--hx-b: 12px;
 $spacing--figure-v: 48px;
 $spacing--figure-h: 0;
 $spacing--figcaption-v: 8px;

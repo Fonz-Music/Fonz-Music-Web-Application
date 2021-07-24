@@ -43,14 +43,6 @@
                 <router-link to="/about/"> about  </router-link>
               </li>
             </ul>
-            <ul
-              class="list-reset text-xxs"
-              :class="navPosition && `header-nav-${navPosition}`"
-            >
-              <li>
-                <router-link to="/affiliate/"> affiliate </router-link>
-              </li>
-            </ul>
           </div>
         </nav>
       </div>

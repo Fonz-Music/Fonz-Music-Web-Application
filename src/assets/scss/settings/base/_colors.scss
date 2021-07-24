@@ -4,8 +4,8 @@
 $palette: (
 	light: (
 		1: #F9FAFF,
-		2: #959CB1,
-		3: #6A6F82,
+		2: #696059,
+		3: #573416,
 		4: #ACB3C6
 	),
 	dark: (
@@ -46,19 +46,19 @@ $palette: (
 
 // Base typography: color
 $color: (
-	heading:				get-color(light, 1),
-	base: 					get-color(light, 2),
+	heading:				    get-color(light, 1),
+	base: 					    get-color(light, 2),
 	high-contrast: 			get-color(light, 1),
 	mid-contrast: 			get-color(light, 2),
 	low-contrast: 			get-color(light, 3),
-	primary:				get-color(primary, 1),
-	secondary:				get-color(secondary, 1),
-	error:					get-color(alert, error),
-	warning:				get-color(alert, warning),
-	success:				get-color(alert, success),
+	primary:				    get-color(primary, 1),
+	secondary:			  	get-color(secondary, 1),
+	error:					    get-color(alert, error),
+	warning:				    get-color(alert, warning),
+	success:				    get-color(alert, success),
 	// ↓ Inverted colors
 	heading-inverse:		get-color(dark, 1),
-	base-inverse:			get-color(light, 3),
+	base-inverse:		   	get-color(light, 3),
 	high-contrast-inverse: 	get-color(dark, 1),
 	mid-contrast-inverse: 	get-color(dark, 2),
 	low-contrast-inverse: 	get-color(light, 3)

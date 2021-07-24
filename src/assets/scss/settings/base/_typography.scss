@@ -8,13 +8,23 @@ $font--family: (
   heading: '"MuseoSans700", sans-serif',
   base: '"MuseoSans300", sans-serif',
   code: 'Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace',
-  pre: '"Courier 10 Pitch", Courier, monospace'
+  pre: '"Courier 10 Pitch", Courier, monospace',
+
+  h2: '"MuseoSans500"',
+  h3: '"MuseoSans300"',
+  h4: '"MuseoSans300"',
+  h5: '"MuseoSans300"',
+  h6: '"MuseoSans100"'
 );
 
 // The typographic scale
 $font--scale: (
   // key 		// font-size, line-height, kerning
-    alpha: (44px, 54px, null),
+  text-h1: (44px, 54px, null),
+  text-h2: (32px, 40px, null),
+  text-h3: (21px, 24px, null),
+
+  alpha: (44px, 54px, null),
   beta: (38px, 48px, null),
   gamma: (32px, 42px, null),
   delta: (24px, 34px, -0.1px),
@@ -27,7 +37,7 @@ $font--scale: (
 // Base elements: font size
 $font--size: (
   // ↓ Mobile 	// key in $font--scale
-    h1: "beta",
+  h1: "beta",
   h2: "gamma",
   h3: "delta",
   h4: "delta",
@@ -41,9 +51,9 @@ $font--size: (
   pre: "eta",
   table: "eta",
   // ↓ Desktop (set to null if font size won't change on desktop)
-    h1-desktop: "alpha",
-  h2-desktop: "beta",
-  h3-desktop: "gamma",
+  h1-desktop: "text-h1",
+  h2-desktop: "text-h2",
+  h3-desktop: "text-h3",
   h4-desktop: null,
   base-desktop: null,
   sm-desktop: null,

@@ -1,9 +1,10 @@
 <template>
   <fragment>
     <meta name="apple-itunes-app" content="app-id=1537308329, app-clip-bundle-id=com.fonzmusic.Clip">
-    <c-gradient/>
     <c-splash/>
-    <c-splash-blocks/>
+    <c-clients/>
+    <c-how-fonz-works/>
+    <c-the-benefits/>
     <c-map/>
     <c-download-app/>
   </fragment>
@@ -11,20 +12,24 @@
 
 <script>
 import CLayout from "@/layouts/layoutMain.vue";
+
+import CHowFonzWorks from "@/components/sections/main/home/howFonzWorks.vue"
+import CTheBenefits from "@/components/sections/main/home/theBenefits.vue";
+import CClients from "@/components/sections/main/home/Clients.vue";
+
 import CSplash from "@/components/sections/main/home/Splash.vue";
-import CSplashBlocks from "@/components/sections/main/home/SplashBlocks.vue";
 import CDownloadApp from "@/components/sections/main/home/DownloadApp.vue";
-import CGradient from "@/components/sections/main/home/Gradient.vue";
 import CMap from "@/components/sections/main/home/Map.vue";
 
 export default {
   name: "Home",
   components: {
     CSplash,
-    CSplashBlocks,
     CDownloadApp,
-    CGradient,
-    CMap
+    CHowFonzWorks,
+    CTheBenefits,
+    CMap,
+    CClients
   },
 
   beforeMount() {

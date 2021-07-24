@@ -4,7 +4,7 @@ html {
 
 body {
   color: color(base);
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 body,
@@ -44,21 +44,25 @@ h1,
 h2,
 .h2 {
   @include font-size(h2);
+  @include font-family(h2);
 }
 
 h3,
 .h3 {
   @include font-size(h3);
+  @include font-family(h3);
 }
 
 h4,
 .h4 {
   @include font-size(h4);
+  @include font-family(h4);
 }
 
 h5,
 .h5 {
   @include font-size(base);
+  @include font-family(h5);
 }
 
 h6,
@@ -66,6 +70,7 @@ h6,
 small,
 .text-sm {
   @include font-size(sm);
+  @include font-family(h6);
 }
 
 .text-xs {

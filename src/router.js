@@ -19,7 +19,7 @@ import PaymentPage from "./views/eCommerce/PaymentPage.vue";
 import PrivacyPolicy from "./views/Misc/PrivacyPolicy.vue";
 import TermsOfService from "./views/Misc/TermsOfService.vue";
 import PageNotFoundPage from "./views/Misc/404notFound.vue";
-import PromoPage from "./views/misc/promo.vue";
+import PromoPage from "./views/Misc/promo.vue";
 
 // Affiliate
 import AffiliateLogin from "./views/Affiliate/Affiliate.vue";

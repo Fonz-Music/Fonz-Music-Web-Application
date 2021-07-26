@@ -47,15 +47,15 @@ export default {
     data() {
         return {
             headingOne: "queue music effortlessly",
-            paraOne: "We've all been there. Your friend comes up to you for the twentieth time that night asking to play a song. You grit your teeth and say 'sure!', full well knowing between unlocking your phone, opening your music app and praying to god they don't exit your playlist, 5 minutes of your night has been wasted. The Fonz Coaster solves all that.",
+            paraOne: "we've all been there. your friend comes up to you for the twentieth time that night asking to play a song. you grit your teeth and say 'sure!', full well knowing between unlocking your phone, opening your music app and praying to god they don't exit your playlist, 5 minutes of your night has been wasted. the fonz coaster solves all that.",
             imgOne: "SplashImages/splashArtwork-01.png",
             
             headingTwo: "collaborative playing",
-            paraTwo: "To use your Fonz coaster, simply start a session as a host and connect your Spotify. Now guests can simply join your session by tapping your coaster, and start queueing songs immediately.",
+            paraTwo: "to use your Fonz coaster, simply start a session as a host and connect your spotify. now guests can simply join your session by tapping your coaster, and start queueing songs immediately.",
             imgTwo: "SplashImages/splashArtwork-03.png",
 
             headingThree: "wherever, whenever",
-            paraThree: "The Fonz coaster is made with high-quality PVC. It requires no power, and as long as your phone has access to cellular or the internet, you're good to go. It's also spill-proof, so no worries about bringing it to the pregame, tailgate, or after-party.",
+            paraThree: "the fonz coaster is made with high-quality PVC. it requires no power, and as long as your phone has access to cellular or the internet, you're good to go. it's also spill-proof, so no worries about bringing it to the pregame, tailgate, or after-party.",
             imgThree: "SplashImages/splashArtwork-02.png",
         }
     }

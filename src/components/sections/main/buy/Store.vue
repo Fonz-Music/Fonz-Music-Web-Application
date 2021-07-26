@@ -31,21 +31,21 @@
                   <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(0) }} </span>
                 </div>
                 <div>
-                  <span style="color: grey; font-size: 14px;"> 1 Coaster </span>
+                  <span style="color: grey; font-size: 14px;"> 1 coaster </span>
                 </div>
                 <div>
                   <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(0) }} each </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
-                    For the host who loves hearing new tunes with friends and is ready to simplify that process and empower their guests to contribute to the vibe.
+                    for the host who loves hearing new tunes with friends and is ready to simplify that process and empower their guests to contribute to the vibe.
                   </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                  - €3 Shipping (FREE Shipping on purchases of two or more) <br>
+                  - €3 shipping (FREE shipping on purchases of two or more) <br>
                   - 100% waterproof and lightweight <br>
-                  - Allow your friends to queue songs whenever you're together
+                  - allow your friends to queue songs whenever you're together
                   </span>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <button class="select-button-active" @click="updatePackage(0)">
-                <span style="font-weight: 700;"> Purchase </span>
+                <span style="font-weight: 700;"> purchase </span>
               </button>
             </div>
 
@@ -68,22 +68,22 @@
                   <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(1) }} </span>
                 </div>
                 <div>
-                  <span style="color: grey; font-size: 14px;"> 2 Coasters </span>
+                  <span style="color: grey; font-size: 14px;"> 2 coasters </span>
                 </div>
                 <div>
                   <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
-                    For the DJ who adores throwing parties, tailgates, and pre-games. No more leaving your laptop open, being interrupted, or giving your phone to a stranger.
+                    for the dj who adores throwing parties, tailgates, and pre-games. no more leaving your laptop open, being interrupted, or giving your phone to a stranger.
                   </span>
                 </div>
                 
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                    - FREE Shipping (Usually €9) <br>
-                    - Have a coaster to keep for your roadtrips <br>
-                    - No more shoulder-taps, interrupts, or requests at your shindigs
+                    - FREE shipping (usually €9) <br>
+                    - have a coaster to keep for your roadtrips <br>
+                    - no more shoulder-taps, interrupts, or requests at your shindigs
                   </span>
                 </div>
               </div>
@@ -106,21 +106,21 @@
                   <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(3) }} </span>
                 </div>
                 <div>
-                  <span style="color: grey; font-size: 14px;"> 5 Coasters </span>
+                  <span style="color: grey; font-size: 14px;"> 5 coasters </span>
                 </div>
                 <div>
                   <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(3) }} each </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
-                    For the frat house. For the sorority mixer. For throwing the party of the year. Have a coaster at the pool, at the pong table, at the dye table. Or, for giving out to five friends (who need your music taste).
+                    for the frat house. for the sorority mixer. for throwing the party of the year. have a coaster at the pool, at the pong table, at the dye table. Or, for giving out to five friends (who need your music taste).
                   </span>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                  - FREE Shipping (Usually €15) <br>
-                  - Now you can tell who should join the house by what they queue <br>
-                  - Have a coaster in every room and every car of your convoy
+                  - FREE shipping (usually €15) <br>
+                  - now you can tell who should join the house by what they queue <br>
+                  - have a coaster in every room and every car of your convoy
                   </span>
                 </div>
               </div>
@@ -133,7 +133,7 @@
                 </div>
               </div>
               <button class="select-button-active" @click="updatePackage(3)">
-                <span style="font-weight: 700;"> Purchase </span>
+                <span style="font-weight: 700;"> purchase </span>
               </button>
             </div>
           </div>

@@ -17,7 +17,7 @@
           </h1>
           <span class="row-12 mt-4 mb-4 reveal-from-bottom" style="color: white; font-size: 18px; line-height: .5;" data-reveal-delay="160">
             requesting songs is a pain. we're here to make it easier.
-            with the Fonz Coaster, your guests can queue a song through a single tap. it's that easy. 
+            with the fonz coaster, your guests can queue a song through a single tap. it's that easy. 
           </span>
 
           <div class="row-12 mt-4 mb-24" data-reveal-delay="450">

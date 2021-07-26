@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="order-failure center-content">
     <h3 class="text-center uh-oh-header">uh-oh!</h3>
-    <p>Something went wrong...</p>
-    <p>Let&apos;s try that again!</p>
+    <p>something went wrong...</p>
+    <p>let&apos;s try that again!</p>
     <div class="text-center">
       <router-link class="go-back-button" to="/Checkout" tag="button"
         >go back</router-link

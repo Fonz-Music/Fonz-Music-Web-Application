@@ -31,27 +31,27 @@
           <table class="table table-sm table-borderless">
             <tbody>
               <tr>
-                <th scope="row">order name</th>
+                <th scope="row">Order Name</th>
                 <td class="text-right">
                   {{ this.orderName }}
                 </td>
               </tr>
               <tr>
-                <th scope="row">e-mail</th>
+                <th scope="row">E-mail</th>
                 <td class="text-right">{{ this.email }}</td>
               </tr>
               <tr>
-                <th scope="row">address</th>
+                <th scope="row">Address</th>
                 <td class="text-right">
                   {{ this.address.replace(/['"]+/g, "") }}
                 </td>
               </tr>
               <tr v-if="determineShipping">
-                <th scope="row">delivery</th>
+                <th scope="row">Delivery</th>
                 <td class="text-right">{{ determineCurrencySymbol }}3</td>
               </tr>
               <tr class="total-amount">
-                <th scope="row">total</th>
+                <th scope="row">Total</th>
                 <td class="text-right">
                   {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
                 </td>
@@ -62,9 +62,9 @@
       </div>
     </div>
     <div class="after-order-details center-content">
-      <p>you&apos;ll get email updates about the status of your order.</p>
+      <p>You&apos;ll get email updates about the status of your order.</p>
       <p class="follow-our-socials">
-        while you&apos;re waiting to be the party&apos;s favorite host, checkout
+        While you&apos;re waiting to be the party&apos;s favorite host, checkout
         our socials to follow our story, participate in giveaways, &amp;
         discover new tunes!
       </p>

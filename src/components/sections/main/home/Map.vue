@@ -4,10 +4,10 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 col-sm-12">
                     <div class="row-12" style="text-align: center;">
-                        <span style="font-size: 24px; font-weight: 700; color: grey;"> join the party! </span>
+                        <span style="font-size: 24px; font-weight: 700; color: grey;"> Join the party! </span>
                     </div>
                     <div class="row-12" style="text-align: center;">
-                        <span style="font-size: 24px; font-weight: 700; color: grey;"> <span style="color: #FF9425;"> 386 </span> registered users </span> 
+                        <span style="font-size: 24px; font-weight: 700; color: grey;"> <span style="color: #FF9425;"> 386 </span> Registered Users </span> 
                     </div>
                     <div class="row-12" style="text-align: center;">
                         <span style="font-size: 14px;"> (and counting) </span> 

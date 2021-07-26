@@ -4,18 +4,18 @@
       <div class="row row-styling">
         <div class="col-md-4 col-sm-12 container-text-padding mobile-adapt">
           <div>
-            <span class="text-styling-a"> fonz music </span>
+            <span class="text-styling-a"> Fonz Music </span>
           </div>
           <div>
-            <span class="text-styling-b"> download now </span>
+            <span class="text-styling-b"> Download Now </span>
           </div>
           <div class="button-container justify-content-center">
             <c-button tag="a" href="https://apps.apple.com/ie/app/fonz-music/id1537308329" target="_blank" class="app-button-style"> 
-              <span style="color: #FF9425"> app store </span> &nbsp; 
+              <span style="color: #FF9425"> App Store </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/appStoreOrange.svg"/> 
             </c-button>
             <c-button tag="a" href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz" target="_blank" class="app-button-style"> 
-              <span style="color: #FF9425"> google play </span> &nbsp; 
+              <span style="color: #FF9425"> Google Play </span> &nbsp; 
               <img class="image-sizing" src="@/assets/images/Icons/googlePlayOrange.svg"/> 
             </c-button>
           </div>

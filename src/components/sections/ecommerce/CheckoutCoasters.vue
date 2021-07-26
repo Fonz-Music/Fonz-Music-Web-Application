@@ -59,7 +59,7 @@
           <table class="table table-sm table-borderless">
             <tbody>
               <tr>
-                <th scope="row">subtotal</th>
+                <th scope="row">Subtotal</th>
                 <td class="text-right">
                   {{ determineCurrencySymbol }}{{ this.currentPackage.price }}
                 </td>
@@ -69,7 +69,7 @@
             <td>{{ this.currencySymbol }}{{ governmentTheft }}</td>
           </tr> -->
               <tr>
-                <th scope="row">shipping</th>
+                <th scope="row">Shipping</th>
                 <!-- <div v-if="determineShipping"> -->
                 <td class="text-right" v-if="determineShipping">FREE</td>
                 <!-- </div>
@@ -80,7 +80,7 @@
                 <!-- </div> -->
               </tr>
               <tr v-if="determineAddDiscount">
-                <th scope="row">discount</th>
+                <th scope="row">Discount</th>
                 <td class="text-right discount-text">
                   {{ currentPackage.couponCode }} 
                   {{ determineCurrencySymbol }}{{ currentPackage.couponAmount }}
@@ -91,7 +91,7 @@
                 <td class="text-right">{{ determineCurrencySymbol }}3</td>
               </tr> -->
               <tr class="total-amount">
-                <th scope="row">total</th>
+                <th scope="row">Total</th>
                 <td class="text-right">
                   {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
                 </td>

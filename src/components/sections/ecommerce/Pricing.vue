@@ -94,7 +94,7 @@
                 </div>
                 <div class="text-xs">
                   <p>
-                    for the host who loves hearing new tunes with friends and is
+                    For the host who loves hearing new tunes with friends and is
                     ready to simplify that process and empower their guests to
                     contribute to the vibe.
                   </p>
@@ -104,13 +104,13 @@
                 <ul class="package-benefits">
                   <li class="">
                     {{ determineCurrencySymbol + this.addons.shipping.price }}
-                    shipping (FREE shipping on purchases of two or more)
+                    Shipping (FREE Shipping on purchases of two or more)
                   </li>
 
                   <li class="">100% waterproof and lightweight</li>
 
                   <li class="">
-                    allow your friends to queue songs whenever you&apos;re
+                    Allow your friends to queue songs whenever you&apos;re
                     together
                   </li>
                 </ul>
@@ -123,7 +123,7 @@
                 color="primary"
                 wide
                 @click="updatePackage(0)"
-                >buy now</c-button
+                >Buy Now</c-button
               >
             </div>
           </div>
@@ -196,8 +196,8 @@
                 </div>
                 <div class="text-xs">
                   <p>
-                    for the dj who adores throwing parties, tailgates, and
-                    pre-games. no more leaving your laptop open, being
+                    For the DJ who adores throwing parties, tailgates, and
+                    pre-games. No more leaving your laptop open, being
                     interrupted, or giving your phone to a stranger.
                   </p>
                 </div>
@@ -205,16 +205,16 @@
               <div class="">
                 <ul class="package-benefits">
                   <li class="">
-                    FREE shipping (usually
+                    FREE Shipping (Usually
                     {{
                       determineCurrencySymbol + this.addons.shipping.price * 3
                     }})
                   </li>
 
-                  <li class="">have a coaster to keep for your roadtrips</li>
+                  <li class="">Have a coaster to keep for your roadtrips</li>
 
                   <li class="">
-                    no more shoulder-taps, interrupts, or requests at your
+                    No more shoulder-taps, interrupts, or requests at your
                     shindigs
                   </li>
                 </ul>
@@ -300,7 +300,7 @@
                 </div>
                 <div class="text-xs">
                   <p>
-                    for the chauffeur who is always playing bangers on the drive
+                    For the chauffeur who is always playing bangers on the drive
                     home and likes hearing new tunes at their hangout sessions.
                   </p>
                 </div>
@@ -308,23 +308,23 @@
               <div class="">
                 <ul class="package-benefits">
                   <li class="">
-                    FREE shipping (usually
+                    FREE Shipping (Usually
                     {{
                       determineCurrencySymbol + this.addons.shipping.price * 2
                     }})
                   </li>
                   <li class="">
-                    always be ready to turn your car into the dance floor
+                    Always be ready to turn your car into the dance floor
                   </li>
                   <li class="">
-                    give to a friend to share songs spontaneously
+                    Give to a friend to share songs spontaneously
                   </li>
                 </ul>
               </div>
             </div>
             <div class="pricing-item-cta mb-8">
               <c-button tag="a" color="primary" wide @click="updatePackage(1)"
-                >buy now</c-button
+                >Buy Now</c-button
               >
             </div>
           </div>
@@ -398,9 +398,9 @@
                 </div>
                 <div class="text-xs">
                   <p>
-                    for the frat house. for the sorority mixer. for throwing the
-                    party of the year. have a coaster at the pool, at the pong
-                    table, at the dye table. or, for giving out to five friends
+                    For the frat house. For the sorority mixer. For throwing the
+                    party of the year. Have a coaster at the pool, at the pong
+                    table, at the dye table. Or, for giving out to five friends
                     (who need your music taste).
                   </p>
                 </div>
@@ -408,19 +408,19 @@
               <div class="">
                 <ul class="package-benefits">
                   <li class="">
-                    FREE shipping (usually
+                    FREE Shipping (Usually
                     {{
                       determineCurrencySymbol + this.addons.shipping.price * 5
                     }})
                   </li>
 
                   <li class="">
-                    now you can tell who should join the house by what they
+                    Now you can tell who should join the house by what they
                     queue
                   </li>
 
                   <li class="">
-                    have a coaster in every room &amp; every car of your convoy
+                    Have a coaster in every room &amp; every car of your convoy
                   </li>
                 </ul>
               </div>

@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="page-404 center-content">
     <h3 class="text-center uh-oh-header">uh-oh!</h3>
-    <p>it&apos;s pretty empty out here...</p>
-    <p>return back home!</p>
+    <p>It&apos;s pretty empty out here...</p>
+    <p>Return back home!</p>
     <div class="text-center">
       <router-link class="go-back-button" to="/" tag="button"
         >go back</router-link

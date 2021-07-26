@@ -20,7 +20,7 @@
                       <span style="font-weight: 700; font-size: 18px; color: grey;"> download our app </span>
                     </div>
                     <div class="row-12 d-flex justify-content-center">
-                      <span style="text-align: center; font-size: 16px;"> navigate to the app store or play store and download the fonz music app </span>
+                      <span style="text-align: center; font-size: 16px;"> Navigate to the App Store or Play Store and download the Fonz Music App </span>
                     </div>
                   </div>
                 </div>
@@ -35,7 +35,7 @@
                       <span style="font-weight: 700; font-size: 18px; color: grey;"> connect your spotify </span>
                     </div>
                     <div class="row-12 d-flex justify-content-center">
-                      <span style="text-align: center; font-size: 16px;"> sign into your spotify account on the fonz music app </span>
+                      <span style="text-align: center; font-size: 16px;"> Sign into your Spotify account on the Fonz Music App </span>
                     </div>
                   </div>
                 </div>
@@ -50,7 +50,7 @@
                       <span style="font-weight: 700; font-size: 18px; color: grey;"> connect your coasters </span>
                     </div>
                     <div class="row-12 d-flex justify-content-center">
-                      <span style="text-align: center; font-size: 16px;"> tap each of your fonz coasters to pair them to your phone and set yourself as host </span>
+                      <span style="text-align: center; font-size: 16px;"> Tap each of your Fonz coasters to pair them to your phone and set yourself as host </span>
                     </div>
                   </div>
                 </div>
@@ -65,7 +65,7 @@
                       <span style="font-weight: 700; font-size: 18px; color: grey;"> select your tune </span>
                     </div>
                     <div class="row-12 d-flex justify-content-center">
-                      <span style="text-align: center; font-size: 16px;"> search up the first song of the session using spotify (music needs to be playing for it to work!) </span>
+                      <span style="text-align: center; font-size: 16px;"> Search up the first song of the session using Spotify (music needs to be playing for it to work!) </span>
                     </div>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                       <span style="font-weight: 700; font-size: 18px; color: grey;"> rock on! </span>
                     </div>
                     <div class="row-12 d-flex justify-content-center">
-                      <span style="text-align: center; font-size: 16px;"> your music is now queued! enjoy the party! </span>
+                      <span style="text-align: center; font-size: 16px;"> Your music is now queued! Enjoy the party! </span>
                     </div>
                   </div>
                 </div>

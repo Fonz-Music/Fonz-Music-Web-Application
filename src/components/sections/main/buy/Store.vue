@@ -4,15 +4,7 @@
 
 
     <div class="container">
-      <div v-if="loading" class="spinner center-content">
-        <FingerprintSpinner
-          class="the-spinner"
-          :animation-duration="2000"
-          :size="100"
-          :color="'#ff9425'"
-        />
-      </div>
-      <div v-if="!this.loading" class="row" style="align-items: center;">
+      <div class="row" style="align-items: center;">
         <div class="col-md-5 col-sm-12">
           <img src="@/assets/images/Icons/coasterMockupPng.png"/>
         </div>
@@ -27,14 +19,20 @@
           <div class="b-row" style="padding-top: 20px; display: flex; flex-wrap: wrap;">
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
               <div class="price-selector-inactive mobile-adapt">
+
                 <div>
-                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(0) }} </span>
+                  <span style="color: black; font-size: 16px;"> hangout host </span>
                 </div>
                 <div>
                   <span style="color: grey; font-size: 14px;"> 1 Coaster </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(0) }} each </span>
+                  <div v-if="loading">
+                    <span style="color: #B288B9; font-size: 14px;"> €22.00 each </span>
+                  </div>
+                  <div v-if="!loading">
+                    <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(0) }} each</span>
+                  </div>                
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -50,12 +48,19 @@
                 </div>
               </div>
               <div class="price-area">
-                <div class="discount-section">
-                  <span> only </span>
-                </div>
-                <div class="price-section">
-                  <span> {{ determineCurrencySymbol }}{{ this.pricePlans[0].price }}.00 </span>
-                </div>
+
+              <div class="discount-section">
+                <span> only </span>
+              </div>
+
+              <div v-if="loading" class="price-section">
+                <span style="color: #B288B9; font-size: 14px;"> €22.00 each </span>
+              </div>
+
+              <div v-if="!loading" class="price-section">
+                <span> {{ determineCurrencySymbol }}{{ this.pricePlans[0].price }}.00 </span>
+              </div>
+
               </div>
               <button class="select-button-active" @click="updatePackage(0)">
                 <span style="font-weight: 700;"> Purchase </span>
@@ -65,13 +70,18 @@
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
               <div class="price-selector-inactive mobile-adapt">
                 <div>
-                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(1) }} </span>
+                  <span style="color: black; font-size: 16px;"> chill chauffeur </span>
                 </div>
                 <div>
                   <span style="color: grey; font-size: 14px;"> 2 Coasters </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
+                  <div v-if="loading">
+                    <span style="color: #B288B9; font-size: 14px;"> €20.00 each </span>
+                  </div>
+                  <div v-if="!loading">
+                    <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
+                  </div>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -88,10 +98,18 @@
                 </div>
               </div>
               <div class="price-area">
-                <div class="discount-section">
+
+                <div v-if="loading" class="discount-section">
+                  <span> 9% off </span>
+                </div>
+                <div v-if="loading" class="price-section">
+                  <span> €40.00 </span>
+                </div>
+                
+                <div v-if="!loading" class="discount-section">
                   <span> {{ this.pricePlans[1].discount }}% off </span>
                 </div>
-                <div class="price-section">
+                <div v-if="!loading" class="price-section">
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[1].price }}.00 </span>
                 </div>
               </div>
@@ -103,13 +121,18 @@
             <div class="col-md-4 col-sm-12 mobile-padding" style="padding-right: 2px; padding-left: 2px;">
               <div class="price-selector-inactive mobile-adapt">
                 <div>
-                  <span style="color: black; font-size: 16px;"> {{ this.getItemTitle(3) }} </span>
+                  <span style="color: black; font-size: 16px;"> rush & rager </span>
                 </div>
                 <div>
                   <span style="color: grey; font-size: 14px;"> 5 Coasters </span>
                 </div>
                 <div>
-                  <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(3) }} each </span>
+                  <div v-if="loading">
+                    <span style="color: #B288B9; font-size: 14px;"> €17.00 each </span>
+                  </div>
+                  <div v-if="!loading">
+                    <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(3) }} each</span>
+                  </div>
                 </div>
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;"> 
@@ -125,12 +148,21 @@
                 </div>
               </div>
               <div class="price-area">
-                <div class="discount-section">
+
+                <div v-if="loading" class="discount-section">
+                  <span> 23% off </span>
+                </div>
+                <div v-if="loading" class="price-section">
+                  <span> €85.00 </span>
+                </div>
+
+                <div v-if="!loading" class="discount-section">
                   <span> {{ this.pricePlans[3].discount }}% off </span>
                 </div>
-                <div class="price-section">
+                <div v-if="!loading" class="price-section">
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[3].price }}.00 </span>
                 </div>
+
               </div>
               <button class="select-button-active" @click="updatePackage(3)">
                 <span style="font-weight: 700;"> Purchase </span>

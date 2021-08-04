@@ -76,7 +76,7 @@ export default {
 
 @media (min-width: 767px) {
   .splash-margin {
-    margin-top: 120px;
+    margin-top: 90px;
   }
 }
 

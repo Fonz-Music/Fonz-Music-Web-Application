@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import CCheckoutCoaster from "@/components/sections/ecommerce/CheckoutCoasters.vue";
 
 export default {

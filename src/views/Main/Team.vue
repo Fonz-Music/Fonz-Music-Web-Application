@@ -6,7 +6,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 // import sections
 import CMembers from "@/components/sections/main/team/Members.vue";
 

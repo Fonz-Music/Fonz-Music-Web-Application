@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutAlternative.vue";
+import CLayout from "@/layouts/LayoutAlternative.vue";
 import CCopy from "@/components/sections/main/buy/Copy.vue"
 import CTutorial from "@/components/sections/main/about/Tutorial.vue";
 import CStore from "@/components/sections/main/buy/Store.vue";

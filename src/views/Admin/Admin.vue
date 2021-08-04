@@ -9,7 +9,7 @@
 <script>
 import router from "@/router.js";
 
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import COrdersTable from "@/components/sections/admin/orders/OrdersTable.vue";
 
 export default {

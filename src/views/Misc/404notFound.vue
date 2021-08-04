@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutAlternative.vue";
+import CLayout from "@/layouts/LayoutAlternative.vue";
 import PageNotFound from "@/components/sections/misc/PageNotFound.vue";
 
 export default {

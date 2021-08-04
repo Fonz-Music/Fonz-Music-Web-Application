@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import OrderFailureComponent from "@/components/sections/ecommerce/OrderFailure.vue";
 import OrderSuccess from "@/components/sections/ecommerce/SuccessfulOrder.vue";
 

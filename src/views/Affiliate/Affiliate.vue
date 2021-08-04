@@ -143,7 +143,7 @@
 const axios = require("axios");
 
 // Layout
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import router from "@/router.js";
 
 // Required Components

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 import CTutorial from "@/components/sections/main/about/Tutorial.vue";
 
 export default {

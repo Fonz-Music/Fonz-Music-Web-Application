@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import CLayout from "@/layouts/layoutMain.vue";
+import CLayout from "@/layouts/LayoutDefault.vue";
 
 import CHowFonzWorks from "@/components/sections/main/home/howFonzWorks.vue"
 import CTheBenefits from "@/components/sections/main/home/theBenefits.vue";

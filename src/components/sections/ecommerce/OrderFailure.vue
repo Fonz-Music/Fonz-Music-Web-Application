@@ -4,7 +4,7 @@
     <p>Something went wrong...</p>
     <p>Let&apos;s try that again!</p>
     <div class="text-center">
-      <router-link class="go-back-button" to="/Checkout" tag="button"
+      <router-link class="go-back-button" to="/checkout" tag="button"
         >go back</router-link
       >
     </div>

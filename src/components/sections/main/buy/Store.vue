@@ -1,7 +1,6 @@
 <template>
-  <section class="section" style="background-color: rgba(232, 232, 232, .5); padding-bottom: 20px;">
+  <section class="section" style="background-color: rgba(232, 232, 232, .6); padding-bottom: 50px;">
     <div class="section-inner" style="padding-top: 60px;">
-
 
     <div class="container">
       <div class="row" style="align-items: center;">
@@ -35,15 +34,10 @@
                   </div>                
                 </div>
                 <div style="padding-top: 5px;">
-                  <span style="font-size: 12px;"> 
-                    For the host who loves hearing new tunes with friends and is ready to simplify that process and empower their guests to contribute to the vibe.
-                  </span>
-                </div>
-                <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                  - €3 Shipping (FREE Shipping on purchases of two or more) <br>
-                  - 100% waterproof and lightweight <br>
-                  - Allow your friends to queue songs whenever you're together
+                  €3 Shipping (FREE Shipping on purchases of two or more). <br>
+                  100% waterproof and lightweight. <br>
+                  Allow your friends to queue songs whenever you're together!
                   </span>
                 </div>
               </div>
@@ -54,7 +48,7 @@
               </div>
 
               <div v-if="loading" class="price-section">
-                <span style="color: #B288B9; font-size: 14px;"> €22.00 each </span>
+                <span style="color: #B288B9;"> €22.00 </span>
               </div>
 
               <div v-if="!loading" class="price-section">
@@ -83,17 +77,12 @@
                     <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
                   </div>
                 </div>
-                <div style="padding-top: 5px;">
-                  <span style="font-size: 12px;"> 
-                    For the DJ who adores throwing parties, tailgates, and pre-games. No more leaving your laptop open, being interrupted, or giving your phone to a stranger.
-                  </span>
-                </div>
                 
                 <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                    - FREE Shipping (Usually €9) <br>
-                    - Have a coaster to keep for your roadtrips <br>
-                    - No more shoulder-taps, interrupts, or requests at your shindigs
+                    FREE Shipping (usually €9). <br>
+                    Have a coaster to keep for your roadtrips! <br>
+                    No more shoulder-taps, interrupts, or requests at your shindigs.
                   </span>
                 </div>
               </div>
@@ -135,15 +124,10 @@
                   </div>
                 </div>
                 <div style="padding-top: 5px;">
-                  <span style="font-size: 12px;"> 
-                    For the frat house. For the sorority mixer. For throwing the party of the year. Have a coaster at the pool, at the pong table, at the dye table. Or, for giving out to five friends (who need your music taste).
-                  </span>
-                </div>
-                <div style="padding-top: 5px;">
                   <span style="font-size: 12px;">
-                  - FREE Shipping (Usually €15) <br>
-                  - Now you can tell who should join the house by what they queue <br>
-                  - Have a coaster in every room and every car of your convoy
+                  FREE Shipping (Usually €15) <br>
+                  Now you can tell who should join the house by what they queue! <br>
+                  Have a coaster in every room and every car of your convoy.
                   </span>
                 </div>
               </div>
@@ -232,7 +216,7 @@ export default {
     },
 
     updatePackage(plan) {
-      console.log("this pricepan " + JSON.stringify(this.pricePlans[plan]));
+      console.log("this priceplan " + JSON.stringify(this.pricePlans[plan]));
       let packageId = this.pricePlans[plan].package;
       if (this.cartId) {
         /* if cart exists, update cart */
@@ -362,7 +346,7 @@ export default {
   background-color: white;
   padding: 15px 10px 5px 10px;
   font-size: 14px;
-  min-height: 80%;
+  min-height: 70%;
 }
 
 .select-button-active {

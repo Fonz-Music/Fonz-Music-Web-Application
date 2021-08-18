@@ -83,9 +83,15 @@ export default {
     },
   },
   methods: {
+
+
+
     submit() {
       this.$refs.submitButtonRef.click();
     },
+
+
+
     sendPaymentToStripe(card) {
       axios
         .post("/i/checkout/pay", {
@@ -110,6 +116,9 @@ export default {
           this.$router.push({ path: "/orderfailure" });
         });
     },
+
+
+
     loadStripeSdk: (pk, version = "v3", callback) => {
       console.log("opening window");
       if (window.Stripe) {
@@ -124,15 +133,12 @@ export default {
       console.log("finished loadSDK");
     },
 
+
+
     sendCartIdToServer() {
-      // var addressIntent = JSON.parse(localStorage.getItem("guestAddressArray"));
       var addressIntent = localStorage.getItem("guestAddress");
       var emailIntent = localStorage.getItem("guestEmail");
-      // var firstNameIntent = localStorage.getItem("firstName");
-      // var lastNameIntent = localStorage.getItem("lastName");
       var nameIntent = localStorage.getItem("guestName");
-
-      // console.log("adress intent 3" + addressIntent[3]);
 
       console.log("guestAddress: " + addressIntent);
       var paymentIntentVar = localStorage.getItem("paymentIntent");

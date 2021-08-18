@@ -1,377 +1,219 @@
 <template lang="html">
   <div class="container checkout-page">
-    <h2 class="text-center">order summary</h2>
+    <h3 class="text-center" style="color: #ff9425;">checkout</h3>
+
     <div class="row">
-      <div class="col-lg-6">
-        <c-image
-          class="coasterPackageImage"
-          :src="getImgUrl"
-          alt="coaster package"
-        />
-      </div>
-      <div class="col-lg-6">
-        <div class=" row package-total-and-name">
-          <div class="col-8 product-details">
-            <h4 class="bundle-title center-content">{{ getItemTitle }}</h4>
-            <p class="bundle-text center-content">bundle</p>
-            <!-- <p>{{ getItemInfo }}</p> -->
+
+      <div class="col-md-6 col-sm-12">
+        <div class="row checkout-info">
+          <div class="col-12">
+            <c-image 
+            :src="require('@/assets/images/CoasterPictures/coasterTransparent2.png')"
+            />
           </div>
+          <div class="col-12">
 
-          <div class="col-4 product-price">
-            <div v-if="!determineAddDiscount">
-              <h3 class="text-right">
-                {{ determineCurrencySymbol }}{{ getRetailPrice }}
-              </h3>
+            <div style='padding-bottom: 10px;'> 
+              <span style="font-size: 20px; color: #341F0D"> {{ currentPackage.title }} </span> <br/>
+              <span> {{ currentPackage.quantity }} {{ coasterS }} </span>
             </div>
-            <div v-else>
-              <h3 class="text-right">
-                <del>{{ determineCurrencySymbol }}{{ getRetailPrice }}</del>
-              </h3>
-              <h3 class="text-right">
-                {{ determineCurrencySymbol }}{{ calculateSubtotalPrice }}
-              </h3>
-            </div>
+
+            <table class="table-sm">
+              <tbody>
+                <tr style="border-bottom: solid 0.5px lightgrey;">
+                  <th scope="row" style="font-weight: 100">subtotal</th>
+                  <td class="text-right">
+                    {{ determineCurrencySymbol() }}{{ currentPackage.price }}
+                  </td>
+                </tr>
+                <tr style="border-bottom: solid 0.5px lightgrey;">
+                  <th scope="row" style="font-weight: 100">shipping</th>
+                  <td v-if="!currentPackage.freeShipping" class="text-right">
+                    {{ determineCurrencySymbol() }}3
+                  </td>
+                  <td v-else class="text-right">
+                    free
+                  </td>
+                </tr>
+                <tr style="border-bottom: solid 0.5px lightgrey;">
+                  <th scope="row" style="font-weight: 100; color: #341F0D">total</th>
+                  <td class="text-right">
+                    {{ determineCurrencySymbol() }}{{ getTotalPrice() }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
           </div>
-        </div>
-        <div class="promo-section">
-          <p>got a promo code from a friend?</p>
-
-          <b-form inline class="row" @submit.stop.prevent="addPromoCode">
-            <b-input
-              type="promo"
-              class="input-sm"
-              id="inputPromo"
-              v-model="promoCode"
-            ></b-input>
-
-            <b-button
-              @click="addPromoCode(promoCode)"
-              class="btn btn-sm btn-link col-3"
-            >
-              send it
-            </b-button>
-          </b-form>
-          <p v-if="!promoValid && enteredpromo">that code is not valid</p>
-          <p v-if="promoValid && enteredpromo">success, applied your coupon</p>
-        </div>
-
-        <div class="totalTable">
-          <table class="table table-sm table-borderless">
-            <tbody>
-              <tr>
-                <th scope="row">Subtotal</th>
-                <td class="text-right">
-                  {{ determineCurrencySymbol }}{{ this.currentPackage.price }}
-                </td>
-              </tr>
-              <!-- <tr>
-            <th scope="row">Government Theft (Tax)</th>
-            <td>{{ this.currencySymbol }}{{ governmentTheft }}</td>
-          </tr> -->
-              <tr>
-                <th scope="row">Shipping</th>
-                <!-- <div v-if="determineShipping"> -->
-                <td class="text-right" v-if="determineShipping">FREE</td>
-                <!-- </div>
-            <div v-else> -->
-                <td class="text-right" v-else>
-                  {{ determineCurrencySymbol }}3
-                </td>
-                <!-- </div> -->
-              </tr>
-              <tr v-if="determineAddDiscount">
-                <th scope="row">Discount</th>
-                <td class="text-right discount-text">
-                  {{ currentPackage.couponCode }} 
-                  {{ determineCurrencySymbol }}{{ currentPackage.couponAmount }}
-                </td>
-              </tr>
-              <!-- <tr v-if="extraPackaging">
-                <th scope="row">Extra Packaging</th>
-                <td class="text-right">{{ determineCurrencySymbol }}3</td>
-              </tr> -->
-              <tr class="total-amount">
-                <th scope="row">Total</th>
-                <td class="text-right">
-                  {{ determineCurrencySymbol }}{{ calculateTotalPrice }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
 
-      <br />
+      <div class="col-md-6 col-sm-12">
+        <div class="express-checkout row">
+          <div id="payment-request-button" class="center-content"></div>
+        </div>
+
+        <b-form class="form-container">
+          
+            <div class="form-section">
+              <span class="form-title-text"> e-mail </span>
+              <b-form-input 
+              v-bind:class="emailFormStatus"
+              placeholder="didim@gmail.com"
+              v-model="email"
+              ></b-form-input>
+            </div>
+
+            <div class="form-section">
+                <span class="form-title-text"> shipping </span>
+
+                <b-form-input 
+                v-bind:class="nameFormStatus"
+                placeholder="name"
+                v-model="shipping.name"
+                ></b-form-input>
+
+                <div
+                v-bind:class='shippingFormStatus'
+                >
+                  <GmapAutocomplete
+                    class="auto-complete"
+                    placeholder="address"
+                    @place_changed="getAddressData"
+                  >
+                  </GmapAutocomplete>
+                </div>
+            </div>
+
+            <div class="form-section">
+              <span class="form-title-text"> card details </span>
+              <div class="form-input-style" style='padding: 10px 15px 10px 15px;'>
+                <div id='card-element'></div>
+                <div id="card-errors"></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <b-form-checkbox
+              v-bind:class="consentFormStatus"
+              style="padding-top: 0px;"
+              id="consent-checkbox"
+              v-model="consent">
+                I agree to Fonz Music's <a href="https://www.fonzmusic.com/privacy-policy">
+                <span style="color: #ff9425;">Privacy Policy</span></a>
+              </b-form-checkbox>
+            </div>
+
+            <div class="form-section center-content">
+              <b-button @click='initiateCheckout()' class="purchase-button">
+                purchase
+              </b-button>
+            </div>
+        </b-form>
+
+        <div style='text-align: center; padding-top: 10px;'>
+          <c-image
+          class='powered-by-stripe'
+          :width='120'
+          :src="require('@/assets/images/checkout/stripeBlack.svg')"/>
+        </div>
+      </div>
     </div>
-    <div class="paymentOptions text-center">
-      <div id="payment-request-button" class="center-content"></div>
-    </div>
-    <div class="text-center">
-      <b-button class="submitButton">
-        <router-link
-          class="btn btn-link pay-with-credit"
-          to="/paywithcreditcard/"
-          >Credit / Debit Card</router-link
-        >
-      </b-button>
-    </div>
-    
   </div>
 </template>
 
+
+
 <script>
-import { SectionTilesProps } from "@/utils/SectionProps.js";
-import CImage from "@/components/elements/Image.vue";
-const axios = require("axios");
 import { Checkout } from "@/plugins/checkout.js";
+import CImage from "@/components/elements/Image.vue";
 console.log({ Checkout });
+
+const axios = require("axios");
+
 export default {
   name: "CCheckoutCoasters",
+
   components: {
     CImage,
   },
+
   data() {
     return {
-      enteredpromo: false,
-      packagePrice: 60,
-      // this checks to see if the user has added extra packaging
-      extraPackaging: false,
-      // tjos checks to see if the user has added a successful
-      // promo. This is throughout the entire checkout process
-      addedPromoSuccess: false,
-      // this changes on each entered promo code
-      promoValid: null,
-      promoCode: "",
-      totalPrice: 25,
-      governmentTheft: 2,
+      loaded: false,
+
+      // Conditional Forms
+      formError: {
+        email: false,
+        consent: false,
+        name: false,
+        shipping: false,
+      },
+
+      // User Data
+      email: "",
+      consent: false,
+      shipping: {
+        name: '',
+        address: {
+          line1: '', 
+        }
+      },
+      
+
+      // Stripe Data
+      // pk: "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
+      pk: 'pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU',
+      stripe: null,
+      elements: null,
+      card: null,
+      applePay: null,
+      clientSecret: "default",
+      paymentIntent: null,
+      currencySymbol: '€',
+
       currentPackage: {
-        quantity: 1,
-        info: "fonz coaster",
-        price: 28,
-        retailPrice: 60,
         title: "fonz coaster",
+        info: "fonz coaster",
+        retailPrice: 60,
+        price: 28,
+        quantity: 1,
         freeShipping: true,
-        couponCode: null,
-        couponAmount: 0,
       },
+
       packageId: "",
-      freeShipping: false,
-      addons: { shipping: {}, extraPackaging: {} },
-      currentAnalyticsCart: {
-        // For Google Analytics
-        currency: "EUR",
-        value: 0.0,
-        items: [],
-      },
-      cart: {
-        addons: [],
-        coupon: "",
-        currency: "eur",
-        discount: 0,
-        packageId: "",
-        price: 0,
-        quantity: 0,
-        retailPrice: 0,
-      },
-    };
+      totalPrice: 25,
+      coasterS: "coaster"
+    }
   },
+
+
   beforeMount() {
-    this.getPricing();
-  },
-  beforeCreate() {},
-  methods: {
-    addPromoCode(promoCode) {
-      const cartIdFromUser = localStorage.getItem("cartId");
-      this.getCoupon(promoCode);
-      promoCode = promoCode.toLowerCase()
-      // communicate with API to add promo code to cart: GET /i/coupons/{couponId}
-      var response;
-      axios
-        .put(`${this.$API_URL}/i/cart/coupon/${promoCode}`, {
-          cartId: cartIdFromUser,
-        })
-        .then((resp) => {
-          response = resp.data;
-          this.addedPromoSuccess = true;
-          localStorage.setItem("addedPromoSuccess", true);
-          this.currentPackage.couponCode = promoCode;
-          this.promoValid = true;
-          this.enteredpromo = true;
-        })
-        .catch((error) => {
-          console.log("did not add promo to cart");
-          console.error(error);
-          this.promoValid = false;
-          this.enteredpromo = true;
-        });
-    },
-    getCoupon(promoCode) {
-      promoCode = promoCode.toLowerCase()
-      axios
-        .get(`${this.$API_URL}/i/cart/coupon/${promoCode}`)
-        .then((resp) => {
-          const data = resp.data;
-          this.currentPackage.couponAmount = data.discount;
-
-          // set the promo code
-          this.currentPackage.couponCode = promoCode;
-          localStorage.setItem("promoCode", promoCode);
-        })
-        .catch((error) => {
-          console.error("invalid coupon code: " + error);
-        });
-    },
-
-    addShippingCost() {
-      // PUT /i/cart/coupon/{couponId}
-      const cartIdFromUser = localStorage.getItem("cartId");
-      var response;
-      axios
-        .put(`${this.$API_URL}/i/cart/addons/shipping`, {
-          cartId: cartIdFromUser,
-        })
-        // add cartID to body
-        .then((resp) => {
-          response = resp.data;
-          console.log("shipping cost: " + response);
-        })
-        .catch((error) => {
-          console.error("shipping error: " + error);
-        });
-    },
-    onSubmit(evt) {
-      console.log("pressed update promo");
-      evt.preventDefault();
-      this.promoValid = !this.promoValid;
-    },
-    getTotalPrice() {
-      var addonTotal = 0;
-      if (this.currentPackage.couponCode != null) {
-        addonTotal -= 5;
-      }
-      if (!this.currentPackage.freeShipping) {
-        addonTotal += 3;
-      }
-      return this.currentPackage.price + addonTotal;
-    },
-    getPricing() {
-      const packageId = localStorage.getItem("package");
-      if (!packageId) this.$router.push("/buy");
-      axios
-        .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
-        .then((resp) => {
-          this.currentPackage.title = resp.data.title;
-          this.currentPackage.quantity = resp.data.quantity;
-          this.currentPackage.freeShipping = resp.data.freeShipping;
-          this.showPricing = true;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getCart() {
-      console.log("getting cart");
-      var localCartId = localStorage.getItem("cartId");
-      axios
-        .get(`${this.$API_URL}/i/cart/${localCartId}`)
-        .then((resp) => {
-          var currentCard = resp.data;
-          this.currentPackage.price = resp.data.price;
-          this.currentPackage.retailPrice = resp.data.retailPrice;
-          this.cart = currentCard;
-          try {
-            this.currentPackage.couponCode = resp.data.coupon;
-            this.cart.coupon = resp.data.coupon;
-          } catch (e) {
-            console.log("no coupon");
-          }
-          
-          if (localStorage.getItem("promoFromUrl") !== null) {
-            console.log("inside here");
-            this.currentPackage.couponCode = localStorage.getItem("promoFromUrl");
-          } 
-          console.log("outisde here");
-          this.currentPackage.couponCode = this.currentPackage.couponCode.toLowerCase();
-          console.log("coupon is " + this.currentPackage.couponCode);
-          this.getCoupon(this.currentPackage.couponCode); // Check for coupon code and adjust subtotal if present
-
-          // Update Analytics data payload
-          this.currentAnalyticsCart = {
-            currency: this.currency,
-            value: currentCard.total,
-            items: [this.cart],
-          };
-        })
-        .catch((error) => {
-          console.log("got cart error");
-          console.error(error);
-        });
-    },
-    // for apple pay
-    loadStripeSdk: (pk, version = "v3", callback) => {
-      console.log("opening window");
-      if (window.Stripe) {
-        callback();
-        return;
-      }
-      let e = document.createElement("script");
-      e.src = `https://js.stripe.com/v3`;
-      e.type = "text/javascript";
-      document.getElementsByTagName("head")[0].appendChild(e);
-      e.addEventListener("load", callback);
-      console.log("finished loadSDK");
-    },
-    sendCartIdToServer() {
-      var localCartId = localStorage.getItem("cartId");
-      console.log("local cart" + localCartId);
-      axios
-        .post("/i/checkout/payment-intent", {
-          cartId: localCartId,
-        })
-        .then((resp) => {
-          console.log("beginning on payment intent");
-          localStorage.setItem("paymentIntent", resp.data.id);
-        })
-        .catch((error) => {
-          console.log("fail making payment intent");
-        });
-    },
+    const packageId = localStorage.getItem("package");
+    if (!packageId) this.$router.push("/buy");
   },
 
-  async mounted() {
+  mounted() {
+    let self = this;
+     
     this.getPricing();
     this.sendCartIdToServer();
     this.getCart();
-
-
-    /* Google Analytics 👀 */
-
-    // Begin Checkout Log 🤑
     
-    
-    firebase
-      .analytics()
-      .logEvent(
-        firebase.analytics.EventName.BEGIN_CHECKOUT,
-        this.currentAnalyticsCart
-      );
-      
-    var self = this;
 
-    localStorage.setItem("totalPrice", self.totalPrice);
-    self.loadStripeSdk(this.pk, "v3", () => {
+    // Loading Stripe's SDK
+    this.loadStripeSDK(this.pk, 'v3', () => {
       const options = {
         stripeAccount: this.stripeAccount,
         apiVersion: "2020-08-27",
-        locale: this.locale,
+        locale: this.locale, 
       };
       var country = localStorage.getItem("country");
-      self.stripe = window.Stripe(
-        "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
-        options
-      );
-      // this creates payment req
-      var localPaymentReq = self.stripe.paymentRequest({
+
+      self.stripe = window.Stripe(this.pk, options);
+
+      // pre-initialised paymentRequest for Apple Pay
+      var paymentRequest = self.stripe.paymentRequest({
         currency: self.currency,
         country: country,
         total: {
@@ -382,233 +224,354 @@ export default {
         requestPayerEmail: true,
       });
 
-      self.elements = self.stripe.elements();
-      var prButton = self.elements.create("paymentRequestButton", {
-        paymentRequest: localPaymentReq,
+
+      // Loading & Mounting Stripe's Elements
+      console.log('mounting card');
+      this.elements = this.stripe.elements();
+      // - Credit / Debit Card
+      this.card = this.elements.create("card", {
+        style: {
+          base: {
+            color: '#495057',
+            fontFamily: 'MuseoSans100, sans-serif',
+            fontSize: '14px',
+            fontSmoothing: 'antialiased',
+            ':-webkit-autofill': {
+              color: '#fce883',
+            },
+            '::placeholder': {
+              color: 'lightgrey',
+            },
+          },
+          invalid: {
+            iconColor: '#ee1112',
+            color: '#ee1112',
+          },
+        }
+      });
+      this.card.mount("#card-element");
+      this.card.addEventListener("change", ({ error }) => {
+        const displayError = document.getElementById("card-errors");
+        if (error) {
+          displayError.textContent = error.message;
+          return;
+        }
+        displayError.textContent = "";
       });
 
-      localPaymentReq.canMakePayment().then(function(result) {
-        console.log("result is " + JSON.stringify(result));
+      // - Apple / Google Pay Card
+      var prButton = this.elements.create('paymentRequestButton', {
+        paymentRequest: paymentRequest,
+      });
+      paymentRequest.canMakePayment().then(function(result) {
         if (result) {
-          console.log("mounting the button ");
           prButton.mount("#payment-request-button");
-        } else {
-          console.log("NOT mounting the button ");
-          document.getElementById("payment-request-button").style.display =
-            "none";
+        } 
+        else {
+          document.getElementById("payment-request-button").style.display = "none";
         }
       });
 
-      prButton.on("click", function(ev) {
-        console.log("updating payment");
-        var passInPrice = localStorage.getItem("totalPrice");
-        console.log("passed in price " + passInPrice);
-        localPaymentReq.update({
-          total: {
-            label: "Fonz Coaster",
-            amount: passInPrice * 100,
-          },
-        });
-      });
-      var orderSuccess;
-      localPaymentReq.on("paymentmethod", function(ev) {
-        console.log("running paymentMethod");
-        var strope = window.Stripe(
-          "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap"
-        );
-        var clientSecretLocal = localStorage.getItem("clientSecret");
-
-        // Confirm the PaymentIntent without handling potential next actions (yet).
-        strope
-          .confirmCardPayment(
-            clientSecretLocal,
-            { payment_method: ev.paymentMethod.id },
-            { handleActions: false }
-          )
-          .then(function(confirmResult) {
-            if (confirmResult.error) {
-              // Report to the browser that the payment failed, prompting it to
-              // re-show the payment interface, or show an error message and close
-              // the payment interface.
-              orderSuccess = false;
-              console.log("failed");
-              console.log("error is " + JSON.stringify(confirmResult.error));
-              ev.complete("fail");
-              $router.push({ path: "/orderfailure" });
-            } else {
-              // Report to the browser that the confirmation was successful, prompting
-              // it to close the browser payment method collection interface.
-              console.log("sucess");
-              console.log("resp is " + JSON.stringify(confirmResult));
-              ev.complete("success");
-              // Check if the PaymentIntent requires any actions and if so let Stripe.js
-              // handle the flow. If using an API version older than "2019-02-11" instead
-              // instead check for: `paymentIntent.status === "requires_source_action"`.
-              if (confirmResult.paymentIntent.status === "requires_action") {
-                console.log("needs action");
-                // Let Stripe.js handle the rest of the payment flow.
-                stripe.confirmCardPayment(clientSecret).then(function(result) {
-                  if (result.error) {
-                    orderSuccess = false;
-                    self.$router.push({ path: "/orderfailure" });
-                    // The payment failed -- ask your customer for a new payment method.
-                  } else {
-                    orderSuccess = true;
-                    self.$router.push({ path: "/ordersuccess" });
-                    // The payment has succeeded.
-                  }
-                });
-              } else {
-                console.log("great success");
-                orderSuccess = true;
-                self.$router.push({ path: "/ordersuccess" });
-                // The payment has succeeded.
-              }
-            }
-          });
-      });
-      console.log("orderSuccess var " + orderSuccess);
-      if (orderSuccess) {
-        self.$router.push({ path: "/ordersuccess" });
-      }
     });
   },
-  computed: {
-    calculateTotalPrice() {
-      var addonTotal = 0;
-      if (this.determineAddDiscount) {
-        addonTotal -= this.currentPackage.couponAmount;
+
+
+  methods: {
+
+    // initiateCheckout()
+    //
+    async initiateCheckout(){
+      if(this.checkValid()) {
+        this.updateCartDetails();
       }
+    },
+
+    // getPricing()
+    // - reaches into localStorage and retrieves user's package pricing
+    // - adds data locally to component's data
+    getPricing() {
+      const packageId = localStorage.getItem("package");
+      if (!packageId) this.$router.push("/buy");
+      axios
+        .get(`${this.$API_URL}/i/package/${packageId}/${this.currency}`)
+        .then((resp) => {
+          this.currentPackage.title = resp.data.title;
+          this.currentPackage.quantity = resp.data.quantity;
+          this.currentPackage.freeShipping = resp.data.freeShipping;
+        })
+        .catch((error) => {
+          console.error(error);
+      });
+    },
+
+    // getCart() 
+    // - accesses API to retrieve cart information
+    // - returns pricing
+    getCart() {
+      var localCartId = localStorage.getItem("cartId")
+      axios
+        .get(`${this.$API_URL}/i/cart/${localCartId}`)
+        .then((resp) => {
+          var currentCart = resp.data;
+          this.currentPackage.price = resp.data.price;
+          this.currentPackage.retailPrice = resp.data.retailPrice;
+          this.cart = currentCart;
+        })
+        .catch((error) => {
+          console.log("error whilst fetching cart information");
+          console.error(error);
+        });
+    },
+
+    // addShippingCost()
+    // - accesses API to determine whether there is a shipping cost
+    addShippingCost() {
+      const cartIdFromUser = localStorage.getItem("cartId");
+      axios
+        .put(`${this.$API_URL}/i/cart/addons/shipping`, {
+          cartId: cartIdFromUser,
+        })
+        .then((resp) => {
+          response = resp.data;
+        })
+        .catch((error) => {
+          console.error("shipping error: " + error);
+        });
+    },
+
+    // getTotalPrice()
+    // Calculates the total price of the cart
+    getTotalPrice() {
+      var addonTotal = 0;
       if (!this.currentPackage.freeShipping) {
         addonTotal += 3;
+        this.coasterS = "coaster"
       }
-      this.totalPrice = this.currentPackage.price + addonTotal;
-      localStorage.setItem("totalPrice", this.totalPrice);
+      else {
+        this.coasterS = "coasters"
+      }
       return this.currentPackage.price + addonTotal;
     },
-    calculateSubtotalPrice() {
-      if (this.determineAddDiscount)
-        return this.currentPackage.price - this.currentPackage.couponAmount;
-      else return this.currentPackage.price;
+
+    // loadStripeSDK())
+    // Inserts the Stripe JS header into the document
+    loadStripeSDK: (pk, version = "v3", callback) => {
+      let e = document.createElement("script");
+      e.src = `https://js.stripe.com/v3`;
+      e.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(e);
+      e.addEventListener("load", callback);
+      console.log("finished loadSDK");
     },
-    getPackageId() {
-      return localStorage.getItem("package");
-    },
-    getImgUrl() {
-      if (
-        this.currentPackage.quantity == 1 ||
-        this.currentPackage.quantity == 2 ||
-        this.currentPackage.quantity == 3
-      ) {
-        return require("@/assets/images/CoasterPictures/coaster" +
-          this.currentPackage.quantity +
-          ".png");
-      } else {
-        return require("@/assets/images/CoasterPictures/coaster" + 3 + ".png");
+
+
+    // submitPayment()
+    // - submits payment to Stripe
+    // - uses the data in the card-element to make payment
+    async submitPayment() {
+        try {
+        const data = {
+          ...this.card
+        }
+        if (this.amount) {
+          data.amount = this.amount;
+        }
+
+        console.log(this.clientSecret);
+        console.log(data);
+
+        const { token, error } = await this.stripe
+        .confirmCardPayment(this.clientSecret, {
+          payment_method: {
+            card: data
+          }
+        })
+        .then(resp => {
+          alert(JSON.stringify(resp, null, 4));
+          localStorage.removeItem('paymentIntent');
+
+          if(resp.error) {
+            console.log('error!' + error);
+          }
+          else {
+            this.$router.push({ 
+              name: 'ordersuccess',
+              params: {
+                email: this.email,
+                shipping: this.shipping,
+                currentPackage: this.currentPackage,
+                currency: this.currency,
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.log('error on submit payment');
+          console.error(error);
+        })
+      }
+      catch(error) {
+        console.error(error);
       }
     },
-    getItemTitle() {
-      return this.currentPackage.title;
+
+    // sendCartIdToServer()
+    // - initialises a PaymentIntent
+    // - using the user's cartID
+    sendCartIdToServer() {
+      axios
+        .post("/i/checkout/payment-intent", {
+          cartId: localStorage.getItem("cartId"),
+        })
+        .then((resp) => {
+          console.log('sent CartId to server');
+          this.paymentIntent = resp.data.id;
+          console.log('PaymentIntent: ' + this.paymentIntent);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    getItemInfo() {
-      return this.currentPackage.info;
+
+    // updateCartDetails
+    // - updates a user's cart details
+    // - to include their paymentIntent, cartId, shipping and email
+    updateCartDetails() {
+      axios
+        .put("/i/checkout/payment-intent", {
+          paymentIntent: this.paymentIntent,
+          cartId: localStorage.getItem("cartId"),
+          shipping: this.shipping,
+          receipt_email: this.email,
+        })
+        .then((resp) => {
+          console.log("beginning on payment intent");
+          this.clientSecret = resp.data.client_secret;
+          this.submitPayment();
+        })
+        .catch((error) => {
+          console.log("fail making payment intent");
+          console.log(error);
+        });
     },
-    getRetailPrice() {
-      return this.currentPackage.price;
-    },
-    determineShipping() {
-      return this.currentPackage.freeShipping;
-    },
+
+    // Helper Functions
+
+    // determineCurrencySymbol()
+    // 
     determineCurrencySymbol() {
       if (this.currency == "usd") return "$";
       else if (this.currency == "gbp") return "£";
       else return "€";
     },
-    determineAddDiscount() {
-      console.log("coupon: " + this.currentPackage.couponCode);
-      if (this.addedPromoSuccess || this.currentPackage.couponCode != null) {
-        return true;
-      } else return false;
+
+    // isEmailValid(email)
+    // - checks if an email is valid using regex
+    isEmailValid(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
+
+    // addEmailToCart(email)
+    // - adds a user's email to their cart
+    addEmailToCart(email) {
+      const cartId = localStorage.getItem("cartId");
+      var response;
+      axios
+        .put(`${this.$API_URL}/i/cart/${cartId}/${email}`)
+        .then(resp => {
+          response = resp.data;
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error);
+      });
+    },
+
+
+    // checkValid()
+    // - checks if all the fields filled out
+    // - by the customer are valid
+    checkValid() {
+      if (this.isEmailValid(this.email)) {
+        if(this.shipping.name != "") {
+          if(this.shipping.address.line1 != ''){
+              if(this.consent) {
+                return true;
+              }
+              else {
+                console.log('did not consent')
+                this.formError.email = false;
+                this.formError.name = false;
+                this.formError.shipping = false;
+                this.formError.consent = true;
+              }
+            }
+          else {
+            this.formError.email = false;
+            this.formError.name = false;
+            this.formError.shipping = true;
+            console.log('invalid address');
+          }
+        }
+        else {
+          this.formError.email = false;
+          this.formError.name = true;
+          console.log('invalid name')
+        }
+      }
+      else {
+        this.formError.email = true;
+        console.log('invalid email');
+      }
+    },
+
+    // getAddressData()
+    getAddressData(addressData) {
+
+      // console.log(addressData);
+      console.log(addressData.formatted_address);
+      this.shipping.address.line1 = addressData.formatted_address;
+    }
+
   },
+
+  computed: {
+    emailFormStatus: function() {
+      return {
+        'form-input-style': !this.formError.email,
+        'form-error-style': this.formError.email
+      }
+    },
+    consentFormStatus: function() {
+      return {
+        'form-title-text': !this.formError.consent,
+        'consent-error-style': this.formError.consent
+      }
+    },
+    nameFormStatus: function() {
+      return {
+        'form-input-style': !this.formError.name,
+        'form-error-style': this.formError.name
+      }
+    },
+    shippingFormStatus: function() {
+      return {
+        'form-input-style': !this.formError.shipping,
+        'form-error-style': this.formError.shipping
+      }
+    },
+  }
 };
 </script>
 
+
 <style lang="css" scoped>
 .checkout-page {
-  max-width: 900px;
+  max-width: 1000px;
   width: 80vw;
-  padding-top: 160px;
+  padding-top: 100px;
 }
-.logoWordmark {
-  margin: 10px auto;
-  width: 25%;
-  max-width: 150px;
-}
-.checkout-page h2,
-.checkout-page h3 {
-  margin: 0px;
-}
-.bundle-title {
-  color: #b188b9;
-  font-family: "MuseoSans500" !important;
-  font-size: 34px;
-  margin-bottom: 0;
-}
-.bundle-text p {
-  padding: 0;
-}
-.form-check-label {
-  font-size: 10pt;
-  vertical-align: top;
-}
-.coasterPackageImage {
-  /* min-width: 50px;
-  max-width: 500px; */
-  /* width: 100%; */
-  margin: 12px auto;
-}
-.btn-secondary {
-  color: #b288b9;
-  background-color: transparent;
-  border: 0;
-}
-.product-details p {
-  /* font-size: 10pt; */
-}
-.product-details h4 {
-  /* font-size: 12pt; */
-  margin: 0px 0px 0px 0px;
-}
-.product-price h3 {
-  margin: 0px 0px 0px 0px;
-}
-.pack-separate {
-  font-size: 16px;
-}
-.discount-text {
-  color: red;
-}
-.form-group {
-  font-size: 16px;
-}
-#inputPromo {
-  margin-left: 15px;
-  color: grey;
-  height: 35px;
-}
-table {
-  color: grey;
-  margin-top: 10px;
-  /* border-collapse: collapse; */
-}
-th {
-  font-weight: 400;
-}
-.total-amount th,
-.total-amount td {
-  border-bottom: hidden;
-}
+
 .paymentOptions {
   margin: 0 auto;
   max-width: 300px;
@@ -629,4 +592,92 @@ th {
 .paymentOptions {
   padding: 30px;
 }
+
+.form-container {
+  width: 100%;
+}
+.form-section {
+  padding: 5px;
+}
+.form-title-text {
+  font-size: 0.75rem;
+  color: #a8a8a8;
+  vertical-align: middle;
+}
+.checkout-info {
+  margin: 10px 5px 0px 5px;
+}
+
+.form-input-style {
+  font-size: 0.7rem;
+  border: solid 1px lightgrey;
+  border-radius: 5px; 
+  margin: 10px 0px 10px 0px;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+}
+
+.auto-complete {
+  display: block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  width: 100%;
+}
+
+.auto-complete::placeholder {
+  color: lightgrey;
+  /* Memes are here now friend */
+}
+
+.form-error-style {
+  vertical-align: middle;
+  font-size: 0.7rem;
+  border: solid 1px #ed5462;
+  border-radius: 5px; 
+  margin: 10px 0px 10px 0px;
+  background-color: rgba(0, 0, 0, 0)
+}
+
+.consent-error-style {
+  font-size: 0.75rem;
+  color: #ed5462;
+  vertical-align: middle;
+}
+
+.form-input-style::placeholder {
+  color: lightgrey;
+}
+
+/* .form-input-style:focus {
+  border: solid 0.5px #ff9425;
+  box-shadow: -0.5px 0 #ff9425, 0 0.5px #ff9425, 0.5px 0 #ff9425,
+    0 -0.5px #ff9425;
+} */
+
+.purchase-button {
+  background-color: #ff9425;
+  width: 100%;
+  margin: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  border-radius: 5px; 
+}
+.purchase-button:hover {
+  cursor: pointer;
+}
+
+.express-checkout {
+  margin: 5px;
+}
+
+.powered-by-stripe {
+  margin: auto;
+}
+.powered-by-stripe:hover {
+
+}
+
 </style>

@@ -9,11 +9,9 @@ import Team from "./views/Main/Team.vue";
 import Contact from "./views/Main/Contact.vue";
 
 // eCommerce
-import CheckoutPage from "./views/eCommerce/CheckoutPage.vue";
-import PayWithCreditCard from "./views/eCommerce/PayWithCreditCard.vue";
+import Checkout from "./views/eCommerce/Checkout.vue";
 import OrderSuccess from "./views/eCommerce/OrderSuccess.vue";
 import OrderFailurePage from "./views/eCommerce/OrderFailurePage.vue";
-import PaymentPage from "./views/eCommerce/PaymentPage.vue";
 
 // Misc
 import PrivacyPolicy from "./views/Misc/PrivacyPolicy.vue";
@@ -63,27 +61,18 @@ export default new Router({
     {
       path: "/checkout",
       name: "checkout",
-      component: CheckoutPage
-    },
-    {
-      path: "/paywithcreditcard",
-      name: "paywithcreditcard",
-      component: PayWithCreditCard
+      component: Checkout
     },
     {
       path: "/ordersuccess",
       name: "ordersuccess",
-      component: OrderSuccess
+      component: OrderSuccess,
+      props: true
     },
     {
       path: "/orderfailure",
       name: "orderfailure",
       component: OrderFailurePage
-    },
-    {
-      path: "/paymentPage",
-      name: "paymentPage",
-      component: PaymentPage
     },
     {
       path: "/privacy-policy",

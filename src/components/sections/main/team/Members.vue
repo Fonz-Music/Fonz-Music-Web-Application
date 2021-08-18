@@ -105,7 +105,7 @@
                 <div
                   class="team-item-role text-xxs fw-500 tt-u text-color-primary mb-8"
                 >
-                  Founder &amp; CFO
+                  Founder &amp; Developer
                 </div>
                 <p class="m-0 text-sm">
                   Jay Cowan is from Blacksburg, Virginia and is Chief Finance

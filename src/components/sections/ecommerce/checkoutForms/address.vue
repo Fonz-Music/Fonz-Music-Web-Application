@@ -44,65 +44,15 @@ export default {
       // this.nextTab();
     },
     getAddressData: function(addressData, placeResultData, id) {
+      
       var givenAddress = JSON.parse(
         JSON.stringify(addressData["formatted_address"]).toString()
       );
 
-      // console.log("value" + this.value);
-      // console.log("address " + JSON.stringify(addressData));
       console.log("address " + givenAddress);
-      // var numberAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][0]["long_name"]
-      //   ).toString()
-      // );
-      // var streetNameAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][1]["long_name"]
-      //   ).toString()
-      // );
-      // var cityNameAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][2]["long_name"]
-      //   ).toString()
-      // );
-      // var stateNameAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][4]["long_name"]
-      //   ).toString()
-      // );
-      // var countryCodeAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][5]["short_name"]
-      //   ).toString()
-      // );
-      // var zipCodeAddress = JSON.parse(
-      //   JSON.stringify(
-      //     addressData["address_components"][6]["long_name"]
-      //   ).toString()
-      // );
-      // var addressArray = [
-      //   numberAddress,
-      //   streetNameAddress,
-      //   cityNameAddress,
-      //   stateNameAddress,
-      //   countryCodeAddress,
-      //   zipCodeAddress,
-      //   givenAddress
-      // ];
-      // localStorage.setItem("guestAddressArray", JSON.stringify(addressArray));
-      // console.log("arary address " + numberAddress);
       localStorage.setItem("guestAddress", JSON.stringify(givenAddress));
-      // console.log(typeof givenAddress);
-      // console.log(
-      //   "address from storage " + localStorage.getItem("guestAddress")
-      // );
-      // console.log(
-        // "addressArray from storage " + localStorage.getItem("guestAddressArray")
-      // );
       this.$emit("input", givenAddress);
       this.nextTab();
-      // this.value = addressData;
     }
   },
   watch: {

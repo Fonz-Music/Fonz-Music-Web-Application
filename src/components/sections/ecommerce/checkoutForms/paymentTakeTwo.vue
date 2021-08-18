@@ -149,7 +149,26 @@ export default {
       );
       this.elements = this.stripe.elements();
       this.card = this.elements.create("card", {
-        style: this.styleObject || this.style
+        style: {
+      base: {
+        iconColor: '#c4f0ff',
+        color: '#fff',
+        fontWeight: '500',
+        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+        fontSize: '16px',
+        fontSmoothing: 'antialiased',
+        ':-webkit-autofill': {
+          color: '#fce883',
+        },
+        '::placeholder': {
+          color: '#87BBFD',
+        },
+      },
+      invalid: {
+        iconColor: '#FFC7EE',
+        color: '#FFC7EE',
+      },
+        }
       });
       this.card.mount("#card-element");
       this.card.addEventListener("change", ({ error }) => {

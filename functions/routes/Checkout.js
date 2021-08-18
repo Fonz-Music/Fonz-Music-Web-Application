@@ -6,13 +6,12 @@ const _ = require("lodash");
 router.post("/payment-intent", (req, res) => {
   const {
     cartId,
-    // shipping,
-    // receipt_email
   } = req.body;
   if (!cartId)
     return res.status(400).json({
       message: "Missing parameters."
     });
+
   // if (!shipping)
   //   return res.status(400).json({
   //     message: "Missing shipping."

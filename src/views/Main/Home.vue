@@ -33,7 +33,7 @@ export default {
   },
 
   beforeMount() {
-    this.eventPageViewHome();
+    this.eventPageView();
   },
 
   created() {
@@ -42,13 +42,12 @@ export default {
 
   methods: {
     // Google Analytics //
-    eventPageViewHome() {
+    eventPageView() {
       firebase.analytics().logEvent("page_view", {
         page_location: "http://web.fonzmusic.com",
         page_path: "/",
         page_title: "Home",
       });
-      console.log("home event logged");
     },
   },
 };

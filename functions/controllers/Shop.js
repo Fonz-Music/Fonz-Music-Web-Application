@@ -1,12 +1,12 @@
 "use strict";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const stripe = require("stripe")(global.config.stripe.secret_key);
-// const stripe = require("stripe")(
-// "sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7"
-// );
-// const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S"; // TEST MODE
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const stripe = require("stripe")(
+"sk_test_51HCTMlKULAGg50zbU4900ETaFjtixWqbLQIzNd4FHiFYEizm3IXfHof2I6MWOjLAPXs9kYQlQB1jtctzBijzYdby00r7xPM4h7"
+);
+const webhookSecret = "whsec_ileSR4ivgqxyQ40k06Y7zrk86coEvI7S"; // TEST MODE
+// const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const Email = require('./Email.js');
 
 exports.createCartLog = () => {
@@ -600,17 +600,3 @@ exports.confirmOrder = (requestBody, signature) => {
     }
   });
 };
-
-// exports.confirmPaymentIntent = (paymentIntent, payment_method) => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const intent = await stripe.paymentIntents.confirm(
-//         paymentIntent,
-//         payment_method
-//       );
-//       resolve(intent);
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
-// };

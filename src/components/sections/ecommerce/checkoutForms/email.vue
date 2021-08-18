@@ -28,18 +28,12 @@
 <script>
 import CInput from "@/components/elements/Input.vue";
 const axios = require("axios");
-// import CButton from "@/components/elements/Button.vue";
+
 export default {
   name: "email",
-  // props: {
-  //   tabNumber: {
-  //     type: Integer
-  //   }
-  // },
   props: {
     value: {
       type: String
-      // required: true
     }
   },
   watch: {

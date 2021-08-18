@@ -162,8 +162,8 @@ export default {
       
 
       // Stripe Data
-      // pk: "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
-      pk: 'pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU',
+      pk: "pk_live_51HCTMlKULAGg50zbqXd9cf5sIUrKrRwHQFBLbTLv56947KWQheJX3nXTNl6H8WTPzm6mVKYlEaYvLg2SyjGKBNio00T4W00Hap",
+      // pk: 'pk_test_51HCTMlKULAGg50zbqiZBDhXIYS79K3eHv4atQn6LNjskaB3Q288Hm0JUYcT1ZN6MtFOoWp5IGCHkWtVZneQnGU0j00iR6NFvqU',
       stripe: null,
       elements: null,
       card: null,
@@ -626,6 +626,11 @@ export default {
   width: 100%;
 }
 
+.auto-complete:focus {
+  border: solid 0.5px #ff9425 !important;
+  box-shadow: -0.5px 0 #ff9425, 0 0.5px #ff9425, 0.5px 0 #ff9425, 0 -0.5px #ff9425 !important;
+}
+
 .auto-complete::placeholder {
   color: lightgrey;
   /* Memes are here now friend */
@@ -650,11 +655,11 @@ export default {
   color: lightgrey;
 }
 
-/* .form-input-style:focus {
+.form-input-style:focus {
   border: solid 0.5px #ff9425;
   box-shadow: -0.5px 0 #ff9425, 0 0.5px #ff9425, 0.5px 0 #ff9425,
     0 -0.5px #ff9425;
-} */
+}
 
 .purchase-button {
   background-color: #ff9425;
@@ -676,8 +681,6 @@ export default {
 .powered-by-stripe {
   margin: auto;
 }
-.powered-by-stripe:hover {
 
-}
 
 </style>

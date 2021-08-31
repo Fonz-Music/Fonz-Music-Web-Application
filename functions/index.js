@@ -1,8 +1,10 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
-    credential: admin.credential.applicationDefault()
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://fonz-music-web.firebaseio.com"
 });
 
 const db = admin.firestore();
@@ -47,6 +49,7 @@ const RecentBuyerRoute = require('./routes/RecentBuyer');
 const PackageRoute = require('./routes/Package');
 const CartRoute = require('./routes/Cart');
 const AffiliateRoute = require('./routes/Affiliate');
+const AdminRoute = require('./routes/Admin');
 
 const cors = require('cors')
 app.use(cors())
@@ -100,6 +103,7 @@ function authChecker(req, res, next) {
 
 app.use(authChecker);
 app.use('/i/affiliate/', AffiliateRoute);
+app.use('/i/admin', AdminRoute);
 
 app.use((req, res) => {
     res.send(req.url)

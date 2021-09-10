@@ -1,5 +1,8 @@
 <template>
   <header class="site-header">
+
+    <!-- <c-sale-banner /> -->
+
     <div class="container">
       <div class="site-header-inner">
 
@@ -53,12 +56,14 @@
 <script>
 import CLogo from "@/layouts/partials/Logo.vue";
 import CLogoHeader from "@/layouts/headers/LogoHeader.vue";
+import CSaleBanner from "@/layouts/partials/SaleBanner.vue";
 
 export default {
   name: "CHeader",
   components: {
     CLogo,
-    CLogoHeader
+    CLogoHeader,
+    CSaleBanner
   },
   props: {
     active: Boolean,

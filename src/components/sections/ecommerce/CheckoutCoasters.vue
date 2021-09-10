@@ -387,7 +387,7 @@ export default {
           }
         })
         .then(resp => {
-          alert(JSON.stringify(resp, null, 4));
+          // alert(JSON.stringify(resp, null, 4));
           localStorage.removeItem('paymentIntent');
 
           if(resp.error) {

@@ -18,6 +18,7 @@ import PrivacyPolicy from "./views/Misc/PrivacyPolicy.vue";
 import TermsOfService from "./views/Misc/TermsOfService.vue";
 import PageNotFoundPage from "./views/Misc/404notFound.vue";
 import PromoPage from "./views/Misc/promo.vue";
+import DownloadApp from "./views/Misc/Download.vue";
 
 // Affiliate
 import AffiliateLogin from "./views/Affiliate/Affiliate.vue";
@@ -84,6 +85,11 @@ export default new Router({
       name: "tos",
       component: TermsOfService
     },
+    {
+      path: "/download",
+      name: "download",
+      component: DownloadApp
+    }
     
     // ******************************************
     // Promo Redirect

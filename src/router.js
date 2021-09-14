@@ -89,7 +89,7 @@ export default new Router({
       path: "/download",
       name: "download",
       component: DownloadApp
-    }
+    },
     
     // ******************************************
     // Promo Redirect

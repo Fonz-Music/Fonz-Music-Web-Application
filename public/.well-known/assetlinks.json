@@ -1,9 +1,8 @@
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.example.fonz_android_instant",
-    "sha256_cert_fingerprints":
-    ["8A:33:A8:B4:3E:07:2B:B8:73:92:65:4F:7B:BA:98:08:54:86:E3:9F:AC:F2:D6:C2:B2:E9:2A:AA:00:8A:46:38"]
+  "target" : { 
+    "namespace": "android_app", 
+    "package_name": "com.fonzmusic.fonz",
+    "sha256_cert_fingerprints": ["1C:56:C9:F5:6C:9D:06:B2:52:DC:F9:40:CD:D7:E4:1D:F0:43:6F:3E:45:00:FC:7B:3E:0E:78:2F:36:24:C9:86"] 
   }
 }]

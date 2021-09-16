@@ -1,13 +1,25 @@
 <template lang="html">
   <div class="page-404 center-content">
     <h3 class="text-center uh-oh-header">uh-oh!</h3>
-    <p>It&apos;s pretty empty out here...</p>
-    <p>Return back home!</p>
-    <div class="text-center">
+    <p>think you took a wrong turn... <br> maybe you're looking for our app?</p>
+
+    <div style="padding: 10px 0px 0px 0px;">
+      <a href="https://apps.apple.com/ie/app/fonz-music/id1537308329">
+        <img src='@/assets/images/appDownload/downloadAppStore.svg'/>
+      </a>
+    </div>
+    <div style="padding: 0px 0px 0px 0px">
+      <a href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en&gl=US">
+        <img style='max-width:140px;' href='https://google.com' src='@/assets/images/appDownload/googlePlayStore.svg'/>
+      </a>
+    </div>
+
+    <div style="padding-top: 50px;">
       <router-link class="go-back-button" to="/" tag="button"
-        >go back</router-link
+        >go home</router-link
       >
     </div>
+
   </div>
 </template>
 
@@ -15,17 +27,13 @@
 export default {
   name: "PageNotFound",
   components: {
-    // CInput
-    // CButton
   },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 
 <style lang="css" scoped>
-/* c-button {
-  width: 90px;
-} */
 .page-404 {
   padding-top: 200px;
 }
@@ -33,8 +41,7 @@ export default {
   color: #ff9425;
 }
 .go-back-button {
-  background-color: #ff9425;
-  color: white;
+  background-image: linear-gradient(to bottom right, #6c3a93, #d55963);  color: white;
   width: 125px;
   height: 35px;
   border-radius: 10px;

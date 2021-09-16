@@ -6,19 +6,19 @@
           <div class="footer-blocks">
             <div class="footer-block">
               <c-logo class="mb-16" />
-              <div class="footer-copyright">&copy; 2020 Fonz Music</div>
+              <div class="footer-copyright">&copy; 2021 Fonz Music</div>
             </div>
             <div class="footer-block">
-              <div class="footer-block-title">Fonz Music LLC</div>
+              <div class="footer-block-title">Fonz Music LTD</div>
               <ul class="list-reset mb-0">
                 <li>
-                  157 Vassall Street
+                  Eblanas Villas
                 </li>
                 <li>
-                  Quincy, MA 02170
+                  Grand Canal Dock, Dublin 2
                 </li>
                 <li>
-                  United States of America
+                  Ireland
                 </li>
               </ul>
             </div>

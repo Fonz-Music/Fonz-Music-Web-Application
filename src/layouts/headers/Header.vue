@@ -1,7 +1,7 @@
 <template>
   <header class="site-header">
 
-    <!-- <c-sale-banner /> -->
+    <c-sale-banner v-if="checkIrish()"/>
 
     <div class="container">
       <div class="site-header-inner">
@@ -98,6 +98,7 @@ export default {
       this.isActive = value;
     }
   },
+
   methods: {
     openMenu() {
       document.body.classList.add("off-nav-is-active");
@@ -125,6 +126,12 @@ export default {
       )
         return;
       this.closeMenu();
+    },
+    checkIrish() {
+      if(localStorage.getItem('country') == 'IE') {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {

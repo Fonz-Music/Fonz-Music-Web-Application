@@ -20,8 +20,6 @@
           class="reveal-from-bottom text-center favorite-host"
           data-reveal-delay="150"
         >
-          <!-- Make music
-        <span style="color: #fcc485;">collaborative</span> again. -->
           are you ready to become your friend&apos;s
           <span style="color: #ff9425;">favorite host?</span>
         </h2>

@@ -1,7 +1,7 @@
 <template>
   <header class="site-header">
 
-    <!-- <c-sale-banner /> -->
+    <c-sale-banner />
 
     <div class="container">
       <div class="site-header-inner">

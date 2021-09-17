@@ -1,6 +1,6 @@
 <template>
   <div class='sale-banner-style'>
-      to celebrate the launch of fonz 2.0, fonz coasters <span class='push-to-store' @click='pushToStore()'> are now €5! </span>
+      to celebrate the launch of fonz 2.0, fonz coasters are now €5! <span class='push-to-store' @click='pushToStore()'> buy now </span>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 
 <style>
 .sale-banner-style {
-    background-color: #FF9425;
+    background-image: linear-gradient(270deg, #e66465, #ff9425);
     color: white;
     text-align: center;
     padding: 5px 0px 5px 0px;

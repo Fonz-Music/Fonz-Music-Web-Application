@@ -27,7 +27,7 @@
                 </div>
                 <div>
                   <div v-if="loading">
-                    <span style="color: #B288B9; font-size: 14px;"> €22.00 each </span>
+                    <span style="color: #B288B9; font-size: 14px;"> €5.00 each </span>
                   </div>
                   <div v-if="!loading">
                     <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(0) }} each</span>
@@ -48,7 +48,7 @@
               </div>
 
               <div v-if="loading" class="price-section">
-                <span style="color: #B288B9;"> €22.00 </span>
+                <span style="color: #B288B9;"> €5.00 </span>
               </div>
 
               <div v-if="!loading" class="price-section">
@@ -71,7 +71,7 @@
                 </div>
                 <div>
                   <div v-if="loading">
-                    <span style="color: #B288B9; font-size: 14px;"> €20.00 each </span>
+                    <span style="color: #B288B9; font-size: 14px;"> €5.00 each </span>
                   </div>
                   <div v-if="!loading">
                     <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(1) }} each</span>
@@ -89,14 +89,14 @@
               <div class="price-area">
 
                 <div v-if="loading" class="discount-section">
-                  <span> 9% off </span>
+                  <span> only </span>
                 </div>
                 <div v-if="loading" class="price-section">
-                  <span> €40.00 </span>
+                  <span> €10.00 </span>
                 </div>
                 
                 <div v-if="!loading" class="discount-section">
-                  <span> {{ this.pricePlans[1].discount }}% off </span>
+                  <span> only </span>
                 </div>
                 <div v-if="!loading" class="price-section">
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[1].price }}.00 </span>
@@ -117,7 +117,7 @@
                 </div>
                 <div>
                   <div v-if="loading">
-                    <span style="color: #B288B9; font-size: 14px;"> €17.00 each </span>
+                    <span style="color: #B288B9; font-size: 14px;"> €5.00 each </span>
                   </div>
                   <div v-if="!loading">
                     <span style="color: #B288B9; font-size: 14px;"> {{ determineCurrencySymbol }}{{ this.perItemPrice(3) }} each</span>
@@ -134,14 +134,14 @@
               <div class="price-area">
 
                 <div v-if="loading" class="discount-section">
-                  <span> 23% off </span>
+                  <span> only </span>
                 </div>
                 <div v-if="loading" class="price-section">
-                  <span> €85.00 </span>
+                  <span> €25.00 </span>
                 </div>
 
                 <div v-if="!loading" class="discount-section">
-                  <span> {{ this.pricePlans[3].discount }}% off </span>
+                  <span> only </span>
                 </div>
                 <div v-if="!loading" class="price-section">
                   <span> {{ determineCurrencySymbol }}{{ this.pricePlans[3].price }}.00 </span>

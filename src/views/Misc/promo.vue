@@ -9,7 +9,7 @@
 
 <script>
 // import layout
-import CLayout from "@/layouts/LayoutAlternative.vue";
+import CLayout from "@/layouts/layoutAlternative.vue";
 import PageNotFound from "@/components/sections/misc/PageNotFound.vue";
 
 export default {

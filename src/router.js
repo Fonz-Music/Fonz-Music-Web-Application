@@ -88,7 +88,10 @@ export default new Router({
     {
       path: "/download",
       name: "download",
-      component: DownloadApp
+      component: DownloadApp,
+      beforeEnter(to, from, next) {
+        window.location.href = "https://onelink.to/2z5y7a";
+      }
     },
     
     // ******************************************

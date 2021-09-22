@@ -93,6 +93,14 @@ export default new Router({
         window.location.href = "https://onelink.to/2z5y7a";
       }
     },
+    {
+      path: "/04*",
+      name: "download",
+      component: DownloadApp,
+      beforeEnter(to, from, next) {
+        window.location.href = "https://onelink.to/2z5y7a";
+      }
+    },
     
     // ******************************************
     // Promo Redirect
@@ -140,13 +148,13 @@ export default new Router({
     // Admin
 
     {
-      path: "/admin",
+      path: "/Admin",
       name: "Login",
       component: Admin
     },
 
     {
-      path: "/admin-login",
+      path: "/Admin-login",
       name: "Login",
       component: AdminLogin
     },

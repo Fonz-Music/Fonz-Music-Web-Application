@@ -31,8 +31,8 @@
 <script>
 const axios = require("axios");
 import CLayout from "@/layouts/LayoutAffiliate.vue";
-import CDashboardBar from "@/components/sections/affiliate/dashboard/DashboardBar.vue";
-import CAffiliateGraph from "@/components/sections/affiliate/dashboard/AffiliateGraph.vue";
+import CDashboardBar from "@/components/sections/Affiliate/Dashboard/DashboardBar.vue";
+import CAffiliateGraph from "@/components/sections/Affiliate/Dashboard/AffiliateGraph.vue";
 
 export default {
   name: "AffiliateDashboard",

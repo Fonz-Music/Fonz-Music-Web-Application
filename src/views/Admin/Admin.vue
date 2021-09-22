@@ -10,7 +10,7 @@
 import router from "@/router.js";
 
 import CLayout from "@/layouts/LayoutDefault.vue";
-import COrdersTable from "@/components/sections/admin/orders/OrdersTable.vue";
+import COrdersTable from "@/components/sections/Admin/orders/OrdersTable.vue";
 
 export default {
     name: "Admin",
@@ -41,13 +41,13 @@ export default {
             }
             else {
                 console.log("not authenticated");
-                router.push('/admin-login');
+                router.push('/Admin-login');
             }
         });
         }
         
         else {
-            router.push('/admin-login')
+            router.push('/Admin-login')
             console.log("null user");
         }
     }    

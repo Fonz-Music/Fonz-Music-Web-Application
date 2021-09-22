@@ -103,7 +103,7 @@ function authChecker(req, res, next) {
 
 app.use(authChecker);
 app.use('/i/affiliate/', AffiliateRoute);
-app.use('/i/admin', AdminRoute);
+app.use('/i/Admin', AdminRoute);
 
 app.use((req, res) => {
     res.send(req.url)

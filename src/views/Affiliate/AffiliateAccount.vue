@@ -8,7 +8,7 @@
 
 <script>
 import CLayout from "@/layouts/LayoutAffiliate.vue";
-import CAccountDashboard from "@/components/sections/affiliate/account/AccountDashboard.vue";
+import CAccountDashboard from "@/components/sections/Affiliate/Account/AccountDashboard.vue";
 
 export default {
   name: "AffiliateAccount",

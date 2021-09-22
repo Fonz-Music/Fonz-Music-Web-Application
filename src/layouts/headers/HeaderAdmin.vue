@@ -37,7 +37,7 @@
               :class="navPosition && `header-nav-${navPosition}`"
             >
               <li>
-                <router-link to="/admin-orders/">Orders</router-link>
+                <router-link to="/Admin-orders/">Orders</router-link>
               </li>
             </ul>
           </div>

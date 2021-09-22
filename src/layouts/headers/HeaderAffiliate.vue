@@ -84,7 +84,7 @@ import CLogo from "@/layouts/partials/Logo.vue";
 import CLogoHeader from "@/layouts/headers/LogoHeader.vue";
 import router from "@/router.js";
 import CButton from "@/components/elements/Button.vue";
-import CRegistrationModal from '@/components/sections/affiliate/dashboard/RegistrationModal.vue';
+import CRegistrationModal from '@/components/sections/Affiliate/Dashboard/RegistrationModal.vue';
 
 export default {
         name: "CHeaderAffiliate",

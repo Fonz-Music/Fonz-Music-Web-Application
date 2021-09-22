@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CLoginSection from "@/components/sections/admin/login/LoginSection.vue";
+import CLoginSection from "@/components/sections/Admin/Login/LoginSection.vue";
 import router from "@/router.js";
 
 export default {
@@ -24,7 +24,7 @@ export default {
             ) {
                 console.log(user.uid);
                 console.log("Admin Authenticated.");
-                router.push('/admin');
+                router.push('/Admin');
             }
             else {
                 console.log("Not authenticated.");

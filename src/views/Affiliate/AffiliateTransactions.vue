@@ -25,7 +25,7 @@
 const axios = require("axios");
 
 import CLayout from "@/layouts/LayoutAffiliate.vue";
-import CAffiliateTable from "@/components/sections/Affiliate/Transactions/AffiliateTable.vue";
+import CAffiliateTable from "@/components/sections/affiliateSections/transactionsPage/AffiliateTable.vue";
 
 export default {
   name: "AffiliateTransactions",

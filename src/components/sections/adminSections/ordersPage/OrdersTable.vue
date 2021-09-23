@@ -2,6 +2,7 @@
   <section>
     <div class="section">
       <div class="container">
+
         <b-pagination
           v-model="page"
           :total-rows="rows"
@@ -91,51 +92,7 @@
                 {{ data.item.order_fufillment }}
               </b-button>
             </template>
-<!-- 
-            <template #cell(order_assigned_to)="data">
-              <b-dropdown :text="data.item.order_assigned_to" class="m-md-2">
-                <b-dropdown-item
-                  @click="
-                    updateAssignee(
-                      data.item.order_index,
-                      data.item.order_id,
-                      'Benji'
-                    )
-                  "
-                >
-                  Benji
-                </b-dropdown-item>
-                <b-dropdown-item
-                  @click="
-                    updateAssignee(
-                      data.item.order_index,
-                      data.item.order_id,
-                      'Dermo'
-                    )
-                  "
-                >
-                  Dermo
-                </b-dropdown-item>
-                <b-dropdown-item
-                  @click="
-                    updateAssignee(
-                      data.item.order_index,
-                      data.item.order_id,
-                      'Didi'
-                    )
-                  "
-                >
-                  Didi
-                </b-dropdown-item>
-                <b-dropdown-item
-                  @click="
-                    updateAssignee(data.item.order_index, data.item.order_id, 'Jay')
-                  "
-                >
-                  Jay
-                </b-dropdown-item>
-              </b-dropdown>
-            </template> -->
+
           </b-table>
         </div>
       </div>
@@ -161,35 +118,25 @@ export default {
       fields: [
         {
           key: "order_id",
-          sortable: true,
         },
         {
           key: "order_name",
-          sortable: true,
         },
         {
           key: "order_quantity",
-          sortable: true,
         },
         {
           key: "order_value",
-          sortable: true,
         },
         {
           key: "order_address",
         },
         {
           key: "order_created",
-          sortable: true,
         },
         {
           key: "order_fufillment",
-          sortable: true,
         },
-        // {
-        //   key: "order_assigned_to",
-        //   sortable: true,
-        // },
       ],
 
       items: [],
@@ -382,6 +329,10 @@ export default {
 <style>
 .table-style {
   padding: 5px 20px 5px 20px;
+}
+
+.quantity-column {
+  width: 10px;
 }
 
 .cell-style {

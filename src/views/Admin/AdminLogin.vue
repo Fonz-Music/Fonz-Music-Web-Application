@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CLoginSection from "@/components/sections/Admin/Login/LoginSection.vue";
+import CLoginSection from "@/components/sections/adminSections/loginPage/LoginSection.vue";
 import router from "@/router.js";
 
 export default {

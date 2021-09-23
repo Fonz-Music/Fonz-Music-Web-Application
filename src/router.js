@@ -27,8 +27,8 @@ import AffiliateTransactions from "./views/Affiliate/AffiliateTransactions.vue";
 import AffiliateAccount from "./views/Affiliate/AffiliateAccount.vue";
 
 // Admin
-import Admin from "./views/Admin/Admin.vue";
-import AdminLogin from "./views/Admin/AdminLogin.vue";
+import Admin from "./views/adminSections/Admin.vue";
+import AdminLogin from "./views/adminSections/AdminLogin.vue";
 
 Vue.use(Router);
 

@@ -3,7 +3,7 @@
         <div class="section-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col text-align-mobile">
 
                         <div class="partners-subheader">
                             our traction
@@ -31,7 +31,7 @@
                 <div class="partners-padding">
                     <div class="row">
 
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="partner-inner">
                             <a href="https://www.tcd.ie/tangent/accelerators/launchbox/launchbox-teams/">
                             <img class="partners-image-style" src="@/assets/images/partners/launchbox-01.png"/>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="partner-inner">
                             <a href="https://www.blackstonelaunchpad.org/">
                                 <img class="partners-image-style" src="@/assets/images/partners/blackstone-01.png"/>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="partner-inner">
                             <a href="https://universitytimes.ie/2021/02/trinitys-entrepreneurs-enter-the-fore-despite-covid/">
                                 <img class="partners-image-style" src="@/assets/images/partners/unitimes-01.png"/>
@@ -89,6 +89,10 @@ export default {
 
     .paragraph-constraint-60 {
         width: 100% !important;
+    }
+
+    .text-align-mobile {
+        text-align: center;
     }
 }
 

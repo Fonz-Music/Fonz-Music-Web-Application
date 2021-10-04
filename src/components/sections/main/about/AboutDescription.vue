@@ -3,7 +3,7 @@
       <div class="section-inner">
           <div class="container">
               <div class="row">
-              <div class="col-7">
+              <div class="col-md-7 col-sm-12 text-align-mobile">
                   <div class="description-subheader">
                       making music easier
                   </div>
@@ -23,7 +23,7 @@
                       </div>
                   </div>
               </div>    
-              <div class="col-5">
+              <div class="col-md-5 col-sm-12">
                   <img src="@/assets/images/phoneMockup-01.png">
               </div>
               </div>
@@ -39,6 +39,12 @@ export default {
 </script>
 
 <style>
+@media (max-width: 768px) {
+    .text-align-mobile {
+        text-align: center;
+    }
+}
+
 .description-subheader {
     color: #ff9425;
     font-size: 16px;

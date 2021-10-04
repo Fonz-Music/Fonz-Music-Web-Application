@@ -2,7 +2,7 @@
   <section class="section">
       <div class="section-inner">
           <div class="container">
-              <div class="row">
+              <div class="row text-align-mobile">
                     <div class="col">
                     <div class="team-subheader"> about us </div>
                     <div class="team-header"> meet the team </div>
@@ -122,6 +122,10 @@ export default {
         margin: 0 auto; 
         display: block; 
         padding-top: 20px;
+    }
+
+    .text-align-mobile {
+        text-align: center;
     }
 
     .paragraph-constraint-80 {

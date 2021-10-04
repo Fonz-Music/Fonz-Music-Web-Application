@@ -24,6 +24,13 @@ export default {
 </script>
 
 <style>
+@media (max-width: 768px) {
+    .splash {
+        text-align: center;
+        padding-top: 120px !important;
+    }
+}
+
 .splash {
     text-align: center;
 }

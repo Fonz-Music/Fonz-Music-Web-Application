@@ -1,17 +1,29 @@
 <template>
   <fragment>
-    <c-tutorial/>
+    <c-about-splash/>
+    <c-about-description/>
+    <c-about-partners/>
+    <c-about-team/>
+    <c-about-contact/>
   </fragment>
 </template>
 
 <script>
+import CAboutSplash from "@/components/sections/main/about/AboutSplash.vue";
+import CAboutDescription from "@/components/sections/main/about/AboutDescription.vue";
+import CAboutPartners from "@/components/sections/main/about/AboutPartners.vue";
+import CAboutTeam from "@/components/sections/main/about/AboutTeam.vue";
+import CAboutContact from "@/components/sections/main/about/AboutContact.vue";
 import CLayout from "@/layouts/LayoutDefault.vue";
-import CTutorial from "@/components/sections/main/about/Tutorial.vue";
 
 export default {
   name: "Secondary",
   components: {
-    CTutorial,
+    CAboutSplash,
+    CAboutDescription,
+    CAboutPartners,
+    CAboutTeam,
+    CAboutContact
   },
   data() {
     return {

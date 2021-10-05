@@ -152,10 +152,10 @@ import CImage from "@/components/elements/Image.vue";
 import CInput from "@/components/elements/Input.vue";
 
 // Sections
-import CLoginSection from "@/components/sections/affiliateSections/loginPage/LoginSection.vue";
-import CRegisterSection from "@/components/sections/affiliateSections/loginPage/RegisterSection.vue";
-import CAffiliateInfo from "@/components/sections/affiliateSections/splashPage/AffiliateInfo.vue";
-import CAffiliateTiles from "@/components/sections/affiliateSections/splashPage/AffiliateTiles.vue";
+import CLoginSection from "@/components/sections/affiliate/loginPage/LoginSection.vue";
+import CRegisterSection from "@/components/sections/affiliate/loginPage/RegisterSection.vue";
+import CAffiliateInfo from "@/components/sections/affiliate/splashPage/AffiliateInfo.vue";
+import CAffiliateTiles from "@/components/sections/affiliate/splashPage/AffiliateTiles.vue";
 
 export default {
     name:'AffiliateLogin',

@@ -2,7 +2,7 @@
   <section class="section"> 
 
   <div class="gradient-background">
-    <img src="@/assets/images/homeGradient.svg"/>
+    <img src="@/assets/images/mainHome/homeGradient.svg"/>
   </div> 
 
   <div class="section-inner splash-margin-mob splash-margin">
@@ -33,7 +33,7 @@
             <!-- Image -->
             <div class="col-md-7 col-sm-12">
               <c-image
-              :src="require('@/assets/images/splashImage.png')"
+              :src="require('@/assets/images/mainHome/splashImage.png')"
               alt="Splash Graphic"
               :width="2000"
               />

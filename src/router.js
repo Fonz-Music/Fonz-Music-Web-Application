@@ -5,8 +5,6 @@ import Router from "vue-router";
 import Home from "./views/Main/Home.vue";
 import Buy from "./views/Main/Buy.vue";
 import About from "./views/Main/About.vue";
-import Team from "./views/Main/Team.vue";
-import Contact from "./views/Main/Contact.vue";
 
 // eCommerce
 import Checkout from "./views/eCommerce/Checkout.vue";
@@ -48,16 +46,6 @@ export default new Router({
       path: "/about",
       name: "about",
       component: About
-    },
-    {
-      path: "/team",
-      name: "team",
-      component: Team
-    },
-    {
-      path: "/contact",
-      name: "contact",
-      component: Contact
     },
     {
       path: "/checkout",

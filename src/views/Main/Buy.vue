@@ -1,25 +1,24 @@
 <template>
   <fragment>
-    <c-store />
-    <c-copy />
+    <c-buy-store />
+    <c-buy-copy />
     <c-tutorial />
   </fragment>
 </template>
 
 <script>
 import CLayout from "@/layouts/LayoutAlternative.vue";
-import CCopy from "@/components/sections/main/buy/Copy.vue"
+import CBuyCopy from "@/components/sections/main/buy/BuyCopy.vue"
+import CBuyStore from "@/components/sections/main/buy/BuyStore.vue";
+
 import CTutorial from "@/components/sections/main/about/Tutorial.vue";
-import CStore from "@/components/sections/main/buy/Store.vue";
-import CPricing from "@/components/sections/ecommerce/Pricing.vue";
 
 export default {
   name: "Secondary",
   components: {
-    CPricing,
-    CStore,
+    CBuyCopy,
+    CBuyStore,
     CTutorial,
-    CCopy
   },
   data() {
     return {

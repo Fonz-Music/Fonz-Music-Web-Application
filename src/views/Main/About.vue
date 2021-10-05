@@ -1,10 +1,10 @@
 <template>
   <fragment>
-    <c-about-splash/>
-    <c-about-description/>
-    <c-about-partners/>
-    <c-about-team/>
-    <c-about-contact/>
+    <c-about-splash />
+    <c-about-description />
+    <c-about-partners />
+    <c-about-team />
+    <c-about-contact />
   </fragment>
 </template>
 
@@ -23,14 +23,14 @@ export default {
     CAboutDescription,
     CAboutPartners,
     CAboutTeam,
-    CAboutContact
+    CAboutContact,
   },
   data() {
     return {
       genericSection01Header: {
-        title: "How does Fonz work?"
+        title: "How does Fonz work?",
       },
-      demoModalActive: false
+      demoModalActive: false,
     };
   },
 
@@ -39,10 +39,10 @@ export default {
       firebase.analytics().logEvent("page_view", {
         page_location: "http://web.fonzmusic.com/",
         page_path: "/about",
-        page_title: "About"
+        page_title: "About",
       });
       console.log("about event logged");
-    }
+    },
   },
 
   beforeMount() {
@@ -51,6 +51,6 @@ export default {
 
   created() {
     this.$emit("update:layout", CLayout);
-  }
+  },
 };
 </script>

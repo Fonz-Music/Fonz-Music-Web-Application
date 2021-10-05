@@ -10,7 +10,7 @@
 import router from "@/router.js";
 
 import CLayout from "@/layouts/LayoutDefault.vue";
-import COrdersTable from "@/components/sections/adminSections/ordersPage/OrdersTable.vue";
+import COrdersTable from "@/components/sections/admin/ordersPage/OrdersTable.vue";
 
 export default {
     name: "Admin",

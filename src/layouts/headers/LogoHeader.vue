@@ -4,7 +4,7 @@
       <router-link to="/">
         <c-image
           class="logo"
-          :src="require('@/assets/images/fonzLogoBlackF.svg')"
+          :src="require('@/assets/images/logo.svg')"
           alt="Neon"
           :width="64"
           :height="64"

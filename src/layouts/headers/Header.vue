@@ -1,7 +1,7 @@
 <template>
   <header class="site-header">
 
-    <c-sale-banner v-if="checkIrish()"/>
+    <!-- <c-sale-banner v-if="checkIrish()"/> -->
 
     <div class="container">
       <div class="site-header-inner">

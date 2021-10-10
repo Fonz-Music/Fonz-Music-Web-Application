@@ -3,8 +3,6 @@
       class="site-header"
       :class="bottomOuterDivider && 'has-bottom-divider'"
     >
-    <c-registration-modal @accountRegisteredEvent="updateModal($event)" v-if="!isRegistered"/>
-
       <div class="container">
           <div
             class="site-header-inner"
@@ -84,7 +82,6 @@ import CLogo from "@/layouts/partials/Logo.vue";
 import CLogoHeader from "@/layouts/headers/LogoHeader.vue";
 import router from "@/router.js";
 import CButton from "@/components/elements/Button.vue";
-import CRegistrationModal from '@/components/sections/affiliateSections/dashboardPage/RegistrationModal.vue';
 
 export default {
         name: "CHeaderAffiliate",
@@ -92,7 +89,7 @@ export default {
         CLogo,
         CLogoHeader,
         CButton,
-        CRegistrationModal
+        // CRegistrationModal
     },
 
     props: {

@@ -5,12 +5,12 @@
 
     <div style="padding: 10px 0px 0px 0px;">
       <a href="https://apps.apple.com/ie/app/fonz-music/id1537308329">
-        <img src='@/assets/images/appDownload/downloadAppStore.svg'/>
+        <img src='@/assets/images/DownloadApp/downloadAppStore.svg'/>
       </a>
     </div>
     <div style="padding: 0px 0px 0px 0px">
-      <a href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=en&gl=US">
-        <img style='max-width:140px;' href='https://google.com' src='@/assets/images/appDownload/googlePlayStore.svg'/>
+      <a href="https://play.google.com/store/apps/details?id=com.fonzmusic.fonz&hl=enDownloadAppgl=US">
+        <img style='max-width:140px;' href='https://google.com' src='@/assets/images/DownloadApp/googlePlayStore.svg'/>
       </a>
     </div>
 

@@ -28,7 +28,7 @@
 
         <div class="partners-padding">
           <div class="row">
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-6">
               <div class="partner-inner">
                 <a
                   href="https://www.tcd.ie/tangent/accelerators/launchbox/launchbox-teams/"
@@ -45,7 +45,7 @@
               </div>
             </div>
 
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-6">
               <div class="partner-inner">
                 <a href="https://www.blackstonelaunchpad.org/">
                   <img
@@ -60,7 +60,7 @@
               </div>
             </div>
 
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-6">
               <div class="partner-inner">
                 <a
                   href="https://universitytimes.ie/2021/02/trinitys-entrepreneurs-enter-the-fore-despite-covid/"
@@ -76,6 +76,24 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-3 col-sm-6">
+              <div class="partner-inner">
+                <a
+                  href="https://universitytimes.ie/2021/02/trinitys-entrepreneurs-enter-the-fore-despite-covid/"
+                >
+                  <img
+                    class="partners-image-style"
+                    src="@/assets/images/partners/tesLogo.png"
+                  />
+                </a>
+                <div class="partners-card-text">
+                  TCD Entreprenurial Society <br />
+                  2021 Incubator
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -113,7 +131,7 @@ export default {
 }
 
 .partners-padding {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   display: block;
   text-align: center;

@@ -90,14 +90,14 @@
                         Theo McGirr
                         </div>
                         <div class="team-card-text" style="color: #FF9425">
-                            CFO
+                            CPO
                         </div>
                         <div class="team-card-text" style="padding-bottom: 10px;">
                             TCD | Law &amp; Business
                         </div>
                         <div class="team-card-text">
-                            The newest member to the Fonz team, Theo is our operations and finance guru. 
-                            Theo brings unmatched energy to the company, and is focused primarily on user acquisition.
+                            A Dublin native, Theo is our product and strategy guru. 
+                            Theo brings unmatched energy to the company, and is focused primarily on making the product great and user acquisition.
                         </div>
                       </div>
                   </div>

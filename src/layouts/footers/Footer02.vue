@@ -6,7 +6,7 @@
           <div class="footer-blocks">
             <div class="footer-block">
               <c-logo class="mb-16" />
-              <div class="footer-copyright">&copy; 2021 Fonz Music</div>
+              <div class="footer-copyright">&copy; 2024 Fonz Music</div>
             </div>
             <div class="footer-block">
               <div class="footer-block-title">Fonz Music LTD</div>

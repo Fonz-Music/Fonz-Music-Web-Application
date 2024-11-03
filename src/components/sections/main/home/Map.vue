@@ -7,7 +7,7 @@
                         <span style="font-size: 24px; font-weight: 700; color: grey;"> Join the party! </span>
                     </div>
                     <div class="row-12" style="text-align: center;">
-                        <span style="font-size: 24px; font-weight: 700; color: grey;"> <span style="color: #FF9425;"> 386 </span> Registered Users </span> 
+                        <span style="font-size: 24px; font-weight: 700; color: grey;"> <span style="color: #FF9425;"> Thousands </span> of Registered Users </span>
                     </div>
                     <div class="row-12" style="text-align: center;">
                         <span style="font-size: 14px;"> (and counting) </span> 

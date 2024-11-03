@@ -8,7 +8,7 @@
                 </div>
                 <div class="footer-bottom space-between text-xxs invert-order-desktop">
                     <c-footer-nav />
-                    <div class="footer-copyright">&copy; 2021 Fonz Music</div>
+                    <div class="footer-copyright">&copy; 2024 Fonz Music</div>
                 </div>
             </div>
         </div>

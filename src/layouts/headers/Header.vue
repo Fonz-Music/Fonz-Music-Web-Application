@@ -1,9 +1,11 @@
 <template>
   <header class="site-header">
-
+    <div class="info-box">
+        as of 2021, we've unfortunately decided to wrap up things at fonz music. thank you for everything!
+      </div>
     <!-- <c-sale-banner v-if="checkIrish()"/> -->
-
     <div class="container">
+
       <div class="site-header-inner">
 
         <router-link class="header-logo" to="/">
@@ -152,6 +154,17 @@ export default {
   margin: 0px auto !important;
   width: 10vw;
   max-height: 60px;
+}
+
+.info-box {
+  background-color: rgb(231.548582996, 140.5570850202, 46.751417004);
+  line-height: 26px;
+  font-size: 0.6rem;
+  color: white;
+  text-align: center;
+  left: 0;
+  top: 0;
+  width: 100%;
 }
 
 </style>
